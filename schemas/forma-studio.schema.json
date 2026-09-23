@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forma-studio.echelonfoundry.com/schemas/project-v1.json",
+  "title": "Forma Studio Project",
+  "type": "object",
+  "required": ["schemaVersion", "projectId", "name", "formaVersion", "startPageId", "pages"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "projectId": { "$ref": "#/$defs/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 4000 },
+    "formaVersion": { "type": "string", "minLength": 1 },
+    "startPageId": { "$ref": "#/$defs/id" },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/page" }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/scenario" },
+      "default": []
+    },
+    "assets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/asset" },
+      "default": []
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "route": {
+      "type": "string",
+      "pattern": "^/[^?#]*$"
+    },
+    "page": {
+      "type": "object",
+      "required": ["pageId", "name", "nodes"],
+      "additionalProperties": false,
+      "properties": {
+        "pageId": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "route": { "$ref": "#/$defs/route" },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "annotations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/annotation" },
+          "default": []
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["nodeId", "componentId"],
+      "additionalProperties": false,
+      "properties": {
+        "nodeId": { "$ref": "#/$defs/id" },
+        "componentId": { "$ref": "#/$defs/id" },
+        "properties": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {}
+        },
+        "tokenBindings": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "default": {}
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {}
+        },
+        "slots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/node" }
+          },
+          "default": {}
+        },
+        "navigation": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/navigation" },
+          "default": []
+        },
+        "annotations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/annotation" },
+          "default": []
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "required": ["actionId", "trigger", "target"],
+      "additionalProperties": false,
+      "properties": {
+        "actionId": { "$ref": "#/$defs/id" },
+        "trigger": {
+          "type": "string",
+          "enum": ["activate", "submit", "change"]
+        },
+        "target": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["kind", "pageId"],
+              "additionalProperties": false,
+              "properties": {
+                "kind": { "const": "page" },
+                "pageId": { "$ref": "#/$defs/id" },
+                "query": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                },
+                "fragment": { "type": "string", "maxLength": 200 },
+                "history": { "enum": ["push", "replace"], "default": "push" }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["kind", "url"],
+              "additionalProperties": false,
+              "properties": {
+                "kind": { "const": "external" },
+                "url": { "type": "string", "format": "uri" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "required": ["scenarioId", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "scenarioId": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "data": { "type": "object", "additionalProperties": true },
+        "overrides": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "required": ["assetId", "kind", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "assetId": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["image", "svg", "font-reference", "document-reference"] },
+        "source": { "type": "string", "minLength": 1 },
+        "alt": { "type": "string" }
+      }
+    },
+    "annotation": {
+      "type": "object",
+      "required": ["annotationId", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "annotationId": { "$ref": "#/$defs/id" },
+        "text": { "type": "string", "minLength": 1, "maxLength": 4000 },
+        "kind": { "enum": ["note", "requirement", "accessibility", "decision", "warning"] },
+        "reference": { "type": "string" }
+      }
+    }
+  }
+}

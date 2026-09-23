@@ -1,0 +1,24 @@
+{
+  "name": "@echelon-foundry/forma-studio",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Visual application specification environment built around Forma, Limen, Ordo, and F#.",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@echelon-foundry/design-system": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.1.0/echelon-foundry-design-system-0.1.0.tgz",
+    "@echelon-foundry/typescript-wasm-kernel": "0.6.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "requirements:validate": "node scripts/validate-requirements.mjs",
+    "schema:validate": "node scripts/validate-schema.mjs",
+    "site:build": "node scripts/build-site.mjs",
+    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build"
+  }
+}
