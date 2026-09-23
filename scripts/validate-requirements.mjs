@@ -3,8 +3,8 @@ import path from "node:path";
 
 const dir = path.resolve("requirements");
 const files = fs.readdirSync(dir).filter((name) => /^\d\d-.*\.md$/.test(name)).sort();
-if (files.length < 13) {
-  throw new Error(`expected at least 13 numbered requirement documents, found ${files.length}`);
+if (files.length < 15) {
+  throw new Error(`expected at least 15 numbered requirement documents, found ${files.length}`);
 }
 
 const seen = new Map();
