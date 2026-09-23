@@ -32,6 +32,12 @@
       "version": "0.1.0",
       "source": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.1.0/echelon-foundry-design-system-0.1.0.tgz",
       "mode": "runtime-presentation"
+    },
+    "aegis": {
+      "package": "EchelonFoundry.Aegis.Core",
+      "version": "1.0.0",
+      "source": "NuGet",
+      "mode": "fsharp-runtime"
     }
   },
   "bootstrap": {
