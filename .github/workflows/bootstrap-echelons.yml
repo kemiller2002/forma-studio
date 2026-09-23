@@ -1,6 +1,12 @@
 name: Bootstrap Echelon Capabilities
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/bootstrap-echelons.yml
+      - scripts/bootstrap-capabilities.sh
+      - capabilities.lock.json
   push:
     branches:
       - feature/bootstrap-requirements
@@ -24,7 +30,7 @@ jobs:
       - name: Checkout bootstrap branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Use Node 22
@@ -70,4 +76,4 @@ jobs:
 
       - name: Push generated lifecycle state
         if: steps.commit.outputs.changed == 'true'
-        run: git push origin HEAD:${{ github.ref_name }}
+        run: git push origin HEAD:${{ github.head_ref || github.ref_name }}
