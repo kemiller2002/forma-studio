@@ -33,5 +33,9 @@
       "source": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.1.0/echelon-foundry-design-system-0.1.0.tgz",
       "mode": "runtime-presentation"
     }
+  },
+  "bootstrap": {
+    "requested": true,
+    "workItem": "https://github.com/kemiller2002/forma-studio/issues/1"
   }
 }
