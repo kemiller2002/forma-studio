@@ -21,6 +21,7 @@ The requirements are intentionally broader than a first implementation sprint. T
 - 12-roadmap-nongoals.md
 - 13-content-assets-forms.md
 - 14-reuse-templates-layouts.md
+- 15-faults-recovery-aegis.md
 
 ## Normative language
 
