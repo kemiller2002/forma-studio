@@ -25,6 +25,10 @@ npx --yes @echelon-foundry/visual-engineering@1.0.0 init
 echo "Installing Communication Engineering from pinned current source"
 run_ce init
 
+echo "Verifying declared Limen boundary directories exist"
+test -d src/engine
+test -d src/kernel
+
 echo "Installing Limen 0.6.2"
 npx --yes @echelon-foundry/typescript-wasm-kernel@0.6.2 init
 
