@@ -26,8 +26,9 @@ Pinned capability versions are recorded in capabilities.lock.json:
 - Communication Engineering current 1.0.0 source pinned by commit
 - Limen 0.6.2
 - Forma 0.1.0
+- Aegis Core 1.0.0
 
-Lifecycle-managed capability state is installed by scripts/bootstrap-capabilities.sh and the one-time bootstrap workflow.
+Lifecycle-managed capability state is committed in the repository. `scripts/bootstrap-capabilities.sh` and the manual-only bootstrap workflow provide reproducible repair/reinstallation; normal changes use the installed lifecycle verification workflows.
 
 ## Requirements
 
@@ -47,7 +48,10 @@ It covers:
 - public marketing site;
 - security/privacy/performance;
 - testing/release/operations;
-- roadmap and deferred work.
+- roadmap and deferred work;
+- content, assets, and forms;
+- reusable compositions, layouts, and templates;
+- Aegis fault handling and recovery.
 
 Run:
 
@@ -63,6 +67,12 @@ The initial schema is schemas/forma-studio.schema.json.
 examples/two-page-project.json demonstrates two pages connected by an explicit internal navigation action.
 
 Internal navigation targets stable page IDs. Routes are projections and may change without breaking links.
+
+## Engine boundary
+
+`src/engine/FormaStudio.Engine` is the initial F# application-authority project and pins `EchelonFoundry.Aegis.Core` 1.0.0.
+
+`src/engine` and `src/kernel` are the enforced Limen boundary directories. Browser capabilities do not belong in the engine.
 
 ## Marketing site
 
@@ -87,4 +97,4 @@ Start with:
 - architecture/DOCUMENT-MODEL.md
 - requirements/README.md
 
-Implementation work must follow the installed AGENTS.md / ROS / SDE guidance after capability bootstrap has completed.
+All new implementation work must follow the installed AGENTS.md / ROS / SDE work protocol before meaningful mutation.
