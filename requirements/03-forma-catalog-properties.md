@@ -14,6 +14,14 @@ FCP-005 Missing or incompatible component contracts MUST be explicit project val
 
 FCP-006 If Forma metadata is insufficient for safe visual authoring, Studio MUST record a gap for Forma rather than inventing undocumented properties.
 
+FCP-007 Studio MUST synchronize any public Forma diagram-presentation capability manifests once Forma exposes them; Studio MUST NOT maintain an unrelated hand-authored mirror.
+
+FCP-008 Diagram presentation capabilities supplied by Forma MUST have stable identifiers/version compatibility information usable by Flow profile mappings.
+
+FCP-009 Missing diagram node/connector/container/swimlane presentation primitives required by a profile MUST be recorded as explicit Forma capability gaps.
+
+FCP-010 The initial public diagram-presentation gap and ownership decision is tracked by kemiller2002/forma#52; Studio requirements MUST remain valid whether Forma resolves that gap with new primitives or an explicit alternate public contract.
+
 ## Catalog UX
 
 FCP-020 Components MUST be searchable by name, ID, category, and documented purpose.
@@ -29,6 +37,12 @@ FCP-024 Deprecated components MAY remain renderable for old projects but MUST no
 FCP-025 Catalog search MUST be keyboard accessible.
 
 FCP-026 Frequently used/recent components MAY be surfaced without changing canonical ordering.
+
+FCP-027 Flow palette presentation entries backed by Forma MUST expose the canonical Forma presentation capability ID separately from the Studio diagram semantic element-kind ID.
+
+FCP-028 Studio MUST NOT infer Workflow/State/Architecture semantics solely from a Forma visual primitive.
+
+FCP-029 A Forma presentation primitive MAY be reused by multiple diagram semantic kinds when the profile explicitly maps them; visual reuse does not collapse semantic identity.
 
 ## Property model
 
@@ -100,6 +114,14 @@ FCP-124 A migration MUST not silently drop unsupported properties or children.
 
 FCP-125 Studio SHOULD allow previewing the upgraded rendering before committing the project version change.
 
+FCP-126 A Forma upgrade MUST also review diagram profile presentation mappings and report removed/changed diagram presentation capabilities used by project diagrams.
+
+FCP-127 Forma upgrade preview SHOULD render affected diagrams without rewriting graph topology or geometry.
+
+FCP-128 A changed Forma presentation contract MUST NOT silently coerce a diagram semantic element kind into another kind.
+
+FCP-129 If upgraded Forma presentation causes clipping/contrast/legibility failures in diagrams, those findings MUST be surfaced before the project upgrade is accepted where detectable.
+
 ## Developer inspection
 
 FCP-140 Selecting a component MUST expose canonical component ID, Forma version, source pattern identifier/path when available, active properties, token bindings, accessibility notes, and generated markup.
@@ -109,3 +131,9 @@ FCP-141 Developer inspection MUST show code-facing token syntax where available.
 FCP-142 Studio SHOULD link to the matching Forma documentation page.
 
 FCP-143 The inspector MUST distinguish canonical markup from editor-only wrappers.
+
+FCP-144 Diagram developer inspection MUST distinguish canonical Studio graph semantics from the Forma presentation primitive used to render them.
+
+FCP-145 When a selected diagram element is Forma-backed, Studio SHOULD link to the matching public Forma documentation/manifest entry.
+
+FCP-146 Editor-only diagram adorners MUST never be reported as public Forma component capabilities.
