@@ -22,6 +22,16 @@ RN-009 Studio does not replace Forma's component implementation authority.
 
 RN-010 Studio does not promise pixel identity with unrelated design tools.
 
+RN-011 Precision CAD/mechanical/architectural drafting, dimensioning, and engineering tolerance systems are not initial Flow goals.
+
+RN-012 Studio does not claim BPMN, UML, SysML, ArchiMate, or another external notation standard merely because a diagram looks similar; conformance requires a dedicated versioned profile/adapter and tests.
+
+RN-013 Production workflow orchestration/execution is not an initial Flow goal.
+
+RN-014 Arbitrary user-authored executable profile/plugin code is not an initial Flow goal.
+
+RN-015 Responsive automatic graph reflow based on browser viewport is not an initial Flow goal; authored Flow geometry is spatially stable unless an explicit future constrained-diagram mode is introduced.
+
 ## Near-term phases
 
 RN-020 Phase 0: governed repository bootstrap, complete requirements, schema, marketing shell, and capability installation.
@@ -62,6 +72,14 @@ RN-047 Comments/review threads MAY be stored externally or in-project if ownersh
 
 RN-048 Plugin extensibility MAY be explored, but untrusted code execution requires a separate security design.
 
+RN-051 Additional diagram profiles MAY include sequence, data/ER, UML subsets, org charts, mind maps, network/deployment views, or standards-based profiles without creating new editor engines.
+
+RN-052 Data-bound/derived diagrams MAY be explored through explicit source-authority and refresh contracts.
+
+RN-053 Named layer support MAY be added orthogonally to group/container semantics.
+
+RN-054 Precision drawing/CAD capabilities require separate product/architecture requirements and MUST NOT emerge accidentally through Flow geometry primitives.
+
 RN-049 Asset pipelines MAY grow to include managed uploads/CDN storage.
 
 RN-050 Localization workflows MAY add per-locale fixture/content packs.
@@ -82,7 +100,7 @@ RN-065 Communication Engineering MAY eventually provide executable content check
 
 ## AI-assisted editing
 
-RN-080 An agent MAY propose page/component changes as commands.
+RN-080 An agent MAY propose page/component or diagram/graph changes as commands.
 
 RN-081 Agent proposals MUST be previewable as a diff before canonical state changes when the action is consequential.
 
@@ -90,9 +108,9 @@ RN-082 Agents MUST use the same legal command surface as human editing; there is
 
 RN-083 Agent-generated content MUST preserve unknowns and MUST not invent business rules.
 
-RN-084 Agent operations SHOULD cite requirement/component IDs in their change explanations.
+RN-084 Agent operations SHOULD cite requirement/component/diagram element IDs in their change explanations.
 
-RN-085 Future natural-language-to-page generation MUST result in ordinary project specification data that can be edited without the model.
+RN-085 Future natural-language-to-page or natural-language-to-diagram generation MUST result in ordinary project specification data that can be edited without the model.
 
 ## Research questions
 
