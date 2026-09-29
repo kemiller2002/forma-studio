@@ -764,3 +764,122 @@ FDA-553 Ambiguous entity matching during import merge MUST create review obligat
 FDA-554 Import into a typed profile MUST validate the mapped graph before canonical commit.
 
 FDA-555 Import preview SHOULD show source-to-canonical mapping outcomes and lossy/unsupported concepts before commit when practical.
+
+
+## Renderer independence
+
+FDA-560 Canonical diagram data MUST NOT depend on whether a Flow surface is rendered with HTML, SVG, Canvas, WebGL, or another approved projection technology.
+
+FDA-561 Renderer-specific object IDs, DOM nodes, SVG path data generated from automatic routing, canvas display-list handles, or GPU resources MUST NOT appear as authoritative project identity.
+
+FDA-562 Switching or optimizing the rendering backend MUST preserve canonical graph semantics, geometry, selection identity, command legality, accessibility alternatives, and deterministic export behavior.
+
+FDA-563 Hit testing MAY be renderer-specific internally, but the resolved editor target MUST be a canonical stable element/port identity before a mutating command is requested.
+
+FDA-564 If a high-performance renderer cannot expose sufficient native accessibility semantics, the Structure/Outline and relationship-navigation surfaces remain mandatory nonvisual equivalents.
+
+FDA-565 Renderer fallback/degradation MUST be explicit when a device cannot support the preferred renderer; Studio MUST NOT silently drop diagram elements or relationships.
+
+FDA-566 Rendering backend choice is an implementation concern and MUST NOT become a project-format compatibility requirement unless an authored capability genuinely depends on it.
+
+## Semantic/read order
+
+FDA-570 Diagram reading/navigation order MUST be deterministic and MUST NOT be inferred solely from x/y coordinates, z-order, or DOM paint order.
+
+FDA-571 Studio MUST provide or derive a stable Structure/Outline order for nodes/groups/lanes independently of visual stacking order.
+
+FDA-572 Profiles MAY define a default semantic traversal order, such as lane order plus authored element order or graph reachability, but the rule MUST be documented and deterministic.
+
+FDA-573 Where profile semantics do not provide a safe order, authors SHOULD be able to adjust an explicit outline/reading order without moving geometry.
+
+FDA-574 Edge/transition ordering from a node MUST be deterministic; decision outcomes SHOULD expose author-controlled ordering where order affects review/walkthrough presentation.
+
+FDA-575 Reading-order changes MUST be undoable and MUST NOT change graph topology.
+
+FDA-576 Node/edge content SHOULD support a longer accessible description distinct from the visible short label when the profile/presentation contract needs it.
+
+FDA-577 A diagram SHOULD support a diagram-level summary/description that explains purpose/scope without requiring interpretation of spatial placement.
+
+FDA-578 Static HTML/developer exports SHOULD include a structured nonvisual representation of graph relationships in addition to any visual SVG/image projection.
+
+## Advanced workflow semantics
+
+FDA-580 The Workflow profile SHOULD support explicit merge and parallel fork/join semantics without requiring users to fake them through unlabeled generic nodes.
+
+FDA-581 Parallel/fork/join semantics MUST be explicit element/relationship types and MUST NOT be inferred merely because multiple edges enter or leave a node.
+
+FDA-582 Workflow cycles/loops MAY be legal and MUST remain explicit graph topology.
+
+FDA-583 Workflow profiles MAY add event/wait/timer/message concepts later, but such concepts MUST be typed and MUST not imply an operational scheduler exists.
+
+FDA-584 Workflow subprocess/subflow references MUST distinguish inline visual grouping from a referenced reusable/child diagram.
+
+FDA-585 Validation SHOULD detect fork/join structures that are structurally incomplete when the selected profile defines completion rules.
+
+FDA-586 Studio MUST avoid claiming BPMN compliance unless a separately defined BPMN profile/adapter proves conformance to the applicable standard/version.
+
+## Advanced state semantics
+
+FDA-590 The State profile SHOULD remain compatible with future nested/composite states without requiring a new editor engine.
+
+FDA-591 Composite-state containment, if introduced, MUST be explicit semantic containment rather than inferred from visual nesting.
+
+FDA-592 Entry/exit actions, history states, concurrent regions, and similar advanced state semantics are not required initially; if added, they MUST be typed/versioned profile capabilities.
+
+FDA-593 State diagrams MUST NOT infer executable event handlers or side effects from labels alone.
+
+## Architecture-boundary semantics
+
+FDA-600 Architecture diagrams MAY model explicit trust, network, deployment, process, repository, or organizational boundaries as profile-defined semantic containers.
+
+FDA-601 Crossing a semantic boundary MUST be derivable from explicit containment plus relationship endpoints, not from a connector merely drawing across a rectangle.
+
+FDA-602 A security-aware validator MAY report a relationship crossing a declared trust boundary without required authentication/encryption metadata only when the selected profile defines those metadata obligations.
+
+FDA-603 Such validation MUST report missing/unknown evidence; it MUST NOT conclude that a system is insecure merely from absent diagram decoration when the profile does not require that declaration.
+
+FDA-604 Architecture nodes MAY reference repositories/services/applications owned elsewhere, but those references MUST remain distinguishable from Studio-authored claims about runtime truth.
+
+## Mobile and touch Flow authoring
+
+FDA-610 Core Flow review and basic editing MUST be usable on touch/mobile without hover, right-click, mouse-wheel, or precision connector-line hit testing.
+
+FDA-611 Mobile Flow MUST provide a non-drag connection workflow, for example select source -> choose Connect -> select target/port -> confirm, or an equivalent accessible capability-driven interaction.
+
+FDA-612 Mobile Flow MUST provide non-drag movement/resizing/property alternatives when direct manipulation is impractical.
+
+FDA-613 Touch hit targets for nodes, handles, ports, and connector controls SHOULD meet the editor's accessibility target-size guidance or provide an equivalent larger control surface.
+
+FDA-614 Canvas panning gestures MUST not permanently disable browser/page accessibility gestures such as pinch zoom contrary to Studio accessibility requirements.
+
+FDA-615 Studio SHOULD distinguish pan/selection/connect modes clearly on touch devices when gesture ambiguity would otherwise cause accidental edits.
+
+FDA-616 A touch gesture cancelled by browser/OS interruption MUST leave canonical project state at the last committed command.
+
+## Diagram annotations and review notes
+
+FDA-620 An annotation/comment attached to a diagram element MUST reference its stable element ID rather than rely solely on absolute canvas coordinates.
+
+FDA-621 Diagram-level annotations MAY also exist without an element target.
+
+FDA-622 Spatial annotation anchors MAY be stored as supplemental presentation metadata, but loss of a spatial anchor MUST NOT sever an element-targeted annotation from its canonical target.
+
+FDA-623 Deleting an annotated element MUST surface dependent annotations before completion and apply an explicit delete/re-anchor/orphan policy.
+
+FDA-624 Review annotations MUST remain distinguishable from normative requirements, profile semantics, and executable workflow data.
+
+FDA-625 Semantic diff/review SHOULD retain annotation references to the changed stable element whenever that element identity survives.
+
+## Cross-surface embedding
+
+FDA-630 A Layout page MAY embed/reference an authored diagram only through an explicit public embedding/presentation capability once such a capability exists.
+
+FDA-631 Diagram embedding MUST reference the stable diagram ID rather than storing a flattened screenshot as the only source.
+
+FDA-632 An embedded diagram MAY project a snapshot/vector rendering for presentation, but the canonical editable graph remains the referenced Diagram.
+
+FDA-633 Deleting an embedded/referenced diagram MUST surface dependent Layout/Folio references.
+
+FDA-634 Cycles created through cross-surface references/embeds MUST be detected where they could cause nonterminating rendering/export.
+
+FDA-635 Folio/document embedding of diagrams MUST use the same stable diagram identity and explicit projection/export rules when Folio integration ships.
