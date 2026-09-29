@@ -26,19 +26,25 @@ RN-010 Studio does not promise pixel identity with unrelated design tools.
 
 RN-020 Phase 0: governed repository bootstrap, complete requirements, schema, marketing shell, and capability installation.
 
-RN-021 Phase 1: F# domain model, project import/export, page management, navigation graph, validation core, and command/undo model.
+RN-021 Phase 1: F# domain model, project import/export, page management, navigation graph, shared editor command/selection/undo core, and validation core.
 
-RN-022 Phase 2: Forma catalog integration, real component rendering, tree/inspector editing, token browser, responsive/theme preview.
+RN-022 Phase 2A: Forma catalog integration, real component rendering, tree/inspector editing, token browser, responsive/theme preview.
+
+RN-026 Phase 2B: Flow foundation using the same editor core: diagram persistence, nodes, ports, connectors, groups/lanes, pan/zoom, direct manipulation, undo/redo, and deterministic round-trip.
+
+RN-027 Phase 2C: Typed General/Workflow/State/Architecture profiles, profile-aware validation, structure/outline navigation, and initial deterministic auto-layout.
 
 RN-023 Phase 3: scenarios, interactive linked-page preview, accessibility validation, agent/developer export.
 
 RN-024 Phase 4: GitHub persistence, semantic diff/review workflow, richer marketing/demo experience.
 
-RN-025 Phase 5: implementation-generation experiments and cross-tool adapters.
+RN-025 Phase 5: implementation-generation experiments, richer diagram profiles, and cross-tool adapters.
 
 ## Deferred but compatible capabilities
 
 RN-040 Figma import/export MAY be explored as an adapter to the canonical project model.
+
+RN-039 Visio/draw.io/other diagram import/export MAY be explored as adapters to the canonical graph model; external diagram formats MUST NOT become authoritative project state.
 
 RN-041 Other design-tool adapters MAY be added behind explicit translation contracts.
 
@@ -111,5 +117,11 @@ RN-121 New capabilities MUST not create a second private implementation of Forma
 RN-122 New browser capabilities MUST cross Limen.
 
 RN-123 New stateful editor behavior MUST be modeled through explicit F# transitions.
+
+RN-125 Layout and Flow MUST remain surface-specific capability projections over one shared editor core.
+
+RN-126 Flow geometry MAY be canonical diagram data; this exception MUST NOT be generalized into arbitrary x/y layout storage for ordinary Forma composition.
+
+RN-127 Adding a diagram profile MUST extend the canonical graph/profile contracts rather than introducing a new editor engine.
 
 RN-124 New repository process MUST follow ROS/SDE rather than relying on conversation state.
