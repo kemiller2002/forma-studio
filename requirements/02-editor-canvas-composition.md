@@ -120,6 +120,52 @@ ECC-142 Grid/ruler overlays MAY assist review but MUST not become hidden layout 
 
 ECC-143 Studio SHOULD expose which Forma spacing/radius/token choices are active on the selected component when those choices are configurable.
 
+## Shared editor core
+
+ECC-180 Layout and Flow surfaces MUST use one shared editor core for selection, command dispatch, undo/redo, clipboard semantics, persistence coordination, validation projection, pan/zoom view state, and inspector integration.
+
+ECC-181 Surface-specific behavior MUST be expressed through capabilities and legal commands rather than by creating parallel editor state machines.
+
+ECC-182 Every user-visible project mutation MUST be representable as an explicit typed editor command with stable target identifiers and enough information to validate legality before canonical state changes.
+
+ECC-183 Pointer drag/drop, inline editing, inspector editing, structure-tree editing, keyboard commands, touch actions, and future agent operations MUST dispatch the same underlying command type when they express the same intent.
+
+ECC-184 A command MUST be atomic with respect to canonical project state: it either produces one valid successor state or leaves the prior state unchanged.
+
+ECC-185 Command results MUST distinguish applied, rejected/illegal, blocked-by-obligation, and external-effect-unknown outcomes where applicable.
+
+ECC-186 Command history MUST remain independent of transient DOM nodes, pointer coordinates, hover state, animation frames, and rendered preview artifacts.
+
+ECC-187 Studio SHOULD expose a command palette that can invoke legal editor commands without requiring pointer interaction.
+
+ECC-188 Studio SHOULD expose a breadcrumb/ancestry selector for nested selection and allow moving selection to the containing element without precision pointer interaction.
+
+## Direct manipulation and drag/drop
+
+ECC-200 Drag/drop MUST provide visible candidate insertion or connection targets before commit.
+
+ECC-201 Layout-surface dragging MUST resolve to semantic operations such as insert, reorder, move-to-slot, wrap, or replace; it MUST NOT persist arbitrary pointer x/y coordinates for ordinary Forma layout nodes.
+
+ECC-202 A drag preview MUST NOT mutate canonical project state before a legal drop/commit action.
+
+ECC-203 Illegal drop targets MUST be visibly distinguishable from legal targets and MUST NOT be made legal by silently rewriting unrelated project structure.
+
+ECC-204 Moving an existing node by drag/drop MUST preserve its stable ID unless the operation is explicitly a copy/duplicate.
+
+ECC-205 Resize handles MAY provide direct manipulation, but the resulting persisted value MUST map to the active surface's canonical contract: semantic Forma sizing/layout choices on Layout surfaces and explicit geometry on Flow surfaces.
+
+ECC-206 Token-backed spacing, sizing, alignment, and layout controls SHOULD snap to legal Forma values where the selected Forma contract defines such values.
+
+ECC-207 Studio MAY provide an explicit escape hatch for literal values only where the relevant Forma contract permits literals; use of a literal MUST remain inspectable.
+
+ECC-208 Inline add affordances, catalog drag/drop, structure-tree commands, and command-palette insertion MUST converge on the same insertion legality rules.
+
+ECC-209 Multi-selection drag/move MUST either apply one legal atomic operation to the entire selection or reject without partial mutation.
+
+ECC-210 Touch authoring MUST provide alternatives for operations whose desktop form depends on hover, tiny handles, modifier keys, or right-click.
+
+ECC-211 Pan/zoom gestures MUST operate on editor view state and MUST not be confused with moving project elements.
+
 ## Error handling
 
 ECC-160 A failed command MUST leave the prior valid document state intact.
