@@ -165,6 +165,37 @@ Semantic type/status never derives from color. Metadata-to-color behavior is an 
 
 Project palettes and mapping rules are project/profile presentation data and do not become graph topology or domain transition authority.
 
+## Metadata schemas and values
+
+Profiles/extensions may define versioned metadata schemas. A field definition identifies a stable key, value type/cardinality, optional default, validation constraints, display/help metadata, and visibility/transport policy.
+
+Object values distinguish explicit authored values from defaults, derived values, and external/source-bound values when those distinctions are meaningful. Localized labels are projections; stable field/value IDs are canonical.
+
+Derived metadata should reference its source rule/relationship instead of duplicating authoritative structural facts silently.
+
+## Appearance styles and palettes
+
+A project may define named reusable Flow appearance styles and palette slots.
+
+An object appearance may therefore contain:
+
+- optional named style reference;
+- explicit per-object overrides;
+- Forma token references;
+- project/profile palette references;
+- fixed literals where allowed;
+- an explicit resolved/mapping source where needed for inspection/export.
+
+Style definitions and palette slots use stable identity. Resolved appearance is a projection and is not substituted for the style/palette source in canonical data.
+
+Semantic element/relationship kind remains independent from shape, icon, fill, stroke, marker, pattern, and other appearance unless a profile explicitly constrains legal presentation choices.
+
+## Typed resource references
+
+Addressable diagram objects may carry typed references to internal or external resources.
+
+A typed reference is not generic metadata: it has a reference kind, target identity, optional display/location data, and availability/verification state where known. Internal references participate in deletion-impact and referential validation.
+
 ## Diagram profile
 
 A profile definition identifies:
