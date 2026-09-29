@@ -74,7 +74,7 @@ FCP-062 Visual states used only for preview MUST be identifiable as scenarios/pr
 
 ## Render integrity
 
-FCP-080 Studio MUST use canonical semantic HTML patterns and Forma CSS.
+FCP-080 Layout rendering MUST use canonical semantic HTML patterns and Forma CSS. Forma-backed Flow presentation MUST use the applicable public Forma presentation contract without requiring Flow's renderer technology itself to be HTML.
 
 FCP-081 Studio MUST not fork component CSS merely to make the editor easier.
 
