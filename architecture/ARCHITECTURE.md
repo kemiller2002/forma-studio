@@ -67,6 +67,33 @@ Layout and Flow MUST share selection abstractions, command dispatch, undo/redo, 
 
 A pointer gesture, structure-tree action, inspector edit, keyboard command, touch operation, or agent request is an input adapter to a typed command. It is never an alternate mutation path.
 
+## Diagram presentation boundary
+
+Forma remains the reusable production presentation authority. Flow does not authorize Studio to create a parallel production design system.
+
+Diagram visuals are classified as:
+
+1. **Forma-backed authored presentation**: reusable exported node/connector/container/label presentation contracts supplied by a pinned Forma release.
+2. **Studio editor adorners**: selection outlines, handles, guides, connection previews, marquee selection, minimap chrome, validation overlays, and other authoring-only presentation that never appears in ordinary output.
+3. **External assets**: explicit project assets governed by Studio asset/security/accessibility rules.
+4. **Capability gaps**: required reusable production presentation missing from Forma. These remain explicit gaps until Forma supplies or governs the capability.
+
+The current missing reusable diagram-presentation surface is tracked in `kemiller2002/forma#52`. Graph/document-model work may proceed independently, but production-facing reusable presentation must not be smuggled into Studio-specific CSS.
+
+## Spatial model
+
+Flow uses documented logical coordinates independent of device pixels and viewport zoom. Persisted geometry is normalized at command commit so pointer precision does not create unstable project diffs.
+
+A Flow surface may eventually support unbounded and bounded-sheet modes, but the selected extent model is explicit project data where it affects authored geometry/export. Editor pan and zoom remain view state.
+
+Element ordering, authored visibility, and locking are explicit concepts. Locking is an editing affordance, not a security/domain permission.
+
+## Interaction transactions
+
+Pointer/touch gestures are transient until committed as typed commands.
+
+A continuous move, resize, or route-edit gesture produces one logical canonical command/history entry rather than one project mutation per pointer event. Preview coordinates, hover targets, route candidates, and drag shadows are not canonical state.
+
 ## Project document
 
 A project is a versioned specification containing:
