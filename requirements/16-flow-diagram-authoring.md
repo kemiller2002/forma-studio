@@ -554,3 +554,126 @@ FDA-424 Auto-layout preview MUST identify which elements will move and MUST not 
 FDA-425 Auto-layout MUST respect semantic containers/lanes and profile constraints when the chosen strategy claims awareness of them.
 
 FDA-426 Upgrading a layout algorithm MUST NOT silently rearrange existing saved diagrams merely because the project is opened in a newer Studio version.
+
+
+## Port identity and connection cardinality
+
+FDA-430 Ports used as canonical edge endpoints MUST have stable identities within their owning node/profile contract.
+
+FDA-431 A port definition MAY declare direction such as input, output, bidirectional, or semantic/profile-specific direction.
+
+FDA-432 A port definition MAY declare connection cardinality/capacity, including single, bounded-many, or unbounded-many relationships.
+
+FDA-433 Connection creation and reconnection MUST validate port direction and capacity before canonical mutation when the profile defines those constraints.
+
+FDA-434 Removing or renaming a port definition during profile migration MUST surface every affected edge endpoint before migration can complete.
+
+FDA-435 Dynamically added user-authored ports MAY be supported only through an explicit profile capability and MUST receive stable IDs independent of their visual position.
+
+FDA-436 Moving a visual port anchor around a node MUST NOT silently change semantic port identity.
+
+FDA-437 Automatic port selection MAY be used for unconstrained General-profile connectors, but the selected canonical endpoint/attachment behavior MUST be deterministic after commit.
+
+FDA-438 Edge endpoints attached to a whole node rather than a named port MUST remain distinguishable from named-port endpoints in canonical data.
+
+## Node content, sizing, and overflow
+
+FDA-440 Node contracts MUST declare whether sizing is fixed, content-auto-sized, constrained-auto-sized, or user-resizable.
+
+FDA-441 Auto-sized nodes MUST resize deterministically from canonical content and presentation metrics available to the pinned presentation contract.
+
+FDA-442 User resizing an auto-sized node MUST either switch to an explicit supported sizing mode or be rejected; Studio MUST NOT create hidden local size overrides.
+
+FDA-443 Node labels/content MUST support multiline text when the profile/presentation contract permits it.
+
+FDA-444 Text wrapping, truncation, clipping, scrolling, or overflow behavior MUST be explicit in the relevant node/presentation contract rather than accidental browser overflow.
+
+FDA-445 Detectable text clipping/illegibility caused by node size SHOULD produce a validation or review finding.
+
+FDA-446 Long-content stress scenarios MUST include diagram nodes and connector labels.
+
+FDA-447 Content edits that trigger auto-sizing MUST remain one coherent undoable operation including the resulting deterministic geometry update.
+
+FDA-448 Node content MAY reference project assets where the node contract permits it, using existing asset identity/security/accessibility rules.
+
+## Containment integrity
+
+FDA-450 Canonical containment/group membership MUST be acyclic.
+
+FDA-451 A group/container MUST NOT contain itself directly or indirectly.
+
+FDA-452 Nested groups/containers MAY be supported, but membership semantics and transform behavior MUST be explicit and deterministic.
+
+FDA-453 A node MUST NOT belong to multiple exclusive semantic containers/lanes when the active profile defines exclusive ownership.
+
+FDA-454 Visual groups MAY permit different membership cardinality than semantic containers, but Studio MUST distinguish those concepts in the model and inspector.
+
+FDA-455 Moving a semantic container MUST define whether child geometry is relative or absolute in canonical coordinates and MUST preserve the chosen contract deterministically.
+
+FDA-456 Reparenting a node between containers MUST preserve world-visible position unless the command explicitly requests profile-specific repositioning.
+
+FDA-457 Deleting a container MUST require an explicit policy for contained elements: delete, detach/reparent, or block; it MUST NOT silently discard contained authored content.
+
+FDA-458 Collapsing/expanding a group or subflow, if supported, MUST distinguish editor view state from authored collapsed presentation state.
+
+## Layers
+
+FDA-460 Named layers MAY be supported as an organizational/presentation feature distinct from groups and semantic containers.
+
+FDA-461 Layer membership MUST NOT be inferred from z-order, overlap, or containment.
+
+FDA-462 If layers are supported, an element MAY belong to more than one layer only if the layer contract explicitly permits multi-membership.
+
+FDA-463 Layer visibility/locking MUST be distinguishable from element-level authored visibility/locking and from editor-only focus/isolation state.
+
+FDA-464 Layer operations MUST NOT change graph topology or semantic container/lane ownership.
+
+FDA-465 Export adapters that cannot represent layers MUST report the mapping as transformed/lossy/unsupported according to adapter rules rather than flattening silently.
+
+FDA-466 Layers are not required for the first Flow vertical slice; the canonical model MUST nevertheless avoid using group semantics in a way that prevents later orthogonal layer support.
+
+## Spatial selection and movement details
+
+FDA-470 Selection MUST be scoped to the active authored surface unless an explicit cross-surface operation is designed.
+
+FDA-471 Marquee selection MUST define containment/intersection behavior consistently and SHOULD allow the user to understand which rule is active.
+
+FDA-472 Keyboard movement MUST operate in canonical logical units and SHOULD provide a documented coarse/fine movement mechanism without making modifier keys the only accessible path.
+
+FDA-473 Keyboard resizing, when supported, MUST follow the same canonical size constraints and normalization as pointer resizing.
+
+FDA-474 Alignment/distribution commands MUST define the reference geometry used, such as bounds/centers/baselines, and MUST behave deterministically for equivalent input.
+
+FDA-475 Alignment/distribution MUST respect locked elements and semantic-container constraints unless the user explicitly chooses a legal override.
+
+FDA-476 Custom guides/rulers MAY be provided as editor aids. If guides are persisted for author collaboration, they MUST be explicitly modeled and MUST remain non-semantic.
+
+FDA-477 Snap settings SHOULD be user/editor preferences unless the project intentionally authors grid/guide behavior for collaboration; transient preference changes MUST not dirty the project.
+
+## Diagram metadata and custom properties
+
+FDA-480 Diagrams, nodes, edges, groups, and lanes MAY carry namespaced metadata/custom properties where a registered profile or extension contract permits them.
+
+FDA-481 Core Studio semantics MUST NOT depend on opaque custom-property blobs.
+
+FDA-482 Custom metadata schemas MUST be versioned/namespaced to avoid collisions with future core fields.
+
+FDA-483 Unknown custom metadata MUST be preserved when safe through import/export/migration even when the current Studio version cannot interpret it.
+
+FDA-484 Secrets/credentials MUST NOT be stored in diagram custom properties.
+
+FDA-485 Inspector UI MUST distinguish core semantic properties, presentation properties, and extension/custom metadata.
+
+## Diagram review and comparison
+
+FDA-490 Semantic diagram diff MUST distinguish topology changes from presentation/geometry-only changes.
+
+FDA-491 A node label edit, node move, node type change, endpoint reconnection, edge-label edit, route-only change, and semantic relationship-kind change MUST appear as distinguishable diff categories.
+
+FDA-492 Review UI SHOULD be able to focus a changed diagram element directly from a semantic diff result.
+
+FDA-493 Geometry-only diffs SHOULD suppress meaningless changes eliminated by canonical normalization.
+
+FDA-494 A review/export MUST not describe a moved node as a semantic workflow transition change unless topology/semantic properties actually changed.
+
+FDA-495 Future visual before/after overlay MAY be added as a review aid but MUST remain secondary to canonical semantic diff.
