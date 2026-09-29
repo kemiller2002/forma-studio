@@ -54,6 +54,18 @@ PVC-046 Studio SHOULD generate a migration report.
 
 PVC-047 Downgrades are not required unless a specific reverse migration exists.
 
+PVC-048 The first schema version that introduces diagrams MUST migrate existing page-only projects losslessly, preserving every page/component/navigation/scenario/asset ID and behavior.
+
+PVC-049 Adding diagram support MUST NOT add dummy diagrams to existing page-only projects.
+
+PVC-050 The diagram-capable schema MUST permit diagram-only projects without synthetic pages and mixed projects with both pages and diagrams.
+
+PVC-051 Older Studio versions that cannot understand the diagram-capable schema MUST fail safely as unsupported-newer-schema rather than loading and dropping diagrams.
+
+PVC-052 The migration to optional startPageId for diagram-only projects MUST retain required start-page invariants for every project that still contains pages.
+
+PVC-053 Schema fixtures MUST include migrated legacy page-only, new diagram-only, and mixed page+diagram projects.
+
 ## GitHub persistence
 
 PVC-060 GitHub persistence SHOULD be the first durable remote persistence integration.
