@@ -1728,3 +1728,46 @@ FDA-1218 Mapping rules MUST participate in undo/redo, semantic diff/merge, copy/
 FDA-1219 Deleting/renaming/changing a metadata field referenced by a mapping MUST surface the dependent mapping and block or migrate explicitly.
 
 FDA-1220 Mapping rules MUST NOT mutate the underlying metadata values they read.
+
+
+## Metadata display configuration
+
+FDA-1230 Studio MUST allow metadata to exist canonically without requiring every field to be rendered on the diagram surface.
+
+FDA-1231 A profile/project MAY define a metadata display configuration that selects which fields appear on a node/edge/group/lane/phase and in what order.
+
+FDA-1232 Metadata display configuration MUST reference stable metadata field IDs/keys rather than duplicating field labels or values.
+
+FDA-1233 Display configuration MAY assign supported fields to presentation regions such as header, body, footer, badge/decoration, connector label adjunct, or metadata summary where the public Forma presentation contract supports those regions.
+
+FDA-1234 Hiding a metadata field from the canvas MUST NOT delete or clear its canonical value.
+
+FDA-1235 A user SHOULD be able to inspect the full metadata set even when only a compact subset is rendered on-canvas.
+
+FDA-1236 Empty/missing metadata display behavior MUST be explicit: omit, show placeholder, or show unknown/unavailable state according to the field/profile contract; Studio MUST NOT invent a value.
+
+FDA-1237 Metadata display formatting MAY use consumer/profile-supplied labels and safe formatting rules, but MUST preserve the underlying typed canonical value.
+
+FDA-1238 If changing rendered metadata causes an auto-sized node to change size, the resulting geometry update MUST follow the node sizing/undo rules and remain deterministic.
+
+FDA-1239 If a fixed-size node cannot display selected metadata legibly, Studio SHOULD report clipping/overflow rather than silently discarding the value.
+
+FDA-1240 Canvas metadata presentation MUST not be the only accessible path to the value; Structure/Inspector/developer surfaces remain available.
+
+## Diagram template dependency closure
+
+FDA-1250 Applying/importing a reusable diagram template or fragment MUST reconcile its required metadata field definitions, palette slots, named appearance styles, presentation mappings, assets, profile versions, and public Forma presentation capabilities.
+
+FDA-1251 Template/fragment dependency identity MUST use stable IDs/namespaces/version information rather than matching dependencies solely by display name or resolved color.
+
+FDA-1252 When an equivalent compatible dependency already exists in the target project, Studio MAY reuse it only through an explicit compatibility/identity rule.
+
+FDA-1253 Conflicting dependency definitions MUST produce a reviewed import/remap choice rather than silently overwriting the target project's definition.
+
+FDA-1254 Importing a template/fragment MUST remap internal references consistently when new project-local dependency IDs are allocated.
+
+FDA-1255 A template/fragment MUST remain inspectable when an external reusable dependency is unavailable and MUST report the missing dependency explicitly.
+
+FDA-1256 Detaching/materializing a reusable fragment MUST preserve effective metadata/style/palette/mapping values needed for the detached graph to remain visually and semantically equivalent where possible.
+
+FDA-1257 Template previews MUST NOT imply that an unresolved/missing style/profile/asset dependency is already available in the target project.
