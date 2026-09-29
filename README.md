@@ -38,7 +38,7 @@ It covers:
 
 - product scope and non-goals;
 - projects/pages/routes/navigation graph;
-- shared editor/canvas/component-tree behavior;
+- shared editor/canvas/Structure-and-Outline behavior;
 - Flow/diagram graph authoring with nodes, connectors, groups, swimlanes, and typed profiles;
 - Forma catalog/property contracts;
 - tokens/themes/responsive preview;
