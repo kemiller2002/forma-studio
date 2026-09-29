@@ -1556,3 +1556,124 @@ FDA-1081 Container/lane/phase appearance MUST remain independent of membership/o
 FDA-1082 Child object labels, focus, selection, validation, connectors, and non-color semantic cues MUST remain distinguishable over an authored container/lane/phase fill.
 
 FDA-1083 A profile MAY restrict container/lane/phase appearance options for communication/accessibility consistency, but restrictions MUST be explicit profile/presentation capability data.
+
+
+## Appearance resolution cascade
+
+FDA-1060 Effective diagram appearance MUST resolve through one deterministic precedence model.
+
+FDA-1061 Unless a future schema version explicitly changes the model, precedence from lowest to highest MUST be: public Forma/base defaults -> diagram-profile defaults -> referenced named appearance style -> explicit metadata/data presentation mapping -> explicit per-object overrides -> transient editor-only focus/selection/validation adorners.
+
+FDA-1062 Editor-only adorners MUST never be materialized into canonical authored appearance merely because they render with higher visual precedence.
+
+FDA-1063 A per-object explicit color/appearance override MUST take precedence over a metadata-driven mapping for the overridden property.
+
+FDA-1064 Removing a per-object override MUST reveal the next applicable mapped/style/profile/default value rather than copying the previously resolved value into the object.
+
+FDA-1065 Removing/disabling a metadata mapping MUST reveal the referenced named-style/profile/default appearance without mutating object metadata.
+
+FDA-1066 Changing a named style MUST update effective rendering of references while preserving higher-precedence mappings/overrides.
+
+FDA-1067 Inspector/developer/agent views MUST be able to distinguish effective/resolved appearance from each contributing source layer.
+
+FDA-1068 Semantic diff SHOULD report the source-level change responsible for a broad appearance change rather than emitting misleading per-object semantic changes.
+
+FDA-1069 Appearance resolution MUST be deterministic across save/reload, supported renderers, and agent/human command paths.
+
+## Color representation boundaries
+
+FDA-1070 The first workflow/diagram color implementation MUST support solid fills/strokes/accents before gradients or complex paint servers are considered required.
+
+FDA-1071 Literal color values MUST support a documented deterministic canonical syntax; Studio SHOULD normalize equivalent literal representations on commit.
+
+FDA-1072 Alpha/transparency MAY be introduced only through an explicit presentation capability that defines contrast, overlap, forced-colors, print, SVG/PDF, and backgrounds-disabled behavior.
+
+FDA-1073 Gradients, blend modes, filters, shadows that carry meaning, and arbitrary SVG paint servers are not required for the initial Flow color contract.
+
+FDA-1074 If transparency/gradient features are later added, they MUST NOT become the sole carrier of semantic meaning and MUST have a defined fallback.
+
+FDA-1075 Recent colors, temporary swatches, eyedropper samples, and picker history SHOULD remain per-user/editor preference state unless explicitly saved into a named project palette.
+
+## Measurement units, rulers, and grids
+
+FDA-1080 Canonical Flow geometry MUST remain expressed in the documented logical coordinate unit regardless of the display unit selected in the editor.
+
+FDA-1081 Studio SHOULD support ruler/inspector display in logical units and MAY support physical/user-facing units such as points, inches, millimeters, or centimeters where a bounded sheet/export scale exists.
+
+FDA-1082 Unit conversion MUST be deterministic and MUST NOT rewrite canonical geometry merely because the user changes the displayed measurement unit.
+
+FDA-1083 A bounded/physical diagram MUST define an explicit scale/conversion between canonical logical units and physical output units before actual-size printing can be claimed.
+
+FDA-1084 Grid spacing MAY be a user preference or authored diagram setting; Studio MUST distinguish those cases.
+
+FDA-1085 An authored grid definition MUST declare its logical spacing/origin and optional display-unit intent and MUST remain a non-semantic layout aid.
+
+FDA-1086 Changing grid/ruler display units MUST NOT dirty the canonical project unless an authored physical-scale/grid property changes.
+
+FDA-1087 Inspector position/size entry MUST use the same normalization, min/max, and geometry-validity rules as drag/resize commands.
+
+FDA-1088 Measurement rounding displayed to a user MUST NOT silently truncate higher-precision canonical geometry when no edit is committed.
+
+## Editor names and aliases
+
+FDA-1090 Addressable authored objects MAY have an editor-facing name/alias independent from stable ID and visible rendered label/content.
+
+FDA-1091 Editor names MUST NOT be required to be globally unique unless a specific feature/profile declares a scoped uniqueness rule.
+
+FDA-1092 Renaming an editor alias MUST preserve stable identity, visible label/content, metadata, appearance, topology, and external/internal references.
+
+FDA-1093 Structure/Outline, search, commands, and agent explanations SHOULD prefer a useful editor name/visible label while retaining stable IDs for disambiguation.
+
+FDA-1094 A missing editor name MUST NOT force Studio to mutate visible rendered content merely to create one.
+
+FDA-1095 Importers MAY preserve source object names as aliases/provenance when safe, but source names MUST NOT replace canonical IDs.
+
+## Command/revision provenance
+
+FDA-1100 Studio SHOULD record non-secret provenance for meaningful project revisions/command batches sufficient to distinguish human, agent, migration, import, and automated/refactoring sources where the surrounding governance system provides that identity.
+
+FDA-1101 Change provenance MUST remain separate from object descriptive metadata unless a user/profile explicitly copies selected provenance into authored metadata.
+
+FDA-1102 Recording provenance MUST NOT mutate every touched object's descriptive metadata with timestamps/actor fields by default, because that would create noisy semantic diffs.
+
+FDA-1103 Agent/migration/import provenance SHOULD identify the responsible tool/profile/adapter version where available.
+
+FDA-1104 Provenance records MUST NOT contain secrets, raw credentials, hidden sensitive fixture data, or unrestricted prompt/context dumps.
+
+FDA-1105 Undo/redo MUST operate on canonical commands regardless of provenance source; provenance MUST NOT grant extra command legality.
+
+FDA-1106 Git/Praxis/other repository-governance provenance MAY remain the durable audit authority while Studio preserves only the minimum project-local provenance required for understandable handoff/review.
+
+## Clipboard and selection export interoperability
+
+FDA-1110 Internal copy/paste MUST continue to use the canonical versioned graph-fragment representation.
+
+FDA-1111 Studio MAY additionally place safe convenience representations such as plain text, SVG, or image data on the operating-system/browser clipboard where platform capability permits.
+
+FDA-1112 Convenience clipboard formats MUST NOT replace the canonical graph fragment as the fidelity-preserving Studio-to-Studio copy representation.
+
+FDA-1113 Copy-as-SVG/image MUST exclude editor-only adorners unless the user explicitly requests diagnostic/editor-state capture.
+
+FDA-1114 Studio SHOULD support export of the current selection as SVG/image/structured fragment independently from whole-diagram export.
+
+FDA-1115 Selection export MUST compute deterministic selected-content bounds and MUST define how incident edges to unselected objects are represented or omitted.
+
+FDA-1116 Pasting external SVG/image/text must follow the applicable untrusted-content, asset, profile, and adapter rules and MUST NOT infer graph semantics from pixels.
+
+## Studio-to-Folio diagram projection handoff
+
+FDA-1120 Studio MUST define a versioned diagram-projection handoff suitable for Folio without requiring Folio to interpret or own the complete canonical graph editor model.
+
+FDA-1121 The projection handoff SHOULD include source project/diagram/revision identity, deterministic content bounds, resolved public Forma presentation references/output, meaningful labels, legend/key where requested, selected rendered metadata, accessibility/structured relationship summary, and non-secret appearance provenance needed for reproducible output.
+
+FDA-1122 The projection handoff MUST exclude editor-only selection/hover/guides/minimap/transient routing state unless diagnostic capture is explicitly requested.
+
+FDA-1123 Folio page fitting/tiling MUST operate on the projection/output bounds and MUST NOT mutate Studio canonical node/edge geometry.
+
+FDA-1124 A stale projection whose source diagram revision no longer matches the requested export revision MUST be rejected or explicitly labeled stale rather than silently presented as current.
+
+FDA-1125 Strict export MUST fail when a required public Forma presentation capability or required projection artifact is unavailable rather than asking Folio to invent replacement graph semantics.
+
+FDA-1126 The projection format MAY use SVG/semantic HTML plus a structured sidecar/manifest; no single renderer technology is mandatory as long as canonical semantics and accessibility requirements are preserved.
+
+FDA-1127 The handoff MUST preserve enough stable object/reference identity to support printed indexes/metadata tables and provenance without exposing source-only metadata.
