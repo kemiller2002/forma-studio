@@ -6,17 +6,21 @@ PPN-001 Studio MUST create a project with a stable project ID.
 
 PPN-002 Project IDs MUST remain stable across renames.
 
-PPN-003 A project MUST contain at least one page.
+PPN-003 A project MUST contain at least one authored surface: a page or a diagram.
 
-PPN-004 A project MUST identify one start page.
+PPN-004 A project containing routable/previewable pages MUST identify one start page; a diagram-only project MUST NOT require a dummy start page.
 
-PPN-005 Deleting the start page MUST be illegal until another start page is selected or the deletion transition selects one atomically.
+PPN-005 Deleting the start page while other pages remain MUST be illegal until another start page is selected or the deletion transition selects one atomically. Deleting the final page MAY be legal when at least one diagram remains, in which case startPageId becomes absent.
 
 PPN-006 Project metadata MUST include name, optional description, Forma version, schema version, and optional external references.
 
 PPN-007 Project names MAY duplicate other projects; IDs MUST NOT.
 
 PPN-008 Studio MUST expose current dirty/saved state.
+
+PPN-009 Project lifecycle commands MUST preserve the invariant that at least one authored surface remains unless an explicit empty-project state is later designed and versioned.
+
+PPN-010 Adding the first page to a diagram-only project MUST establish a start page explicitly or atomically as part of that command.
 
 ## Page lifecycle
 
