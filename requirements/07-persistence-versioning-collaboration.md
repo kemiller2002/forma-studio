@@ -36,6 +36,10 @@ PVC-026 Export SHOULD use stable ordering to produce useful Git diffs.
 
 PVC-027 Studio SHOULD support downloading project JSON through an explicit Limen/browser effect boundary.
 
+PVC-028 Duplicating a project as a new canonical project MUST produce deterministic ID/reference remapping according to the product duplication policy and MUST preserve semantic topology/navigation.
+
+PVC-029 Project duplication MUST preserve provenance/derived-from metadata separately from active project identity when provenance is enabled.
+
 ## Schema versioning
 
 PVC-040 Every project MUST carry schemaVersion.
