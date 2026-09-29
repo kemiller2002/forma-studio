@@ -80,7 +80,7 @@ PVC-081 Studio SHOULD present project revision metadata when loaded from GitHub.
 
 PVC-082 Studio SHOULD support comparing current project state with a selected saved revision.
 
-PVC-083 Semantic diff SHOULD operate on pages, nodes, properties, links, and tokens rather than only text lines.
+PVC-083 Semantic diff SHOULD operate on pages, diagrams, component nodes, diagram nodes/edges, properties, geometry, relationships, links, groups/lanes, and tokens rather than only text lines.
 
 PVC-084 Reverting a prior revision SHOULD create a new explicit save rather than rewriting published history.
 
@@ -100,13 +100,13 @@ PVC-104 Future real-time collaboration MUST preserve the same command/document s
 
 PVC-120 Studio SHOULD detect non-overlapping changes that can be merged mechanically.
 
-PVC-121 Conflicting changes to the same property/slot/navigation action MUST require explicit resolution.
+PVC-121 Conflicting changes to the same property/slot/navigation action/diagram element or relationship MUST require explicit resolution.
 
 PVC-122 Merge logic MUST use stable IDs.
 
 PVC-123 Delete-versus-edit conflicts MUST not resurrect deleted nodes silently.
 
-PVC-124 Page-route conflicts MUST be validated after merge even if the structural merge succeeds.
+PVC-124 Page-route and diagram-graph conflicts MUST be validated after merge even if the structural merge succeeds.
 
 PVC-125 A merge result MUST pass schema/structural validation before becoming canonical project state.
 
@@ -114,7 +114,7 @@ PVC-125 A merge result MUST pass schema/structural validation before becoming ca
 
 PVC-140 A user MUST be able to retain a complete project without an Echelon account or proprietary cloud backend.
 
-PVC-141 All durable v1 project data MUST be representable in the exported project plus referenced external assets.
+PVC-141 All durable v1 project data, including Flow graph topology and authored geometry, MUST be representable in the exported project plus referenced external assets.
 
 PVC-142 Project files MUST NOT contain secrets.
 
