@@ -14,6 +14,10 @@ PVC-005 Studio SHOULD recover the most recent local draft after an unexpected re
 
 PVC-006 Recovery MUST identify the recovered project/version and allow the user to decline it.
 
+PVC-007 Local draft persistence MUST observe committed canonical editor commands; transient drag, resize, pan, zoom, routing preview, hover, and selection updates MUST NOT produce canonical autosaves.
+
+PVC-008 Studio MAY persist per-user/per-device view state separately from the canonical project, but such state MUST NOT be confused with authored project data or Git revisions.
+
 ## File import/export
 
 PVC-020 Studio MUST export one complete canonical project JSON document.
