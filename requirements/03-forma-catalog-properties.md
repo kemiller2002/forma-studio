@@ -137,3 +137,34 @@ FCP-144 Diagram developer inspection MUST distinguish canonical Studio graph sem
 FCP-145 When a selected diagram element is Forma-backed, Studio SHOULD link to the matching public Forma documentation/manifest entry.
 
 FCP-146 Editor-only diagram adorners MUST never be reported as public Forma component capabilities.
+
+
+## Cross-surface object metadata
+
+FCP-150 Studio MUST allow descriptive typed/namespaced metadata on addressable Layout objects, including at least pages and component nodes, without requiring that metadata to be a Forma component property.
+
+FCP-151 Layout object metadata MUST remain separate from canonical Forma component properties, DOM attributes, CSS classes, token bindings, navigation bindings, and scenario overrides.
+
+FCP-152 Studio MUST NOT pass arbitrary object metadata into rendered component markup by default.
+
+FCP-153 A metadata field intended to affect actual component behavior/content MUST map through an explicit supported component property, scenario value, navigation/action contract, or application/domain integration rather than hidden metadata behavior.
+
+FCP-154 Layout object metadata MAY use the same versioned metadata schema/value model as Flow objects, including stable field keys, typed values, defaults, constraints, visibility policy, derived/source-bound status, and localized display labels.
+
+FCP-155 Component-node metadata edits MUST use the shared typed command/history/persistence/diff model.
+
+FCP-156 Component-node metadata MUST participate in copy/paste, duplication, reusable compositions/templates, migration, search/filter, validation, and agent/developer export according to visibility policy.
+
+FCP-157 A page MAY carry descriptive metadata independently from route, title, component tree, and preview settings.
+
+FCP-158 Page/component metadata MUST NOT imply authorization, domain state, application legality, accessibility semantics, or component state unless an explicit consuming contract establishes that meaning.
+
+FCP-159 Metadata attached to a reusable composition instance MUST distinguish definition metadata from instance-local metadata/overrides when both are supported.
+
+FCP-160 Unknown forward-compatible Layout object metadata MUST be preserved when safe rather than dropped because the current Forma component contract does not understand it.
+
+FCP-161 Studio SHOULD expose Layout metadata in the same inspector conceptual section as Flow metadata so users/agents do not learn two unrelated metadata systems.
+
+FCP-162 Metadata visibility/sensitivity policy MUST apply equally to Layout and Flow exports, diagnostics, search, and agent packets.
+
+FCP-163 Stable typed references on Layout objects MUST remain distinct from arbitrary metadata strings/URLs and use the project's reference/dependency contracts where applicable.
