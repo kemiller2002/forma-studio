@@ -1013,3 +1013,104 @@ FDA-723 A comparison between an authored diagram and an authoritative source MAY
 FDA-724 Studio MUST NOT silently convert an authored architecture/workflow diagram into authoritative runtime truth because an external adapter later becomes available.
 
 FDA-725 Materializing a source-backed graph into an authored diagram MUST preserve source provenance while severing live authority unless an explicit refreshable-data-bound mode is selected.
+
+
+## Cross-functional phases
+
+FDA-730 Workflow/swimlane profiles MAY support ordered phases/milestones as a semantic organization axis distinct from responsibility lanes.
+
+FDA-731 Phase membership MUST be explicit and MUST NOT be inferred solely from x/y position.
+
+FDA-732 A workflow activity MAY belong to one responsibility lane and one phase when the selected profile defines that cross-functional grid model.
+
+FDA-733 Moving an activity across a phase boundary MUST surface the resulting phase change just as lane movement surfaces responsibility change.
+
+FDA-734 Lane order and phase order MUST be independently editable without rewriting activity identity.
+
+FDA-735 Deleting/reordering a phase MUST preserve or explicitly reconcile activity phase membership; it MUST NOT silently discard activities.
+
+FDA-736 Phase labels/orientation are presentation properties; phase identity and order are canonical semantic data when the profile uses phases.
+
+## Quick create-and-connect
+
+FDA-740 Flow MAY offer a quick create-and-connect affordance from a selected node/port.
+
+FDA-741 Quick create-and-connect MUST show only element kinds and target ports legal under the active profile/connection rules.
+
+FDA-742 Creating a new node plus connecting edge through one gesture/action MUST commit atomically as one logical command or command transaction.
+
+FDA-743 If either node creation or connection is illegal, the atomic quick-connect operation MUST leave canonical graph state unchanged.
+
+FDA-744 The same quick-connect capability MUST be invokable without hover/pointer precision through keyboard/touch/command UI where exposed.
+
+FDA-745 Quick-connect is an input convenience only; it MUST produce the same canonical node/edge data as separate AddNode plus Connect commands.
+
+## Subprocess extraction
+
+FDA-750 Studio SHOULD support extracting a selected connected workflow subgraph into a new child/referenced diagram after the basic Flow editor is stable.
+
+FDA-751 Extract-to-subflow MUST identify which selected internal edges move with the subgraph and which boundary relationships cross between retained and extracted elements.
+
+FDA-752 Extraction MUST create a new stable diagram ID and preserve selected element IDs where moving the actual elements rather than copying them.
+
+FDA-753 The source diagram MUST receive an explicit subflow/subprocess reference node or equivalent profile construct only when the profile supports it.
+
+FDA-754 Boundary relationships MUST be rewired through explicit legal subflow interface/reference semantics; Studio MUST NOT invent hidden cross-diagram edges.
+
+FDA-755 Extraction MUST be previewable/reviewable and undoable as one logical project operation.
+
+FDA-756 Extract-to-subflow MUST preserve lane/phase/profile semantics where legal and surface obligations where the target diagram requires a different containment structure.
+
+## Extended layer behavior
+
+FDA-760 If named layers ship, layer contracts MAY support authored visibility, editing lock, print/export inclusion, snapping participation, connector-glue participation, and active-default assignment for newly created elements.
+
+FDA-761 Layer properties MUST be independently modeled; "locked", "hidden", "not printed", "not snappable", and "not glueable" MUST NOT be collapsed into one disabled state.
+
+FDA-762 An active layer MAY automatically assign newly created eligible elements to that layer, but assignment MUST be visible/undoable and must not override profile-required semantic containment.
+
+FDA-763 Layer-level print/export exclusion MUST be explicit authored presentation behavior and MUST be reported in export/review metadata.
+
+FDA-764 Layer-level snap/glue settings affect editor interaction only and MUST NOT change graph topology after an edge is already canonically connected.
+
+FDA-765 Layer color/highlight overrides, if added, MUST remain presentation/review aids and MUST NOT become the sole representation of semantic meaning.
+
+FDA-766 A layer MAY contain elements from multiple semantic groups/containers because layer membership is orthogonal organization; this MUST NOT imply those elements share one semantic owner.
+
+## Background/master diagram content
+
+FDA-770 Repeated background/border/title/watermark-like diagram content MAY be modeled through reusable canonical diagram fragments or background-layer references rather than a separate opaque drawing-page subsystem.
+
+FDA-771 Background/master content MUST remain separately editable at its definition/source and MUST not be flattened silently into every consuming diagram.
+
+FDA-772 A diagram referencing reusable background content MUST retain stable definition identity plus local placement/visibility parameters allowed by the reusable-fragment contract.
+
+FDA-773 Background presentation MUST not obscure or replace graph semantics in Structure/Outline/agent export.
+
+FDA-774 Print/export MUST resolve background/master content deterministically and identify missing definitions as blocking/unavailable dependencies.
+
+## Data fields and data decorations
+
+FDA-780 Diagram elements MAY expose typed data fields through profile/custom-metadata contracts independently of their visible label.
+
+FDA-781 A future data-decoration/data-graphics capability MAY project data fields as badges, icons, bars, text callouts, status markers, or other public presentation primitives.
+
+FDA-782 Data decorations MUST be projections of explicit data values and presentation rules; they MUST NOT become the authoritative storage location for the underlying data.
+
+FDA-783 Data decorations MUST not rely on color alone and MUST provide accessible textual/structural equivalents for meaningful values.
+
+FDA-784 Data-decoration rules MUST be deterministic, typed/versioned, and inspectable; arbitrary executable expressions are prohibited unless a separately governed expression/runtime contract exists.
+
+FDA-785 Changing or removing a data decoration MUST NOT alter the underlying graph topology or source data.
+
+FDA-786 Source-backed data decorations MUST preserve source/freshness authority according to the data-bound diagram requirements.
+
+FDA-787 Agent/developer export MUST expose underlying typed values and decoration rules rather than forcing consumers to infer status from rendered icons/colors.
+
+## Diagram feature-parity boundary
+
+FDA-790 Studio MAY learn from mature diagramming systems, but external product feature parity is not itself a requirement.
+
+FDA-791 New diagram capabilities MUST be justified by Forma Studio's typed specification, review, handoff, workflow, or engineering goals rather than added solely because another editor exposes them.
+
+FDA-792 Imported Visio-style constructs with no canonical Studio meaning MUST remain explicit adapter gaps/lossy mappings rather than forcing one-off core fields.
