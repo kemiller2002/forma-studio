@@ -1114,3 +1114,156 @@ FDA-790 Studio MAY learn from mature diagramming systems, but external product f
 FDA-791 New diagram capabilities MUST be justified by Forma Studio's typed specification, review, handoff, workflow, or engineering goals rather than added solely because another editor exposes them.
 
 FDA-792 Imported Visio-style constructs with no canonical Studio meaning MUST remain explicit adapter gaps/lossy mappings rather than forcing one-off core fields.
+
+
+## Object metadata
+
+FDA-800 Diagrams and addressable Flow objects MUST be able to carry descriptive metadata independently from their visible label and presentation.
+
+FDA-801 Metadata MAY be attached to diagrams, nodes, edges, groups/containers, lanes, phases, junctions, annotations, and other profile-defined addressable graph objects where the profile permits it.
+
+FDA-802 Metadata MUST remain separate from stable identity, semantic element/relationship kind, geometry, presentation appearance, and graph topology.
+
+FDA-803 Metadata keys MUST be namespaced or otherwise collision-safe so profile, Studio core, external adapter, and consumer-defined fields can coexist.
+
+FDA-804 Metadata schemas MAY be declared by a diagram profile or extension package, but Studio MUST preserve unknown forward-compatible fields when safe.
+
+FDA-805 Studio MUST support typed metadata values sufficient for common descriptive use, including text, number, boolean, enum/token, date/time, URL/reference, repeated tags/list values, and namespaced structured values where explicitly supported.
+
+FDA-806 Studio MUST NOT infer missing metadata values from object color, position, icon, type label, neighboring objects, or external context unless an explicit import/mapping contract authorizes that inference.
+
+FDA-807 Metadata MUST NOT become authorization, transition legality, scoring, workflow execution state, approval, or other consequential domain truth merely because it is present in the Studio document.
+
+FDA-808 A profile MAY designate metadata fields such as owner, role, phase, status, category, source, provenance, external ID, tags, description, revision, or custom attributes.
+
+FDA-809 Studio MUST distinguish descriptive metadata from provenance/evidence references when the profile/model distinguishes them.
+
+FDA-810 Studio MUST distinguish metadata from accessibility fields such as accessible name/description.
+
+FDA-811 Studio MUST distinguish metadata from authored presentation fields such as fill, stroke, accent, text color, icon, shape, line style, and marker.
+
+FDA-812 The inspector MUST expose object metadata separately from semantic properties and appearance/presentation properties.
+
+FDA-813 Metadata edits MUST be typed canonical commands and participate in undo/redo, persistence, semantic diff, collaboration conflict detection, copy/paste, duplication, and agent export.
+
+FDA-814 Metadata keys/values MUST be searchable through project/diagram search when the field's visibility policy permits search.
+
+FDA-815 Metadata values MAY participate in filters, legends, data decorations, or color mappings only through an explicit mapping/filter contract.
+
+FDA-816 Deleting or changing a metadata field definition in a profile migration MUST identify affected object values and preserve or explicitly migrate/drop them according to the migration contract.
+
+FDA-817 Studio SHOULD support compact metadata summaries and expanded metadata inspection without requiring every field to appear on the node canvas.
+
+FDA-818 Metadata rendering on the canvas MUST NOT be required for metadata to remain machine-readable in the canonical project.
+
+FDA-819 Studio MUST preserve Unicode and bidirectional metadata values.
+
+## Metadata visibility and sensitivity
+
+FDA-820 A metadata field MAY declare a visibility/transport policy such as editor-only, rendered, agent/developer-export, provenance/export, or profile-defined scope.
+
+FDA-821 Unknown metadata MUST default to the safest non-rendered/non-exported behavior compatible with lossless project preservation.
+
+FDA-822 Studio MUST NOT encourage credentials, access tokens, private keys, passwords, or other secret material in object metadata.
+
+FDA-823 Metadata marked source-only/editor-only MUST NOT leak into generated visible markup, rendered diagram output, PDF/SVG metadata, accessibility-only text, diagnostics, URLs, or agent packets unless the applicable export contract explicitly authorizes it.
+
+FDA-824 Metadata visibility changes MUST NOT alter object identity, topology, semantic type, or authored color.
+
+FDA-825 Search, filters, developer inspection, and export MUST respect metadata visibility/sensitivity policy.
+
+## Authored object color
+
+FDA-830 Workflow and diagram objects MUST support explicit authored color independent from semantic status/type.
+
+FDA-831 Eligible nodes/objects MUST support authored fill/background presentation.
+
+FDA-832 Eligible nodes/objects MUST support authored border/stroke presentation.
+
+FDA-833 Eligible nodes/objects MUST support an authored accent presentation distinct from full fill.
+
+FDA-834 Eligible edges/connectors MUST support authored stroke/accent presentation.
+
+FDA-835 Eligible text/labels MAY support authored foreground color when the active presentation contract can maintain accessibility.
+
+FDA-836 Studio MUST support Forma token references as a preferred color representation.
+
+FDA-837 Studio SHOULD support project/profile palette-slot references for reusable authored colors.
+
+FDA-838 Studio MAY support literal authored CSS color values where the active profile/project permits them.
+
+FDA-839 The canonical color representation MUST distinguish fixed literal color from theme-relative token/palette references.
+
+FDA-840 A theme-relative token/palette color MAY resolve differently across themes; a fixed literal color MUST remain fixed unless the user explicitly edits it.
+
+FDA-841 Changing object color MUST NOT change semantic node/edge kind, metadata status, workflow legality, lane/phase ownership, or graph topology.
+
+FDA-842 Studio MUST NOT infer Error from red, Approved from green, Warning from yellow, Selected from blue, or any other semantic meaning from authored color.
+
+FDA-843 Two objects with identical semantic type/status MAY use different authored colors.
+
+FDA-844 Two objects with different semantic types/statuses MAY use the same authored color.
+
+FDA-845 Selection/focus/validation/disabled editor cues MUST remain independently visible regardless of authored object color.
+
+FDA-846 Color edits MUST be typed canonical commands and participate in undo/redo, diff, copy/paste, duplication, collaboration merge, persistence, and agent export.
+
+## Project palettes and color mapping
+
+FDA-850 A project MAY define named diagram/workflow palette slots separate from Forma's canonical design-token namespace.
+
+FDA-851 Palette slots MUST have stable names/IDs and explicit resolved values or Forma token references.
+
+FDA-852 Palette slot changes MUST update objects that reference the slot without rewriting each object's semantic metadata.
+
+FDA-853 A palette slot MUST NOT imply semantic meaning unless the project/profile explicitly declares that mapping.
+
+FDA-854 Studio MAY provide an explicit metadata-to-color mapping such as status -> palette slot.
+
+FDA-855 Metadata-to-color mappings MUST be persisted as explicit inspectable project/profile rules and MUST NOT be inferred from current object colors.
+
+FDA-856 An object MAY override a metadata-driven mapped color with an explicit authored color only when the active mapping contract permits override; precedence MUST be deterministic and inspectable.
+
+FDA-857 Mapping rules MUST define behavior for missing/unknown metadata values without guessing.
+
+FDA-858 Mapping rules MUST NOT execute arbitrary JavaScript or ungoverned expressions.
+
+FDA-859 A color mapping change MUST be reviewable as a presentation-rule change distinct from underlying metadata-value changes.
+
+FDA-860 Legends generated from metadata/color mappings MUST derive from the explicit mapping and MUST not become the semantic authority.
+
+## Color accessibility and validation
+
+FDA-870 Studio MUST validate meaningful use of color against the rule that color cannot be the sole semantic carrier.
+
+FDA-871 When a metadata/status category is visualized by color, Studio SHOULD require or recommend a textual, icon, shape, line-style, marker, label, pattern, grouping, or other non-color cue according to the profile.
+
+FDA-872 Studio SHOULD validate text/icon contrast against authored fills when reliable.
+
+FDA-873 Studio MUST allow preview/review of Flow diagrams in grayscale.
+
+FDA-874 Studio MUST support a backgrounds-disabled/print-safe review projection when Folio/print export is in scope.
+
+FDA-875 Studio SHOULD provide color-vision simulation as a review aid consistent with Visual Engineering guidance, without claiming simulation proves accessibility.
+
+FDA-876 Forced-colors/high-contrast mode MUST preserve object/connector distinction and text/relationship meaning through Forma presentation fallbacks.
+
+FDA-877 A color change that makes required content detectably illegible MUST produce a validation/review finding.
+
+FDA-878 Color/palette validation findings MUST identify the affected stable object/mapping ID.
+
+## Metadata and color acceptance
+
+FDA-890 A canonical Workflow example MUST include at least five nodes with descriptive metadata, including at least owner/role, phase/category or tags, status text, and one external/reference field.
+
+FDA-891 The Workflow example MUST include user-authored node colors that are intentionally not equivalent to workflow semantic status.
+
+FDA-892 The example MUST demonstrate an explicit metadata-to-color mapping separately from manual authored colors.
+
+FDA-893 Agent export MUST make metadata values, color source (token/palette/literal/mapping), and semantic type/status separately readable without screenshot interpretation.
+
+FDA-894 Semantic diff MUST distinguish metadata changes, semantic type changes, manual color changes, palette changes, and metadata-to-color mapping changes.
+
+FDA-895 Copy/paste/duplication MUST preserve metadata and color references while remapping only identities/references that require remapping.
+
+FDA-896 Print/export through Folio MUST preserve eligible authored color while remaining understandable in grayscale/backgrounds-disabled output.
