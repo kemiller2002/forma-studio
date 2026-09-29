@@ -2,7 +2,7 @@
 
 ## Product purpose
 
-PS-001 Forma Studio MUST let a person visually design one or more application pages using the canonical Forma component library.
+PS-001 Forma Studio MUST let a person visually design one or more application pages using the canonical Forma component library and create diagram/flow surfaces using Studio's canonical graph model.
 
 PS-002 Forma Studio MUST save the result as a typed, machine-readable project specification rather than as screenshots or opaque canvas data.
 
@@ -48,7 +48,7 @@ PS-024 Studio SHOULD support a stakeholder in presentation/preview mode without 
 
 ## Initial workflows
 
-PS-030 A user MUST be able to create a project, add pages, add Forma components, configure allowed properties, enter sample content, link pages, preview at multiple viewports, validate, save, reopen, and export.
+PS-030 A user MUST be able to create a project, add pages and diagrams, add Forma components or diagram elements appropriate to the active surface, configure allowed properties, enter sample content, link pages or diagram elements, preview, validate, save, reopen, and export.
 
 PS-031 A user MUST be able to start from a blank project.
 
@@ -80,7 +80,7 @@ PS-048 Studio SHOULD make the legal next actions discoverable from current edito
 
 ## v1 boundary
 
-PS-060 v1 MUST include project/page management, component composition, page linking, responsive preview, accessibility/contract validation, local draft persistence, JSON import/export, and agent-oriented export.
+PS-060 v1 MUST include project/page management, component composition, page linking, a basic Flow surface with nodes and connectors, responsive preview, accessibility/contract validation, local draft persistence, JSON import/export, and agent-oriented export.
 
 PS-061 v1 SHOULD include GitHub persistence as an explicit save/commit workflow.
 
@@ -98,6 +98,14 @@ PS-067 v1 MAY support external image/SVG assets subject to security and accessib
 
 PS-068 v1 MUST be mobile-usable for review and basic editing; desktop/tablet MAY provide richer spatial editing affordances.
 
+PS-069 Studio MUST expose Layout and Flow as distinct surface behaviors over one shared editor core; adding Flow MUST NOT create a second selection, history, persistence, or command architecture.
+
+PS-070 The Flow surface MUST support general-purpose diagrams without requiring semantic typing and MUST also support explicit typed profiles such as workflow, state, and architecture diagrams.
+
+PS-071 Free spatial placement is valid project intent on Flow surfaces, but MUST NOT weaken the rule that ordinary Forma layout composition is semantic/constraint-driven rather than arbitrary x/y placement.
+
+PS-072 Studio MUST NOT claim that a typed diagram is executable application/domain logic merely because it has workflow or state semantics; execution/code-generation requires a separate explicit contract.
+
 ## Completion criteria
 
 PS-080 A representative project with at least five pages, nested Forma components, internal navigation cycles, external links, Light/Dark preview, and 320px mobile preview MUST be expressible without editing raw JSON.
@@ -106,4 +114,6 @@ PS-081 The same representative project MUST round-trip export/import without sem
 
 PS-082 An agent MUST be able to determine page structure, component contracts, token bindings, links, and scenarios from the exported project without inspecting screenshots.
 
-PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, and missing required accessibility metadata.
+PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, missing required accessibility metadata, broken diagram edge endpoints, and invalid typed-diagram relationships.
+
+PS-084 The shared editor architecture MUST prove round-trip editing on both surfaces: a Layout slice (Stack -> Heading -> edit -> reorder -> spacing -> undo/redo -> save/reload) and a Flow slice (two nodes -> connect -> move -> label -> undo/redo -> save/reload).
