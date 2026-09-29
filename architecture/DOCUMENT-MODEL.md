@@ -31,6 +31,7 @@ A Page contains:
 - name
 - optional route
 - optional title/description
+- optional typed/namespaced metadata and visibility policy
 - root component-node list
 - page-level annotations
 - preview settings
@@ -125,6 +126,8 @@ A component node contains:
 - content
 - children by named slot
 - optional navigation bindings
+- optional typed/namespaced metadata and visibility policy
+- optional typed resource references
 - optional annotations
 - optional scenario overrides
 
@@ -132,7 +135,7 @@ Studio must not invent component properties that are absent from the canonical c
 
 ## Object metadata
 
-Addressable diagram objects may carry typed, namespaced descriptive metadata.
+Addressable Studio objects may carry typed, namespaced descriptive metadata, including Layout pages/component nodes and Flow diagram objects.
 
 Metadata is separate from:
 
