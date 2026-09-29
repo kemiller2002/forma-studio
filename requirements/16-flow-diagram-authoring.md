@@ -1771,3 +1771,24 @@ FDA-1255 A template/fragment MUST remain inspectable when an external reusable d
 FDA-1256 Detaching/materializing a reusable fragment MUST preserve effective metadata/style/palette/mapping values needed for the detached graph to remain visually and semantically equivalent where possible.
 
 FDA-1257 Template previews MUST NOT imply that an unresolved/missing style/profile/asset dependency is already available in the target project.
+
+
+## Metadata-derived disclosure control
+
+FDA-1260 Rendering a color, style, badge, icon, label, marker, visibility state, legend category, sorting/grouping label, or other observable presentation derived from metadata counts as disclosure of information about that metadata.
+
+FDA-1261 Metadata marked source-only/editor-only/sensitive MUST NOT drive ordinary rendered/exported appearance unless the field/policy explicitly authorizes that derived disclosure.
+
+FDA-1262 A metadata-to-appearance mapping MUST validate that its source field is permitted to influence the target presentation/output scope.
+
+FDA-1263 Changing a metadata field's visibility/sensitivity policy MUST revalidate every display configuration, mapping, legend, filter persistence rule, agent export, and print/export dependency that references the field.
+
+FDA-1264 A mapping from a high-sensitivity field to a coarse category/color MUST NOT be assumed safe merely because the raw value is hidden; the derived category may still disclose protected information.
+
+FDA-1265 Studio SHOULD identify the disclosure path in validation, for example metadata field -> mapping -> palette/style -> rendered/exported object.
+
+FDA-1266 Source-only metadata MAY still drive editor-only filtering/highlighting when policy permits and the result is not persisted/exported/shared beyond the authorized editor context.
+
+FDA-1267 Agent/developer exports MUST not expose a mapping result whose source metadata policy prohibits that export scope unless the policy explicitly authorizes the derived result.
+
+FDA-1268 Folio projection handoff MUST include only rendered metadata/appearance whose disclosure policy has already been authorized for the requested output scope.
