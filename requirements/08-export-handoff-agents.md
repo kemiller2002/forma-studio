@@ -119,3 +119,18 @@ EHA-142 Screenshot/image/SVG diagram export MAY be provided for communication bu
 EHA-143 Future design-tool adapters MUST be isolated from the core domain model.
 
 EHA-144 Future Visio, draw.io, Mermaid, Graphviz, BPMN, or similar adapters MAY translate to/from the canonical graph model only through explicit compatibility contracts; lossless support MUST NOT be implied when semantics differ.
+
+
+## Cross-surface metadata handoff
+
+EHA-150 Agent/developer export MUST preserve allowed project, page, component-node, diagram, and diagram-element metadata with stable object IDs and stable metadata field keys.
+
+EHA-151 Export MUST distinguish component properties from descriptive Studio metadata so consumers do not infer that arbitrary metadata is a supported Forma runtime property.
+
+EHA-152 Export MUST distinguish authored, defaulted, derived, and source-bound metadata where that distinction exists in canonical state.
+
+EHA-153 Export MUST respect metadata visibility/sensitivity policy and MUST NOT include source-only/editor-only fields merely because the agent packet is machine readable.
+
+EHA-154 Typed object references MUST be exported separately from generic metadata values with reference kind and target identity where known.
+
+EHA-155 Metadata schema definitions needed to interpret exported values SHOULD be included or referenced by stable schema/profile identity.
