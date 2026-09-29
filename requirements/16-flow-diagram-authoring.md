@@ -1468,3 +1468,56 @@ FDA-1022 Agent change plans SHOULD distinguish semantic changes, metadata change
 FDA-1023 A broad style/palette/metadata-schema change SHOULD report its expected affected-object set/count before commit when determinable.
 
 FDA-1024 Agent export MUST expose stable metadata field IDs, authored/derived/source-bound status, style references/overrides, palette/token identities, and resolved presentation separately where applicable.
+
+
+## Typed object references and attachments
+
+FDA-1030 Any addressable diagram object MAY carry typed references to registered project/external resources when the active profile permits them.
+
+FDA-1031 Typed references MUST remain distinct from arbitrary descriptive URL/text metadata because references participate in navigation, dependency checks, deletion impact, and referential validation.
+
+FDA-1032 Reference kinds MAY include requirement, page, diagram, diagram element, project asset, document/artifact, repository, issue/work item, source record, external URL, or future registered resource kinds.
+
+FDA-1033 Internal project references MUST use stable canonical IDs rather than visible names/paths alone.
+
+FDA-1034 External references MUST preserve a stable external identity/key where available separately from a human-readable label/URL.
+
+FDA-1035 Deleting or changing an internally referenced target MUST surface inbound references before commit.
+
+FDA-1036 A broken/unavailable external reference MUST remain distinguishable from a deleted internal target and from an ordinary metadata string.
+
+FDA-1037 Copy/paste/duplication/import MUST define whether references remain external, remap to duplicated internal targets, or become unresolved obligations.
+
+FDA-1038 Project asset attachments MUST use the existing asset identity/security/accessibility contracts rather than embedding arbitrary opaque file blobs into graph objects.
+
+FDA-1039 Agent/developer export MUST expose reference kind, target identity, availability/verification state where known, and display label separately.
+
+## Snapping and glue behavior
+
+FDA-1040 Flow snapping MUST distinguish supported snap targets such as grid, authored guides, node/container edges, centers/baselines, alignment relationships, ports/connection anchors, and profile-specific targets where implemented.
+
+FDA-1041 Studio MUST make the active snap target/cue visible during direct manipulation when ambiguity would otherwise make the resulting position surprising.
+
+FDA-1042 Snap priority/tie-breaking MUST be deterministic for equivalent geometry and settings.
+
+FDA-1043 Users MUST have a discoverable way to temporarily bypass optional snapping during precision movement without changing canonical project settings.
+
+FDA-1044 Port/connector glue behavior MUST remain distinct from ordinary geometry snapping: a canonically connected edge remains connected even when snapping is disabled.
+
+FDA-1045 Snap-to-object/guide behavior MUST NOT create hidden grouping, containment, alignment constraints, or graph relationships after the gesture commits.
+
+FDA-1046 Persisted authored guides, if supported, MUST have stable identity; user-only temporary guides remain view/editor state.
+
+## Local undo-history persistence boundary
+
+FDA-1050 Canonical project data MUST NOT depend on serialized undo/redo stacks.
+
+FDA-1051 The v1 local undo/redo history MAY be session-local; if it is not restored after reopen/reload, Studio MUST NOT imply that reopening preserves the previous interactive undo stack.
+
+FDA-1052 Git/project revision history and local command undo history MUST remain separate concepts and UI surfaces.
+
+FDA-1053 A future persisted recovery journal MAY restore undo-capable commands after restart only through an explicit versioned recovery/history format separate from the canonical project document.
+
+FDA-1054 Failure to restore an optional local history/recovery journal MUST leave the last valid canonical project readable.
+
+FDA-1055 Reverting a durable Git/project revision MUST create/produce ordinary canonical state/history according to persistence rules and MUST NOT masquerade as a local single-command undo.
