@@ -118,7 +118,7 @@ PS-080 A representative project with at least five pages, nested Forma component
 
 PS-081 The same representative project MUST round-trip export/import without semantic loss.
 
-PS-082 An agent MUST be able to determine page structure, component contracts, token bindings, links, and scenarios from the exported project without inspecting screenshots.
+PS-082 An agent MUST be able to determine page structure, component contracts, token bindings, links, scenarios, diagram topology, typed relationship/profile semantics, authored geometry, and cross-surface references from the exported project without inspecting screenshots.
 
 PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, missing required accessibility metadata, broken diagram edge endpoints, and invalid typed-diagram relationships.
 
