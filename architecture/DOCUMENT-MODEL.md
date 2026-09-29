@@ -46,7 +46,9 @@ A Diagram contains:
 
 - stable diagramId
 - name
-- profile/kind: general, workflow, state, architecture, or a future registered profile
+- profileId
+- profileVersion
+- optional extent mode and bounded-sheet dimensions where applicable
 - nodes
 - edges
 - groups/containers and optional swimlanes
@@ -64,11 +66,15 @@ A DiagramNode contains:
 
 - stable nodeId
 - element kind
-- x/y position
+- normalized logical x/y position
 - size or profile-defined sizing contract
+- z-order/order key where overlap is supported
+- authored locked state when supported
+- authored visibility state when supported
 - label/content
 - optional named ports
-- visual properties
+- visual properties and public presentation capability identifiers
+- optional typed cross-surface/resource references
 - optional profile-specific semantic properties
 - optional group/lane membership
 - optional annotations and requirement references
@@ -85,7 +91,10 @@ A DiagramEdge contains:
 - connector/relationship kind
 - optional label
 - optional profile-specific semantic properties
+- optional routing mode
 - optional explicit manual routing points
+- optional edge-label position override
+- optional visual marker/start/end presentation properties
 - optional annotations and requirement references
 
 Edges reference stable identities, not rendered DOM/canvas objects. Moving or resizing a node must not change edge identity or topology.
@@ -114,6 +123,40 @@ A component node contains:
 - optional scenario overrides
 
 Studio must not invent component properties that are absent from the canonical contract.
+
+## Diagram profile
+
+A profile definition identifies:
+
+- stable profileId
+- profileVersion
+- legal node/edge/container/lane kinds
+- legal ports and connection rules
+- property schemas/defaults
+- containment rules
+- validation rules
+- presentation capability mappings
+- migration/version compatibility rules
+
+A project must never infer a profile merely from rendered appearance.
+
+If a profile/version is unavailable, Studio preserves the canonical diagram and reports the unavailable capability; it does not flatten the diagram to General.
+
+## Geometry normalization
+
+Canonical Flow geometry uses one documented logical coordinate system.
+
+Transient pointer precision may exceed persisted precision. Commands that commit geometry normalize position, dimensions, route points, and label offsets through one shared normalization contract before canonical state is produced.
+
+NaN/infinite/invalid dimensions never enter canonical state.
+
+## Cross-surface references
+
+Diagram elements may carry typed references to other diagrams, diagram nodes, Forma pages, requirements, documents, external URLs, or later registered targets.
+
+Internal references use stable IDs. Display names/routes are projections.
+
+Deletion/migration must surface inbound references before producing dangling canonical relationships.
 
 ## Shared editor commands
 
