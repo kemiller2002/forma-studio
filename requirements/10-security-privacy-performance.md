@@ -58,6 +58,18 @@ SPP-062 Studio SHOULD support project-local or Git-hosted assets before introduc
 
 SPP-063 Missing assets MUST not make the project unreadable; placeholders and findings MUST identify the missing asset.
 
+SPP-064 Diagram/import adapters MUST treat XML, ZIP/archive, SVG, embedded images, hyperlinks, and metadata as untrusted input.
+
+SPP-065 XML-based imports MUST disable unsafe external entity/resource expansion and MUST NOT resolve arbitrary external resources implicitly.
+
+SPP-066 Archive/package imports MUST enforce bounded entry counts, decompressed sizes, recursion/nesting limits, and path traversal protection.
+
+SPP-067 Import adapters MUST NOT fetch external referenced assets automatically without an explicit user-visible capability/effect.
+
+SPP-068 Imported URLs and embedded asset references MUST pass the same scheme/security validation as native Studio project data.
+
+SPP-069 Adapter parsing failure or security rejection MUST leave the current canonical project unchanged.
+
 ## Availability and data integrity
 
 SPP-080 Local editor functionality MUST continue when GitHub is unavailable, except operations that require GitHub.
