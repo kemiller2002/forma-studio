@@ -108,6 +108,16 @@ ECC-104 Save/persist actions MUST NOT erase undo history merely because persiste
 
 ECC-105 External persistence results with unknown outcome MUST be represented explicitly and MUST NOT cause automatic duplicate writes.
 
+ECC-106 Canonical undo/redo history MUST be project-wide and chronological across Layout and Flow surfaces unless a later version explicitly introduces a scoped-history mode.
+
+ECC-107 If undo/redo affects a non-active authored surface, Studio MUST make the affected surface/result discoverable and SHOULD navigate/select it when doing so is not disruptive.
+
+ECC-108 View-only changes such as pan, zoom, active surface, panel size, hover, transient isolation, and selection MUST NOT enter canonical project undo history.
+
+ECC-109 Gesture coalescing MUST preserve chronological project history: one committed move/resize/route gesture is one logical history entry, not hundreds of pointer-event entries.
+
+ECC-110 External side effects such as save/export are not reversed by project undo merely because they were initiated after an edit; Studio MUST distinguish canonical-state undo from effect history.
+
 ## Content editing
 
 ECC-120 Text/content fields MUST be edited through typed component properties/content contracts.
