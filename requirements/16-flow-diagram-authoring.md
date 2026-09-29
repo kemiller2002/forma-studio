@@ -1525,37 +1525,37 @@ FDA-1055 Reverting a durable Git/project revision MUST create/produce ordinary c
 
 ## User-defined metadata fields
 
-FDA-1130 The General diagram profile MUST allow users to define descriptive custom metadata fields for diagram objects without requiring a new compiled Studio profile.
+FDA-2000 The General diagram profile MUST allow users to define descriptive custom metadata fields for diagram objects without requiring a new compiled Studio profile.
 
-FDA-1131 User-defined metadata SHOULD be represented by project-scoped/versioned field definitions rather than unrelated per-object free-text keys whenever the same field is intended for reuse.
+FDA-2001 User-defined metadata SHOULD be represented by project-scoped/versioned field definitions rather than unrelated per-object free-text keys whenever the same field is intended for reuse.
 
-FDA-1132 Creating a reusable custom field definition MUST assign a stable collision-safe field ID/key, value type, display label, and visibility policy; optional default/allowed-values/constraints MAY also be supplied.
+FDA-2002 Creating a reusable custom field definition MUST assign a stable collision-safe field ID/key, value type, display label, and visibility policy; optional default/allowed-values/constraints MAY also be supplied.
 
-FDA-1133 A user MAY add a one-off custom field only through a contract that still gives the field a stable namespaced identity and explicit type; Studio MUST NOT persist ambiguous untyped arbitrary JSON blobs as ordinary metadata.
+FDA-2003 A user MAY add a one-off custom field only through a contract that still gives the field a stable namespaced identity and explicit type; Studio MUST NOT persist ambiguous untyped arbitrary JSON blobs as ordinary metadata.
 
-FDA-1134 Schema-defined profile fields and user-defined project fields MUST be visibly distinguishable in the inspector.
+FDA-2004 Schema-defined profile fields and user-defined project fields MUST be visibly distinguishable in the inspector.
 
-FDA-1135 Renaming a user-facing field label MUST NOT change the stable field key/ID.
+FDA-2005 Renaming a user-facing field label MUST NOT change the stable field key/ID.
 
-FDA-1136 Changing a custom field's stable key/type/cardinality is a schema migration and MUST preview affected values before commit.
+FDA-2006 Changing a custom field's stable key/type/cardinality is a schema migration and MUST preview affected values before commit.
 
-FDA-1137 Deleting a custom field definition with values MUST surface affected objects and require explicit removal/migration; Studio MUST NOT silently orphan invisible values.
+FDA-2007 Deleting a custom field definition with values MUST surface affected objects and require explicit removal/migration; Studio MUST NOT silently orphan invisible values.
 
-FDA-1138 Custom field definitions MAY declare which object/profile kinds they apply to.
+FDA-2008 Custom field definitions MAY declare which object/profile kinds they apply to.
 
-FDA-1139 Copying objects to another project MUST reconcile custom field-definition identity through explicit reuse/import/remap behavior rather than matching only by display label.
+FDA-2009 Copying objects to another project MUST reconcile custom field-definition identity through explicit reuse/import/remap behavior rather than matching only by display label.
 
-FDA-1140 User-defined metadata fields remain descriptive until a profile/application explicitly binds them to semantic rules; creating a field named "approved" does not create approval authority.
+FDA-2010 User-defined metadata fields remain descriptive until a profile/application explicitly binds them to semantic rules; creating a field named "approved" does not create approval authority.
 
 ## Container/lane/phase appearance
 
-FDA-1150 Eligible groups, semantic containers, swimlanes, phases, and boundaries MAY carry authored fill, border/stroke, and accent appearance where supported by the active Forma/profile presentation contract.
+FDA-2020 Eligible groups, semantic containers, swimlanes, phases, and boundaries MAY carry authored fill, border/stroke, and accent appearance where supported by the active Forma/profile presentation contract.
 
-FDA-1151 Container/lane/phase appearance MUST remain independent of membership/ownership semantics.
+FDA-2021 Container/lane/phase appearance MUST remain independent of membership/ownership semantics.
 
-FDA-1152 Child object labels, focus, selection, validation, connectors, and non-color semantic cues MUST remain distinguishable over an authored container/lane/phase fill.
+FDA-2022 Child object labels, focus, selection, validation, connectors, and non-color semantic cues MUST remain distinguishable over an authored container/lane/phase fill.
 
-FDA-1153 A profile MAY restrict container/lane/phase appearance options for communication/accessibility consistency, but restrictions MUST be explicit profile/presentation capability data.
+FDA-2023 A profile MAY restrict container/lane/phase appearance options for communication/accessibility consistency, but restrictions MUST be explicit profile/presentation capability data.
 
 
 ## Appearance resolution cascade
