@@ -50,11 +50,17 @@ PS-024 Studio SHOULD support a stakeholder in presentation/preview mode without 
 
 PS-030 A user MUST be able to create a project, add pages and diagrams, add Forma components or diagram elements appropriate to the active surface, configure allowed properties, enter sample content, link pages or diagram elements, preview, validate, save, reopen, and export.
 
-PS-031 A user MUST be able to start from a blank project and choose a first Layout page or Flow diagram without Studio creating an unrelated dummy surface.
+PS-031 A user MUST be able to start from a blank-template creation flow and choose the first Layout page or Flow diagram; canonical project creation MUST establish that first authored surface atomically rather than persisting an invalid zero-surface project or an unrelated dummy surface.
 
 PS-032 A user SHOULD be able to start from a future template without changing the project file format.
 
 PS-033 A user MUST be able to clone/duplicate a project file safely.
+
+PS-035 Studio MUST distinguish copying the same project file/revision from creating a new project derived from an existing project.
+
+PS-036 "Duplicate as new project" MUST allocate a new project ID and MUST define deterministic remapping/preservation rules for internal page/diagram/element IDs and internal references.
+
+PS-037 A copied file intended to remain the same project MAY preserve project/internal IDs, but Studio MUST make the identity distinction visible enough to avoid accidental divergent saves to the same remote project location.
 
 PS-034 A user MUST be warned before a destructive project migration or unsupported downgrade.
 
