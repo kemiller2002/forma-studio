@@ -34,17 +34,17 @@ EHA-040 Studio MUST provide a machine-readable agent-oriented export.
 
 EHA-041 The agent export MUST include project schema version and pinned Forma version.
 
-EHA-042 The agent export MUST include pages, routes, start page, component trees, property values, token bindings, scenarios, navigation actions, annotations, and validation findings.
+EHA-042 The agent export MUST include pages, routes, start page, component trees, diagrams, diagram nodes/edges, graph topology, authored geometry, profile semantics, property values, token bindings, scenarios, navigation actions, annotations, and validation findings.
 
 EHA-043 The agent export MUST include stable IDs.
 
-EHA-044 The agent export SHOULD include a dependency/graph section for page navigation and requirement references.
+EHA-044 The agent export SHOULD include graph/dependency sections for page navigation, Flow relationships, cross-surface references, and requirement references.
 
 EHA-045 The agent export SHOULD include unresolved obligations and unknowns.
 
 EHA-046 The agent export MUST NOT include chain-of-thought or private model reasoning.
 
-EHA-047 The agent export MUST not require image recognition to understand layout/component identity.
+EHA-047 The agent export MUST not require image recognition to understand layout/component identity, diagram topology, or typed relationship semantics.
 
 EHA-048 Agent output MUST clearly identify where domain/application logic remains unspecified.
 
@@ -104,6 +104,8 @@ EHA-140 Figma import/export MAY be explored later as an adapter.
 
 EHA-141 Any Figma adapter MUST map to the canonical Studio project/component contracts rather than becoming a second source of truth.
 
-EHA-142 Screenshot/image export MAY be provided for communication but MUST never be the only developer handoff artifact.
+EHA-142 Screenshot/image/SVG diagram export MAY be provided for communication but MUST never be the only developer handoff artifact.
 
 EHA-143 Future design-tool adapters MUST be isolated from the core domain model.
+
+EHA-144 Future Visio, draw.io, Mermaid, Graphviz, BPMN, or similar adapters MAY translate to/from the canonical graph model only through explicit compatibility contracts; lossless support MUST NOT be implied when semantics differ.
