@@ -90,7 +90,7 @@ EHA-084 Static export SHOULD support route/page preview through generated static
 
 EHA-100 Pages, nodes, and annotations MAY reference external requirement IDs/URLs.
 
-EHA-101 Studio SHOULD export a traceability matrix of requirement reference -> page/node.
+EHA-101 Studio SHOULD export a traceability matrix of requirement reference -> page/component and diagram/element.
 
 EHA-102 Broken external references SHOULD be distinguishable from unavailable verification.
 
