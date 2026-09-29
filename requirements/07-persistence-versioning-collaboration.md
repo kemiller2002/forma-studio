@@ -148,6 +148,20 @@ PVC-131 Concurrent profile upgrade/migration and profile-specific element edits 
 
 PVC-132 Merge resolution MUST preserve stable graph IDs wherever the resolved element remains the same canonical entity.
 
+PVC-133 Concurrent edits to different metadata fields on the same stable object SHOULD merge mechanically when field/schema rules prove them independent.
+
+PVC-134 Concurrent edits to the same explicit metadata field/value on the same object MUST require deterministic conflict resolution unless values are canonically equivalent.
+
+PVC-135 A metadata-schema type/cardinality/constraint change concurrent with edits to affected values MUST block automatic merge unless the new schema validates the edited values and the migration contract explicitly permits it.
+
+PVC-136 Concurrent edits to different named style definitions or different palette slots SHOULD merge mechanically by stable definition/slot ID.
+
+PVC-137 Concurrent incompatible edits to the same named style property or palette-slot value/mode MUST require explicit resolution.
+
+PVC-138 A named-style definition change and an independent object-local appearance override MAY merge when the style/override precedence contract remains valid; the merged resolved appearance MUST be revalidated.
+
+PVC-139 External/source-bound metadata refresh versus a local override/edit MUST follow the explicit source/override authority contract and MUST NOT silently discard either side.
+
 ## Backup and portability
 
 PVC-140 A user MUST be able to retain a complete project without an Echelon account or proprietary cloud backend.
