@@ -16,11 +16,17 @@ The branch contains the product requirements baseline, architecture and document
 - F# is the application-authority implementation language.
 - Limen is the browser boundary.
 - The canonical project artifact is typed JSON/specification data, not pixels.
+- Projects support page-only, diagram-only, and mixed authored surfaces.
+- Layout pages use semantic Forma composition; Flow diagrams use explicit graph topology and authored spatial geometry.
+- Layout and Flow share one editor command/selection/history/persistence architecture.
 - Projects support multiple pages and an explicit page-navigation graph.
 - Internal links target stable page IDs; routes are projections.
 - Git/local-file persistence precedes any hosted database requirement.
 - Figma is optional interoperability, not a dependency.
-- General-purpose vector editing is outside v1.
+- General-purpose vector/freehand editing is outside v1.
+- General, Workflow, State, and Architecture diagram profiles are the intended initial Flow profile family.
+- Typed diagrams remain specifications; they do not become executable business logic without a separate explicit runtime/generation contract.
+- Reusable production diagram presentation remains Forma-owned; the current missing public diagram presentation family is tracked by kemiller2002/forma#52.
 - Aegis is the standard unexpected operational-fault mechanism in the F# engine; expected domain refusals and Limen OutcomeUnknown remain distinct concepts.
 
 ## Installed capability baseline
@@ -42,7 +48,7 @@ Visual Engineering intentionally ignores its generated `.visual-engineering/` re
 
 ## Requirements baseline
 
-The numbered requirements under `requirements/` cover 16 domains:
+The numbered requirements under `requirements/` cover 17 domains:
 - product scope;
 - projects/pages/routes/navigation;
 - editor/canvas/composition;
@@ -58,7 +64,8 @@ The numbered requirements under `requirements/` cover 16 domains:
 - roadmap/non-goals;
 - content/assets/forms;
 - reusable compositions/templates/layouts;
-- fault handling/recovery/Aegis.
+- fault handling/recovery/Aegis;
+- Flow/diagram authoring.
 
 ## Open implementation obligations
 
@@ -66,6 +73,9 @@ The numbered requirements under `requirements/` cover 16 domains:
 - Implement deterministic project parsing, migration, normalization, and validation.
 - Define/consume richer machine-readable Forma component-property and slot metadata where the current Forma contract is insufficient.
 - Build the editor shell and real Forma component rendering.
+- Extend the project schema/domain model with Diagram/Node/Edge/Profile/Group/Lane geometry/topology contracts.
+- Implement the shared editor command core needed by both Layout and Flow vertical slices.
+- Implement the first Flow vertical slice: two nodes, connection, movement, label, undo/redo, save/reload.
 - Build page/navigation graph authoring and interactive linked-page preview.
 - Build theme/viewport/scenario review.
 - Add browser and accessibility test harnesses.
