@@ -20,7 +20,7 @@ PS-008 Studio MUST distinguish presentation state from the application-domain st
 
 PS-009 Studio MUST NOT become the source of truth for business rules, permissions, scoring, obligations, or domain transition legality in generated applications.
 
-PS-010 Studio MUST support single-page and multi-page designs.
+PS-010 Studio MUST support page-only, diagram-only, and mixed projects, including single-page, multi-page, single-diagram, and multi-diagram specifications.
 
 PS-011 Studio MUST support explicit links between pages and allow a user to preview those links interactively.
 
@@ -50,7 +50,7 @@ PS-024 Studio SHOULD support a stakeholder in presentation/preview mode without 
 
 PS-030 A user MUST be able to create a project, add pages and diagrams, add Forma components or diagram elements appropriate to the active surface, configure allowed properties, enter sample content, link pages or diagram elements, preview, validate, save, reopen, and export.
 
-PS-031 A user MUST be able to start from a blank project.
+PS-031 A user MUST be able to start from a blank project and choose a first Layout page or Flow diagram without Studio creating an unrelated dummy surface.
 
 PS-032 A user SHOULD be able to start from a future template without changing the project file format.
 
