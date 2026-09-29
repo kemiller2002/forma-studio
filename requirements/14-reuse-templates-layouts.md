@@ -56,7 +56,7 @@ RTL-080 Studio MAY ship starter project/page templates.
 
 RTL-081 Templates MUST be ordinary versioned Studio project fragments/documents using public schema concepts.
 
-RTL-082 Applying a template MUST create new project/page/node IDs where required.
+RTL-082 Applying a template MUST create new project/page/component/diagram/diagram-element IDs where required.
 
 RTL-083 Template content MUST be clearly distinguishable from canonical Forma components and from user project content.
 
