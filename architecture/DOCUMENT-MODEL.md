@@ -165,6 +165,14 @@ Semantic type/status never derives from color. Metadata-to-color behavior is an 
 
 Project palettes and mapping rules are project/profile presentation data and do not become graph topology or domain transition authority.
 
+## Shared object metadata
+
+Metadata is a cross-surface object capability, not a Flow-only feature.
+
+Projects, pages, addressable component nodes, diagrams, diagram elements, scenarios/annotations, and future canonical Folio/document objects may carry the same typed/namespaced metadata envelope where their contract permits it.
+
+Object metadata is orthogonal to visible content, semantic type, Layout/Flow structure, geometry, appearance/style, accessibility semantics, and typed resource references. Surface/profile/component contracts decide which fields are legal and which fields may be projected into visible/runtime output.
+
 ## Metadata schemas and values
 
 Profiles/extensions may define versioned metadata schemas. A field definition identifies a stable key, value type/cardinality, optional default, validation constraints, display/help metadata, and visibility/transport policy.
