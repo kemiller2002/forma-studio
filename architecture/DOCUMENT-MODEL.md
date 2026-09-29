@@ -72,8 +72,11 @@ A DiagramNode contains:
 - authored locked state when supported
 - authored visibility state when supported
 - label/content
+- optional typed/namespaced metadata
+- optional metadata visibility/sensitivity policy
 - optional named ports
 - visual properties and public presentation capability identifiers
+- optional authored appearance: fill, stroke/border, accent, foreground, palette/token/literal source
 - optional typed cross-surface/resource references
 - optional profile-specific semantic properties
 - optional group/lane membership
@@ -90,7 +93,10 @@ A DiagramEdge contains:
 - target node/port ID
 - connector/relationship kind
 - optional label
+- optional typed/namespaced metadata
+- optional metadata visibility/sensitivity policy
 - optional profile-specific semantic properties
+- optional authored appearance including connector stroke/accent and label foreground where supported
 - optional routing mode
 - optional explicit manual routing points
 - optional edge-label position override
@@ -123,6 +129,41 @@ A component node contains:
 - optional scenario overrides
 
 Studio must not invent component properties that are absent from the canonical contract.
+
+## Object metadata
+
+Addressable diagram objects may carry typed, namespaced descriptive metadata.
+
+Metadata is separate from:
+
+- stable identity;
+- semantic element/relationship type;
+- graph topology;
+- geometry;
+- authored appearance/color;
+- accessibility name/description;
+- provenance/evidence references where those are modeled separately.
+
+Profiles/extensions may define metadata schemas and visibility/transport policies. Unknown metadata is preserved when safe and defaults to non-rendered/non-exported behavior unless an explicit contract says otherwise.
+
+Metadata edits use canonical commands and participate in undo/redo, diff/merge, copy/paste, migration, validation, search, and agent export.
+
+## Authored appearance and color
+
+Flow objects may carry authored appearance independently from their semantic type/status.
+
+Color sources are distinguishable as:
+
+- Forma token reference;
+- project/profile palette slot;
+- fixed literal color where permitted;
+- explicit metadata-to-color mapping result.
+
+The project model preserves the source, not only a resolved rendered color.
+
+Semantic type/status never derives from color. Metadata-to-color behavior is an explicit inspectable mapping contract with deterministic precedence and unknown-value behavior.
+
+Project palettes and mapping rules are project/profile presentation data and do not become graph topology or domain transition authority.
 
 ## Diagram profile
 
