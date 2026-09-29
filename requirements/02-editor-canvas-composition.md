@@ -2,15 +2,25 @@
 
 ## Editor layout
 
-ECC-001 The editor MUST provide a component catalog, page navigator, selected-page component tree, visual preview/canvas, property inspector, validation surface, and project/save status.
+ECC-001 The editor MUST provide an authored-surface navigator, surface-appropriate palette/catalog, selected-surface Structure/Outline view, visual preview/canvas, property inspector, validation surface, and project/save status.
 
 ECC-002 Major editor regions MUST be keyboard reachable.
 
 ECC-003 Desktop layouts SHOULD allow panels to be resized and collapsed.
 
-ECC-004 Mobile layouts MUST prioritize page preview, selection, property editing, and validation without requiring a desktop-width canvas.
+ECC-004 Mobile layouts MUST prioritize the active authored surface, selection, Structure/Outline navigation, property editing, and validation without requiring a desktop-width canvas.
 
 ECC-005 Studio MUST provide a distraction-reduced preview mode.
+
+ECC-006 The authored-surface navigator MUST distinguish Layout pages from Flow diagrams without requiring users to infer surface type from icons/color alone.
+
+ECC-007 Selecting a surface MUST switch palette, Structure/Outline projection, inspector capabilities, validation scope, and canvas behavior through the shared editor capability model.
+
+ECC-008 A diagram-only project MUST be fully usable without a hidden or synthetic page navigator entry.
+
+ECC-009 A mixed project SHOULD make cross-surface references discoverable without merging page/component hierarchy and graph topology into one misleading tree.
+
+ECC-010 The selected/active surface is editor state; changing active surface MUST NOT mutate canonical project content.
 
 ## Canvas model
 
@@ -54,17 +64,17 @@ ECC-047 Adding a component MUST initialize only canonical defaults; Studio MUST 
 
 ECC-060 A click/tap on preview content SHOULD select the corresponding component node.
 
-ECC-061 Selecting a node in the tree MUST highlight its preview representation.
+ECC-061 Selecting an element in the active Structure/Outline view MUST highlight its corresponding preview/canvas representation.
 
 ECC-062 Nested components MUST appear hierarchically.
 
-ECC-063 The component tree MUST support expand/collapse independent of component presentation state.
+ECC-063 Layout component trees and Flow structure/outline representations MUST support expand/collapse independent of authored presentation state.
 
 ECC-064 Multi-selection SHOULD be supported for compatible batch operations.
 
 ECC-065 Selection MUST be editor-only state.
 
-ECC-066 The tree MUST expose stable IDs for debugging without making them primary user-facing labels.
+ECC-066 Structure/Outline views MUST expose stable IDs for debugging without making them primary user-facing labels.
 
 ## Movement and restructuring
 
