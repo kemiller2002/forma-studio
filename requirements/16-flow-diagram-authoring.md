@@ -1523,30 +1523,6 @@ FDA-1054 Failure to restore an optional local history/recovery journal MUST leav
 FDA-1055 Reverting a durable Git/project revision MUST create/produce ordinary canonical state/history according to persistence rules and MUST NOT masquerade as a local single-command undo.
 
 
-## User-defined metadata fields
-
-FDA-2000 The General diagram profile MUST allow users to define descriptive custom metadata fields for diagram objects without requiring a new compiled Studio profile.
-
-FDA-2001 User-defined metadata SHOULD be represented by project-scoped/versioned field definitions rather than unrelated per-object free-text keys whenever the same field is intended for reuse.
-
-FDA-2002 Creating a reusable custom field definition MUST assign a stable collision-safe field ID/key, value type, display label, and visibility policy; optional default/allowed-values/constraints MAY also be supplied.
-
-FDA-2003 A user MAY add a one-off custom field only through a contract that still gives the field a stable namespaced identity and explicit type; Studio MUST NOT persist ambiguous untyped arbitrary JSON blobs as ordinary metadata.
-
-FDA-2004 Schema-defined profile fields and user-defined project fields MUST be visibly distinguishable in the inspector.
-
-FDA-2005 Renaming a user-facing field label MUST NOT change the stable field key/ID.
-
-FDA-2006 Changing a custom field's stable key/type/cardinality is a schema migration and MUST preview affected values before commit.
-
-FDA-2007 Deleting a custom field definition with values MUST surface affected objects and require explicit removal/migration; Studio MUST NOT silently orphan invisible values.
-
-FDA-2008 Custom field definitions MAY declare which object/profile kinds they apply to.
-
-FDA-2009 Copying objects to another project MUST reconcile custom field-definition identity through explicit reuse/import/remap behavior rather than matching only by display label.
-
-FDA-2010 User-defined metadata fields remain descriptive until a profile/application explicitly binds them to semantic rules; creating a field named "approved" does not create approval authority.
-
 ## Container/lane/phase appearance
 
 FDA-2020 Eligible groups, semantic containers, swimlanes, phases, and boundaries MAY carry authored fill, border/stroke, and accent appearance where supported by the active Forma/profile presentation contract.
@@ -1702,6 +1678,12 @@ FDA-1188 General diagrams MUST be able to use project-local metadata fields even
 FDA-1189 The Metadata inspector SHOULD let a user add values to an object by choosing from applicable registered fields rather than forcing arbitrary raw JSON editing.
 
 FDA-1190 Studio MAY support an advanced raw/structured metadata inspection view for debugging, but it MUST NOT be the only editing surface for ordinary metadata.
+
+FDA-1191 Inspector UI MUST distinguish profile/library-defined metadata fields from project-local/user-defined fields.
+
+FDA-1192 Copying/pasting/importing objects across projects MUST reconcile project-local field-definition identity through explicit reuse/import/remap behavior rather than matching definitions only by display label.
+
+FDA-1193 Project-local metadata fields remain descriptive unless an explicit profile/application contract binds them to semantic rules; creating a field named "approved" or "blocked" does not create approval/blocking authority.
 
 ## Project palette management
 
