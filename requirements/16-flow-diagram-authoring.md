@@ -677,3 +677,90 @@ FDA-493 Geometry-only diffs SHOULD suppress meaningless changes eliminated by ca
 FDA-494 A review/export MUST not describe a moved node as a semantic workflow transition change unless topology/semantic properties actually changed.
 
 FDA-495 Future visual before/after overlay MAY be added as a review aid but MUST remain secondary to canonical semantic diff.
+
+
+## Spatial stability, themes, and viewport behavior
+
+FDA-500 Flow diagrams MUST NOT automatically reflow/reposition canonical node geometry merely because the editor viewport, browser window, device orientation, zoom level, theme, skin, or brand changes.
+
+FDA-501 Responsive page-layout rules from Forma MUST NOT be implicitly applied to Flow graph geometry.
+
+FDA-502 A future responsive/constrained diagram mode MAY exist only through an explicit versioned diagram/profile capability with deterministic rules.
+
+FDA-503 Theme/skin/brand changes MAY alter presentation but MUST NOT silently rewrite saved graph geometry.
+
+FDA-504 If a presentation/font change causes detectable clipping or label-fit problems, Studio SHOULD report a review finding and MAY offer an explicit reversible reflow/resize command.
+
+FDA-505 Browser-measured text metrics MUST NOT cause canonical geometry to drift merely by opening the same project in another supported environment.
+
+FDA-506 If browser measurement is used to propose auto-size geometry, the committed normalized size MUST become explicit canonical state or be derivable by a separately specified deterministic layout contract.
+
+FDA-507 Re-running an explicit text/node reflow command MUST be reviewable as a geometry change and MUST participate in undo/redo.
+
+FDA-508 Connector routing and label positioning MUST remain stable under pure pan/zoom operations.
+
+## Crossing and junction semantics
+
+FDA-510 Visual intersection of two connector paths MUST NOT imply graph connectivity.
+
+FDA-511 Graph connectivity exists only through canonical endpoints/ports or explicit junction-node semantics defined by the active profile.
+
+FDA-512 If the presentation contract supports line-jump/bridge/crossover notation, its use MUST remain presentation-only and MUST NOT change topology.
+
+FDA-513 An explicit junction, merge, split, or bus node MUST have stable identity when the profile models it as semantic topology.
+
+FDA-514 Connector hit testing at crossings MUST allow each independent edge to remain individually selectable through an accessible alternative even when pointer selection is ambiguous.
+
+## Declarative profile extensibility
+
+FDA-520 Built-in and future external diagram profiles MUST expose declarative, typed contracts for element kinds, properties, ports, containment, relationships, validation, and presentation mappings.
+
+FDA-521 Project documents MUST NOT carry arbitrary JavaScript or executable plugin code as part of a diagram profile.
+
+FDA-522 Future externally distributed profile packages MUST be pinned/versioned and governed under the repository dependency/security policy.
+
+FDA-523 Profile validation extensions MUST execute only through approved Studio extension/runtime boundaries and MUST NOT bypass canonical command legality or project validation.
+
+FDA-524 Unknown/unavailable external profile packages MUST leave project data inspectable and preserved, while editing that requires the missing profile MAY be blocked.
+
+FDA-525 Profile package identity MUST be distinguishable from profileId/profileVersion when multiple sources could publish similarly named profiles.
+
+FDA-526 Built-in profile IDs MUST use stable namespaced identifiers so future third-party profiles cannot collide silently.
+
+## Rotation and advanced transforms
+
+FDA-530 Arbitrary rotation, skew, and freeform transform matrices are not required for the initial Flow implementation.
+
+FDA-531 If node rotation is later introduced, it MUST be an explicit typed geometry property with documented units/normalization and profile/presentation support.
+
+FDA-532 Rotation MUST NOT be inferred from connector direction or semantic node type.
+
+FDA-533 Skew/freeform transform support requires a separate requirement because it materially affects hit testing, bounds, routing, accessibility, export, and print.
+
+## Derived graph projections
+
+FDA-540 Studio MAY use the shared Flow graph infrastructure to render derived/non-authored graphs such as page navigation, dependency, validation, requirement, or traceability views.
+
+FDA-541 A derived graph MUST identify its authoritative source model and MUST NOT become canonical authored Diagram data merely because it uses the Flow renderer/editor shell.
+
+FDA-542 Editing a derived graph MAY be allowed only when the gesture/command maps unambiguously to a legal command against its authoritative source model.
+
+FDA-543 Derived graph auto-layout/geometry SHOULD remain view state unless the source feature explicitly authors presentation geometry.
+
+FDA-544 The same graph projection infrastructure SHOULD be reused instead of creating independent bespoke node/edge selection, pan/zoom, routing, or accessibility implementations for each Studio graph view.
+
+FDA-545 Authored Flow diagrams and derived graph views MUST remain distinguishable in project/export/agent semantics.
+
+## Diagram import placement and merge modes
+
+FDA-550 Importing an external diagram MUST explicitly choose or infer through a documented command whether the result creates a new diagram, replaces an existing diagram, or attempts a semantic merge.
+
+FDA-551 Replace import MUST preserve the existing diagram ID only when the user explicitly chooses replacement and the adapter can legally map the new content into that identity.
+
+FDA-552 Merge import MUST use stable/source identities and semantic matching rules explicitly; visual proximity or similar labels alone MUST NOT silently decide entity identity.
+
+FDA-553 Ambiguous entity matching during import merge MUST create review obligations rather than guessing.
+
+FDA-554 Import into a typed profile MUST validate the mapped graph before canonical commit.
+
+FDA-555 Import preview SHOULD show source-to-canonical mapping outcomes and lossy/unsupported concepts before commit when practical.
