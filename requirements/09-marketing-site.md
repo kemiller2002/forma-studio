@@ -30,13 +30,23 @@ MS-026 The site MUST be mobile-friendly down to 320px.
 
 ## Content
 
-MS-040 The hero MUST identify Forma Studio as a visual application specification environment.
+MS-040 The hero MUST identify Forma Studio as a visual application and diagram specification environment.
 
 MS-041 The hero MUST explain that Studio renders actual Forma components and saves machine-readable specifications.
 
 MS-042 The site MUST explain the distinction between Forma Studio and a general-purpose vector editor.
 
 MS-043 The site MUST explain multi-page composition and explicit page linking.
+
+MS-052 The site MUST explain the distinction between Layout and Flow surfaces and that both edit the same typed project model through shared Studio infrastructure.
+
+MS-053 The site SHOULD show a real Flow example with nodes/connectors and at least one typed Workflow, State, or Architecture profile once the feature is implemented.
+
+MS-054 The site MUST NOT describe typed Flow diagrams as executable workflows unless an execution/runtime capability has separately shipped and is explicitly in use.
+
+MS-055 The site SHOULD explain that diagram topology/semantics are machine-readable and do not require screenshot interpretation.
+
+MS-056 The site SHOULD explain that reusable production diagram presentation remains Forma-governed and editor adorners are not exported content.
 
 MS-044 The site MUST explain responsive preview using real browser layout.
 
@@ -84,7 +94,7 @@ MS-087 The initial marketing page SHOULD be static HTML/CSS plus optional progre
 
 ## Information architecture
 
-MS-100 Initial single-page sections SHOULD include: navigation, hero, what it is, why specification not pixels, multi-page flow, real Forma rendering, responsive/accessibility, developer/agent handoff, architecture, limitations/status, and call to action.
+MS-100 Initial single-page sections SHOULD include: navigation, hero, what it is, why specification not pixels, Layout/page composition, Flow/diagram authoring, real Forma rendering, responsive/accessibility, developer/agent handoff, architecture, limitations/status, and call to action.
 
 MS-101 Future documentation pages MAY be added without changing the root marketing URL.
 
