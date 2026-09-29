@@ -24,6 +24,12 @@ EHA-023 Generated markup MUST distinguish application placeholders/fixtures from
 
 EHA-024 Studio MUST expose page route/navigation definitions.
 
+EHA-027 For a selected diagram element, developer inspection MUST expose diagram ID, profile ID/version, stable element ID, element/relationship kind, canonical geometry where applicable, containment/layer membership, semantic properties, presentation capability mapping, and source/target endpoint IDs for edges.
+
+EHA-028 Developer inspection MUST distinguish Flow semantic/profile properties from visual/presentation properties and editor-only view/adornment state.
+
+EHA-029 Studio SHOULD expose source documentation references for the active diagram profile and public presentation primitives where available.
+
 EHA-025 Studio SHOULD expose source documentation references for Forma patterns and tokens.
 
 EHA-026 Studio SHOULD expose responsive/theme preview metadata used during review.
@@ -32,9 +38,9 @@ EHA-026 Studio SHOULD expose responsive/theme preview metadata used during revie
 
 EHA-040 Studio MUST provide a machine-readable agent-oriented export.
 
-EHA-041 The agent export MUST include project schema version and pinned Forma version.
+EHA-041 The agent export MUST include project schema version, pinned Forma version, and all diagram profile IDs/versions required to interpret the project.
 
-EHA-042 The agent export MUST include pages, routes, start page, component trees, diagrams, diagram nodes/edges, graph topology, authored geometry, profile semantics, property values, token bindings, scenarios, navigation actions, annotations, and validation findings.
+EHA-042 The agent export MUST include pages, routes, optional start page, component trees, diagrams, diagram nodes/edges/ports/groups/lanes/layers where supported, graph topology, authored geometry, profile semantics, property values, token bindings, scenarios, navigation actions, annotations, and validation findings.
 
 EHA-043 The agent export MUST include stable IDs.
 
@@ -47,6 +53,10 @@ EHA-046 The agent export MUST NOT include chain-of-thought or private model reas
 EHA-047 The agent export MUST not require image recognition to understand layout/component identity, diagram topology, or typed relationship semantics.
 
 EHA-048 Agent output MUST clearly identify where domain/application logic remains unspecified.
+
+EHA-049 Agent exports MUST distinguish typed diagram semantics authored in Studio from externally authoritative domain semantics and MUST identify when that authority is unknown/unlinked.
+
+EHA-050 Agent exports SHOULD include normalized semantic diff categories for diagram topology, semantic-property, geometry-only, routing-only, and presentation-only changes when exporting review context.
 
 ## Implementation generation
 
