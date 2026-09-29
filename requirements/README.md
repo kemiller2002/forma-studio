@@ -22,6 +22,7 @@ The requirements are intentionally broader than a first implementation sprint. T
 - 13-content-assets-forms.md
 - 14-reuse-templates-layouts.md
 - 15-faults-recovery-aegis.md
+- 16-flow-diagram-authoring.md
 
 ## Normative language
 
@@ -31,8 +32,8 @@ MAY is optional.
 
 ## Product invariant
 
-A saved Forma Studio project is a machine-readable visual application specification.
+A saved Forma Studio project is a machine-readable visual application and diagram specification.
 
-The rendered canvas is a projection of that specification.
+Layout and Flow canvases are projections of that specification and share one editor core.
 
 The DOM is never the authoritative project state.
