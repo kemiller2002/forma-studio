@@ -883,3 +883,88 @@ FDA-633 Deleting an embedded/referenced diagram MUST surface dependent Layout/Fo
 FDA-634 Cycles created through cross-surface references/embeds MUST be detected where they could cause nonterminating rendering/export.
 
 FDA-635 Folio/document embedding of diagrams MUST use the same stable diagram identity and explicit projection/export rules when Folio integration ships.
+
+
+## Identity and graph scope
+
+FDA-640 Diagram IDs MUST be unique within the project.
+
+FDA-641 Canonical diagram element IDs for nodes, edges, groups, lanes, junctions, and other addressable graph elements MUST be unique project-wide unless a future schema explicitly introduces typed composite identity; Studio MUST NOT rely on visible labels for identity.
+
+FDA-642 Profile-defined/dynamic port IDs MUST be stable within their owning node; canonical references to a port MUST include enough owning-node identity to be unambiguous.
+
+FDA-643 A canonical edge belongs to exactly one diagram and MUST NOT directly span two diagram containers.
+
+FDA-644 Cross-diagram relationships MUST use typed references/subflow/dependency links rather than an edge whose endpoints live in different diagram graphs.
+
+FDA-645 External/source-format IDs MAY be preserved as namespaced provenance metadata but MUST NOT replace Studio canonical IDs.
+
+FDA-646 Import/paste/duplication MUST remap colliding IDs before canonical commit and preserve all affected internal references consistently.
+
+FDA-647 Undo that restores a deleted canonical graph element MUST restore its original stable ID when the history entry represents restoration of the same entity.
+
+## Nested selection normalization
+
+FDA-650 If a selection includes a container/group and one of its descendants, a spatial transform MUST NOT apply twice to the descendant.
+
+FDA-651 Studio MUST normalize or explicitly explain ancestor/descendant multi-selection semantics before move/resize/group operations.
+
+FDA-652 Delete of a selection containing both ancestor and descendant elements MUST produce one deterministic dependency/deletion plan rather than duplicate deletion effects.
+
+FDA-653 Copy/duplicate of ancestor plus descendant MUST include each canonical element once and preserve containment relationships.
+
+FDA-654 Batch inspector edits MAY intentionally target both ancestor and descendant only when the property is legal for each target and the command semantics are unambiguous.
+
+## Long-running computation and stale results
+
+FDA-660 Auto-layout, expensive routing, import transformation, and whole-graph analysis MUST operate against an identified canonical project/diagram revision.
+
+FDA-661 A completed asynchronous computation MUST NOT overwrite newer canonical edits silently.
+
+FDA-662 If canonical input changed while a computation was running, Studio MUST reject the stale result, recompute, or present an explicit rebase/review path.
+
+FDA-663 Auto-layout preview acceptance MUST validate that referenced node/edge identities and applicable constraints still match the revision assumptions used to compute the preview.
+
+FDA-664 Cancellation MUST leave the last committed canonical state intact and MUST invalidate late-arriving cancelled results.
+
+FDA-665 Progress reporting MUST distinguish computation in progress from canonical project mutation/save progress.
+
+## Data-bound and derived diagrams
+
+FDA-670 Future data-bound diagrams MUST explicitly identify the external/source model, source version/revision when available, and whether the diagram is derived/read-only, refreshable with local overrides, or materialized as independent authored graph data.
+
+FDA-671 Studio MUST NOT silently overwrite manual authored graph changes during a data-source refresh.
+
+FDA-672 Refresh MUST compute a semantic change set and surface conflicts between source changes and local authored overrides before commit.
+
+FDA-673 A derived/read-only graph MUST retain its external authority boundary; visual edits that cannot map to legal source changes MUST remain view-only or be rejected.
+
+FDA-674 Materializing a derived graph into authored Flow content MUST be an explicit command that creates ordinary canonical graph identities and records source provenance separately.
+
+FDA-675 Loss of access to a data source MUST leave the last known canonical/materialized data inspectable and MUST report freshness/verification as unavailable rather than deleting nodes.
+
+FDA-676 Data-bound status, stale/fresh state, and source authority MUST be explicit and MUST NOT be inferred from visual styling alone.
+
+## Internationalization and bidirectional content
+
+FDA-680 Diagram labels, descriptions, metadata, and annotations MUST support Unicode text.
+
+FDA-681 Diagram text rendering/inspection MUST support bidirectional and right-to-left text to the extent supported by the selected Forma/browser presentation contract.
+
+FDA-682 Stable node/edge/profile identities MUST remain independent of translated/localized visible labels.
+
+FDA-683 Locale changes MUST NOT silently rewrite canonical graph topology or geometry.
+
+FDA-684 If localized text no longer fits authored node geometry, Studio SHOULD surface a clipping/legibility finding and MAY offer an explicit reflow command rather than resizing silently.
+
+FDA-685 Agent/developer export MUST preserve canonical identifiers alongside localized visible content so implementations do not infer identity from translated labels.
+
+## Legends and semantic keying
+
+FDA-690 Typed diagram profiles SHOULD be able to provide a generated legend/key explaining node/relationship kinds used in the current diagram.
+
+FDA-691 A generated legend MUST derive from explicit profile semantics and presentation mappings rather than reverse-engineering shapes/colors from rendered output.
+
+FDA-692 Legends MUST expose textual names/descriptions for semantic kinds; color/shape samples MAY supplement but MUST NOT be the only explanation.
+
+FDA-693 An authored custom legend, if supported, MUST remain distinguishable from the profile-generated semantic key so it cannot silently redefine profile meaning.
