@@ -1681,68 +1681,68 @@ FDA-1127 The handoff MUST preserve enough stable object/reference identity to su
 
 ## Project-local metadata field definitions
 
-FDA-1130 Studio MUST allow a project to define reusable project-local metadata fields without requiring a custom external diagram profile/package.
+FDA-1180 Studio MUST allow a project to define reusable project-local metadata fields without requiring a custom external diagram profile/package.
 
-FDA-1131 A project-local metadata field MUST have a stable field ID/key, display name, value type, applicability scope, optional help text, visibility/transport policy, and optional validation/default configuration.
+FDA-1181 A project-local metadata field MUST have a stable field ID/key, display name, value type, applicability scope, optional help text, visibility/transport policy, and optional validation/default configuration.
 
-FDA-1132 Applicability MAY target all addressable project objects or an explicit subset such as pages, Layout components, diagrams, nodes, edges, groups, lanes/phases, or specific profile element kinds.
+FDA-1182 Applicability MAY target all addressable project objects or an explicit subset such as pages, Layout components, diagrams, nodes, edges, groups, lanes/phases, or specific profile element kinds.
 
-FDA-1133 Creating, renaming, reordering, changing, or deleting a project-local metadata field MUST use typed canonical commands and be undoable.
+FDA-1183 Creating, renaming, reordering, changing, or deleting a project-local metadata field MUST use typed canonical commands and be undoable.
 
-FDA-1134 Renaming the display name of a field MUST preserve its stable field key and every existing value/reference/query/mapping.
+FDA-1184 Renaming the display name of a field MUST preserve its stable field key and every existing value/reference/query/mapping.
 
-FDA-1135 Changing a field's value type or cardinality when values already exist MUST require deterministic validation/migration and MUST NOT silently coerce incompatible values.
+FDA-1185 Changing a field's value type or cardinality when values already exist MUST require deterministic validation/migration and MUST NOT silently coerce incompatible values.
 
-FDA-1136 Deleting a field with existing values, filters, mappings, templates, agent references, or export dependencies MUST surface those uses and require explicit removal/migration.
+FDA-1186 Deleting a field with existing values, filters, mappings, templates, agent references, or export dependencies MUST surface those uses and require explicit removal/migration.
 
-FDA-1137 Studio SHOULD allow a field to be promoted from a one-off/project-local definition to a reusable profile/library definition only through an explicit migration/mapping process.
+FDA-1187 Studio SHOULD allow a field to be promoted from a one-off/project-local definition to a reusable profile/library definition only through an explicit migration/mapping process.
 
-FDA-1138 General diagrams MUST be able to use project-local metadata fields even when no typed Workflow/State/Architecture profile is active.
+FDA-1188 General diagrams MUST be able to use project-local metadata fields even when no typed Workflow/State/Architecture profile is active.
 
-FDA-1139 The Metadata inspector SHOULD let a user add values to an object by choosing from applicable registered fields rather than forcing arbitrary raw JSON editing.
+FDA-1189 The Metadata inspector SHOULD let a user add values to an object by choosing from applicable registered fields rather than forcing arbitrary raw JSON editing.
 
-FDA-1140 Studio MAY support an advanced raw/structured metadata inspection view for debugging, but it MUST NOT be the only editing surface for ordinary metadata.
+FDA-1190 Studio MAY support an advanced raw/structured metadata inspection view for debugging, but it MUST NOT be the only editing surface for ordinary metadata.
 
 ## Project palette management
 
-FDA-1150 Studio MUST provide project-level management for named palette slots when project palettes are used.
+FDA-1200 Studio MUST provide project-level management for named palette slots when project palettes are used.
 
-FDA-1151 A palette slot MUST have stable identity, display name, and a color source/value consistent with the canonical color model.
+FDA-1201 A palette slot MUST have stable identity, display name, and a color source/value consistent with the canonical color model.
 
-FDA-1152 Users MUST be able to create, rename, reorder, edit, and delete palette slots through typed commands.
+FDA-1202 Users MUST be able to create, rename, reorder, edit, and delete palette slots through typed commands.
 
-FDA-1153 Renaming a palette slot MUST preserve references through stable identity.
+FDA-1203 Renaming a palette slot MUST preserve references through stable identity.
 
-FDA-1154 Deleting an in-use palette slot MUST block or require explicit reassignment/materialization for all references.
+FDA-1204 Deleting an in-use palette slot MUST block or require explicit reassignment/materialization for all references.
 
-FDA-1155 Palette editing SHOULD expose swatch preview plus textual color/token value and applicable accessibility/contrast findings.
+FDA-1205 Palette editing SHOULD expose swatch preview plus textual color/token value and applicable accessibility/contrast findings.
 
-FDA-1156 Recent colors and personal picker history MUST remain editor preference state; converting one into a reusable project palette slot requires an explicit command.
+FDA-1206 Recent colors and personal picker history MUST remain editor preference state; converting one into a reusable project palette slot requires an explicit command.
 
-FDA-1157 Studio SHOULD provide a project palette view showing usage counts/affected objects to make broad color changes reviewable.
+FDA-1207 Studio SHOULD provide a project palette view showing usage counts/affected objects to make broad color changes reviewable.
 
-FDA-1158 A palette slot MAY define output/theme variants only through an explicit versioned property model; missing variants follow documented fallback rather than guessing.
+FDA-1208 A palette slot MAY define output/theme variants only through an explicit versioned property model; missing variants follow documented fallback rather than guessing.
 
 ## Declarative metadata-to-appearance mappings
 
-FDA-1160 The initial metadata-to-appearance system MUST use a small declarative mapping model rather than arbitrary scripting.
+FDA-1210 The initial metadata-to-appearance system MUST use a small declarative mapping model rather than arbitrary scripting.
 
-FDA-1161 A mapping MUST identify a source metadata field, applicable object scope, match rule, target appearance property or named style, and fallback behavior.
+FDA-1211 A mapping MUST identify a source metadata field, applicable object scope, match rule, target appearance property or named style, and fallback behavior.
 
-FDA-1162 The initial mapping model SHOULD prioritize categorical exact-match/set-membership mappings suitable for status, category, phase, owner, or tags before introducing general expression languages.
+FDA-1212 The initial mapping model SHOULD prioritize categorical exact-match/set-membership mappings suitable for status, category, phase, owner, or tags before introducing general expression languages.
 
-FDA-1163 Numeric ranges, compound predicates, and formulas MAY be introduced only through a separately versioned declarative rule contract with deterministic evaluation.
+FDA-1213 Numeric ranges, compound predicates, and formulas MAY be introduced only through a separately versioned declarative rule contract with deterministic evaluation.
 
-FDA-1164 Mapping evaluation order/precedence MUST be deterministic; conflicting rules affecting the same property MUST either have explicit precedence or be rejected as ambiguous.
+FDA-1214 Mapping evaluation order/precedence MUST be deterministic; conflicting rules affecting the same property MUST either have explicit precedence or be rejected as ambiguous.
 
-FDA-1165 A mapping MUST define behavior for missing, unknown, unavailable, invalid, and unmapped metadata values.
+FDA-1215 A mapping MUST define behavior for missing, unknown, unavailable, invalid, and unmapped metadata values.
 
-FDA-1166 Mapping a metadata value to a named style or palette slot MUST preserve the stable style/palette identity, not just copy the resolved color.
+FDA-1216 Mapping a metadata value to a named style or palette slot MUST preserve the stable style/palette identity, not just copy the resolved color.
 
-FDA-1167 Editing a mapping MUST preview or report the affected object set/count when determinable before a broad change is committed.
+FDA-1217 Editing a mapping MUST preview or report the affected object set/count when determinable before a broad change is committed.
 
-FDA-1168 Mapping rules MUST participate in undo/redo, semantic diff/merge, copy/project duplication, schema migration, agent export, and validation.
+FDA-1218 Mapping rules MUST participate in undo/redo, semantic diff/merge, copy/project duplication, schema migration, agent export, and validation.
 
-FDA-1169 Deleting/renaming/changing a metadata field referenced by a mapping MUST surface the dependent mapping and block or migrate explicitly.
+FDA-1219 Deleting/renaming/changing a metadata field referenced by a mapping MUST surface the dependent mapping and block or migrate explicitly.
 
-FDA-1170 Mapping rules MUST NOT mutate the underlying metadata values they read.
+FDA-1220 Mapping rules MUST NOT mutate the underlying metadata values they read.
