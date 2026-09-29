@@ -20,13 +20,17 @@ SP-020 Users MUST be able to add, rename, duplicate, reorder, and delete scenari
 
 SP-021 Every scenario MUST have a stable scenario ID.
 
-SP-022 A scenario MAY be project-wide or scoped to selected pages/components.
+SP-022 A scenario MAY be project-wide or scoped to selected pages/components or diagrams/diagram elements.
 
 SP-023 Scenario deletion MUST identify saved preview/bookmark references that depend on it.
 
-SP-024 Scenario overrides MUST reference stable node IDs.
+SP-024 Scenario overrides MUST reference stable component or diagram element IDs.
 
-SP-025 An override for a missing node MUST be reported, not ignored.
+SP-025 An override for a missing component/diagram element MUST be reported, not ignored.
+
+SP-026 Diagram walkthrough/simulation scenarios MAY identify current node/state, chosen outcome/transition, and explicit fixture values without becoming production domain state.
+
+SP-027 Diagram scenario data MUST remain separate from canonical graph topology unless the user explicitly edits the graph.
 
 ## Built-in stress scenarios
 
@@ -58,6 +62,12 @@ SP-065 Preview MUST distinguish editor selection from simulated application focu
 
 SP-066 Keyboard navigation in preview MUST exercise the real rendered controls.
 
+SP-067 Typed Flow diagrams MAY provide a walkthrough preview that highlights an authored path through explicit nodes/edges.
+
+SP-068 Flow walkthrough MUST stop or surface an obligation when required next-transition information is absent; it MUST NOT choose a business outcome by inference.
+
+SP-069 Walkthrough controls MUST provide keyboard/touch-accessible non-spatial alternatives to clicking tiny connectors.
+
 ## State inspection
 
 SP-080 The editor SHOULD expose active scenario values affecting the selected component.
@@ -67,6 +77,8 @@ SP-081 A developer view SHOULD show which values come from canonical component c
 SP-082 Preview should make unresolved/unknown values visually identifiable without rendering them as false certainty.
 
 SP-083 Scenario validation SHOULD detect unused overrides and missing targets.
+
+SP-084 Diagram scenario validation SHOULD detect path steps/transition references targeting missing or profile-incompatible elements.
 
 ## Comparison
 
@@ -84,4 +96,6 @@ SP-120 A five-page example project MUST be previewable under Default, Loading, E
 
 SP-121 Switching scenarios MUST not alter the exported canonical page tree.
 
-SP-122 A broken scenario override MUST identify scenario ID, node ID, and property/path.
+SP-122 A broken scenario override MUST identify scenario ID, target element ID, and property/path.
+
+SP-123 A typed workflow/state example SHOULD be walkable through an explicit scenario without changing canonical diagram topology.
