@@ -14,7 +14,7 @@ FRA-005 Aegis integration MUST preserve the Ordo distinction between known failu
 
 ## Fault boundaries
 
-FRA-020 Aegis SHOULD capture unexpected failures at infrastructure/application boundaries including project parsing, migration execution, GitHub integration adapters, local persistence adapters, export generation, and WASM/interop boundaries.
+FRA-020 Aegis SHOULD capture unexpected failures at infrastructure/application boundaries including project parsing, profile/diagram migration execution, external diagram import/export adapters, GitHub integration adapters, local persistence adapters, export generation, auto-layout/routing workers where applicable, and WASM/interop boundaries.
 
 FRA-021 Pure domain transitions SHOULD return typed domain results and MUST NOT depend on exception throwing for ordinary control flow.
 
@@ -38,6 +38,12 @@ FRA-043 Recovery actions MUST correspond to legal current-state capabilities.
 
 FRA-044 The editor MUST preserve the last known valid project state after an unexpected operational fault.
 
+FRA-045 Failure during a transient drag/resize/route preview MUST discard the transient preview and preserve the last canonical graph state.
+
+FRA-046 Failure or cancellation during staged auto-layout/import transformation MUST leave canonical project state unchanged until an explicit successful commit.
+
+FRA-047 A failed rendered diagram export MUST NOT mark canonical project persistence as failed or mutate the project.
+
 ## Recovery
 
 FRA-060 Recovery policy MUST be explicit by operation class.
@@ -51,6 +57,10 @@ FRA-063 Recovery attempts MUST reject stale results using operation/correlation 
 FRA-064 Reconciliation MUST be available for unknown GitHub save outcomes before a duplicate write is attempted.
 
 FRA-065 Offline/local-draft recovery MUST not overwrite a newer known remote revision without conflict handling.
+
+FRA-066 Recovery of a diagram project MUST preserve graph topology/stable IDs from the last known canonical draft and MUST NOT attempt to reconstruct topology from rendered SVG/canvas output.
+
+FRA-067 Interrupted/cancelled auto-layout MUST NOT leave a partially moved canonical graph unless the layout operation was explicitly designed as a sequence of separately committed commands.
 
 ## Diagnostics and sinks
 
