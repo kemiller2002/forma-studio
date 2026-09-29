@@ -101,3 +101,18 @@ RTL-121 Deleting a page referenced by the shared navigation MUST identify the br
 RTL-122 Export must make it possible for an implementation agent to distinguish Forma components, Studio shared compositions, and page-local nodes.
 
 RTL-123 A reusable workflow/architecture fragment copied into two diagrams MUST preserve valid internal topology while allocating distinct instance IDs and retaining source/provenance identity where supported.
+
+
+## Diagram metadata/style dependencies
+
+RTL-124 Reusable diagram templates/fragments MUST declare metadata-field, palette, named-style, presentation-mapping, profile-version, asset, and public presentation dependencies needed to reproduce their intended result.
+
+RTL-125 Applying a diagram template/fragment MUST reconcile those dependencies before canonical object insertion completes.
+
+RTL-126 Dependency reconciliation MUST use stable identity/version compatibility and MUST NOT silently equate two definitions solely because they share a display name, label, or resolved color.
+
+RTL-127 Reusing a compatible existing dependency, importing a new dependency, remapping to another compatible dependency, or materializing effective values MUST be explicit deterministic outcomes.
+
+RTL-128 A dependency conflict MUST surface a review obligation before the template/fragment is committed.
+
+RTL-129 Template duplication/import MUST preserve metadata display configuration and appearance source identity, not only resolved visible output.
