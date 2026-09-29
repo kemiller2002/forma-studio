@@ -16,7 +16,7 @@ A Project contains:
 - description
 - createdWith
 - formaVersion
-- startPageId
+- optional startPageId (required when pages exist; absent for diagram-only projects)
 - pages
 - diagrams
 - scenarios
