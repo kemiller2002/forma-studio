@@ -90,6 +90,14 @@ PPN-072 Pages unreachable from the start page SHOULD be reported separately from
 
 PPN-073 Studio SHOULD visualize the project navigation graph.
 
+PPN-076 The navigation graph SHOULD reuse Studio's shared Flow graph projection infrastructure for node/edge rendering, selection, pan/zoom, accessibility, and layout where those capabilities fit.
+
+PPN-077 The navigation graph is a derived projection of page/navigation data, not an authored Flow Diagram and MUST NOT become a second source of navigation truth.
+
+PPN-078 Moving a page node in the navigation graph MAY alter only graph-view layout state unless an explicit page/navigation command is invoked.
+
+PPN-079 Editing a navigation edge through graph interaction MUST dispatch the same LinkNavigation/RemoveNavigation semantics as the page/component editor rather than mutating a private graph model.
+
 PPN-074 Graph view MUST allow selecting a page and tracing inbound/outbound links.
 
 PPN-075 Graph view MUST distinguish unreachable, direct-entry, start, and broken-target states without relying on color alone.
@@ -114,7 +122,7 @@ PPN-097 Copy/paste into another project MUST surface unresolved internal page re
 
 ## Interactive preview
 
-PPN-110 Preview mode MUST start at the project's start page by default.
+PPN-110 Preview mode MUST start at the project's start page by default when the project contains pages; a diagram-only project MUST open through diagram review/editor behavior rather than fabricating runtime page preview.
 
 PPN-111 Preview mode MUST allow starting at any selected page.
 
