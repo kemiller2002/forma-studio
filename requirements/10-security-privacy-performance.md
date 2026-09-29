@@ -90,6 +90,20 @@ SPP-107 Preview rendering MUST avoid duplicating complete hidden DOM trees for e
 
 SPP-108 Large fixture collections SHOULD be bounded and generated lazily.
 
+SPP-109 Flow performance MUST be measured separately from page/component performance because graph routing/layout/rendering has different scaling behavior.
+
+SPP-110 Studio SHOULD remain interactively usable on a documented reference Flow fixture with at least 1,000 nodes and 1,500 edges before claiming large-diagram readiness; the exact supported release target MAY be revised only with measured evidence.
+
+SPP-111 Large Flow canvases SHOULD use viewport culling/virtualization or equivalent techniques when needed while preserving selection, search, validation, and deterministic export semantics.
+
+SPP-112 Moving one node SHOULD avoid recomputing unrelated node projections and edges where dependency information permits incremental work.
+
+SPP-113 Auto-layout, whole-graph routing, large graph search, and whole-graph validation MUST be cancellable or staged so the UI remains recoverable.
+
+SPP-114 Performance degradation MUST fail visibly rather than dropping authored elements, edges, validation rules, or labels silently.
+
+SPP-115 Canonical graph serialization MUST remain independent of virtualization/culling state.
+
 ## Offline/caching
 
 SPP-120 Studio SHOULD cache the pinned Forma assets needed for an open project.
