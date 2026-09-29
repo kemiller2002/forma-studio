@@ -40,6 +40,16 @@ VA-029 Validation SHOULD report unused project assets.
 
 VA-030 Validation SHOULD report deprecated Forma components.
 
+VA-031 Validation MUST support diagram-scoped locations including diagram ID and affected node/edge/group/lane/port ID where applicable.
+
+VA-032 Diagram findings MUST distinguish graph-integrity errors, profile-semantic errors, unresolved external references, presentation/accessibility findings, and advisory modeling findings.
+
+VA-033 Validation MUST NOT report a typed workflow/state/business rule as proven correct when Studio lacks the authoritative domain contract needed to make that determination.
+
+VA-034 Profile-unavailable validation MUST be distinguishable from a diagram being semantically invalid under a known profile.
+
+VA-035 Flow validation SHOULD support incremental dependency-aware recalculation after local graph edits where correctness permits.
+
 ## Accessibility construction requirements
 
 VA-040 Studio MUST target WCAG 2.2 AA for the Studio editor itself and for checks it can reliably apply to rendered specifications.
@@ -63,6 +73,12 @@ VA-048 Validation findings MUST be understandable without color alone.
 VA-049 Canvas selection MUST have a programmatic equivalent in the component tree.
 
 VA-050 Screen-reader users MUST be able to understand page/component hierarchy without entering the visual canvas.
+
+VA-051 Screen-reader users MUST be able to understand diagram hierarchy/topology through a non-spatial structure/relationship representation without requiring interpretation of the visual canvas.
+
+VA-052 Diagram keyboard traversal MUST provide a path to inspect source/target relationships and validation findings without requiring pointer hit-testing on connector lines.
+
+VA-053 Spatial editor operations such as connect, move, resize, align, group, and delete MUST have discoverable non-drag alternatives when supported.
 
 ## Specification accessibility checks
 
@@ -112,9 +128,9 @@ VA-103 User-facing errors MUST identify what happened, what remains true, and th
 
 ## Validation UX
 
-VA-120 Findings MUST be filterable by severity, page, component, rule, and category.
+VA-120 Findings MUST be filterable by severity, authored surface (page/diagram), page/diagram ID, component/diagram element, profile where applicable, rule, and category.
 
-VA-121 Selecting a finding MUST navigate to the affected page/node when available.
+VA-121 Selecting a finding MUST navigate to and select the affected page/component or diagram/element when available.
 
 VA-122 Fix actions MAY be offered only when the repair is deterministic and does not invent domain meaning.
 
