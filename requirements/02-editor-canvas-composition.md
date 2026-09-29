@@ -128,25 +128,25 @@ ECC-110 External side effects such as save/export are not reversed by project un
 
 ## Shared object metadata
 
-ECC-120 Every addressable authored object MAY carry typed, namespaced descriptive metadata independently from its visible content and presentation.
+ECC-130 Every addressable authored object MAY carry typed, namespaced descriptive metadata independently from its visible content and presentation.
 
-ECC-121 Shared object metadata applies to at least projects, Layout pages, addressable Layout component nodes, Flow diagrams/elements, scenarios, annotations, and future Folio/document objects when those objects are represented canonically in Studio.
+ECC-131 Shared object metadata applies to at least projects, Layout pages, addressable Layout component nodes, Flow diagrams/elements, scenarios, annotations, and future Folio/document objects when those objects are represented canonically in Studio.
 
-ECC-122 Metadata MUST remain separate from stable identity, visible text/content, semantic type, layout/geometry, style/appearance, accessibility semantics, and typed resource references.
+ECC-132 Metadata MUST remain separate from stable identity, visible text/content, semantic type, layout/geometry, style/appearance, accessibility semantics, and typed resource references.
 
-ECC-123 The same metadata schema/value infrastructure SHOULD be reused across Layout and Flow rather than creating surface-specific metadata stores.
+ECC-133 The same metadata schema/value infrastructure SHOULD be reused across Layout and Flow rather than creating surface-specific metadata stores.
 
-ECC-124 Metadata edits MUST use the shared typed command/validation/history mechanism regardless of authored surface.
+ECC-134 Metadata edits MUST use the shared typed command/validation/history mechanism regardless of authored surface.
 
-ECC-125 The inspector MUST provide a consistent Metadata region for addressable objects while allowing profile/component contracts to restrict which fields are legal.
+ECC-135 The inspector MUST provide a consistent Metadata region for addressable objects while allowing profile/component contracts to restrict which fields are legal.
 
-ECC-126 Layout component metadata MUST NOT be emitted into runtime DOM attributes automatically; only explicit Forma/component presentation or integration contracts may project selected metadata into markup.
+ECC-136 Layout component metadata MUST NOT be emitted into runtime DOM attributes automatically; only explicit Forma/component presentation or integration contracts may project selected metadata into markup.
 
-ECC-127 Metadata on a Layout component MUST NOT change component semantics, CSS layout, responsive behavior, or interaction legality unless an explicit consuming contract maps that metadata to a legal property/command.
+ECC-137 Metadata on a Layout component MUST NOT change component semantics, CSS layout, responsive behavior, or interaction legality unless an explicit consuming contract maps that metadata to a legal property/command.
 
-ECC-128 Project/page/surface metadata MAY describe purpose, owner, tags, source, revision, documentation references, or other non-secret context without requiring visible rendering.
+ECC-138 Project/page/surface metadata MAY describe purpose, owner, tags, source, revision, documentation references, or other non-secret context without requiring visible rendering.
 
-ECC-129 Agent/developer export MUST expose shared object metadata through the same stable metadata model on both Layout and Flow objects.
+ECC-139 Agent/developer export MUST expose shared object metadata through the same stable metadata model on both Layout and Flow objects.
 
 ## Content editing
 
