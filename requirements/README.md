@@ -24,6 +24,19 @@ The requirements are intentionally broader than a first implementation sprint. T
 - 15-faults-recovery-aegis.md
 - 16-flow-diagram-authoring.md
 
+## Execution scope
+
+This requirements baseline defines the durable product boundary, not one implementation sprint.
+
+For Flow work, agents MUST use `12-roadmap-nongoals.md` plus the acceptance/proof requirements in `16-flow-diagram-authoring.md` to determine the current implementation slice. The existence of deferred, conditional, SHOULD, or MAY requirements is not authorization to implement all of them at once.
+
+The first architecture proof remains deliberately small:
+
+- Layout: Stack -> Heading -> edit -> reorder -> spacing -> undo/redo -> save/reload.
+- Flow: two nodes -> connect -> move -> label -> undo/redo -> save/reload.
+
+Later capabilities must reuse the proven shared editor/document/command architecture rather than expanding the first slice opportunistically.
+
 ## Normative language
 
 MUST and MUST NOT are required for the stated scope.
