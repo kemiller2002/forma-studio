@@ -2,11 +2,11 @@
 
 ## Mission
 
-Build a visual application specification environment in which people compose real Forma components into responsive pages, link those pages into navigable flows, validate the result, and persist a typed specification that developers and agents can implement without reconstructing intent from screenshots.
+Build a visual application and diagram specification environment in which people compose real Forma components into responsive pages, author connected Flow diagrams/workflows, validate the result, and persist a typed specification that developers and agents can consume without reconstructing intent from screenshots.
 
 ## Product boundary
 
-Forma Studio owns visual specification authoring and review.
+Forma Studio owns visual specification authoring and review across Layout pages and Flow diagrams.
 
 It does not own the business-domain state of applications being designed, and it does not fork Forma component implementation.
 
@@ -32,12 +32,13 @@ It does not own the business-domain state of applications being designed, and it
 6. F# domain/editor model.
 7. Real Forma component catalog and rendering.
 8. Multi-page navigation graph authoring and preview.
-9. Responsive/theme/scenario validation.
-10. Machine-readable developer/agent handoff.
+9. Shared Layout/Flow editor core and initial Flow graph authoring.
+10. Responsive/theme/scenario/diagram validation.
+11. Machine-readable developer/agent handoff.
 
 ## Success criteria for the first product baseline
 
-A user can create a multi-page project visually, compose canonical Forma patterns, configure allowed properties, link pages, preview the real responsive rendering, validate it, save/reopen it, and export a machine-readable artifact with no screenshot interpretation required to determine component/page/navigation intent.
+A user can create page-only, diagram-only, or mixed projects visually, compose canonical Forma patterns, author connected diagrams, link pages and cross-surface references where supported, validate, save/reopen, and export a machine-readable artifact with no screenshot interpretation required to determine layout or graph intent.
 
 ## Evidence discipline
 
