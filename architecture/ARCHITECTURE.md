@@ -2,14 +2,14 @@
 
 ## Purpose
 
-Forma Studio is a visual application specification environment, not a general-purpose vector editor.
+Forma Studio is a visual application and diagram specification environment, not a general-purpose vector editor.
 
-Its primary artifact is a typed, versioned application specification that humans can edit visually and machines can reason about deterministically.
+Its primary artifact is a typed, versioned specification that humans can edit visually and machines can reason about deterministically. Layout pages and Flow diagrams are different projections over one shared editor architecture.
 
 ## Authority boundaries
 
 1. Forma owns presentation contracts, semantic markup, design tokens, responsive presentation, accessibility presentation, and the canonical component catalog.
-2. Forma Studio owns projects, pages, component composition, visual-specification editing, preview scenarios, navigation graph authoring, validation, export, and editor workflow.
+2. Forma Studio owns projects, pages, component composition, Flow diagrams/graphs, visual-specification editing, preview scenarios, navigation graph authoring, validation, export, and editor workflow.
 3. The F# application engine owns all Studio state, legal editing transitions, undo/redo semantics, validation state, document migrations, and projections.
 4. Limen owns browser capabilities and browser/application transport. The browser must not become a second source of application truth.
 5. ROS owns durable work protocol, evidence, telemetry, and repository operating state.
@@ -28,11 +28,14 @@ Limen browser boundary
 F# WebAssembly application engine
         |
         +-- Studio document state
+        |    +-- Layout pages/component trees
+        |    +-- Flow diagrams/graph topology + explicit geometry
         +-- transition legality
+        +-- shared command dispatcher
         +-- undo/redo command history
         +-- validation
-        +-- component catalog projection
-        +-- navigation graph
+        +-- component/profile catalog projections
+        +-- navigation and diagram graphs
         +-- export/import
         +-- persistence requests
 
@@ -44,6 +47,26 @@ Studio must not maintain a second visual implementation of a Forma component.
 
 If a required visual capability does not exist in Forma, Studio records a Forma gap rather than silently inventing a private equivalent.
 
+## Surface architecture
+
+Studio has one authoritative editor engine with surface-specific capability projections.
+
+### Layout surface
+
+Layout renders real Forma components and expresses structure through component trees, slots, semantic properties, tokens, and supported responsive/layout contracts. Ordinary Layout nodes do not persist arbitrary x/y placement.
+
+### Flow surface
+
+Flow renders diagram nodes and connectors from an explicit graph. Node geometry is legitimate project data on this surface. Connections reference stable node/port identities rather than rendered elements or raw line endpoints.
+
+General diagrams may remain minimally typed. Workflow, State, and Architecture profiles add explicit legal element/relationship kinds and validation rules without creating separate editor engines.
+
+### Shared editor infrastructure
+
+Layout and Flow MUST share selection abstractions, command dispatch, undo/redo, persistence coordination, validation-result shape, clipboard semantics, inspector plumbing, and view-state conventions where those concerns overlap.
+
+A pointer gesture, structure-tree action, inspector edit, keyboard command, touch operation, or agent request is an input adapter to a typed command. It is never an alternate mutation path.
+
 ## Project document
 
 A project is a versioned specification containing:
@@ -51,6 +74,7 @@ A project is a versioned specification containing:
 - project metadata;
 - pinned Forma version;
 - pages;
+- diagrams/Flow graphs;
 - page routes;
 - component-node trees;
 - typed component properties;
@@ -84,6 +108,15 @@ All meaningful edits are commands against explicit state. Examples include:
 - SetContent
 - LinkNavigation
 - RemoveNavigation
+- AddDiagram
+- RemoveDiagram
+- AddDiagramNode
+- MoveDiagramNode
+- ResizeDiagramNode
+- ConnectDiagramNodes
+- RemoveDiagramEdge
+- SetDiagramElementProperty
+- ApplyDiagramLayout
 - AddScenario
 - SetViewport
 - Undo
@@ -117,7 +150,7 @@ Forma Studio is not:
 - a freehand vector drawing package;
 - a photo editor;
 - a 3D editor;
-- a replacement for every Figma workflow;
+- a replacement for every Figma or Visio workflow;
 - a runtime application framework;
 - an owner of business-domain state for the applications being designed;
 - a place to write arbitrary JavaScript into previews.
