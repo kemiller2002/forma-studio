@@ -82,6 +82,10 @@ PVC-082 Studio SHOULD support comparing current project state with a selected sa
 
 PVC-083 Semantic diff SHOULD operate on pages, diagrams, component nodes, diagram nodes/edges, properties, geometry, relationships, links, groups/lanes, and tokens rather than only text lines.
 
+PVC-085 Diagram semantic diff MUST normalize canonical geometry before comparison so transient pointer precision does not create false changes.
+
+PVC-086 View state such as current pan, zoom, selection, hover, temporary isolation, and non-authored editor focus MUST NOT create project revisions.
+
 PVC-084 Reverting a prior revision SHOULD create a new explicit save rather than rewriting published history.
 
 ## Collaboration
@@ -109,6 +113,20 @@ PVC-123 Delete-versus-edit conflicts MUST not resurrect deleted nodes silently.
 PVC-124 Page-route and diagram-graph conflicts MUST be validated after merge even if the structural merge succeeds.
 
 PVC-125 A merge result MUST pass schema/structural validation before becoming canonical project state.
+
+PVC-126 Independent edits to different diagram elements/properties SHOULD merge mechanically when stable IDs and profile rules prove they do not conflict.
+
+PVC-127 Concurrent edits to the same canonical geometry/property MUST require deterministic conflict resolution unless a narrower merge rule proves both changes compatible.
+
+PVC-128 Node-delete versus incident-edge-add/edit MUST be treated as a semantic conflict and MUST NOT silently resurrect the node or drop the edge.
+
+PVC-129 Endpoint reconnection versus endpoint-node deletion MUST require explicit resolution.
+
+PVC-130 Concurrent topology and geometry edits to the same node MAY merge only when the topology change does not replace/delete the node identity and both resulting changes validate.
+
+PVC-131 Concurrent profile upgrade/migration and profile-specific element edits MUST block automatic merge unless the migration contract explicitly proves compatibility.
+
+PVC-132 Merge resolution MUST preserve stable graph IDs wherever the resolved element remains the same canonical entity.
 
 ## Backup and portability
 
