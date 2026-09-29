@@ -123,3 +123,26 @@ PS-082 An agent MUST be able to determine page structure, component contracts, t
 PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, missing required accessibility metadata, broken diagram edge endpoints, and invalid typed-diagram relationships.
 
 PS-084 The shared editor architecture MUST prove round-trip editing on both surfaces: a Layout slice (Stack -> Heading -> edit -> reorder -> spacing -> undo/redo -> save/reload) and a Flow slice (two nodes -> connect -> move -> label -> undo/redo -> save/reload).
+
+
+## Authored object metadata
+
+PS-090 Studio MUST provide one cross-surface metadata model for authored addressable objects rather than separate unrelated metadata systems for Layout and Flow.
+
+PS-091 Metadata-capable authored objects SHOULD include project, page, component node, diagram, diagram element, reusable definition/instance, asset/reference-bearing object, and annotation/review object where descriptive metadata is meaningful.
+
+PS-092 Each object kind/profile MUST explicitly declare whether metadata is supported and which schema/visibility rules apply; metadata support is not an excuse to add opaque property bags to internal/transient records.
+
+PS-093 Transient editor state such as selection, hover, drag previews, pan/zoom, remote cursor presence, command internals, renderer handles, and temporary validation projections MUST NOT become object metadata.
+
+PS-094 Shared metadata concepts MUST use the same stable field/schema/value/visibility model across supported object kinds.
+
+PS-095 Object metadata MUST remain separate from object identity, canonical content/semantic properties, presentation/appearance, typed resource references, accessibility semantics, and application/domain authority.
+
+PS-096 Project-level metadata MAY describe the authored specification itself, but MUST NOT replace schema version, Forma/profile dependency versions, revision identity, or other canonical system fields.
+
+PS-097 Asset metadata MAY describe provenance, licensing/attribution, source, tags, or descriptive information, but intrinsic/security/accessibility asset fields remain governed by the asset contract.
+
+PS-098 Annotation/review metadata MUST remain distinguishable from the annotation/comment content and review state.
+
+PS-099 Metadata extensibility MUST preserve deterministic serialization, migration, privacy/export policy, validation, search, and agent readability.
