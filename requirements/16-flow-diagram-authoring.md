@@ -1267,3 +1267,204 @@ FDA-894 Semantic diff MUST distinguish metadata changes, semantic type changes, 
 FDA-895 Copy/paste/duplication MUST preserve metadata and color references while remapping only identities/references that require remapping.
 
 FDA-896 Print/export through Folio MUST preserve eligible authored color while remaining understandable in grayscale/backgrounds-disabled output.
+
+
+## Metadata schema validation and documentation
+
+FDA-900 A metadata schema field MUST have a stable field key independent of its localized/user-facing label.
+
+FDA-901 A metadata schema MAY define required/optional status, value type, cardinality, default value, allowed values, numeric range, string length/pattern constraints, URL/reference constraints, and profile-specific validation rules.
+
+FDA-902 Metadata defaults MUST be distinguishable from explicitly authored values so a later default change does not silently rewrite explicit user data.
+
+FDA-903 Required metadata MUST be validated explicitly; a missing required field MUST NOT be silently filled from color, geometry, label text, neighboring objects, or unrelated metadata.
+
+FDA-904 Enum/token metadata MUST persist a stable value identifier separately from its localized display label.
+
+FDA-905 Metadata field definitions SHOULD provide a human-readable description/help text and MAY link to profile/domain documentation.
+
+FDA-906 Metadata schema display labels/descriptions MAY be localized, but stable field/value IDs MUST remain locale independent.
+
+FDA-907 Metadata cardinality MUST distinguish scalar, set-like repeated values, and ordered repeated values where order is meaningful.
+
+FDA-908 Canonical serialization MUST normalize metadata values according to their declared type while preserving semantically significant distinctions such as timezone/offset where the profile requires them.
+
+FDA-909 Invalid metadata MUST produce field-level findings tied to the stable object and metadata field key.
+
+FDA-910 A metadata schema change that tightens constraints MUST surface now-invalid existing values before migration/upgrade commit.
+
+## Derived, inherited, and source-bound metadata
+
+FDA-920 Studio MUST distinguish explicitly authored metadata from metadata derived from structural/profile context or an external source.
+
+FDA-921 A profile MAY derive metadata from explicit canonical relationships such as lane/phase/container membership, but the derivation rule MUST be explicit and deterministic.
+
+FDA-922 Studio SHOULD avoid denormalized duplication when a metadata value can be derived losslessly from an authoritative relationship; if both are stored, precedence and conflict validation MUST be explicit.
+
+FDA-923 If lane membership authoritatively determines an owner/role field, a contradictory explicit owner value MUST produce a conflict or follow the profile's documented override rule rather than silently diverging.
+
+FDA-924 Derived metadata MUST identify its source rule/reference so inspector, export, and agents can distinguish derived from authored values.
+
+FDA-925 Externally source-bound metadata MUST identify source authority/freshness where available and MUST distinguish unavailable/stale/unknown from an authored empty value.
+
+FDA-926 Editing source-bound metadata MUST either map to an explicit source mutation capability, create an explicit local override where permitted, or be unavailable.
+
+FDA-927 Refreshing source-bound metadata MUST not overwrite permitted local overrides silently.
+
+FDA-928 Materializing a derived/source-bound metadata value into an authored value MUST be an explicit command and MUST preserve provenance when applicable.
+
+## Reusable appearance styles
+
+FDA-930 Studio SHOULD support named reusable diagram appearance styles so repeated presentation is not duplicated as raw properties across every object.
+
+FDA-931 A named appearance style MUST have a stable style ID, name, version/revision or equivalent change identity, supported target kinds, and typed appearance properties.
+
+FDA-932 Appearance styles MAY include fill, stroke, accent, foreground, stroke width, line/dash style, marker treatment, shape/presentation variant, icon treatment, pattern/hatch, typography emphasis, and other public Forma-supported presentation properties.
+
+FDA-933 An object MAY reference one named appearance style plus explicit legal per-object overrides.
+
+FDA-934 Style reference, style definition, resolved appearance, and per-object overrides MUST remain distinguishable in canonical data and developer/agent inspection.
+
+FDA-935 Updating a named style MUST propagate to referencing objects by reference without rewriting each object into duplicated resolved properties.
+
+FDA-936 A style-definition edit MUST be one logical undoable project command and semantic diff SHOULD report the definition change separately from every affected object's resolved rendering change.
+
+FDA-937 Removing a style that remains referenced MUST block, reassign, or detach/materialize through an explicit reviewed command; Studio MUST NOT silently drop appearance.
+
+FDA-938 Detaching an object from a named style MUST materialize the effective legal appearance explicitly and be undoable.
+
+FDA-939 Reset-to-style/default MUST remove eligible local overrides without changing semantic type, metadata, identity, or topology.
+
+FDA-940 Style inheritance, if supported, MUST be acyclic and deterministic; cycles MUST be rejected.
+
+FDA-941 Style definitions MAY reference Forma tokens and project palette slots but MUST NOT embed executable styling logic.
+
+FDA-942 Unknown/unavailable style definitions MUST preserve references/overrides and surface an unavailable-presentation finding rather than substituting an unrelated style silently.
+
+FDA-943 Shared/reusable style libraries MAY be introduced later only through explicit version/pinning/update-review contracts.
+
+## Shape and icon presentation independence
+
+FDA-950 Semantic node kind and visual shape/presentation variant MUST be independent concepts unless a profile explicitly constrains them.
+
+FDA-951 General diagrams MUST support changing an eligible node's visual shape without replacing its stable node identity.
+
+FDA-952 Changing visual shape MUST preserve attached edges, metadata, references, annotations, and semantic properties unless the new presentation contract makes a property illegal and Studio surfaces the required reconciliation.
+
+FDA-953 Typed profiles MAY restrict legal shapes/presentation variants for a semantic kind, but the restriction MUST be explicit profile data.
+
+FDA-954 Forma presentation identifiers for shape variants MUST be stored separately from semantic element-kind identifiers.
+
+FDA-955 Icons/symbols inside nodes MUST reference public Forma icons or project assets by stable identifiers rather than embedding identity into color or arbitrary CSS.
+
+FDA-956 Meaningful icons MUST have an accessible textual equivalent and MUST NOT be the sole representation of semantic type/status.
+
+FDA-957 User-authored arbitrary vector path editing remains outside the initial Flow scope; custom reusable shapes require a separate governed presentation/import contract.
+
+FDA-958 Shape swapping MUST use canonical commands and participate in undo/redo, diff, copy/paste, templates, and agent export.
+
+## Appearance normalization and palette modes
+
+FDA-960 Literal color values MUST be validated against a documented accepted color syntax and serialized deterministically to avoid meaningless diffs.
+
+FDA-961 Studio MUST preserve whether a color came from a literal, Forma token, palette slot, named style, or explicit metadata/presentation mapping rather than storing only a resolved pixel color.
+
+FDA-962 Project palette slots MAY define theme/output-mode variants such as light, dark, high-contrast-compatible, color-print, or grayscale-print values where the presentation contract supports them.
+
+FDA-963 Missing palette/style/token references MUST produce explicit findings and MUST NOT resolve to a misleading arbitrary color.
+
+FDA-964 Palette/style definitions MUST have deterministic canonical ordering/serialization independent of inspector sorting or recent-use UI.
+
+FDA-965 Tags/metadata collections whose semantics are set-like SHOULD serialize deterministically; ordered collections MUST preserve authored order explicitly.
+
+FDA-966 A palette rename MUST preserve stable palette-slot identity and object references.
+
+FDA-967 A palette deletion with references MUST block or require explicit reassignment/materialization.
+
+FDA-968 Palette/style changes MUST be previewable when they affect many objects and SHOULD report the affected object count.
+
+## Color and appearance editing UI
+
+FDA-970 The inspector MUST provide keyboard-operable, non-spatial editing for authored color/appearance.
+
+FDA-971 Literal color editing MUST provide a text/value entry path in addition to any 2D color picker or eyedropper-style interaction.
+
+FDA-972 Token, palette, and named-style choices SHOULD be searchable/browsable and expose human-readable descriptions where supplied by Forma/project definitions.
+
+FDA-973 Multi-selection appearance editing MUST follow the shared mixed-value/atomic batch-edit rules and MUST NOT silently overwrite incompatible target properties.
+
+FDA-974 Studio SHOULD support explicit reset-to-default/style for appearance fields.
+
+FDA-975 Studio MUST distinguish a visually similar resolved color from the same token/palette/style identity; selecting a raw matching color MUST NOT silently bind the object to an unrelated token.
+
+FDA-976 Automatic contrast assistance MAY suggest a foreground or alternate presentation, but changing a fixed authored color MUST require an explicit user/command decision.
+
+## Structured metadata queries and bulk operations
+
+FDA-980 Studio SHOULD support structured filtering/querying by metadata field/value, object kind, profile kind, style, palette slot, validation state, lane/phase, and tag where those concepts exist.
+
+FDA-981 Query/filter results MUST operate on canonical stable identities and MUST remain independent of canvas viewport/culling.
+
+FDA-982 A user SHOULD be able to create a selection from query/filter results for legal bulk editing.
+
+FDA-983 Bulk metadata edits MUST validate field availability/type/constraints across the selected objects before mutation and use atomic batch-command semantics.
+
+FDA-984 Bulk clear/remove operations MUST distinguish removing an explicit value from restoring/using a schema default or derived value.
+
+FDA-985 Search/filter/query over sensitive or non-exportable metadata MUST respect the current user's/application's allowed Studio capability and metadata visibility policy.
+
+## Tabular metadata interchange
+
+FDA-990 Studio MAY support CSV/TSV or equivalent tabular metadata import/export as a metadata adapter after the canonical metadata model stabilizes.
+
+FDA-991 Tabular import MUST map rows to canonical objects through explicit stable keys or reviewed mapping rules; matching by visible label alone MUST NOT silently decide identity.
+
+FDA-992 Tabular import MUST validate field schemas, types, allowed values, references, and visibility policies before canonical commit.
+
+FDA-993 Tabular import MUST preview additions/changes/removals/conflicts when the operation can modify existing objects.
+
+FDA-994 Tabular import MUST NOT create/delete graph topology unless the selected adapter explicitly supports and previews topology operations.
+
+FDA-995 Tabular export MUST distinguish canonical IDs, stable metadata keys/values, localized display labels, and derived/source-bound values where applicable.
+
+FDA-996 Spreadsheet/tabular round-trip MUST NOT turn unknown/unavailable values into empty strings or zero silently.
+
+## Collaborative session state and review threads
+
+FDA-1000 Future real-time collaboration presence, remote cursors, remote selections, and viewport positions MUST be ephemeral session/view state and MUST NOT dirty canonical project data.
+
+FDA-1001 An authored lock flag used to prevent accidental editing MUST remain distinct from collaborative edit leases/permissions.
+
+FDA-1002 If collaborative edit leases are introduced, they MUST be coordination state and MUST NOT imply application/domain authorization.
+
+FDA-1003 Diagram review comments/threads SHOULD have stable identities and explicit open/resolved state if collaborative review is implemented.
+
+FDA-1004 A resolved review comment MUST remain distinguishable from deleting the comment/history where retention is supported.
+
+FDA-1005 Review-thread targets MUST reference stable diagram/object IDs or explicit spatial anchors and MUST survive ordinary movement of a targeted object.
+
+FDA-1006 Review author/timestamp/presence data MUST follow the product's privacy/data-retention policy rather than becoming unrestricted graph metadata.
+
+## Vector and link safety
+
+FDA-1010 Imported SVG/vector content MUST be treated as untrusted input.
+
+FDA-1011 SVG/vector import or asset handling MUST reject or neutralize executable script, event handlers, unsafe external-resource loading, and dangerous URL schemes before rendering/export where Studio owns that boundary.
+
+FDA-1012 Object metadata/reference URLs MUST use an explicit allowed-scheme/security policy and MUST NOT become executable HTML/JavaScript through rendering.
+
+FDA-1013 Rich metadata text MUST be rendered as text/approved semantic markup rather than unsanitized HTML supplied by metadata values.
+
+FDA-1014 Exported SVG/HTML MUST not reintroduce editor-only secrets/source-only metadata or unsafe imported executable content.
+
+## Agent operations over metadata and appearance
+
+FDA-1020 Agents MAY propose metadata, palette, named-style, shape/presentation, and appearance changes only through the same typed command surface as human editor actions.
+
+FDA-1021 An agent MUST NOT infer semantic status/type from authored color when proposing or explaining a change.
+
+FDA-1022 Agent change plans SHOULD distinguish semantic changes, metadata changes, style-definition changes, palette changes, and resolved visual consequences.
+
+FDA-1023 A broad style/palette/metadata-schema change SHOULD report its expected affected-object set/count before commit when determinable.
+
+FDA-1024 Agent export MUST expose stable metadata field IDs, authored/derived/source-bound status, style references/overrides, palette/token identities, and resolved presentation separately where applicable.
