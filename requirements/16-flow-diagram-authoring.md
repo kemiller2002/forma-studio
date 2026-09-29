@@ -968,3 +968,48 @@ FDA-691 A generated legend MUST derive from explicit profile semantics and prese
 FDA-692 Legends MUST expose textual names/descriptions for semantic kinds; color/shape samples MAY supplement but MUST NOT be the only explanation.
 
 FDA-693 An authored custom legend, if supported, MUST remain distinguishable from the profile-generated semantic key so it cannot silently redefine profile meaning.
+
+
+## Read-only review and deep linking
+
+FDA-700 Studio MUST support a read-only/review mode for diagrams that permits pan, zoom, search, selection, inspection, validation review, and relationship traversal without exposing mutating capabilities.
+
+FDA-701 Read-only mode MUST be enforced by capability availability in the editor model rather than by merely hiding buttons while mutation commands remain callable.
+
+FDA-702 Review mode SHOULD support linking to a specific diagram and stable element ID for collaboration/review workflows without encoding fragile screen coordinates.
+
+FDA-703 A deep link to an unavailable/deleted element MUST open the owning diagram when possible and report the missing target explicitly rather than silently selecting something else.
+
+FDA-704 Shared review links MUST NOT embed secrets, repository tokens, or sensitive fixture data in URLs.
+
+FDA-705 View bookmarks MAY persist pan/zoom/selected-element presentation for review, but they MUST remain separate from graph semantics and MUST not affect ordinary canonical export unless explicitly included as authored presentation metadata.
+
+FDA-706 Full-screen/presentation mode MAY hide editor chrome, but must preserve nonvisual structure/search/navigation and must not change canonical graph state.
+
+## Filters and focus/isolation
+
+FDA-710 Flow SHOULD support non-destructive view filters for large diagrams based on element kind, relationship kind, lane/group, validation state, tags/metadata, and text search where those data exist.
+
+FDA-711 View filters MUST NOT delete, reparent, disconnect, or otherwise mutate hidden canonical elements.
+
+FDA-712 Filter/isolation state SHOULD remain editor/view state by default.
+
+FDA-713 If an authored presentation intentionally persists a filter, that distinction MUST be explicit and independently reviewable from canonical graph topology.
+
+FDA-714 Validation MUST not treat temporarily filtered-out canonical elements as absent.
+
+FDA-715 Fit-to-content/selection operations MUST define whether filtered elements participate and make that behavior predictable.
+
+## Source-backed graph integration
+
+FDA-720 Studio MAY expose authoritative external models such as page navigation, Ordo/state definitions, repository/service inventories, or other registered sources as derived graph views using the shared Flow infrastructure.
+
+FDA-721 Source-backed graph views MUST clearly identify which fields/relationships are authoritative externally versus authored locally.
+
+FDA-722 If a source-backed view allows mutation, each supported mutation MUST map to an explicit legal command/action against the authoritative source adapter; unsupported visual edits remain unavailable.
+
+FDA-723 A comparison between an authored diagram and an authoritative source MAY report drift, missing elements, extra elements, or changed relationships, but MUST distinguish evidence-backed differences from unknown/unavailable verification.
+
+FDA-724 Studio MUST NOT silently convert an authored architecture/workflow diagram into authoritative runtime truth because an external adapter later becomes available.
+
+FDA-725 Materializing a source-backed graph into an authored diagram MUST preserve source provenance while severing live authority unless an explicit refreshable-data-bound mode is selected.
