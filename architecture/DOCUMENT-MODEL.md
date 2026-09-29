@@ -4,7 +4,7 @@
 
 The saved artifact represents intent and composition, not pixels.
 
-Stable identifiers are mandatory for projects, pages, diagrams, component nodes, diagram nodes, diagram edges, groups/lanes, scenarios, navigation actions, assets, and annotations.
+Stable identifiers are mandatory for projects, pages, diagrams, component nodes, diagram nodes, diagram edges, groups/lanes/phases, metadata field definitions, palette slots, appearance styles, presentation mappings, scenarios, navigation actions, assets, typed references where addressable, and annotations.
 
 ## Project
 
@@ -19,8 +19,13 @@ A Project contains:
 - optional startPageId (required when pages exist; absent for diagram-only projects)
 - pages
 - diagrams
+- metadataFieldDefinitions
+- paletteSlots
+- appearanceStyles
+- presentationMappings
 - scenarios
 - assets
+- typed project/resource references where applicable
 - metadata
 
 ## Page
@@ -106,9 +111,11 @@ A DiagramEdge contains:
 
 Edges reference stable identities, not rendered DOM/canvas objects. Moving or resizing a node must not change edge identity or topology.
 
-## Diagram groups and swimlanes
+## Diagram groups, swimlanes, and phases
 
-Groups, containers, and lanes have stable identities and explicit membership.
+Groups, containers, lanes, and phases have stable identities and explicit membership/order semantics where applicable.
+
+They may also carry legal typed/namespaced metadata, authored appearance/style references, annotations, and typed resource references according to the active profile.
 
 General-profile grouping may be visual only. Typed profiles may assign semantic meaning such as actor, role, system, deployment boundary, or trust boundary, but that meaning must be explicit in project data and validated by the selected profile.
 
