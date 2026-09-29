@@ -72,6 +72,14 @@ ECC-063 Layout component trees and Flow structure/outline representations MUST s
 
 ECC-064 Multi-selection SHOULD be supported for compatible batch operations.
 
+ECC-067 The inspector for a multi-selection MUST expose only operations/properties legal for the complete selection or clearly partition incompatible subsets without partial silent mutation.
+
+ECC-068 Mixed property values in multi-selection MUST be represented as mixed/indeterminate rather than choosing an arbitrary selected value.
+
+ECC-069 A batch property edit MUST be atomic for the targeted selection: all legal selected targets update or the command rejects/returns an explicit partial-capability plan before mutation.
+
+ECC-070 Project-wide search SHOULD span pages/components, diagrams/elements, annotations, requirement references, routes, and stable IDs and navigate to the matching authored surface.
+
 ECC-065 Selection MUST be editor-only state.
 
 ECC-066 Structure/Outline views MUST expose stable IDs for debugging without making them primary user-facing labels.
