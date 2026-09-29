@@ -24,21 +24,21 @@ ECC-010 The selected/active surface is editor state; changing active surface MUS
 
 ## Canvas model
 
-ECC-020 The canvas MUST render actual browser layout using Forma CSS.
+ECC-020 The Layout surface canvas MUST render actual browser layout using Forma CSS.
 
-ECC-021 The canvas MUST NOT store arbitrary x/y coordinates for ordinary flow-layout components.
+ECC-021 The Layout surface MUST NOT store arbitrary x/y coordinates for ordinary browser flow-layout components.
 
 ECC-022 Component placement MUST follow the canonical component/slot/layout contract.
 
-ECC-023 Absolute positioning MAY exist only for a future explicitly modeled overlay/free-position capability and MUST NOT be the default composition model.
+ECC-023 On the Layout surface, absolute positioning MAY exist only for an explicitly modeled Forma overlay/free-position capability and MUST NOT be the default composition model. This restriction does not prohibit canonical spatial geometry on Flow diagrams.
 
 ECC-024 Canvas zoom MUST be a view preference and MUST NOT alter project data.
 
 ECC-025 Canvas panning MUST be a view preference and MUST NOT alter project data.
 
-ECC-026 The canvas SHOULD support fit-to-page/fit-to-width commands.
+ECC-026 Layout SHOULD support fit-to-page/fit-to-width commands; Flow uses its separately specified fit-diagram/fit-selection/content-bounds commands.
 
-ECC-027 Selected component boundaries MUST remain visible without changing actual exported component markup.
+ECC-027 On Layout surfaces, selected component boundaries MUST remain visible without changing actual exported component markup.
 
 ECC-028 Editor adorners MUST NOT leak into generated/exported markup.
 
@@ -140,11 +140,11 @@ ECC-124 Content changes MUST not modify Forma component internals.
 
 ## Layout assistance
 
-ECC-140 Studio SHOULD offer alignment/spacing guidance only where it maps to actual Forma or browser layout contracts.
+ECC-140 On Layout surfaces, Studio SHOULD offer alignment/spacing guidance only where it maps to actual Forma or browser layout contracts; Flow alignment/snapping follows its separate spatial requirements.
 
 ECC-141 Studio MUST NOT imply pixel-perfect arbitrary alignment capabilities that cannot be represented in the saved specification.
 
-ECC-142 Grid/ruler overlays MAY assist review but MUST not become hidden layout dependencies.
+ECC-142 Layout grid/ruler overlays MAY assist review but MUST not become hidden layout dependencies; Flow grid/guide behavior is governed by the Flow requirements.
 
 ECC-143 Studio SHOULD expose which Forma spacing/radius/token choices are active on the selected component when those choices are configurable.
 
