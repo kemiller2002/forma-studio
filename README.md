@@ -1,6 +1,6 @@
 # Forma Studio
 
-Forma Studio is a visual application specification environment for building pages from real Forma components, linking those pages into navigable flows, previewing the actual browser result, and exporting a typed specification for developers and agents.
+Forma Studio is a visual application and diagram specification environment for building pages from real Forma components, authoring connected workflow/diagram surfaces, previewing the actual result, and exporting a typed specification for developers and agents.
 
 Public marketing URL: https://forma-studio.echelonfoundry.com/
 
@@ -12,7 +12,7 @@ The canvas is a projection.
 
 Forma owns presentation. F# owns Studio state and legal editing transitions. Limen owns browser capabilities. Ordo/SDE and ROS govern engineering state and repository work.
 
-A design should be understandable without reverse-engineering screenshots.
+A design or diagram should be understandable without reverse-engineering screenshots.
 
 ## Current baseline
 
@@ -34,11 +34,14 @@ Lifecycle-managed capability state is committed in the repository. `scripts/boot
 
 The complete product baseline is under requirements/.
 
+`REQUIREMENTS.md` is the normative shared-capability contract shared with Aegis, Forma, and Folio. Forma Studio MUST dogfood Forma for its own interactive UI, MUST adopt Aegis when operational boundaries are introduced, and MUST adopt Folio when printable/PDF/paginated document composition or Folio authoring/testing enters scope.
+
 It covers:
 
 - product scope and non-goals;
 - projects/pages/routes/navigation graph;
-- editor/canvas/component-tree behavior;
+- shared editor/canvas/Structure-and-Outline behavior;
+- Flow/diagram graph authoring with nodes, connectors, groups, swimlanes, and typed profiles;
 - Forma catalog/property contracts;
 - tokens/themes/responsive preview;
 - scenarios and interactive prototypes;
@@ -64,7 +67,7 @@ node scripts/validate-schema.mjs
 
 The initial schema is schemas/forma-studio.schema.json.
 
-examples/two-page-project.json demonstrates two pages connected by an explicit internal navigation action.
+examples/two-page-project.json demonstrates two pages connected by an explicit internal navigation action. The Flow requirements define the next schema extension for canonical diagrams/graphs; the bootstrap schema is not silently changed until that governed implementation work executes.
 
 Internal navigation targets stable page IDs. Routes are projections and may change without breaking links.
 

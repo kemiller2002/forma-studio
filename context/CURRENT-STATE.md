@@ -16,11 +16,17 @@ The branch contains the product requirements baseline, architecture and document
 - F# is the application-authority implementation language.
 - Limen is the browser boundary.
 - The canonical project artifact is typed JSON/specification data, not pixels.
+- Projects support page-only, diagram-only, and mixed authored surfaces.
+- Layout pages use semantic Forma composition; Flow diagrams use explicit graph topology and authored spatial geometry.
+- Layout and Flow share one editor command/selection/history/persistence architecture.
 - Projects support multiple pages and an explicit page-navigation graph.
 - Internal links target stable page IDs; routes are projections.
 - Git/local-file persistence precedes any hosted database requirement.
 - Figma is optional interoperability, not a dependency.
-- General-purpose vector editing is outside v1.
+- General-purpose vector/freehand editing is outside v1.
+- General, Workflow, State, and Architecture diagram profiles are the intended initial Flow profile family.
+- Typed diagrams remain specifications; they do not become executable business logic without a separate explicit runtime/generation contract.
+- Reusable production diagram presentation remains Forma-owned; the current missing public diagram presentation family is tracked by kemiller2002/forma#52.
 - Aegis is the standard unexpected operational-fault mechanism in the F# engine; expected domain refusals and Limen OutcomeUnknown remain distinct concepts.
 
 ## Installed capability baseline
@@ -42,7 +48,7 @@ Visual Engineering intentionally ignores its generated `.visual-engineering/` re
 
 ## Requirements baseline
 
-The numbered requirements under `requirements/` cover 16 domains:
+The numbered requirements under `requirements/` cover 17 domains:
 - product scope;
 - projects/pages/routes/navigation;
 - editor/canvas/composition;
@@ -58,7 +64,8 @@ The numbered requirements under `requirements/` cover 16 domains:
 - roadmap/non-goals;
 - content/assets/forms;
 - reusable compositions/templates/layouts;
-- fault handling/recovery/Aegis.
+- fault handling/recovery/Aegis;
+- Flow/diagram authoring.
 
 ## Open implementation obligations
 
@@ -66,6 +73,9 @@ The numbered requirements under `requirements/` cover 16 domains:
 - Implement deterministic project parsing, migration, normalization, and validation.
 - Define/consume richer machine-readable Forma component-property and slot metadata where the current Forma contract is insufficient.
 - Build the editor shell and real Forma component rendering.
+- Extend the project schema/domain model with Diagram/Node/Edge/Profile/Group/Lane geometry/topology contracts.
+- Implement the shared editor command core needed by both Layout and Flow vertical slices.
+- Implement the first Flow vertical slice: two nodes, connection, movement, label, undo/redo, save/reload.
 - Build page/navigation graph authoring and interactive linked-page preview.
 - Build theme/viewport/scenario review.
 - Add browser and accessibility test harnesses.
@@ -90,3 +100,78 @@ The bootstrap workflow is manual-only recovery/bootstrap tooling and is not part
 
 - The marketing site is scaffolded and build-validated, but custom-domain DNS/Pages settings are external repository/account configuration.
 - The editor implementation itself has not been built yet; this branch establishes the governed requirements, architecture, schema, dependencies, and public-site foundation it will be built against.
+
+## Implementation state (2026-09-30, branch `claude/forma-studio-design-authoring-kv77ea`, PR #12)
+
+This supersedes the "Open implementation obligations" and "Known constraints"
+sections above where they differ.
+
+Done and tested:
+
+- **STUDIO-GH-9 (complete):** a pure F# canonical model and shared command
+  core in `src/engine/FormaStudio.Engine`. It covers typed identity,
+  geometry, pages, diagrams, profiles (General, Workflow), metadata,
+  references, palette, styles, mappings and overrides; one command surface,
+  one Editor session, the appearance cascade and disclosure; the schema v2
+  codec and v1 migration. Decision: `DF-STUDIO-2026-B7E1`.
+- **STUDIO-GH-10 (complete):** `AgentExport` and `Projection` (Folio
+  handoff 1.0.0, Forma contract 2.0.0), the CLI in `tools/FormaStudio.Cli`,
+  and the cross-repo fixture in `examples/purchase-request/`, which Folio
+  consumes.
+- **STUDIO-GH-11 (complete):** the Flow and Layout editor. The engine runs on .NET
+  WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has
+  - a canvas with drag and arrow-key moves, and resize by corner handle or
+    inspector Width/Height (one command per gesture);
+  - a Structure list with multi-selection toggles;
+  - an inspector for label, lane, metadata (Mixed across a selection),
+    fill, palette and style, with the effective source shown;
+  - align and distribute;
+  - a new-field form (no JSON), palette management with usage counts and
+    safe deletion, and color rules;
+  - non-drag connect; reconnect by dragging a selected connector's endpoint
+    handle onto a node, or by pressing the handle and choosing a node;
+  - alignment guides while dragging (edges and centers within 6 units snap
+    the drop to the guide; grid snapping takes precedence when on);
+  - zoom (50-200%) and 8-unit grid snapping as view state outside the
+    project and its history; drags convert screen pixels to logical units;
+  - a Templates panel: built-in fragments per profile (`Templates.fs`, each
+    authored through commands and extracted) and "Copy selection as
+    template"; the dependency plan is shown before insert, and insert is
+    one batch placed below the diagram;
+  - a Review panel listing `Diff.between` changes since the last save or
+    open, by category (position, label, meaning, metadata, appearance...);
+  - merge review: "Check the saved copy for changes" runs `Merge.resolve`
+    (base = last save or open, ours = the session, theirs = the saved
+    copy another tab may have changed), lists incoming changes and
+    conflicts with a Keep mine / Use saved choice per item, re-checks
+    integrity after choosing, and applies through `Editor.adopt` as one
+    history entry;
+  - undo/redo, and save/open via Limen Storage;
+  - axe and forced-colors checks;
+  - a Layout surface on the same session: a surface navigator switches
+    between the Flow diagram and Layout pages; pages compose a Forma stack
+    of headings with text editing, reordering and contract-bounded density
+    (no x/y). One undo history spans both surfaces, and a command that
+    changes nothing adds no history entry.
+- **STUDIO-GH-13 (complete):** State and Architecture profiles, `Diff.between`,
+  `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
+  reconciliation by id), and a 2,000-node / 3,000-edge proof.
+- Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
+  (52) and `npm run app:build && npm run app:test` (23 Playwright tests,
+  Chromium).
+
+- **STUDIO-GH-12 (complete, mechanical):** file attribution for PR #12 as
+  a whole. The #9 and #10 completion events were recorded after their
+  changes were committed, so they carry no paths. Without an active item,
+  PR-mode ROS validation (`ROS_BASE_REF` = PR base) reported those files as
+  unattributed. Future work: run `ros work complete` before committing
+  the work's changes.
+
+Next legal work, in order:
+
+1. Replace `vendor/forma` with a released Forma artifact once
+   kemiller2002/forma#91 ships.
+
+Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming
+is off because F# formatting uses reflection); editor browser tests run in
+Chromium only.

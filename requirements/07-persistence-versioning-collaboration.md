@@ -14,6 +14,10 @@ PVC-005 Studio SHOULD recover the most recent local draft after an unexpected re
 
 PVC-006 Recovery MUST identify the recovered project/version and allow the user to decline it.
 
+PVC-007 Local draft persistence MUST observe committed canonical editor commands; transient drag, resize, pan, zoom, routing preview, hover, and selection updates MUST NOT produce canonical autosaves.
+
+PVC-008 Studio MAY persist per-user/per-device view state separately from the canonical project, but such state MUST NOT be confused with authored project data or Git revisions.
+
 ## File import/export
 
 PVC-020 Studio MUST export one complete canonical project JSON document.
@@ -32,6 +36,10 @@ PVC-026 Export SHOULD use stable ordering to produce useful Git diffs.
 
 PVC-027 Studio SHOULD support downloading project JSON through an explicit Limen/browser effect boundary.
 
+PVC-028 Duplicating a project as a new canonical project MUST produce deterministic ID/reference remapping according to the product duplication policy and MUST preserve semantic topology/navigation.
+
+PVC-029 Project duplication MUST preserve provenance/derived-from metadata separately from active project identity when provenance is enabled.
+
 ## Schema versioning
 
 PVC-040 Every project MUST carry schemaVersion.
@@ -49,6 +57,18 @@ PVC-045 Migration requiring a lossy choice MUST block and produce an explicit ob
 PVC-046 Studio SHOULD generate a migration report.
 
 PVC-047 Downgrades are not required unless a specific reverse migration exists.
+
+PVC-048 The first schema version that introduces diagrams MUST migrate existing page-only projects losslessly, preserving every page/component/navigation/scenario/asset ID and behavior.
+
+PVC-049 Adding diagram support MUST NOT add dummy diagrams to existing page-only projects.
+
+PVC-050 The diagram-capable schema MUST permit diagram-only projects without synthetic pages and mixed projects with both pages and diagrams.
+
+PVC-051 Older Studio versions that cannot understand the diagram-capable schema MUST fail safely as unsupported-newer-schema rather than loading and dropping diagrams.
+
+PVC-052 The migration to optional startPageId for diagram-only projects MUST retain required start-page invariants for every project that still contains pages.
+
+PVC-053 Schema fixtures MUST include migrated legacy page-only, new diagram-only, and mixed page+diagram projects.
 
 ## GitHub persistence
 
@@ -80,7 +100,11 @@ PVC-081 Studio SHOULD present project revision metadata when loaded from GitHub.
 
 PVC-082 Studio SHOULD support comparing current project state with a selected saved revision.
 
-PVC-083 Semantic diff SHOULD operate on pages, nodes, properties, links, and tokens rather than only text lines.
+PVC-083 Semantic diff SHOULD operate on pages, diagrams, component nodes, diagram nodes/edges, properties, geometry, relationships, links, groups/lanes, and tokens rather than only text lines.
+
+PVC-085 Diagram semantic diff MUST normalize canonical geometry before comparison so transient pointer precision does not create false changes.
+
+PVC-086 View state such as current pan, zoom, selection, hover, temporary isolation, and non-authored editor focus MUST NOT create project revisions.
 
 PVC-084 Reverting a prior revision SHOULD create a new explicit save rather than rewriting published history.
 
@@ -100,21 +124,49 @@ PVC-104 Future real-time collaboration MUST preserve the same command/document s
 
 PVC-120 Studio SHOULD detect non-overlapping changes that can be merged mechanically.
 
-PVC-121 Conflicting changes to the same property/slot/navigation action MUST require explicit resolution.
+PVC-121 Conflicting changes to the same property/slot/navigation action/diagram element or relationship MUST require explicit resolution.
 
 PVC-122 Merge logic MUST use stable IDs.
 
 PVC-123 Delete-versus-edit conflicts MUST not resurrect deleted nodes silently.
 
-PVC-124 Page-route conflicts MUST be validated after merge even if the structural merge succeeds.
+PVC-124 Page-route and diagram-graph conflicts MUST be validated after merge even if the structural merge succeeds.
 
 PVC-125 A merge result MUST pass schema/structural validation before becoming canonical project state.
+
+PVC-126 Independent edits to different diagram elements/properties SHOULD merge mechanically when stable IDs and profile rules prove they do not conflict.
+
+PVC-127 Concurrent edits to the same canonical geometry/property MUST require deterministic conflict resolution unless a narrower merge rule proves both changes compatible.
+
+PVC-128 Node-delete versus incident-edge-add/edit MUST be treated as a semantic conflict and MUST NOT silently resurrect the node or drop the edge.
+
+PVC-129 Endpoint reconnection versus endpoint-node deletion MUST require explicit resolution.
+
+PVC-130 Concurrent topology and geometry edits to the same node MAY merge only when the topology change does not replace/delete the node identity and both resulting changes validate.
+
+PVC-131 Concurrent profile upgrade/migration and profile-specific element edits MUST block automatic merge unless the migration contract explicitly proves compatibility.
+
+PVC-132 Merge resolution MUST preserve stable graph IDs wherever the resolved element remains the same canonical entity.
+
+PVC-133 Concurrent edits to different metadata fields on the same stable object SHOULD merge mechanically when field/schema rules prove them independent.
+
+PVC-134 Concurrent edits to the same explicit metadata field/value on the same object MUST require deterministic conflict resolution unless values are canonically equivalent.
+
+PVC-135 A metadata-schema type/cardinality/constraint change concurrent with edits to affected values MUST block automatic merge unless the new schema validates the edited values and the migration contract explicitly permits it.
+
+PVC-136 Concurrent edits to different named style definitions or different palette slots SHOULD merge mechanically by stable definition/slot ID.
+
+PVC-137 Concurrent incompatible edits to the same named style property or palette-slot value/mode MUST require explicit resolution.
+
+PVC-138 A named-style definition change and an independent object-local appearance override MAY merge when the style/override precedence contract remains valid; the merged resolved appearance MUST be revalidated.
+
+PVC-139 External/source-bound metadata refresh versus a local override/edit MUST follow the explicit source/override authority contract and MUST NOT silently discard either side.
 
 ## Backup and portability
 
 PVC-140 A user MUST be able to retain a complete project without an Echelon account or proprietary cloud backend.
 
-PVC-141 All durable v1 project data MUST be representable in the exported project plus referenced external assets.
+PVC-141 All durable v1 project data, including Flow graph topology and authored geometry, MUST be representable in the exported project plus referenced external assets.
 
 PVC-142 Project files MUST NOT contain secrets.
 

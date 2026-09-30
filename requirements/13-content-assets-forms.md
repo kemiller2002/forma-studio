@@ -34,9 +34,15 @@ CAF-026 Missing assets MUST surface validation findings.
 
 CAF-027 Replacing an asset source SHOULD preserve the asset ID and every project reference.
 
-CAF-028 Deleting an in-use asset MUST surface dependent page/node references before completion.
+CAF-028 Deleting an in-use asset MUST surface dependent page/component and diagram/element references before completion.
 
 CAF-029 Studio SHOULD show intrinsic asset dimensions and file/type metadata when available.
+
+CAF-031 Diagram nodes that support meaningful image/icon assets MUST preserve the same alt/decorative/accessibility distinction as page content where that asset conveys information.
+
+CAF-032 Decorative diagram imagery MUST NOT be required to understand typed node/relationship meaning.
+
+CAF-033 Asset replacement MUST preserve diagram references by stable asset ID just as it preserves page/component references.
 
 CAF-030 Studio SHOULD support local fixture assets without requiring a remote server.
 

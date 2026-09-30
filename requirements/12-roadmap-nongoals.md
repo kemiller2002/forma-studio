@@ -22,23 +22,39 @@ RN-009 Studio does not replace Forma's component implementation authority.
 
 RN-010 Studio does not promise pixel identity with unrelated design tools.
 
+RN-011 Precision CAD/mechanical/architectural drafting, dimensioning, and engineering tolerance systems are not initial Flow goals.
+
+RN-012 Studio does not claim BPMN, UML, SysML, ArchiMate, or another external notation standard merely because a diagram looks similar; conformance requires a dedicated versioned profile/adapter and tests.
+
+RN-013 Production workflow orchestration/execution is not an initial Flow goal.
+
+RN-014 Arbitrary user-authored executable profile/plugin code is not an initial Flow goal.
+
+RN-015 Responsive automatic graph reflow based on browser viewport is not an initial Flow goal; authored Flow geometry is spatially stable unless an explicit future constrained-diagram mode is introduced.
+
 ## Near-term phases
 
 RN-020 Phase 0: governed repository bootstrap, complete requirements, schema, marketing shell, and capability installation.
 
-RN-021 Phase 1: F# domain model, project import/export, page management, navigation graph, validation core, and command/undo model.
+RN-021 Phase 1: F# domain model, project import/export, page management, navigation graph, shared editor command/selection/undo core, and validation core.
 
-RN-022 Phase 2: Forma catalog integration, real component rendering, tree/inspector editing, token browser, responsive/theme preview.
+RN-022 Phase 2A: Forma catalog integration, real component rendering, tree/inspector editing, token browser, responsive/theme preview.
+
+RN-026 Phase 2B: Flow foundation using the same editor core: diagram persistence, nodes, ports, connectors, groups/lanes, pan/zoom, direct manipulation, undo/redo, and deterministic round-trip.
+
+RN-027 Phase 2C: Typed General/Workflow/State/Architecture profiles, profile-aware validation, structure/outline navigation, and initial deterministic auto-layout.
 
 RN-023 Phase 3: scenarios, interactive linked-page preview, accessibility validation, agent/developer export.
 
 RN-024 Phase 4: GitHub persistence, semantic diff/review workflow, richer marketing/demo experience.
 
-RN-025 Phase 5: implementation-generation experiments and cross-tool adapters.
+RN-025 Phase 5: implementation-generation experiments, richer diagram profiles, and cross-tool adapters.
 
 ## Deferred but compatible capabilities
 
 RN-040 Figma import/export MAY be explored as an adapter to the canonical project model.
+
+RN-039 Visio/draw.io/other diagram import/export MAY be explored as adapters to the canonical graph model; external diagram formats MUST NOT become authoritative project state.
 
 RN-041 Other design-tool adapters MAY be added behind explicit translation contracts.
 
@@ -55,6 +71,14 @@ RN-046 A hosted persistence service MAY be added without invalidating local/Git 
 RN-047 Comments/review threads MAY be stored externally or in-project if ownership semantics remain explicit.
 
 RN-048 Plugin extensibility MAY be explored, but untrusted code execution requires a separate security design.
+
+RN-051 Additional diagram profiles MAY include sequence, data/ER, UML subsets, org charts, mind maps, network/deployment views, or standards-based profiles without creating new editor engines.
+
+RN-052 Data-bound/derived diagrams MAY be explored through explicit source-authority and refresh contracts.
+
+RN-053 Named layer support MAY be added orthogonally to group/container semantics.
+
+RN-054 Precision drawing/CAD capabilities require separate product/architecture requirements and MUST NOT emerge accidentally through Flow geometry primitives.
 
 RN-049 Asset pipelines MAY grow to include managed uploads/CDN storage.
 
@@ -76,7 +100,7 @@ RN-065 Communication Engineering MAY eventually provide executable content check
 
 ## AI-assisted editing
 
-RN-080 An agent MAY propose page/component changes as commands.
+RN-080 An agent MAY propose page/component or diagram/graph changes as commands.
 
 RN-081 Agent proposals MUST be previewable as a diff before canonical state changes when the action is consequential.
 
@@ -84,9 +108,9 @@ RN-082 Agents MUST use the same legal command surface as human editing; there is
 
 RN-083 Agent-generated content MUST preserve unknowns and MUST not invent business rules.
 
-RN-084 Agent operations SHOULD cite requirement/component IDs in their change explanations.
+RN-084 Agent operations SHOULD cite requirement/component/diagram element IDs in their change explanations.
 
-RN-085 Future natural-language-to-page generation MUST result in ordinary project specification data that can be edited without the model.
+RN-085 Future natural-language-to-page or natural-language-to-diagram generation MUST result in ordinary project specification data that can be edited without the model.
 
 ## Research questions
 
@@ -111,5 +135,11 @@ RN-121 New capabilities MUST not create a second private implementation of Forma
 RN-122 New browser capabilities MUST cross Limen.
 
 RN-123 New stateful editor behavior MUST be modeled through explicit F# transitions.
+
+RN-125 Layout and Flow MUST remain surface-specific capability projections over one shared editor core.
+
+RN-126 Flow geometry MAY be canonical diagram data; this exception MUST NOT be generalized into arbitrary x/y layout storage for ordinary Forma composition.
+
+RN-127 Adding a diagram profile MUST extend the canonical graph/profile contracts rather than introducing a new editor engine.
 
 RN-124 New repository process MUST follow ROS/SDE rather than relying on conversation state.

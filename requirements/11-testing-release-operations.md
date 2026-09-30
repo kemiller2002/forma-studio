@@ -22,6 +22,18 @@ TRO-009 Marketing-site responsive tests MUST include 320, 768, and 1440 widths.
 
 TRO-010 Editor responsive tests MUST include at least 320, tablet, and desktop widths.
 
+TRO-011 Shared-editor tests MUST prove equivalent intents from supported input adapters dispatch the same canonical command semantics.
+
+TRO-012 Flow domain tests MUST cover node/edge identity, endpoint reconnection, groups/lanes, geometry normalization, z-order, locking/visibility, copy/paste ID remapping, profile validation, and undo coalescing.
+
+TRO-013 Connector tests MUST cover straight/orthogonal routing where supported, parallel edges, self-edges, manual route points, node movement, and label anchoring.
+
+TRO-014 Accessibility tests MUST cover non-pointer graph traversal, relationship descriptions, focus restoration, and non-drag connection/movement workflows.
+
+TRO-015 Auto-layout tests MUST verify determinism for fixed strategy/version/options/input and preservation of semantic identity/relationships.
+
+TRO-016 Adapter tests MUST include representative lossless, transformed, lossy, unsupported, and unresolved mapping cases.
+
 ## Project fixtures
 
 TRO-020 The repository MUST contain a minimal linked-pages project fixture.
@@ -33,6 +45,14 @@ TRO-022 The repository SHOULD contain invalid fixtures for each structural valid
 TRO-023 Migration tests MUST retain fixtures for every supported historical schema version.
 
 TRO-024 Stress fixtures SHOULD include long content, large page counts, deep nesting, and large collections.
+
+TRO-025 Flow fixtures MUST include a minimal connected graph, an invalid/dangling graph, a typed workflow/state example, overlapping/parallel-edge cases, nested groups/lanes, negative-or-boundary coordinate cases consistent with the coordinate contract, and a large graph stress fixture.
+
+TRO-026 Round-trip fixtures MUST prove stable graph IDs/topology/geometry after export/import normalization.
+
+TRO-027 Copy/paste fixtures MUST prove internal edge remapping and explicit handling of external references.
+
+TRO-028 Print/export fixtures SHOULD cover bounded sheet, unbounded fit-to-content, multi-page tiling, and editor-adornment exclusion when those capabilities ship.
 
 ## Golden/snapshot discipline
 

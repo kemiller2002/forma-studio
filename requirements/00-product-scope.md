@@ -2,7 +2,7 @@
 
 ## Product purpose
 
-PS-001 Forma Studio MUST let a person visually design one or more application pages using the canonical Forma component library.
+PS-001 Forma Studio MUST let a person visually design one or more application pages using the canonical Forma component library and create diagram/flow surfaces using Studio's canonical graph model.
 
 PS-002 Forma Studio MUST save the result as a typed, machine-readable project specification rather than as screenshots or opaque canvas data.
 
@@ -20,7 +20,7 @@ PS-008 Studio MUST distinguish presentation state from the application-domain st
 
 PS-009 Studio MUST NOT become the source of truth for business rules, permissions, scoring, obligations, or domain transition legality in generated applications.
 
-PS-010 Studio MUST support single-page and multi-page designs.
+PS-010 Studio MUST support page-only, diagram-only, and mixed projects, including single-page, multi-page, single-diagram, and multi-diagram specifications.
 
 PS-011 Studio MUST support explicit links between pages and allow a user to preview those links interactively.
 
@@ -48,13 +48,19 @@ PS-024 Studio SHOULD support a stakeholder in presentation/preview mode without 
 
 ## Initial workflows
 
-PS-030 A user MUST be able to create a project, add pages, add Forma components, configure allowed properties, enter sample content, link pages, preview at multiple viewports, validate, save, reopen, and export.
+PS-030 A user MUST be able to create a project, add pages and diagrams, add Forma components or diagram elements appropriate to the active surface, configure allowed properties, enter sample content, link pages or diagram elements, preview, validate, save, reopen, and export.
 
-PS-031 A user MUST be able to start from a blank project.
+PS-031 A user MUST be able to start from a blank-template creation flow and choose the first Layout page or Flow diagram; canonical project creation MUST establish that first authored surface atomically rather than persisting an invalid zero-surface project or an unrelated dummy surface.
 
 PS-032 A user SHOULD be able to start from a future template without changing the project file format.
 
 PS-033 A user MUST be able to clone/duplicate a project file safely.
+
+PS-035 Studio MUST distinguish copying the same project file/revision from creating a new project derived from an existing project.
+
+PS-036 "Duplicate as new project" MUST allocate a new project ID and MUST define deterministic remapping/preservation rules for internal page/diagram/element IDs and internal references.
+
+PS-037 A copied file intended to remain the same project MAY preserve project/internal IDs, but Studio MUST make the identity distinction visible enough to avoid accidental divergent saves to the same remote project location.
 
 PS-034 A user MUST be warned before a destructive project migration or unsupported downgrade.
 
@@ -80,7 +86,7 @@ PS-048 Studio SHOULD make the legal next actions discoverable from current edito
 
 ## v1 boundary
 
-PS-060 v1 MUST include project/page management, component composition, page linking, responsive preview, accessibility/contract validation, local draft persistence, JSON import/export, and agent-oriented export.
+PS-060 v1 MUST include project/page management, component composition, page linking, a basic Flow surface with nodes and connectors, responsive preview, accessibility/contract validation, local draft persistence, JSON import/export, and agent-oriented export.
 
 PS-061 v1 SHOULD include GitHub persistence as an explicit save/commit workflow.
 
@@ -98,12 +104,45 @@ PS-067 v1 MAY support external image/SVG assets subject to security and accessib
 
 PS-068 v1 MUST be mobile-usable for review and basic editing; desktop/tablet MAY provide richer spatial editing affordances.
 
+PS-069 Studio MUST expose Layout and Flow as distinct surface behaviors over one shared editor core; adding Flow MUST NOT create a second selection, history, persistence, or command architecture.
+
+PS-070 The Flow surface MUST support general-purpose diagrams without requiring semantic typing and MUST also support explicit typed profiles such as workflow, state, and architecture diagrams.
+
+PS-071 Free spatial placement is valid project intent on Flow surfaces, but MUST NOT weaken the rule that ordinary Forma layout composition is semantic/constraint-driven rather than arbitrary x/y placement.
+
+PS-072 Studio MUST NOT claim that a typed diagram is executable application/domain logic merely because it has workflow or state semantics; execution/code-generation requires a separate explicit contract.
+
 ## Completion criteria
 
 PS-080 A representative project with at least five pages, nested Forma components, internal navigation cycles, external links, Light/Dark preview, and 320px mobile preview MUST be expressible without editing raw JSON.
 
 PS-081 The same representative project MUST round-trip export/import without semantic loss.
 
-PS-082 An agent MUST be able to determine page structure, component contracts, token bindings, links, and scenarios from the exported project without inspecting screenshots.
+PS-082 An agent MUST be able to determine page structure, component contracts, token bindings, links, scenarios, diagram topology, typed relationship/profile semantics, authored geometry, and cross-surface references from the exported project without inspecting screenshots.
 
-PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, and missing required accessibility metadata.
+PS-083 The editor MUST be capable of identifying at least broken page targets, duplicate routes, invalid component IDs, unsupported properties, missing required accessibility metadata, broken diagram edge endpoints, and invalid typed-diagram relationships.
+
+PS-084 The shared editor architecture MUST prove round-trip editing on both surfaces: a Layout slice (Stack -> Heading -> edit -> reorder -> spacing -> undo/redo -> save/reload) and a Flow slice (two nodes -> connect -> move -> label -> undo/redo -> save/reload).
+
+
+## Authored object metadata
+
+PS-090 Studio MUST provide one cross-surface metadata model for authored addressable objects rather than separate unrelated metadata systems for Layout and Flow.
+
+PS-091 Metadata-capable authored objects SHOULD include project, page, component node, diagram, diagram element, reusable definition/instance, asset/reference-bearing object, and annotation/review object where descriptive metadata is meaningful.
+
+PS-092 Each object kind/profile MUST explicitly declare whether metadata is supported and which schema/visibility rules apply; metadata support is not an excuse to add opaque property bags to internal/transient records.
+
+PS-093 Transient editor state such as selection, hover, drag previews, pan/zoom, remote cursor presence, command internals, renderer handles, and temporary validation projections MUST NOT become object metadata.
+
+PS-094 Shared metadata concepts MUST use the same stable field/schema/value/visibility model across supported object kinds.
+
+PS-095 Object metadata MUST remain separate from object identity, canonical content/semantic properties, presentation/appearance, typed resource references, accessibility semantics, and application/domain authority.
+
+PS-096 Project-level metadata MAY describe the authored specification itself, but MUST NOT replace schema version, Forma/profile dependency versions, revision identity, or other canonical system fields.
+
+PS-097 Asset metadata MAY describe provenance, licensing/attribution, source, tags, or descriptive information, but intrinsic/security/accessibility asset fields remain governed by the asset contract.
+
+PS-098 Annotation/review metadata MUST remain distinguishable from the annotation/comment content and review state.
+
+PS-099 Metadata extensibility MUST preserve deterministic serialization, migration, privacy/export policy, validation, search, and agent readability.

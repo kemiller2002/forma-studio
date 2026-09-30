@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
 
       - name: Install JavaScript dependencies
         run: npm install --ignore-scripts
@@ -49,6 +49,17 @@ jobs:
         run: |
           dotnet restore src/engine/FormaStudio.Engine/FormaStudio.Engine.fsproj
           dotnet build src/engine/FormaStudio.Engine/FormaStudio.Engine.fsproj -c Release --no-restore
+
+      - name: Test F# engine (commands, history, persistence, appearance, disclosure)
+        run: dotnet run --project tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj -c Release
+
+      - name: Build the Flow editor (F# engine on .NET WebAssembly + Limen kernel)
+        run: npm run app:build
+
+      - name: Test the Flow editor in Chromium
+        run: |
+          npx playwright install --with-deps chromium
+          npm run app:test
 
       - name: Validate requirements and project schema
         run: |

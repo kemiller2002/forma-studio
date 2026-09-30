@@ -1,0 +1,91 @@
+/*
+ * Studio editor chrome. These classes are editor-only adorners and layout
+ * (FDA-245/246): they never reuse ef-* classes and never appear in exported
+ * diagrams. Production presentation comes from Forma (vendor/forma).
+ */
+body { margin: 0; }
+.studio { display: grid; gap: var(--ef-primitive-spacing-4, 1rem); padding: var(--ef-primitive-spacing-4, 1rem); }
+.studio-toolbar { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-2, 0.5rem); align-items: center; }
+.studio-toolbar h1 { margin: 0; font-size: 1.25rem; margin-inline-end: auto; }
+.studio-toolbar .ef-actions { margin: 0; }
+.studio-status { margin: 0; min-block-size: 1.5em; }
+.studio-workspace { display: grid; gap: var(--ef-primitive-spacing-4, 1rem); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1100px) { .studio-workspace { grid-template-columns: minmax(0, 1fr) 22rem; align-items: start; } }
+.studio-panel { display: grid; gap: var(--ef-primitive-spacing-3, 0.75rem); }
+.studio-panel h2, .studio-panel h3 { margin: 0; }
+.studio-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.studio-list button { inline-size: 100%; text-align: start; }
+.studio-outline-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px; }
+.studio-outline-row .studio-toggle { inline-size: auto; min-inline-size: 2.75rem; text-align: center; }
+.studio-outline-row .studio-toggle[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
+.studio-list button[aria-current="true"], .studio-toolbar button[aria-current="page"], .studio-choices button[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
+.studio-choices { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-1, 0.25rem); }
+.studio-meta { display: grid; gap: var(--ef-primitive-spacing-1, 0.25rem); margin: 0; }
+.studio-meta > div { display: flex; flex-wrap: wrap; gap: 0 var(--ef-primitive-spacing-2, 0.5rem); }
+.studio-meta dt { font-weight: 700; }
+.studio-meta dd { margin: 0; }
+/* Limen needs an HTML root per repeated connector; it only positions the Forma SVG. */
+.studio-wire-layer { position: absolute; inset: 0; pointer-events: none; }
+/* Canvas adorners: selection, connection source and drag preview. */
+.ef-diagram__canvas article { cursor: grab; touch-action: none; }
+.studio-selected { outline: 3px dashed var(--ef-color-focus-ring, #1f5fbf); outline-offset: 5px; }
+.studio-connect-source { outline: 3px dotted var(--ef-color-focus-ring, #1f5fbf); outline-offset: 5px; }
+.studio-dragging { cursor: grabbing; opacity: 0.85; z-index: 3; }
+.studio-selected-wire { stroke-width: 4; }
+.studio-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (forced-colors: active) {
+  .studio-selected, .studio-connect-source, .studio-list button[aria-current="true"] { outline-color: Highlight; }
+}
+
+/* Forma gives value-state tags a display value; the hidden attribute must still win. */
+.studio [hidden] { display: none !important; }
+
+/* Resize handle: an editor adorner, never part of the exported diagram. */
+.studio .ef-diagram-node .studio-resize-handle {
+  position: absolute;
+  inset-inline-end: -6px;
+  inset-block-end: -6px;
+  inline-size: 12px;
+  block-size: 12px;
+  border: 2px solid CanvasText;
+  background: Canvas;
+  cursor: nwse-resize;
+  display: none;
+}
+.studio .ef-diagram-node.studio-selected .studio-resize-handle { display: block; }
+.studio .ef-diagram-node.studio-dragging[style*="--studio-preview-w"] {
+  inline-size: var(--studio-preview-w);
+  min-block-size: var(--studio-preview-h);
+}
+
+/* Connector endpoint handles: editor adorners for the selected connector. */
+.studio .studio-endpoint {
+  position: absolute;
+  inset-inline-start: var(--studio-x);
+  inset-block-start: var(--studio-y);
+  translate: -50% -50%;
+  inline-size: 18px;
+  block-size: 18px;
+  padding: 0;
+  border: 3px solid CanvasText;
+  border-radius: 50%;
+  background: Canvas;
+  cursor: grab;
+  z-index: 3;
+}
+.studio .studio-endpoint[aria-pressed="true"] { background: CanvasText; }
+.studio .studio-endpoint.studio-dragging { cursor: grabbing; }
+
+/* Zoom is a view preference: CSS zoom scales the canvas and its adorners,
+   and the gesture adapter divides pointer deltas by the same factor. */
+.studio .ef-diagram__canvas { zoom: var(--studio-zoom, 1); }
+
+/* Alignment guides: drag-preview adorners, removed when the drag ends. */
+.studio .studio-guide {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  background: Highlight;
+}
+.studio .studio-guide[data-axis="x"] { inset-block: 0; inset-inline-start: var(--studio-guide); inline-size: 1px; }
+.studio .studio-guide[data-axis="y"] { inset-inline: 0; inset-block-start: var(--studio-guide); block-size: 1px; }

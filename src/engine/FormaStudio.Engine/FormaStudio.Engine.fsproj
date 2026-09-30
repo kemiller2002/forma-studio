@@ -8,9 +8,30 @@
 
   <ItemGroup>
     <PackageReference Include="EchelonFoundry.Aegis.Core" Version="1.0.0" />
+    <!-- Aegis.Core 1.0.0 requires FSharp.Core >= 10.1.400; pin it so the SDK default cannot downgrade it (NU1605). -->
+    <PackageReference Update="FSharp.Core" Version="10.1.400" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Domain.fs" />
+    <Compile Include="Identity.fs" />
+    <Compile Include="Json.fs" />
+    <Compile Include="Geometry.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="MetadataRules.fs" />
+    <Compile Include="Profiles.fs" />
+    <Compile Include="ProjectOps.fs" />
+    <Compile Include="AppearanceResolution.fs" />
+    <Compile Include="Validation.fs" />
+    <Compile Include="Components.fs" />
+    <Compile Include="Commands.fs" />
+    <Compile Include="Editor.fs" />
+    <Compile Include="Codec.fs" />
+    <Compile Include="Samples.fs" />
+    <Compile Include="Export.fs" />
+    <Compile Include="Projection.fs" />
+    <Compile Include="Diff.fs" />
+    <Compile Include="Fragment.fs" />
+    <Compile Include="Templates.fs" />
+    <Compile Include="EditorApp.fs" />
   </ItemGroup>
 </Project>

@@ -22,6 +22,21 @@ The requirements are intentionally broader than a first implementation sprint. T
 - 13-content-assets-forms.md
 - 14-reuse-templates-layouts.md
 - 15-faults-recovery-aegis.md
+- 16-flow-diagram-authoring.md
+- AUDIT-COVERAGE-2026-09-30.md — cross-repo traceability for the final Forma Studio / Forma / Folio requirements audit
+
+## Execution scope
+
+This requirements baseline defines the durable product boundary, not one implementation sprint.
+
+For Flow work, agents MUST use `12-roadmap-nongoals.md` plus the acceptance/proof requirements in `16-flow-diagram-authoring.md` to determine the current implementation slice. The existence of deferred, conditional, SHOULD, or MAY requirements is not authorization to implement all of them at once.
+
+The first architecture proof remains deliberately small:
+
+- Layout: Stack -> Heading -> edit -> reorder -> spacing -> undo/redo -> save/reload.
+- Flow: two nodes -> connect -> move -> label -> undo/redo -> save/reload.
+
+Later capabilities must reuse the proven shared editor/document/command architecture rather than expanding the first slice opportunistically.
 
 ## Normative language
 
@@ -31,8 +46,8 @@ MAY is optional.
 
 ## Product invariant
 
-A saved Forma Studio project is a machine-readable visual application specification.
+A saved Forma Studio project is a machine-readable visual application and diagram specification.
 
-The rendered canvas is a projection of that specification.
+Layout and Flow canvases are projections of that specification and share one editor core.
 
 The DOM is never the authoritative project state.

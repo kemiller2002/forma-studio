@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0.0",
+  "contract": "forma.diagram-presentation",
+  "contractVersion": "2.0.0",
+  "stylesheet": "components.css",
+  "decision": "docs/decisions/ADR-0004-diagram-presentation-boundary.md",
+  "requirements": "requirements/OBJECT-METADATA-AND-DIAGRAM-PRESENTATION.md",
+  "ownership": {
+    "forma": ["surface", "node", "group", "connector", "connectorLabel", "marker", "relations", "legend", "valueState"],
+    "consumer": ["geometry", "routing", "semanticKind", "metadataValues", "metadataVisibility", "namedStyles", "paletteSlots", "metadataMappings", "appearancePrecedence", "membership"],
+    "editorOnly": ["selection", "handles", "guides", "routePreview", "marquee", "dragTargets", "connectionTargets", "minimap", "validationOverlay"],
+    "editorOnlyRule": "Editor-only adorners never use ef-diagram* classes and never appear in exported output."
+  },
+  "elements": {
+    "surface": { "element": "figure", "class": "ef-diagram", "parts": { "viewport": "ef-diagram__viewport", "canvas": "ef-diagram__canvas", "wires": "ef-diagram__wires" } },
+    "node": {
+      "element": "article",
+      "class": "ef-diagram-node",
+      "regions": { "kind": "ef-diagram-node__kind", "label": "ef-diagram-node__label", "metadata": "ef-diagram-node__meta" },
+      "shapeAttribute": "data-ef-shape",
+      "shapes": ["rectangle", "rounded", "pill", "ellipse", "diamond"],
+      "defaultShape": "rectangle",
+      "shapeNotes": { "diamond": "Square box (aspect-ratio 1); content sits in the inscribed square, so give it enough width for the label." },
+      "geometry": ["x", "y", "w", "h"],
+      "appearance": ["fill", "stroke", "accent", "foreground"]
+    },
+    "group": {
+      "element": "div",
+      "class": "ef-diagram-group",
+      "regions": { "header": "ef-diagram-group__header", "kind": "ef-diagram-group__kind", "label": "ef-diagram-group__label" },
+      "variantAttribute": "data-ef-group",
+      "variants": ["group", "lane", "phase"],
+      "defaultVariant": "group",
+      "lineAttribute": "data-ef-line",
+      "lineStyles": ["solid", "dashed", "dotted"],
+      "geometry": ["x", "y", "w", "h"],
+      "appearance": ["fill", "stroke", "accent", "foreground"],
+      "paintOrder": "Place groups first in the canvas so they paint beneath connectors and nodes.",
+      "membership": "Consumer data. Canvas overlap never implies membership."
+    },
+    "connector": {
+      "element": "path",
+      "class": "ef-diagram-connector",
+      "lineAttribute": "data-ef-line",
+      "lineStyles": ["solid", "dashed", "dotted"],
+      "defaultLineStyle": "solid",
+      "markers": { "class": "ef-diagram-marker", "kinds": ["arrow"], "attachment": ["marker-start", "marker-end"] },
+      "appearance": ["connectorStroke", "connectorWidth"]
+    },
+    "connectorLabel": { "element": "span", "class": "ef-diagram-connector__label", "geometry": ["x", "y"] },
+    "relations": { "element": "ol", "class": "ef-diagram__relations", "rule": "One text item per connector, in reading order." },
+    "legend": { "element": "dl", "class": "ef-diagram-legend", "swatch": "ef-diagram-legend__swatch", "appearance": ["fill", "stroke", "accent"] },
+    "valueState": {
+      "element": "span",
+      "class": "ef-diagram-value-state",
+      "stateAttribute": "data-ef-value-state",
+      "states": ["default", "derived", "source-bound", "unknown", "unavailable", "invalid"],
+      "explicit": "Explicit values carry no tag.",
+      "rule": "The tag text carries the meaning; the border style is secondary."
+    }
+  },
+  "appearanceProperties": {
+    "fill": { "customProperty": "--ef-diagram-fill", "appliesTo": ["node", "group", "legend"], "syntax": "color", "default": { "node": "--ef-color-surface-primary", "group": "transparent", "legend": "--ef-color-surface-primary" } },
+    "stroke": { "customProperty": "--ef-diagram-stroke", "appliesTo": ["node", "group", "legend"], "syntax": "color", "default": { "node": "--ef-color-border-functional", "group": "--ef-color-border-functional", "legend": "--ef-color-border-functional" }, "print": "Authored stroke prints; otherwise black." },
+    "accent": { "customProperty": "--ef-diagram-accent", "appliesTo": ["node", "group", "legend"], "syntax": "color", "default": { "node": "stroke", "group": "stroke", "legend": "stroke" } },
+    "foreground": { "customProperty": "--ef-diagram-foreground", "appliesTo": ["node", "group"], "syntax": "color", "default": { "node": "--ef-color-text-primary", "group": "--ef-color-text-primary" }, "contrast": "consumer" },
+    "connectorStroke": { "customProperty": "--ef-diagram-connector-stroke", "appliesTo": ["connector"], "syntax": "color", "default": { "connector": "--ef-color-border-functional" } },
+    "connectorWidth": { "customProperty": "--ef-diagram-connector-width", "appliesTo": ["connector"], "syntax": "number", "range": [1, 8], "default": { "connector": "2" } }
+  },
+  "geometryProperties": {
+    "x": "--ef-diagram-x",
+    "y": "--ef-diagram-y",
+    "w": "--ef-diagram-w",
+    "h": "--ef-diagram-h",
+    "canvasWidth": "--ef-diagram-canvas-w",
+    "canvasHeight": "--ef-diagram-canvas-h",
+    "unit": "px",
+    "axes": "physical (does not mirror in right-to-left documents)"
+  },
+  "color": {
+    "paint": "solid",
+    "literalSyntax": "#rrggbb",
+    "literalNote": "Consumers normalize literals to lowercase six-digit hex; alpha, gradients, blend modes and filters are not part of this contract (FMD-PAINT-001..003).",
+    "tokenReferences": [
+      "--ef-color-accent-primary",
+      "--ef-color-accent-secondary",
+      "--ef-color-border-functional",
+      "--ef-color-border-subtle",
+      "--ef-color-surface-primary",
+      "--ef-color-surface-secondary",
+      "--ef-color-surface-inverse",
+      "--ef-color-text-primary",
+      "--ef-color-text-secondary"
+    ],
+    "reset": "Remove the custom property to restore the Forma default (FMD-RESOLVE-006)."
+  },
+  "fallbacks": {
+    "forcedColors": "Nodes, groups, swatches and labels use Canvas/CanvasText; connectors and markers use CanvasText. Kind text, shape, line style and value-state text remain.",
+    "print": "Viewport stops scrolling; nodes avoid page breaks; authored strokes and accents print; unauthored boundaries print black.",
+    "backgroundsDisabled": "Every shape and group has a real border, so boundaries survive when fills are dropped.",
+    "grayscale": "Meaning is carried by kind text, labels, line style, the relationship list and the legend text, never by hue."
+  }
+}

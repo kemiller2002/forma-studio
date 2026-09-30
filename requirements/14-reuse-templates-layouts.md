@@ -56,13 +56,21 @@ RTL-080 Studio MAY ship starter project/page templates.
 
 RTL-081 Templates MUST be ordinary versioned Studio project fragments/documents using public schema concepts.
 
-RTL-082 Applying a template MUST create new project/page/node IDs where required.
+RTL-082 Applying a template MUST create new project/page/component/diagram/diagram-element IDs where required.
 
 RTL-083 Template content MUST be clearly distinguishable from canonical Forma components and from user project content.
 
 RTL-084 Templates MUST pin or declare compatible Forma versions.
 
 RTL-085 Template upgrades MUST NOT silently rewrite projects created from older template versions.
+
+RTL-086 Studio MAY ship starter diagram templates using ordinary canonical Diagram/Node/Edge/Profile concepts.
+
+RTL-087 Diagram templates MUST declare compatible profile IDs/versions and any required public presentation capabilities.
+
+RTL-088 Applying a diagram template MUST allocate new project-local stable IDs while preserving template-internal topology through deterministic remapping.
+
+RTL-089 Diagram templates MUST NOT embed opaque editor-specific canvas blobs as the authoritative graph.
 
 ## Libraries
 
@@ -76,6 +84,14 @@ RTL-103 Missing library versions MUST fail explicitly rather than flattening to 
 
 RTL-104 A project SHOULD remain inspectable even when a reusable library dependency is unavailable, preserving identifiers/unknown state.
 
+RTL-105 Future reusable diagram fragment/stencil libraries MAY publish canonical graph fragments independently of Forma while referencing Forma presentation primitives where required.
+
+RTL-106 Reusable diagram fragments MUST declare profile compatibility and MUST fail explicitly when required element/relationship kinds are unavailable.
+
+RTL-107 Reusable fragment instances, if linked rather than detached copies, MUST retain definition identity separately from instance identity and use explicit typed overrides.
+
+RTL-108 Detaching a reusable diagram fragment MUST be an explicit undoable operation that leaves an ordinary canonical graph fragment.
+
 ## Acceptance
 
 RTL-120 A project with ten pages sharing one header/navigation composition MUST be able to change the shared navigation label once and preview the update on all ten pages.
@@ -83,3 +99,20 @@ RTL-120 A project with ten pages sharing one header/navigation composition MUST 
 RTL-121 Deleting a page referenced by the shared navigation MUST identify the broken shared navigation entry.
 
 RTL-122 Export must make it possible for an implementation agent to distinguish Forma components, Studio shared compositions, and page-local nodes.
+
+RTL-123 A reusable workflow/architecture fragment copied into two diagrams MUST preserve valid internal topology while allocating distinct instance IDs and retaining source/provenance identity where supported.
+
+
+## Diagram metadata/style dependencies
+
+RTL-124 Reusable diagram templates/fragments MUST declare metadata-field, palette, named-style, presentation-mapping, profile-version, asset, and public presentation dependencies needed to reproduce their intended result.
+
+RTL-125 Applying a diagram template/fragment MUST reconcile those dependencies before canonical object insertion completes.
+
+RTL-126 Dependency reconciliation MUST use stable identity/version compatibility and MUST NOT silently equate two definitions solely because they share a display name, label, or resolved color.
+
+RTL-127 Reusing a compatible existing dependency, importing a new dependency, remapping to another compatible dependency, or materializing effective values MUST be explicit deterministic outcomes.
+
+RTL-128 A dependency conflict MUST surface a review obligation before the template/fragment is committed.
+
+RTL-129 Template duplication/import MUST preserve metadata display configuration and appearance source identity, not only resolved visible output.

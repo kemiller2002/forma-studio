@@ -28,6 +28,16 @@ TRT-024 Validation SHOULD run relevant visual/accessibility checks across every 
 
 TRT-025 Components MUST not require duplicate page definitions for Light and Dark.
 
+TRT-026 Diagram presentation backed by Forma MUST resolve theme/brand/skin tokens through the same public token authority rather than storing copied resolved colors/strokes in graph semantics.
+
+TRT-027 Theme switching MUST NOT rewrite canonical Flow topology or geometry.
+
+TRT-028 Diagram profiles MUST NOT encode semantic meaning only through a particular theme color; semantic kind remains explicit typed data.
+
+TRT-029 Diagram node/edge/label contrast checks SHOULD run across required themes when the presentation can be evaluated reliably.
+
+TRT-030 If a theme changes stroke/fill/text metrics enough to create clipping/legibility issues, Studio SHOULD report the issue rather than silently resizing/reflowing canonical geometry.
+
 ## Viewports
 
 TRT-040 Studio MUST provide named viewport presets including 320, 375, 768, 1024, and 1440 CSS pixels.
@@ -43,6 +53,10 @@ TRT-044 Viewport settings MUST NOT modify the project unless saved as page previ
 TRT-045 Studio MUST support portrait and landscape review.
 
 TRT-046 Studio SHOULD expose safe-area simulation for mobile devices without pretending to be a full device emulator.
+
+TRT-047 Layout viewport presets apply to responsive page preview; Flow zoom/canvas extent is a different concept and MUST NOT be represented as a fake responsive breakpoint.
+
+TRT-048 On small screens, Flow review/editing MAY use a smaller viewport into the same authored geometry rather than rescaling/reflowing canonical node positions.
 
 ## Responsive contract
 
@@ -82,7 +96,7 @@ TRT-101 Disabling a theme MUST be explicit project metadata and MUST NOT delete 
 
 TRT-102 A project SHOULD be able to specify its initial/default theme separately from the Studio preview theme.
 
-TRT-103 Studio MUST warn if a page contains presentation that only works in one required theme.
+TRT-103 Studio MUST warn if a page or diagram contains presentation that only works in one required theme.
 
 ## Future extensibility
 
