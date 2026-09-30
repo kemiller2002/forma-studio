@@ -15,6 +15,9 @@ body { margin: 0; }
 .studio-panel h2, .studio-panel h3 { margin: 0; }
 .studio-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
 .studio-list button { inline-size: 100%; text-align: start; }
+.studio-outline-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px; }
+.studio-outline-row .studio-toggle { inline-size: auto; min-inline-size: 2.75rem; text-align: center; }
+.studio-outline-row .studio-toggle[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
 .studio-list button[aria-current="true"], .studio-choices button[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
 .studio-choices { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-1, 0.25rem); }
 .studio-meta { display: grid; gap: var(--ef-primitive-spacing-1, 0.25rem); margin: 0; }

@@ -12,7 +12,7 @@ const open = async (page, width = 1400) => {
 const history = (page) => page.locator('[data-text="historyCount"]');
 const node = (page, label) => page.locator(".ef-diagram__canvas article", { has: page.locator(".ef-diagram-node__label", { hasText: label }) });
 const structure = (page) => page.getByRole("navigation", { name: "Structure" });
-const outlineItem = (page, text) => structure(page).getByRole("button").filter({ hasText: text });
+const outlineItem = (page, text) => structure(page).locator("button[data-event=select]").filter({ hasText: text });
 const status = (page) => page.getByRole("status");
 const position = (locator) => locator.evaluate((el) => ({ x: parseInt(el.style.getPropertyValue("--ef-diagram-x")), y: parseInt(el.style.getPropertyValue("--ef-diagram-y")) }));
 
@@ -25,7 +25,7 @@ test.beforeEach(async ({ page }) => {
 test("the sample renders with Forma contracts and hides source-only metadata on the canvas", async ({ page }) => {
   await open(page);
   await expect(page.locator("path.ef-diagram-connector")).toHaveCount(7);
-  await expect(structure(page).getByRole("button")).toHaveCount(14);
+  await expect(structure(page).locator("button[data-event=select]")).toHaveCount(14);
   await expect(page.locator(".ef-diagram__canvas")).not.toContainText("CC-7731");
   await expect(page.locator(".ef-diagram__canvas")).not.toContainText("Cost center");
   await expect(node(page, "Within budget?")).toHaveAttribute("data-ef-shape", "diamond");
@@ -220,4 +220,24 @@ test("forced colors keep selection and boundaries visible", async ({ page }) => 
   await expect(selected).toHaveClass(/studio-selected/);
   expect(await selected.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe("dashed");
   expect(await node(page, "Prepare request").evaluate((el) => getComputedStyle(el).borderTopStyle)).toBe("solid");
+});
+
+test("multi-selection edits metadata atomically, shows mixed values and arranges in one step", async ({ page }) => {
+  await open(page);
+  await outlineItem(page, "Activity: Prepare request").click();
+  await structure(page).getByRole("button", { name: "Add Revise request to selection" }).click();
+  await structure(page).getByRole("button", { name: "Add Issue purchase order to selection" }).click();
+  await expect(status(page)).toHaveText("3 selected.");
+  await expect(page.locator(".studio-meta")).toContainText("Mixed");
+  const before = await history(page).textContent();
+  await page.getByRole("group", { name: "Field to edit" }).getByRole("button", { name: "Status" }).click();
+  await page.getByRole("group", { name: "Value", exact: true }).getByRole("button", { name: "Done" }).click();
+  await expect(history(page)).toHaveText(String(Number(before) + 1));
+  for (const label of ["Prepare request", "Revise request", "Issue purchase order"]) await expect(node(page, label)).toContainText("Done");
+  await page.getByRole("button", { name: "Align top edges" }).click();
+  await expect(history(page)).toHaveText(String(Number(before) + 2));
+  const tops = await Promise.all(["Prepare request", "Revise request", "Issue purchase order"].map(async (label) => (await position(node(page, label))).y));
+  expect(new Set(tops).size).toBe(1);
+  await page.getByRole("button", { name: "Undo" }).click();
+  expect(new Set(await Promise.all(["Prepare request", "Issue purchase order"].map(async (label) => (await position(node(page, label))).y))).size).toBe(2);
 });

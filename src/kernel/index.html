@@ -82,7 +82,7 @@
         <p>Every item and connector, in canvas order. Choose one to select it without using the canvas.</p>
         <ol class="studio-list">
           <template data-each="outline" data-key="key">
-            <li><button type="button" data-event="select" data-bind-aria-current="current" data-text="text"></button></li>
+            <li class="studio-outline-row"><button type="button" data-event="select" data-bind-aria-current="current" data-text="text"></button><button type="button" class="studio-toggle" data-event="toggle-select" data-bind-aria-label="toggleLabel" data-bind-aria-pressed="inSelection">±</button></li>
           </template>
         </ol>
       </nav>
@@ -92,7 +92,14 @@
         <template data-if="noSelection"><p>Select an item on the canvas or in the Structure list.</p></template>
         <template data-if="hasSelection">
           <div class="studio-panel">
-            <p><strong data-text="selectedKind"></strong>: <span data-text="selectedLabel"></span></p>
+            <p><strong data-text="selectedKind"></strong>: <span data-text="selectedLabel"></span> (<span data-text="selectionCount"></span> selected)</p>
+            <template data-if="multiSelection">
+              <div class="studio-choices" role="group" aria-label="Arrange the selection">
+                <button type="button" data-event="align-left">Align left edges</button>
+                <button type="button" data-event="align-top">Align top edges</button>
+                <button type="button" data-event="distribute-horizontally">Distribute horizontally</button>
+              </div>
+            </template>
             <div class="ef-field">
               <label class="ef-field__label" for="inspector-label">Label</label>
               <input id="inspector-label" type="text" data-event="set-label" data-bind-value="labelValue">

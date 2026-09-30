@@ -156,11 +156,42 @@ module EditorApp =
         | UrlField -> Ok(Url trimmed)
         | TagsField _ -> Ok(TagList(trimmed.Split(',') |> Array.map (fun s -> s.Trim()) |> Array.filter ((<>) "") |> List.ofArray))
 
+    /// Metadata edits apply to the whole selection as one atomic command; if any
+    /// selected object cannot take the value, nothing changes (FDA-983).
     let private withField state f =
-        match selectedRef state, state.Field |> Option.bind (fun k -> ProjectOps.tryField k (project state)) with
-        | Some target, Some field -> f target field
-        | None, _ -> { state with Status = "Select an item first." }
+        match state.Session.Selection, state.Field |> Option.bind (fun k -> ProjectOps.tryField k (project state)) with
+        | (_ :: _ as targets), Some field -> f targets field
+        | [], _ -> { state with Status = "Select an item first." }
         | _, None -> { state with Status = "Choose a metadata field first." }
+
+    /// Nodes in the selection, in selection order.
+    let private selectedNodes state =
+        state.Session.Selection
+        |> List.choose (function NodeRef(_, n) -> ProjectOps.tryNode state.Diagram n (project state) | _ -> None)
+
+    /// Align and distribute are derived edits: they compute one delta per node and
+    /// commit a single MoveNodes command, so they undo as one step (FDA-125).
+    let private arrange state name =
+        let nodes = selectedNodes state
+        let moves =
+            match name, nodes with
+            | "align-left", (_ :: _ :: _) ->
+                let left = nodes |> List.map (fun n -> n.Box.Position.X) |> List.min
+                nodes |> List.map (fun n -> n.Id, float (left - n.Box.Position.X), 0.0)
+            | "align-top", (_ :: _ :: _) ->
+                let top = nodes |> List.map (fun n -> n.Box.Position.Y) |> List.min
+                nodes |> List.map (fun n -> n.Id, 0.0, float (top - n.Box.Position.Y))
+            | "distribute-horizontally", (_ :: _ :: _ :: _) ->
+                let ordered = nodes |> List.sortBy (fun n -> n.Box.Position.X, Id.value n.Id)
+                let first, last = List.head ordered, List.last ordered
+                let span = float (last.Box.Position.X - first.Box.Position.X)
+                let gap = span / float (ordered.Length - 1)
+                ordered |> List.mapi (fun i n -> n.Id, float first.Box.Position.X + gap * float i - float n.Box.Position.X, 0.0)
+            | _ -> []
+        match moves |> List.filter (fun (_, dx, dy) -> dx <> 0.0 || dy <> 0.0) with
+        | [] when List.isEmpty moves -> { state with Status = "Select more items to arrange them." }
+        | [] -> { state with Status = "Already arranged." }
+        | changed -> run (Flow(MoveNodes(state.Diagram, changed))) (sprintf "Arranged %d items." (List.length nodes)) state
 
     let private storage correlation operation extra =
         JObject([ "kind", JString "Storage"; "correlationId", JString correlation; "operation", JString operation; "key", JString storageKey ] @ extra)
@@ -293,25 +324,33 @@ module EditorApp =
         | "set-field-value" ->
             noEffects (withField state (fun target field ->
                 match parseValue field value with
-                | Ok v -> run (MetadataCmd(SetValue([ target ], field.Key, Explicit v))) (sprintf "%s set." field.Name) state
+                | Ok v -> run (MetadataCmd(SetValue(target, field.Key, Explicit v))) (sprintf "%s set." field.Name) state
                 | Error message -> { state with Status = sprintf "Not changed: %s" message }))
         | "set-field-option" ->
-            noEffects (withField state (fun target field -> run (MetadataCmd(SetValue([ target ], field.Key, Explicit(Enum key)))) (sprintf "%s set." field.Name) state))
-        | "set-field-unknown" -> noEffects (withField state (fun target field -> run (MetadataCmd(SetValue([ target ], field.Key, UnknownValue))) (sprintf "%s marked unknown." field.Name) state))
-        | "clear-field" -> noEffects (withField state (fun target field -> run (MetadataCmd(ClearValue([ target ], field.Key))) (sprintf "%s cleared; the default or derived value shows through." field.Name) state))
+            noEffects (withField state (fun target field -> run (MetadataCmd(SetValue(target, field.Key, Explicit(Enum key)))) (sprintf "%s set." field.Name) state))
+        | "set-field-unknown" -> noEffects (withField state (fun target field -> run (MetadataCmd(SetValue(target, field.Key, UnknownValue))) (sprintf "%s marked unknown." field.Name) state))
+        | "clear-field" -> noEffects (withField state (fun target field -> run (MetadataCmd(ClearValue(target, field.Key))) (sprintf "%s cleared; the default or derived value shows through." field.Name) state))
         | "set-fill" ->
-            match selectedRef state, HexColor.parse value with
-            | Some target, Ok hex -> noEffects (run (AppearanceCmd(SetOverride([ target ], { Appearance.empty with Fill = Some(LiteralColor hex) }))) "Fill set." state)
-            | Some _, Error message -> noEffects { state with Status = sprintf "Not changed: %s" message }
-            | None, _ -> noEffects { state with Status = "Select an item first." }
+            match state.Session.Selection, HexColor.parse value with
+            | (_ :: _ as targets), Ok hex -> noEffects (run (AppearanceCmd(SetOverride(targets, { Appearance.empty with Fill = Some(LiteralColor hex) }))) "Fill set." state)
+            | _ :: _, Error message -> noEffects { state with Status = sprintf "Not changed: %s" message }
+            | [], _ -> noEffects { state with Status = "Select an item first." }
         | "choose-fill-palette" ->
-            match selectedRef state, Id.create<PaletteKind> key with
-            | Some target, Ok slot -> noEffects (run (AppearanceCmd(SetOverride([ target ], { Appearance.empty with Fill = Some(PaletteColor slot) }))) "Fill set from the palette." state)
+            match state.Session.Selection, Id.create<PaletteKind> key with
+            | (_ :: _ as targets), Ok slot -> noEffects (run (AppearanceCmd(SetOverride(targets, { Appearance.empty with Fill = Some(PaletteColor slot) }))) "Fill set from the palette." state)
             | _ -> noEffects { state with Status = "Select an item and a palette slot." }
         | "reset-fill" ->
-            match selectedRef state with
-            | Some target -> noEffects (run (AppearanceCmd(ResetOverride([ target ], [ FillProperty ]))) "Fill override removed; the next layer shows through." state)
-            | None -> noEffects { state with Status = "Select an item first." }
+            match state.Session.Selection with
+            | _ :: _ as targets -> noEffects (run (AppearanceCmd(ResetOverride(targets, [ FillProperty ]))) "Fill override removed; the next layer shows through." state)
+            | [] -> noEffects { state with Status = "Select an item first." }
+        | "toggle-select" ->
+            match refOfKey state key with
+            | Some reference ->
+                let current = state.Session.Selection
+                let next = if List.contains reference current then current |> List.filter ((<>) reference) else current @ [ reference ]
+                noEffects { state with Session = Editor.select next state.Session; Pending = NoPending; Status = sprintf "%d selected." next.Length }
+            | None -> noEffects state
+        | "align-left" | "align-top" | "distribute-horizontally" -> noEffects (arrange state e.Name)
         | "choose-style" ->
             match selectedRef state with
             | Some target ->
@@ -448,7 +487,7 @@ module EditorApp =
         | Some diagram ->
             let profile = Profiles.tryFind diagram.Profile
             let selected = selectedRef state
-            let isSelected r = selected = Some r
+            let isSelected r = List.contains r state.Session.Selection
             let connectingFrom = match state.Pending with Connecting n -> Some n | NoPending -> None
             let kindLabel kind = profile |> Option.bind (fun pr -> Profiles.nodeKind pr kind) |> Option.map _.Label |> Option.defaultValue kind
             let b = Projection.bounds diagram
@@ -526,12 +565,16 @@ module EditorApp =
                  |> List.map (fun n ->
                      let r = NodeRef(diagram.Id, n.Id)
                      let lane = diagram.Groups |> List.tryFind (fun g -> g.Kind = Lane && List.contains n.Id g.Members) |> Option.map (fun g -> sprintf ", lane %s" g.Label) |> Option.defaultValue ""
-                     item [ "key", str (sprintf "node:%s" (Id.value n.Id)); "text", str (sprintf "%s: %s%s" (kindLabel n.Kind) n.Label lane); "ref", str (Id.value n.Id); "current", str (if isSelected r then "true" else "false") ]))
+                     item [ "key", str (sprintf "node:%s" (Id.value n.Id)); "text", str (sprintf "%s: %s%s" (kindLabel n.Kind) n.Label lane); "ref", str (Id.value n.Id); "current", str (if isSelected r then "true" else "false")
+                            "toggleLabel", str (sprintf "%s %s %s selection" (if List.contains r state.Session.Selection then "Remove" else "Add") n.Label (if List.contains r state.Session.Selection then "from" else "to"))
+                            "inSelection", str (if List.contains r state.Session.Selection then "true" else "false") ]))
                 @ (routed
                    |> List.map (fun (edge, s, t, _, _) ->
                        let r = EdgeRef(diagram.Id, edge.Id)
                        let label = edge.Label |> Option.map (sprintf " (%s)") |> Option.defaultValue ""
-                       item [ "key", str (sprintf "edge:%s" (Id.value edge.Id)); "text", str (sprintf "Connector: %s to %s%s" s.Label t.Label label); "ref", str (Id.value edge.Id); "current", str (if isSelected r then "true" else "false") ]))
+                       item [ "key", str (sprintf "edge:%s" (Id.value edge.Id)); "text", str (sprintf "Connector: %s to %s%s" s.Label t.Label label); "ref", str (Id.value edge.Id); "current", str (if isSelected r then "true" else "false")
+                              "toggleLabel", str (sprintf "%s connector %s to %s %s selection" (if List.contains r state.Session.Selection then "Remove" else "Add") s.Label t.Label (if List.contains r state.Session.Selection then "from" else "to"))
+                              "inSelection", str (if List.contains r state.Session.Selection then "true" else "false") ]))
 
             let selectedLabel, selectedKind, selectedValue =
                 match selected with
@@ -544,15 +587,18 @@ module EditorApp =
                 selected
                 |> Option.map (fun r -> p.Fields |> List.filter (fun f -> MetadataRules.applies f (ObjectRef.kind r)))
                 |> Option.defaultValue []
+            let selection = state.Session.Selection
+            // With several objects selected, a field whose values differ shows as
+            // mixed instead of pretending one value applies to all (FDA-973).
             let metadataRows =
-                selected
-                |> Option.map (fun r ->
-                    applicable
-                    |> List.map (fun f ->
-                        let v = OutputValues.ofResolved f (ProjectOps.resolveField f r p)
-                        let scope = if f.Disclosure.Scopes.Contains Rendered then "" else " · not printed"
-                        item [ "key", str (Id.value f.Key); "label", str f.Name; "text", str (defaultArg v.Text "—"); "state", str (sprintf "%s%s" (defaultArg v.Note v.State) scope) ]))
-                |> Option.defaultValue []
+                applicable
+                |> List.filter (fun f -> selection |> List.forall (fun r -> MetadataRules.applies f (ObjectRef.kind r)))
+                |> List.map (fun f ->
+                    let values = selection |> List.map (fun r -> OutputValues.ofResolved f (ProjectOps.resolveField f r p))
+                    let scope = if f.Disclosure.Scopes.Contains Rendered then "" else " · not printed"
+                    match values |> List.distinctBy (fun v -> v.Value, v.State) with
+                    | [ v ] -> item [ "key", str (Id.value f.Key); "label", str f.Name; "text", str (defaultArg v.Text "—"); "state", str (sprintf "%s%s" (defaultArg v.Note v.State) scope) ]
+                    | _ -> item [ "key", str (Id.value f.Key); "label", str f.Name; "text", str "Mixed"; "state", str (sprintf "%d different values%s" (values |> List.distinctBy (fun v -> v.Value, v.State) |> List.length) scope) ])
             let chosenField = state.Field |> Option.bind (fun k -> applicable |> List.tryFind (fun f -> f.Key = k))
             let fieldChoices =
                 match chosenField with
@@ -583,6 +629,8 @@ module EditorApp =
                   "outline", JArray outline
                   "kinds", profile |> Option.map (fun pr -> pr.NodeKinds |> List.map (fun k -> item [ "key", str k.Kind; "label", str k.Label; "pressed", str (if k.Kind = state.AddKind then "true" else "false") ])) |> Option.defaultValue [] |> JArray
                   "hasSelection", JBool selected.IsSome
+                  "selectionCount", Json.ofInt selection.Length
+                  "multiSelection", JBool(selection.Length > 1)
                   "noSelection", JBool selected.IsNone
                   "selectionIsNode", JBool(match selected with Some(NodeRef _) -> true | _ -> false)
                   "selectedLabel", str selectedLabel
