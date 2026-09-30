@@ -79,3 +79,13 @@ body { margin: 0; }
 /* Zoom is a view preference: CSS zoom scales the canvas and its adorners,
    and the gesture adapter divides pointer deltas by the same factor. */
 .studio .ef-diagram__canvas { zoom: var(--studio-zoom, 1); }
+
+/* Alignment guides: drag-preview adorners, removed when the drag ends. */
+.studio .studio-guide {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  background: Highlight;
+}
+.studio .studio-guide[data-axis="x"] { inset-block: 0; inset-inline-start: var(--studio-guide); inline-size: 1px; }
+.studio .studio-guide[data-axis="y"] { inset-inline: 0; inset-block-start: var(--studio-guide); block-size: 1px; }

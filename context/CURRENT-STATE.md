@@ -130,6 +130,8 @@ Done and tested:
     safe deletion, and color rules;
   - non-drag connect; reconnect by dragging a selected connector's endpoint
     handle onto a node, or by pressing the handle and choosing a node;
+  - alignment guides while dragging (edges and centers within 6 units snap
+    the drop to the guide; grid snapping takes precedence when on);
   - zoom (50-200%) and 8-unit grid snapping as view state outside the
     project and its history; drags convert screen pixels to logical units;
   - a Templates panel: built-in fragments per profile (`Templates.fs`, each
@@ -149,15 +151,14 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (51) and `npm run app:build && npm run app:test` (21 Playwright tests,
+  (51) and `npm run app:build && npm run app:test` (22 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. Editor refinements: alignment guides while dragging.
-2. A merge review UI over `Merge.three` (conflict list with per-item
+1. A merge review UI over `Merge.three` (conflict list with per-item
    choice) once there is a second revision source to merge from.
-3. Replace `vendor/forma` with a released Forma artifact once
+2. Replace `vendor/forma` with a released Forma artifact once
    kemiller2002/forma#91 ships.
 
 Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming

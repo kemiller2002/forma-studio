@@ -436,3 +436,19 @@ test("Review lists semantic changes since the last save, separating movement fro
   await expect(status(page)).toHaveText("Saved.");
   await expect(review).toContainText("No changes since the last save or open.");
 });
+
+test("Alignment guides show while dragging and the drop lands on the aligned edge", async ({ page }) => {
+  await open(page);
+  const target = node(page, "Prepare request");
+  const before = await position(target);
+  const box = await target.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + 20);
+  await page.mouse.down();
+  // 27 units right puts the left edge 3 units from "Within budget?" (x + 30).
+  await page.mouse.move(box.x + box.width / 2 + 15, box.y + 20, { steps: 4 });
+  await page.mouse.move(box.x + box.width / 2 + 27, box.y + 20, { steps: 4 });
+  await expect(page.locator('.studio-guide[data-axis="x"]:not([hidden])')).toHaveCount(1);
+  await page.mouse.up();
+  await expect(page.locator(".studio-guide")).toHaveCount(0);
+  await expect.poll(() => position(target)).toEqual({ x: before.x + 30, y: before.y });
+});
