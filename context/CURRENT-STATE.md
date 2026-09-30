@@ -128,24 +128,27 @@ Done and tested:
   - a new-field form (no JSON), palette management with usage counts and
     safe deletion, and color rules;
   - non-drag connect, undo/redo, and save/open via Limen Storage;
-  - axe and forced-colors checks.
+  - axe and forced-colors checks;
+  - a Layout surface on the same session: a surface navigator switches
+    between the Flow diagram and Layout pages; pages compose a Forma stack
+    of headings with text editing, reordering and contract-bounded density
+    (no x/y). One undo history spans both surfaces, and a command that
+    changes nothing adds no history entry.
 - **STUDIO-GH-13 (active):** State and Architecture profiles, `Diff.between`,
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (50) and `npm run app:build && npm run app:test` (15 Playwright tests,
+  (50) and `npm run app:build && npm run app:test` (16 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. The Layout editor surface on the same Editor session (the engine already
-   supports Stack/Heading and shares history and selection with Flow).
-2. Editor refinements: resize handles, reconnect by dragging an endpoint,
+1. Editor refinements: resize handles, reconnect by dragging an endpoint,
    zoom, snapping and guides, and a template/fragment picker built on
    `Fragment.applyCommand`.
-3. Surface the semantic diff and merge in a review UI (read-only compare of
+2. Surface the semantic diff and merge in a review UI (read-only compare of
    two revisions).
-4. Replace `vendor/forma` with a released Forma artifact once
+3. Replace `vendor/forma` with a released Forma artifact once
    kemiller2002/forma#91 ships.
 
 Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming
