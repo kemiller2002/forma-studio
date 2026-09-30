@@ -5,9 +5,15 @@ namespace FormaStudio.Engine
 /// single current-state cell. Every canonical change goes through Editor.dispatch,
 /// so pointer, keyboard, Structure view and inspector input share one command path
 /// (FDA-069, FDA-221).
+type EdgeEnd =
+    | SourceEnd
+    | TargetEnd
+
 type PendingGesture =
     | NoPending
     | Connecting of NodeId
+    /// Waiting for the node that one end of a connector should move to.
+    | Reconnecting of EdgeId * EdgeEnd
 
 /// Where a new project-local field may appear (FDA-1181, FDA-820).
 type FieldScopeChoice =
@@ -147,6 +153,23 @@ module EditorApp =
             let resized = run (Flow(ResizeNode(state.Diagram, node, w, h))) (sprintf "Resized %s." n.Label) state
             { resized with Session = Editor.select [ NodeRef(state.Diagram, node) ] resized.Session }
         | None -> { state with Status = "Select an item to resize it." }
+
+    let private edgeEndOf =
+        function
+        | "source" -> Some SourceEnd
+        | "target" -> Some TargetEnd
+        | _ -> None
+
+    /// Moves one end of a connector to another node: one Reconnect command,
+    /// whether it came from an endpoint drag or the keyboard path (FDA-067).
+    let private reconnect state (edgeId: EdgeId) (edgeEnd: EdgeEnd) (node: NodeId) =
+        match diagramOf state |> Option.bind (fun d -> d.Edges |> List.tryFind (fun e -> e.Id = edgeId)) with
+        | Some edge ->
+            let endpoint = { Node = node; Port = None }
+            let source, target = match edgeEnd with SourceEnd -> endpoint, edge.Target | TargetEnd -> edge.Source, endpoint
+            let moved = run (Flow(Reconnect(state.Diagram, edgeId, source, target))) "Reconnected." { state with Pending = NoPending }
+            { moved with Session = Editor.select [ EdgeRef(state.Diagram, edgeId) ] moved.Session }
+        | None -> { state with Pending = NoPending; Status = "Select a connector to reconnect it." }
 
     let private move state (dx: float) (dy: float) =
         match selectedNode state with
@@ -303,6 +326,7 @@ module EditorApp =
                 let edgeId: EdgeId = Samples.idOf (freshId "edge" (usedIds state))
                 let connected = run (Flow(Connect(state.Diagram, edgeId, kind, { Node = source; Port = None }, { Node = target; Port = None }, None))) "Connected." { state with Pending = NoPending }
                 noEffects { connected with Session = Editor.select [ EdgeRef(state.Diagram, edgeId) ] connected.Session }
+            | Some(NodeRef(_, target)), Reconnecting(edge, edgeEnd) -> noEffects (reconnect state edge edgeEnd target)
             | Some reference, _ -> noEffects { state with Session = Editor.select [ reference ] state.Session; Pending = NoPending; Status = "Selected." }
             | None, _ -> noEffects { state with Status = "Nothing to select." }
         | "clear-selection" -> noEffects { state with Session = Editor.select [] state.Session; Pending = NoPending; Status = "Selection cleared." }
@@ -342,6 +366,19 @@ module EditorApp =
                 noEffects (resize state node.Id (fun size -> if e.Name = "set-width" then v, float size.Height else float size.Width, v))
             | Some _, None -> noEffects { state with Status = "Not changed: enter a number." }
             | None, _ -> noEffects { state with Status = "Select an item to resize it." }
+        | "reconnect-end" ->
+            match selectedRef state, edgeEndOf key with
+            | Some(EdgeRef(_, edge)), Some edgeEnd ->
+                let which = match edgeEnd with SourceEnd -> "start" | TargetEnd -> "end"
+                noEffects { state with Pending = Reconnecting(edge, edgeEnd); Status = sprintf "Choose the item this connector should %s at." which }
+            | _ -> noEffects { state with Status = "Select a connector to reconnect it." }
+        | "gesture-reconnect" ->
+            match selectedRef state, value.Split('|') with
+            | Some(EdgeRef(_, edge)), [| endKey; nodeKey |] ->
+                match edgeEndOf endKey, Id.create<NodeKind> nodeKey with
+                | Some edgeEnd, Ok node -> noEffects (reconnect state edge edgeEnd node)
+                | _ -> noEffects { state with Status = "Ignored an unreadable reconnect." }
+            | _ -> noEffects { state with Status = "Select a connector to reconnect it." }
         | "connect-start" ->
             match selectedNode state with
             | Some node -> noEffects { state with Pending = Connecting node.Id; Status = sprintf "Choose the item that %s connects to." node.Label }
@@ -558,7 +595,7 @@ module EditorApp =
             let profile = Profiles.tryFind diagram.Profile
             let selected = selectedRef state
             let isSelected r = List.contains r state.Session.Selection
-            let connectingFrom = match state.Pending with Connecting n -> Some n | NoPending -> None
+            let connectingFrom = match state.Pending with Connecting n -> Some n | _ -> None
             let kindLabel kind = profile |> Option.bind (fun pr -> Profiles.nodeKind pr kind) |> Option.map _.Label |> Option.defaultValue kind
             let b = Projection.bounds diagram
             let dx, dy = Projection.padding - b.Position.X, Projection.padding - b.Position.Y
@@ -625,6 +662,18 @@ module EditorApp =
                           "line", str (lineName e.Line.Value)
                           "classes", str (if isSelected r then "ef-diagram-connector studio-selected-wire" else "ef-diagram-connector")
                           "style", str (e.ConnectorStroke.Value |> Option.bind _.Css |> Option.map (sprintf "--ef-diagram-connector-stroke: %s;") |> Option.defaultValue "") ])
+            // Endpoint handles are editor adorners for the one selected connector.
+            let endpoints =
+                routed
+                |> List.filter (fun (edge, _, _, _, _) -> selected = Some(EdgeRef(diagram.Id, edge.Id)))
+                |> List.collect (fun (edge, s, t, points, _) ->
+                    let place (pt: Point) = sprintf "--studio-x: %dpx; --studio-y: %dpx;" pt.X pt.Y
+                    let pressed which = str (if state.Pending = Reconnecting(edge.Id, which) then "true" else "false")
+                    match points, List.tryLast points with
+                    | first :: _, Some last ->
+                        [ item [ "key", str "source"; "style", str (place first); "pressed", pressed SourceEnd; "label", str (sprintf "Move the start of this connector (now %s)" s.Label) ]
+                          item [ "key", str "target"; "style", str (place last); "pressed", pressed TargetEnd; "label", str (sprintf "Move the end of this connector (now %s)" t.Label) ] ]
+                    | _ -> [])
             let labels =
                 routed
                 |> List.choose (fun (edge, _, _, _, at) ->
@@ -727,6 +776,8 @@ module EditorApp =
                   "widthValue", str (selectedNode state |> Option.map (fun n -> string n.Box.Size.Width) |> Option.defaultValue "")
                   "heightValue", str (selectedNode state |> Option.map (fun n -> string n.Box.Size.Height) |> Option.defaultValue "")
                   "connecting", JBool(connectingFrom.IsSome)
+                  "reconnecting", JBool(match state.Pending with Reconnecting _ -> true | _ -> false)
+                  "endpoints", JArray endpoints
                   "connectDisabled", JBool(match selected with Some(NodeRef _) -> false | _ -> true)
                   "fields", applicable |> List.map (fun f -> item [ "key", str (Id.value f.Key); "label", str f.Name; "pressed", str (if Some f.Key = state.Field then "true" else "false") ]) |> JArray
                   "metadataRows", JArray metadataRows

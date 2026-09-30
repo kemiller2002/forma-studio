@@ -316,3 +316,42 @@ test("Resize: the handle drag and the inspector fields are each one command", as
   await page.getByRole("button", { name: "Undo" }).click();
   await expect.poll(() => size(target)).toEqual(before);
 });
+
+test("Reconnect: an endpoint drag and the keyboard path are each one Reconnect command", async ({ page }) => {
+  await open(page);
+  // Select an existing connector through the Structure list.
+  const structure = page.getByRole("navigation", { name: "Structure" });
+  const connectors = structure.getByRole("button", { name: /^Connector:/ });
+  await connectors.first().click();
+  const handles = page.locator(".studio-endpoint");
+  await expect(handles).toHaveCount(2);
+  const entries = Number(await history(page).textContent());
+  const before = await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d");
+
+  // Pointer path: drag the end handle onto another node.
+  const destination = node(page, "Revise request");
+  const end = await handles.nth(1).boundingBox();
+  const drop = await destination.boundingBox();
+  await page.mouse.move(end.x + end.width / 2, end.y + end.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(drop.x + drop.width / 2, drop.y + drop.height / 2, { steps: 10 });
+  await page.mouse.up();
+  await expect(status(page)).toHaveText("Reconnected.");
+  await expect(history(page)).toHaveText(String(entries + 1));
+  const dragged = await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d");
+  expect(dragged).not.toBe(before);
+
+  // Keyboard path: press the handle, then choose a node.
+  await page.locator(".studio-endpoint[data-end='target']").focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Cancel reconnecting" })).toBeVisible();
+  await node(page, "Approve spend").focus();
+  await page.keyboard.press("Enter");
+  await expect(history(page)).toHaveText(String(entries + 2));
+  await expect(structure.getByRole("button", { name: /^Connector: .* to Approve spend/ }).first()).toBeVisible();
+
+  await page.getByRole("button", { name: "Undo" }).click();
+  await page.getByRole("button", { name: "Undo" }).click();
+  await connectors.first().click();
+  await expect(page.locator("path.ef-diagram-connector.studio-selected-wire")).toHaveAttribute("d", before);
+});

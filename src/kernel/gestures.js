@@ -12,6 +12,10 @@
 // changes only the node's CSS size variables, and release emits ONE resize
 // event with the new logical size. The inspector's Width and Height fields are
 // the non-pointer path to the same command.
+//
+// A selected connector shows a handle at each end. Dragging a handle onto a
+// node emits ONE reconnect event; pressing the handle instead starts the
+// keyboard path (choose the new node from the canvas or Structure list).
 const dragThreshold = 3;
 const nudge = (event) => (event.shiftKey ? 1 : 8);
 
@@ -22,17 +26,25 @@ const emit = (root, inputId, value) => {
 };
 const emitMove = (root, id, dx, dy) => emit(root, "gesture-move", `${id}|${dx}|${dy}`);
 const emitResize = (root, id, w, h) => emit(root, "gesture-resize", `${id}|${w}|${h}`);
+const emitReconnect = (root, end, nodeId) => emit(root, "gesture-reconnect", `${end}|${nodeId}`);
 
 const minimumSize = 24;
 const cssPixels = (node, name) => parseFloat(node.style.getPropertyValue(name)) || 0;
 
 const nodeOf = (target) => target instanceof Element ? target.closest(".ef-diagram__canvas article[data-node-id]") : null;
+const endpointOf = (target) => target instanceof Element ? target.closest(".studio-endpoint") : null;
 
 export const installGestures = (root = document) => {
   let drag = null;
   let suppressClick = false;
 
   root.addEventListener("pointerdown", (event) => {
+    const handle = endpointOf(event.target);
+    if (handle && event.button === 0) {
+      drag = { node: handle, endpoint: handle.dataset.end, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId };
+      handle.setPointerCapture(event.pointerId);
+      return;
+    }
     const node = nodeOf(event.target);
     if (!node || event.button !== 0) return;
     const resizing = event.target instanceof Element && event.target.classList.contains("studio-resize-handle");
@@ -50,7 +62,9 @@ export const installGestures = (root = document) => {
     if (!drag.moved && Math.hypot(dx, dy) < dragThreshold) return;
     drag.moved = true;
     drag.node.classList.add("studio-dragging");
-    if (drag.resizing) {
+    if (drag.endpoint) {
+      drag.node.style.translate = `calc(-50% + ${dx}px) calc(-50% + ${dy}px)`;
+    } else if (drag.resizing) {
       drag.node.style.setProperty("--studio-preview-w", `${Math.max(minimumSize, drag.w + dx)}px`);
       drag.node.style.setProperty("--studio-preview-h", `${Math.max(minimumSize, drag.h + dy)}px`);
     } else {
@@ -60,7 +74,7 @@ export const installGestures = (root = document) => {
 
   const finish = (event, commit) => {
     if (!drag || event.pointerId !== drag.pointer) return;
-    const { node, id, x, y, moved, resizing, w, h } = drag;
+    const { node, id, x, y, moved, resizing, w, h, endpoint } = drag;
     drag = null;
     node.classList.remove("studio-dragging");
     node.style.translate = "";
@@ -70,7 +84,13 @@ export const installGestures = (root = document) => {
     suppressClick = true;
     const dx = Math.round(event.clientX - x);
     const dy = Math.round(event.clientY - y);
-    if (commit && resizing) emitResize(root, id, Math.max(minimumSize, w + dx), Math.max(minimumSize, h + dy));
+    if (commit && endpoint) {
+      // Find the node under the pointer, ignoring the handle being dragged.
+      node.style.pointerEvents = "none";
+      const dropped = nodeOf(document.elementFromPoint(event.clientX, event.clientY));
+      node.style.pointerEvents = "";
+      if (dropped) emitReconnect(root, endpoint, dropped.dataset.nodeId);
+    } else if (commit && resizing) emitResize(root, id, Math.max(minimumSize, w + dx), Math.max(minimumSize, h + dy));
     else if (commit) emitMove(root, id, dx, dy);
   };
   root.addEventListener("pointerup", (event) => finish(event, true));
@@ -78,7 +98,7 @@ export const installGestures = (root = document) => {
 
   // A drag must not also count as a click that changes selection.
   root.addEventListener("click", (event) => {
-    if (suppressClick && nodeOf(event.target)) {
+    if (suppressClick && (nodeOf(event.target) || endpointOf(event.target))) {
       event.stopImmediatePropagation();
       event.preventDefault();
     }

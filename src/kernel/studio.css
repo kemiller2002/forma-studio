@@ -57,3 +57,21 @@ body { margin: 0; }
   inline-size: var(--studio-preview-w);
   min-block-size: var(--studio-preview-h);
 }
+
+/* Connector endpoint handles: editor adorners for the selected connector. */
+.studio .studio-endpoint {
+  position: absolute;
+  inset-inline-start: var(--studio-x);
+  inset-block-start: var(--studio-y);
+  translate: -50% -50%;
+  inline-size: 18px;
+  block-size: 18px;
+  padding: 0;
+  border: 3px solid CanvasText;
+  border-radius: 50%;
+  background: Canvas;
+  cursor: grab;
+  z-index: 3;
+}
+.studio .studio-endpoint[aria-pressed="true"] { background: CanvasText; }
+.studio .studio-endpoint.studio-dragging { cursor: grabbing; }

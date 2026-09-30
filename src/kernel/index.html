@@ -27,6 +27,7 @@
   <!-- The gesture adapter writes a completed drag or arrow-key nudge here. -->
   <input type="hidden" id="gesture-move" data-event="gesture-move">
   <input type="hidden" id="gesture-resize" data-event="gesture-resize">
+  <input type="hidden" id="gesture-reconnect" data-event="gesture-reconnect">
 
   <nav class="studio-toolbar" aria-label="Surfaces">
     <button type="button" data-event="open-diagram" data-bind-aria-current="flowCurrent" data-text="flowLabel"></button>
@@ -71,6 +72,7 @@
         <button type="button" data-event="add-node">Add item</button>
         <button type="button" data-event="connect-start" data-bind-disabled="connectDisabled">Connect from selection</button>
         <template data-if="connecting"><button type="button" data-event="cancel">Cancel connecting</button></template>
+        <template data-if="reconnecting"><button type="button" data-event="cancel">Cancel reconnecting</button></template>
         <button type="button" data-event="delete">Delete selection</button>
       </div>
       <figure class="ef-diagram" aria-labelledby="canvas-title">
@@ -103,6 +105,9 @@
             </template>
             <template data-each="edgeLabels" data-key="key">
               <span class="ef-diagram-connector__label" data-bind-style="style" data-text="text"></span>
+            </template>
+            <template data-each="endpoints" data-key="key">
+              <button type="button" class="studio-endpoint" data-event="reconnect-end" data-bind-data-end="key" data-bind-style="style" data-bind-aria-pressed="pressed" data-bind-aria-label="label"></button>
             </template>
           </div>
         </div>
