@@ -43,3 +43,7 @@ logs/*
 # .NET build output
 bin/
 obj/
+app-dist/
+build/
+test-results/
+playwright-report/

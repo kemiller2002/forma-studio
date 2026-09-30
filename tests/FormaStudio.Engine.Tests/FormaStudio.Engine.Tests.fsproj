@@ -11,6 +11,7 @@
     <Compile Include="Harness.fs" />
     <Compile Include="ModelTests.fs" />
     <Compile Include="ExportTests.fs" />
+    <Compile Include="EditorAppTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

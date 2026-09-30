@@ -19,6 +19,8 @@
     "requirements:validate": "node scripts/validate-requirements.mjs",
     "schema:validate": "node scripts/validate-schema.mjs",
     "site:build": "node scripts/build-site.mjs",
-    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build"
+    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build",
+    "app:build": "node scripts/build-app.mjs",
+    "app:test": "playwright test"
   }
 }

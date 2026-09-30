@@ -53,6 +53,14 @@ jobs:
       - name: Test F# engine (commands, history, persistence, appearance, disclosure)
         run: dotnet run --project tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj -c Release
 
+      - name: Build the Flow editor (F# engine on .NET WebAssembly + Limen kernel)
+        run: npm run app:build
+
+      - name: Test the Flow editor in Chromium
+        run: |
+          npx playwright install --with-deps chromium
+          npm run app:test
+
       - name: Validate requirements and project schema
         run: |
           npm run requirements:validate
