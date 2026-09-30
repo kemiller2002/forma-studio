@@ -8,7 +8,7 @@ if (files.length < 16) {
 }
 
 const seen = new Map();
-const pattern = /^([A-Z]{2,4}-\d{3})\s+/gm;
+const pattern = /^([A-Z]{2,4}-\d{3,4})\s+/gm;
 let count = 0;
 
 for (const file of files) {

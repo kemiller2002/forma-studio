@@ -34,6 +34,8 @@ Lifecycle-managed capability state is committed in the repository. `scripts/boot
 
 The complete product baseline is under requirements/.
 
+`REQUIREMENTS.md` is the normative shared-capability contract shared with Aegis, Forma, and Folio. Forma Studio MUST dogfood Forma for its own interactive UI, MUST adopt Aegis when operational boundaries are introduced, and MUST adopt Folio when printable/PDF/paginated document composition or Folio authoring/testing enters scope.
+
 It covers:
 
 - product scope and non-goals;

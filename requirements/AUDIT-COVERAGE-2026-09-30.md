@@ -296,3 +296,11 @@ The first cross-repository projection proof then extends the Flow artifact throu
 Forma Studio -> Forma presentation -> Folio color PDF -> grayscale/backgrounds-disabled projection -> agent/developer export.
 
 Implementation must follow the roadmap and current work-item acceptance criteria rather than treating this coverage document as a single implementation backlog.
+
+## Reconciliation with main (2026-09-30)
+
+Work item: STUDIO-GH-4.
+
+- `origin/main` was merged into `requirements/shared-editor-flow-4`. Main contributed `LICENSE`, the shared-capability contract `REQUIREMENTS.md`, and a README pointer to it. The README keeps the requirements-branch content and now names `REQUIREMENTS.md` as the normative shared-capability contract. The two sources agree; the numbered files remain the detailed baseline.
+- `scripts/validate-requirements.mjs` matched only three-digit IDs (`FDA-120`), so four-digit IDs such as `FDA-1000` through `FDA-2022` were never checked for duplicates. The pattern now accepts three or four digits. Before the fix the validator counted 1599 IDs; after it, 1758 unique IDs across 17 documents, with no duplicates.
+- `node scripts/validate-requirements.mjs`, `node scripts/validate-schema.mjs`, `./ros registry check` and `./ros validate` were run on the reconciled tree.
