@@ -23,6 +23,7 @@ The requirements are intentionally broader than a first implementation sprint. T
 - 14-reuse-templates-layouts.md
 - 15-faults-recovery-aegis.md
 - 16-flow-diagram-authoring.md
+- AUDIT-COVERAGE-2026-09-30.md — cross-repo traceability for the final Forma Studio / Forma / Folio requirements audit
 
 ## Execution scope
 
