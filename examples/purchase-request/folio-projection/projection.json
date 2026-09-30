@@ -1,0 +1,902 @@
+{
+  "projectionVersion": "1.0.0",
+  "kind": "forma-studio.diagram-projection",
+  "scope": "rendered",
+  "status": "valid",
+  "source": {
+    "projectId": "purchase-request-example",
+    "diagramId": "purchase-request",
+    "diagramName": "Purchase request",
+    "revision": "sha256:b9077dd3fb4b0fe1b3382e1d7af68ba3f3ec946a7f0757fcce5cc128f9f304a4",
+    "schemaVersion": 2,
+    "profile": {
+      "id": "workflow",
+      "version": "1.0.0"
+    }
+  },
+  "presentation": {
+    "formaVersion": "0.3.0",
+    "contract": "forma.diagram-presentation",
+    "contractVersion": "2.0.0",
+    "paint": "solid"
+  },
+  "content": {
+    "html": "diagram.html",
+    "sha256": "sha256:340a581f7d00e879a907279ec861114fc773dce4d846ff693c0dc415acfe9cd5"
+  },
+  "bounds": {
+    "x": 0,
+    "y": -24,
+    "width": 1060,
+    "height": 794,
+    "padding": 24,
+    "canvasWidth": 1108,
+    "canvasHeight": 842,
+    "unit": "logical-px"
+  },
+  "objects": [
+    {
+      "id": "lane-requester",
+      "role": "group",
+      "kind": "lane",
+      "label": "Requester",
+      "elementId": "fs-purchase-request-lane-requester",
+      "members": [
+        "submitted",
+        "prepare",
+        "revise"
+      ],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "lane-finance",
+      "role": "group",
+      "kind": "lane",
+      "label": "Finance",
+      "elementId": "fs-purchase-request-lane-finance",
+      "members": [
+        "budget-check",
+        "approve"
+      ],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "lane-procurement",
+      "role": "group",
+      "kind": "lane",
+      "label": "Procurement",
+      "elementId": "fs-purchase-request-lane-procurement",
+      "members": [
+        "order",
+        "placed"
+      ],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "submitted",
+      "role": "node",
+      "kind": "start",
+      "kindLabel": "Start",
+      "label": "Request submitted",
+      "elementId": "fs-purchase-request-submitted",
+      "renderedMetadata": [],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "ellipse",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "start"
+        }
+      }
+    },
+    {
+      "id": "prepare",
+      "role": "node",
+      "kind": "activity",
+      "kindLabel": "Activity",
+      "label": "Prepare request",
+      "elementId": "fs-purchase-request-prepare",
+      "renderedMetadata": [
+        {
+          "field": "status",
+          "label": "Status",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "in-progress"
+          },
+          "text": "In progress"
+        },
+        {
+          "field": "owner",
+          "label": "Owner",
+          "state": "derived",
+          "value": {
+            "type": "text",
+            "value": "Requester"
+          },
+          "text": "Requester",
+          "note": "derived from lane"
+        },
+        {
+          "field": "phase",
+          "label": "Phase",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "intake"
+          },
+          "text": "Intake"
+        }
+      ],
+      "appearance": {
+        "fill": {
+          "css": "#efe6fb",
+          "sourceKind": "palette",
+          "source": "highlight",
+          "layer": "object-override"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "css": "#6b3fa0",
+          "sourceKind": "literal",
+          "source": "#6b3fa0",
+          "layer": "object-override"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "rounded",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "activity"
+        }
+      }
+    },
+    {
+      "id": "revise",
+      "role": "node",
+      "kind": "activity",
+      "kindLabel": "Activity",
+      "label": "Revise request",
+      "elementId": "fs-purchase-request-revise",
+      "renderedMetadata": [
+        {
+          "field": "status",
+          "label": "Status",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "blocked"
+          },
+          "text": "Blocked"
+        },
+        {
+          "field": "owner",
+          "label": "Owner",
+          "state": "derived",
+          "value": {
+            "type": "text",
+            "value": "Requester"
+          },
+          "text": "Requester",
+          "note": "derived from lane"
+        },
+        {
+          "field": "phase",
+          "label": "Phase",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "intake"
+          },
+          "text": "Intake"
+        }
+      ],
+      "appearance": {
+        "fill": {
+          "css": "#e3f4e1",
+          "sourceKind": "literal",
+          "source": "#e3f4e1",
+          "layer": "object-override"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "css": "#2e6b2a",
+          "sourceKind": "literal",
+          "source": "#2e6b2a",
+          "layer": "object-override"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "rounded",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "activity"
+        }
+      }
+    },
+    {
+      "id": "budget-check",
+      "role": "node",
+      "kind": "decision",
+      "kindLabel": "Decision",
+      "label": "Within budget?",
+      "elementId": "fs-purchase-request-budget-check",
+      "renderedMetadata": [],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "css": "var(--ef-color-accent-primary)",
+          "sourceKind": "token",
+          "source": "--ef-color-accent-primary",
+          "layer": "named-style",
+          "style": "decision-emphasis",
+          "styleRevision": 1
+        },
+        "accent": {
+          "css": "var(--ef-color-accent-primary)",
+          "sourceKind": "token",
+          "source": "--ef-color-accent-primary",
+          "layer": "named-style",
+          "style": "decision-emphasis",
+          "styleRevision": 1
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "diamond",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "decision"
+        }
+      }
+    },
+    {
+      "id": "approve",
+      "role": "node",
+      "kind": "activity",
+      "kindLabel": "Activity",
+      "label": "Approve spend",
+      "elementId": "fs-purchase-request-approve",
+      "renderedMetadata": [
+        {
+          "field": "status",
+          "label": "Status",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "blocked"
+          },
+          "text": "Blocked"
+        },
+        {
+          "field": "owner",
+          "label": "Owner",
+          "state": "derived",
+          "value": {
+            "type": "text",
+            "value": "Finance"
+          },
+          "text": "Finance",
+          "note": "derived from lane"
+        },
+        {
+          "field": "phase",
+          "label": "Phase",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "review"
+          },
+          "text": "Review"
+        }
+      ],
+      "appearance": {
+        "fill": {
+          "css": "#fde8d7",
+          "sourceKind": "palette",
+          "source": "workflow-blocked",
+          "layer": "metadata-mapping",
+          "mapping": "status-color",
+          "field": "status",
+          "legend": "Status is Blocked"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "css": "#9a3b00",
+          "sourceKind": "literal",
+          "source": "#9a3b00",
+          "layer": "metadata-mapping",
+          "mapping": "status-color",
+          "field": "status",
+          "legend": "Status is Blocked"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "rounded",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "activity"
+        }
+      }
+    },
+    {
+      "id": "order",
+      "role": "node",
+      "kind": "activity",
+      "kindLabel": "Activity",
+      "label": "Issue purchase order",
+      "elementId": "fs-purchase-request-order",
+      "renderedMetadata": [
+        {
+          "field": "status",
+          "label": "Status",
+          "state": "default",
+          "value": {
+            "type": "enum",
+            "value": "not-started"
+          },
+          "text": "Not started",
+          "note": "default"
+        },
+        {
+          "field": "owner",
+          "label": "Owner",
+          "state": "derived",
+          "value": {
+            "type": "text",
+            "value": "Procurement"
+          },
+          "text": "Procurement",
+          "note": "derived from lane"
+        },
+        {
+          "field": "phase",
+          "label": "Phase",
+          "state": "explicit",
+          "value": {
+            "type": "enum",
+            "value": "fulfilment"
+          },
+          "text": "Fulfilment"
+        }
+      ],
+      "appearance": {
+        "fill": {
+          "css": "#efe6fb",
+          "sourceKind": "palette",
+          "source": "highlight",
+          "layer": "object-override"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "css": "#6b3fa0",
+          "sourceKind": "literal",
+          "source": "#6b3fa0",
+          "layer": "object-override"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "rounded",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "activity"
+        }
+      }
+    },
+    {
+      "id": "placed",
+      "role": "node",
+      "kind": "end",
+      "kindLabel": "End",
+      "label": "Order placed",
+      "elementId": "fs-purchase-request-placed",
+      "renderedMetadata": [],
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "layer": "forma-default"
+        },
+        "shape": {
+          "value": "ellipse",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "end"
+        }
+      }
+    },
+    {
+      "id": "e-submit",
+      "role": "edge",
+      "kind": "flow",
+      "source": "submitted",
+      "target": "prepare",
+      "elementId": "fs-purchase-request-e-submit",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "solid",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "flow"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-check",
+      "role": "edge",
+      "kind": "flow",
+      "source": "prepare",
+      "target": "budget-check",
+      "elementId": "fs-purchase-request-e-check",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "solid",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "flow"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-yes",
+      "role": "edge",
+      "kind": "flow",
+      "source": "budget-check",
+      "target": "approve",
+      "label": "yes, within budget",
+      "elementId": "fs-purchase-request-e-yes",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "solid",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "flow"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-no",
+      "role": "edge",
+      "kind": "flow",
+      "source": "budget-check",
+      "target": "revise",
+      "label": "no, over budget",
+      "elementId": "fs-purchase-request-e-no",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "dashed",
+          "layer": "object-override"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-resubmit",
+      "role": "edge",
+      "kind": "flow",
+      "source": "revise",
+      "target": "prepare",
+      "label": "resubmit",
+      "elementId": "fs-purchase-request-e-resubmit",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "dotted",
+          "layer": "object-override"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-approved",
+      "role": "edge",
+      "kind": "flow",
+      "source": "approve",
+      "target": "order",
+      "elementId": "fs-purchase-request-e-approved",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "solid",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "flow"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    },
+    {
+      "id": "e-placed",
+      "role": "edge",
+      "kind": "flow",
+      "source": "order",
+      "target": "placed",
+      "elementId": "fs-purchase-request-e-placed",
+      "appearance": {
+        "fill": {
+          "layer": "forma-default"
+        },
+        "stroke": {
+          "layer": "forma-default"
+        },
+        "accent": {
+          "layer": "forma-default"
+        },
+        "foreground": {
+          "layer": "forma-default"
+        },
+        "connectorStroke": {
+          "layer": "forma-default"
+        },
+        "connectorWidth": {
+          "layer": "forma-default"
+        },
+        "line": {
+          "value": "solid",
+          "layer": "profile-default",
+          "profile": "workflow",
+          "kind": "flow"
+        },
+        "shape": {
+          "layer": "forma-default"
+        }
+      }
+    }
+  ],
+  "relationships": [
+    "Request submitted leads to Prepare request (solid line).",
+    "Prepare request leads to Within budget? (solid line).",
+    "Within budget? leads to Approve spend: yes, within budget (solid line).",
+    "Within budget? leads to Revise request: no, over budget (dashed line).",
+    "Revise request leads to Prepare request: resubmit (dotted line).",
+    "Approve spend leads to Issue purchase order (solid line).",
+    "Issue purchase order leads to Order placed (solid line)."
+  ],
+  "lanes": [
+    "Requester: Request submitted, Prepare request, Revise request",
+    "Finance: Within budget?, Approve spend",
+    "Procurement: Issue purchase order, Order placed"
+  ],
+  "legend": [
+    {
+      "label": "Status is Blocked",
+      "description": "fill from the status color mapping"
+    },
+    {
+      "label": "Decision emphasis",
+      "description": "named style, presentation only"
+    },
+    {
+      "label": "Author highlight",
+      "description": "chosen by the author; it carries no status"
+    },
+    {
+      "label": "Other author colors",
+      "description": "chosen by the author; they carry no status"
+    },
+    {
+      "label": "No mapping or author color",
+      "description": "Forma default"
+    }
+  ],
+  "accessibility": {
+    "title": "Purchase request",
+    "summary": "Purchase request: 7 items and 7 relationships. Every relationship is listed in text."
+  },
+  "outputHints": {
+    "preferredOrientation": "landscape",
+    "minimumTextPt": 7,
+    "baseTextPx": 13
+  },
+  "excluded": [
+    "selection",
+    "hover",
+    "handles",
+    "guides",
+    "minimap",
+    "routing-preview",
+    "source-only-metadata"
+  ],
+  "provenance": {
+    "generator": "forma-studio-engine",
+    "projectRevision": "sha256:aec40836dafd3ce771ba68cf001ceb4b8f5f31b85270f0bbdcb75993a1560d43"
+  }
+}

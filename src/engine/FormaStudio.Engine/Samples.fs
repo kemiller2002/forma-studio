@@ -50,16 +50,16 @@ module Samples =
                                                  { Id = "blocked"; Label = "Blocked" }; { Id = "done"; Label = "Done" } ])
                 [ NodeTarget ] visible (Some(Enum "not-started")) None "Progress of the activity as recorded by its owner."
         [ Flow(AddDiagram(d, "Purchase request", { Id = "workflow"; Version = "1.0.0" }))
-          Flow(AddGroup(d, idOf "lane-requester", Lane, "Requester", 0.0, 0.0, 1000.0, 200.0))
-          Flow(AddGroup(d, idOf "lane-finance", Lane, "Finance", 0.0, 210.0, 1000.0, 200.0))
-          Flow(AddGroup(d, idOf "lane-procurement", Lane, "Procurement", 0.0, 420.0, 1000.0, 200.0))
-          Flow(AddNode(d, idOf "submitted", "start", "Request submitted", 40.0, 56.0, 160.0, 88.0))
-          Flow(AddNode(d, idOf "prepare", "activity", "Prepare request", 260.0, 36.0, 200.0, 128.0))
-          Flow(AddNode(d, idOf "revise", "activity", "Revise request", 520.0, 36.0, 200.0, 128.0))
-          Flow(AddNode(d, idOf "budget-check", "decision", "Within budget?", 285.0, 235.0, 150.0, 150.0))
-          Flow(AddNode(d, idOf "approve", "activity", "Approve spend", 520.0, 246.0, 200.0, 128.0))
-          Flow(AddNode(d, idOf "order", "activity", "Issue purchase order", 520.0, 456.0, 200.0, 128.0))
-          Flow(AddNode(d, idOf "placed", "end", "Order placed", 790.0, 476.0, 160.0, 88.0))
+          Flow(AddGroup(d, idOf "lane-requester", Lane, "Requester", 0.0, 0.0, 1060.0, 240.0))
+          Flow(AddGroup(d, idOf "lane-finance", Lane, "Finance", 0.0, 250.0, 1060.0, 240.0))
+          Flow(AddGroup(d, idOf "lane-procurement", Lane, "Procurement", 0.0, 500.0, 1060.0, 270.0))
+          Flow(AddNode(d, idOf "submitted", "start", "Request submitted", 40.0, 76.0, 150.0, 88.0))
+          Flow(AddNode(d, idOf "prepare", "activity", "Prepare request", 250.0, 40.0, 210.0, 168.0))
+          Flow(AddNode(d, idOf "revise", "activity", "Revise request", 600.0, 40.0, 210.0, 168.0))
+          Flow(AddNode(d, idOf "budget-check", "decision", "Within budget?", 280.0, 295.0, 150.0, 150.0))
+          Flow(AddNode(d, idOf "approve", "activity", "Approve spend", 600.0, 286.0, 210.0, 168.0))
+          Flow(AddNode(d, idOf "order", "activity", "Issue purchase order", 600.0, 526.0, 210.0, 190.0))
+          Flow(AddNode(d, idOf "placed", "end", "Order placed", 880.0, 577.0, 150.0, 88.0))
           Flow(AssignLane(d, nodeId "submitted", Some(idOf "lane-requester")))
           Flow(AssignLane(d, nodeId "prepare", Some(idOf "lane-requester")))
           Flow(AssignLane(d, nodeId "revise", Some(idOf "lane-requester")))
@@ -74,7 +74,7 @@ module Samples =
           flowEdge "e-resubmit" "revise" "prepare" (Some "resubmit")
           flowEdge "e-approved" "approve" "order" None
           flowEdge "e-placed" "order" "placed" None
-          Flow(SetEdgeRouting(d, idOf "e-resubmit", Manual [ { X = 620; Y = 18 }; { X = 360; Y = 18 } ]))
+          Flow(SetEdgeRouting(d, idOf "e-resubmit", Manual [ { X = 705; Y = -24 }; { X = 355; Y = -24 } ]))
           MetadataCmd(DefineField statusField)
           MetadataCmd(DefineField(field "owner" "Owner" (TextField(Some 80)) [ NodeTarget ] visible None (Some(FromMembership Lane)) "Team responsible, derived from the lane."))
           MetadataCmd(DefineField(field "phase" "Phase" (EnumField [ { Id = "intake"; Label = "Intake" }; { Id = "review"; Label = "Review" }; { Id = "fulfilment"; Label = "Fulfilment" } ]) [ NodeTarget ] visible None None "Stage of the purchase lifecycle."))
@@ -107,7 +107,11 @@ module Samples =
           AppearanceCmd(SetOverride([ EdgeRef(d, idOf "e-resubmit") ], { Appearance.empty with Line = Some Dotted }))
           Flow(AddReference(node "approve", { Id = idOf "req-42"; Target = RequirementTarget "REQ-42"; Label = Some "Spend approval requirement"; Availability = Unverified }))
           Flow(AddReference(node "approve", { Id = idOf "forma-53"; Target = IssueTarget("kemiller2002/forma", 53); Label = Some "Workflow color contract"; Availability = Unverified }))
-          Flow(SetDisplay(d, { NodeFields = [ idOf "status"; idOf "owner"; idOf "phase"; idOf "cost-center" ]; EdgeFields = []; Missing = ShowValueState })) ]
+          Flow(SetDisplay(d,
+                            { NodeFields = [ idOf "status"; idOf "owner"; idOf "phase"; idOf "cost-center" ]
+                              KindFields = Map.ofList [ "start", []; "end", []; "decision", [] ]
+                              EdgeFields = []
+                              Missing = ShowValueState })) ]
 
     /// Builds the sample through one editor session.
     let purchaseWorkflow () =

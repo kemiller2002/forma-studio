@@ -324,8 +324,12 @@ type MissingDisplay =
     | OmitMissing
     | ShowValueState
 
+/// Which metadata fields appear on the canvas, by stable key (FDA-1230..1240).
+/// `KindFields` overrides `NodeFields` for specific node kinds, for example to
+/// keep start, end and decision shapes compact. Hiding a field never clears it.
 type MetadataDisplay =
     { NodeFields: FieldKey list
+      KindFields: Map<string, FieldKey list>
       EdgeFields: FieldKey list
       Missing: MissingDisplay }
 

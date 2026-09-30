@@ -8,9 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Harness.fs" />
-    <Compile Include="ModelTests.fs" />
-    <Compile Include="ExportTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

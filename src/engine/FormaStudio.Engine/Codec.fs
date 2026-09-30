@@ -625,6 +625,7 @@ module Codec =
               Some(
                   JObject
                       [ "nodeFields", d.Display.NodeFields |> List.map (Id.value >> JString) |> JArray
+                        "kindFields", d.Display.KindFields |> Map.toList |> List.map (fun (kind, keys) -> kind, keys |> List.map (Id.value >> JString) |> JArray) |> JObject
                         "edgeFields", d.Display.EdgeFields |> List.map (Id.value >> JString) |> JArray
                         "missing", JString(match d.Display.Missing with OmitMissing -> "omit" | ShowValueState -> "show-state") ]
               )
@@ -642,12 +643,13 @@ module Codec =
             let! edges = withDefault "edges" [] (list decodeEdge) json
             let! nodeFields = withDefault "display" [] (fun d -> withDefault "nodeFields" [] (list id<FieldKind>) d) json
             let! edgeFields = withDefault "display" [] (fun d -> withDefault "edgeFields" [] (list id<FieldKind>) d) json
+            let! kindFields = withDefault "display" [] (fun d -> withDefault "kindFields" [] (entries (list id<FieldKind>)) d) json
             let! missing = withDefault "display" OmitMissing (fun d -> withDefault "missing" OmitMissing (oneOf "missing display" [ "omit", OmitMissing; "show-state", ShowValueState ]) d) json
             let! metadata = withDefault "metadata" Map.empty decodeMetadata json
             let! references = withDefault "references" [] (list decodeReference) json
             return
                 { Id = did; Name = name; Profile = { Id = profileId; Version = profileVersion }; Nodes = nodes; Edges = edges; Groups = groups
-                  Display = { NodeFields = nodeFields; EdgeFields = edgeFields; Missing = missing }; Metadata = metadata; References = references }
+                  Display = { NodeFields = nodeFields; KindFields = Map.ofList kindFields; EdgeFields = edgeFields; Missing = missing }; Metadata = metadata; References = references }
         }
 
     // -- project -------------------------------------------------------------

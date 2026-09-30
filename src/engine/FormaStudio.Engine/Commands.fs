@@ -272,7 +272,7 @@ module Commands =
             else
                 let diagram =
                     { Id = id; Name = name; Profile = profileRef; Nodes = []; Edges = []; Groups = []
-                      Display = { NodeFields = []; EdgeFields = []; Missing = OmitMissing }; Metadata = Map.empty; References = [] }
+                      Display = { NodeFields = []; KindFields = Map.empty; EdgeFields = []; Missing = OmitMissing }; Metadata = Map.empty; References = [] }
                 ok { project with Diagrams = project.Diagrams @ [ diagram ] }
         | RenameDiagram(id, name) ->
             if System.String.IsNullOrWhiteSpace name then reject "diagram.name" (diagramTarget id) "A diagram needs a name."
@@ -466,12 +466,14 @@ module Commands =
             ProjectOps.updateGroup diagramId groupId (fun g -> Ok { g with Members = List.distinct members }) project |> lift target |> Result.bind ok
         | SetDisplay(diagramId, display) ->
             let target = diagramTarget diagramId
-            let unknown = display.NodeFields @ display.EdgeFields |> List.filter (fun k -> (ProjectOps.tryField k project).IsNone)
+            let allFields = display.NodeFields @ display.EdgeFields @ (display.KindFields |> Map.toList |> List.collect snd)
+            let unknown = allFields |> List.filter (fun k -> (ProjectOps.tryField k project).IsNone)
             match unknown with
             | key :: _ -> reject "metadata.field.unknown" target (sprintf "Field '%s' is not defined." (Id.value key))
             | [] ->
                 let hidden =
-                    display.NodeFields @ display.EdgeFields
+                    allFields
+                    |> List.distinct
                     |> List.choose (fun k -> ProjectOps.tryField k project)
                     |> List.filter (MetadataRules.allows Rendered >> not)
                 ProjectOps.updateDiagram diagramId (fun d -> Ok { d with Display = display }) project
@@ -520,7 +522,7 @@ module Commands =
         let mappings = project.Mappings |> List.filter (fun m -> m.Field = key) |> List.map (fun m -> sprintf "mapping:%s" (Id.value m.Id), "reads this field")
         let displays =
             project.Diagrams
-            |> List.filter (fun d -> List.contains key d.Display.NodeFields || List.contains key d.Display.EdgeFields)
+            |> List.filter (fun d -> List.contains key d.Display.NodeFields || List.contains key d.Display.EdgeFields || d.Display.KindFields |> Map.exists (fun _ keys -> List.contains key keys))
             |> List.map (fun d -> diagramTarget d.Id, "displays this field")
         values, mappings, displays
 
@@ -583,7 +585,13 @@ module Commands =
                         { withoutValues with
                             Diagrams =
                                 withoutValues.Diagrams
-                                |> List.map (fun d -> { d with Display = { d.Display with NodeFields = d.Display.NodeFields |> List.filter ((<>) key); EdgeFields = d.Display.EdgeFields |> List.filter ((<>) key) } })
+                                |> List.map (fun d ->
+                                    { d with
+                                        Display =
+                                            { d.Display with
+                                                NodeFields = d.Display.NodeFields |> List.filter ((<>) key)
+                                                KindFields = d.Display.KindFields |> Map.map (fun _ keys -> keys |> List.filter ((<>) key))
+                                                EdgeFields = d.Display.EdgeFields |> List.filter ((<>) key) } })
                             Fields = withoutValues.Fields |> List.filter (fun f -> f.Key <> key) }
                     Ok
                         { Project = withoutDisplay

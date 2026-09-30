@@ -27,5 +27,7 @@
     <Compile Include="Editor.fs" />
     <Compile Include="Codec.fs" />
     <Compile Include="Samples.fs" />
+    <Compile Include="Export.fs" />
+    <Compile Include="Projection.fs" />
   </ItemGroup>
 </Project>
