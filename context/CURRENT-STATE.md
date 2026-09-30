@@ -119,23 +119,32 @@ Done and tested:
   and the cross-repo fixture in `examples/purchase-request/`, which Folio
   consumes.
 - **STUDIO-GH-11 (active):** the Flow editor. The engine runs on .NET
-  WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has a
-  canvas with drag and arrow-key moves (one command per gesture), a
-  Structure list, an inspector (label, metadata, fill, palette, style), a
-  non-drag connect workflow, undo/redo and save/open via Limen Storage.
-- Tests: `dotnet run --project tests/FormaStudio.Engine.Tests` (37) and
-  `npm run app:build && npm run app:test` (9 Playwright tests, Chromium).
+  WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has
+  - a canvas with drag and arrow-key moves (one command per gesture);
+  - a Structure list with multi-selection toggles;
+  - an inspector for label, lane, metadata (Mixed across a selection),
+    fill, palette and style, with the effective source shown;
+  - align and distribute;
+  - a new-field form (no JSON), palette management with usage counts and
+    safe deletion, and color rules;
+  - non-drag connect, undo/redo, and save/open via Limen Storage;
+  - axe and forced-colors checks.
+- **STUDIO-GH-13 (active):** State and Architecture profiles, `Diff.between`,
+  `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
+  reconciliation by id), and a 2,000-node / 3,000-edge proof.
+- Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
+  (50) and `npm run app:build && npm run app:test` (15 Playwright tests,
+  Chromium).
 
 Next legal work, in order:
 
-1. Finish STUDIO-GH-11: palette, style and mapping management screens;
-   metadata field definition UI; multi-select and bulk metadata; forced-colors
-   and axe checks for the editor; lane assignment from the inspector.
-2. The Layout editor surface on the same Editor session (the engine already
-   supports Stack/Heading).
-3. State and Architecture profiles, templates and dependency closure,
-   semantic diff and merge, and large-graph fixtures (Phases 10, 16-18 of the
-   initiative).
+1. The Layout editor surface on the same Editor session (the engine already
+   supports Stack/Heading and shares history and selection with Flow).
+2. Editor refinements: resize handles, reconnect by dragging an endpoint,
+   zoom, snapping and guides, and a template/fragment picker built on
+   `Fragment.applyCommand`.
+3. Surface the semantic diff and merge in a review UI (read-only compare of
+   two revisions).
 4. Replace `vendor/forma` with a released Forma artifact once
    kemiller2002/forma#91 ships.
 
