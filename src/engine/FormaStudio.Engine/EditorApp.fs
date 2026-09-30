@@ -133,6 +133,21 @@ module EditorApp =
             | _ -> None
         | _ -> None
 
+    let private parseNumber (text: string) =
+        match System.Double.TryParse(text, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture) with
+        | true, v -> Some v
+        | _ -> None
+
+    /// One resize intent (a finished handle drag or one inspector edit) is one
+    /// ResizeNode command; the engine validates and rounds the size.
+    let private resize state (node: NodeId) (size: Size -> float * float) =
+        match ProjectOps.tryNode state.Diagram node (project state) with
+        | Some n ->
+            let w, h = size n.Box.Size
+            let resized = run (Flow(ResizeNode(state.Diagram, node, w, h))) (sprintf "Resized %s." n.Label) state
+            { resized with Session = Editor.select [ NodeRef(state.Diagram, node) ] resized.Session }
+        | None -> { state with Status = "Select an item to resize it." }
+
     let private move state (dx: float) (dy: float) =
         match selectedNode state with
         | Some node -> run (Flow(MoveNodes(state.Diagram, [ node.Id, dx, dy ]))) (sprintf "Moved %s." node.Label) state
@@ -317,6 +332,16 @@ module EditorApp =
                 let moved = run (Flow(MoveNodes(state.Diagram, [ node, dx, dy ]))) (sprintf "Moved %s." label) state
                 noEffects { moved with Session = Editor.select [ NodeRef(state.Diagram, node) ] moved.Session }
             | None -> noEffects { state with Status = "Ignored an unreadable move." }
+        | "gesture-resize" ->
+            match parseDelta value with
+            | Some(node, w, h) -> noEffects (resize state node (fun _ -> w, h))
+            | None -> noEffects { state with Status = "Ignored an unreadable resize." }
+        | "set-width" | "set-height" ->
+            match selectedNode state, parseNumber value with
+            | Some node, Some v ->
+                noEffects (resize state node.Id (fun size -> if e.Name = "set-width" then v, float size.Height else float size.Width, v))
+            | Some _, None -> noEffects { state with Status = "Not changed: enter a number." }
+            | None, _ -> noEffects { state with Status = "Select an item to resize it." }
         | "connect-start" ->
             match selectedNode state with
             | Some node -> noEffects { state with Pending = Connecting node.Id; Status = sprintf "Choose the item that %s connects to." node.Label }
@@ -699,6 +724,8 @@ module EditorApp =
                   "selectedLabel", str selectedLabel
                   "selectedKind", str selectedKind
                   "labelValue", str selectedValue
+                  "widthValue", str (selectedNode state |> Option.map (fun n -> string n.Box.Size.Width) |> Option.defaultValue "")
+                  "heightValue", str (selectedNode state |> Option.map (fun n -> string n.Box.Size.Height) |> Option.defaultValue "")
                   "connecting", JBool(connectingFrom.IsSome)
                   "connectDisabled", JBool(match selected with Some(NodeRef _) -> false | _ -> true)
                   "fields", applicable |> List.map (fun f -> item [ "key", str (Id.value f.Key); "label", str f.Name; "pressed", str (if Some f.Key = state.Field then "true" else "false") ]) |> JArray

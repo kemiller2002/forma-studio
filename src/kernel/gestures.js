@@ -7,14 +7,24 @@
 // into one MoveNodes command and one history entry (FDA-027, FDA-069, Flow
 // "Interaction transactions"). Arrow keys on a focused node emit the same event,
 // so keyboard movement uses the identical command path (FDA-067).
+//
+// Dragging the corner handle is the same kind of transaction: the preview
+// changes only the node's CSS size variables, and release emits ONE resize
+// event with the new logical size. The inspector's Width and Height fields are
+// the non-pointer path to the same command.
 const dragThreshold = 3;
 const nudge = (event) => (event.shiftKey ? 1 : 8);
 
-const emitMove = (root, id, dx, dy) => {
-  const input = root.getElementById("gesture-move");
-  input.value = `${id}|${dx}|${dy}`;
+const emit = (root, inputId, value) => {
+  const input = root.getElementById(inputId);
+  input.value = value;
   input.dispatchEvent(new Event("change", { bubbles: true }));
 };
+const emitMove = (root, id, dx, dy) => emit(root, "gesture-move", `${id}|${dx}|${dy}`);
+const emitResize = (root, id, w, h) => emit(root, "gesture-resize", `${id}|${w}|${h}`);
+
+const minimumSize = 24;
+const cssPixels = (node, name) => parseFloat(node.style.getPropertyValue(name)) || 0;
 
 const nodeOf = (target) => target instanceof Element ? target.closest(".ef-diagram__canvas article[data-node-id]") : null;
 
@@ -25,7 +35,11 @@ export const installGestures = (root = document) => {
   root.addEventListener("pointerdown", (event) => {
     const node = nodeOf(event.target);
     if (!node || event.button !== 0) return;
-    drag = { node, id: node.dataset.nodeId, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId };
+    const resizing = event.target instanceof Element && event.target.classList.contains("studio-resize-handle");
+    drag = {
+      node, id: node.dataset.nodeId, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId,
+      resizing, w: cssPixels(node, "--ef-diagram-w"), h: cssPixels(node, "--ef-diagram-h"),
+    };
     node.setPointerCapture(event.pointerId);
   });
 
@@ -36,18 +50,28 @@ export const installGestures = (root = document) => {
     if (!drag.moved && Math.hypot(dx, dy) < dragThreshold) return;
     drag.moved = true;
     drag.node.classList.add("studio-dragging");
-    drag.node.style.translate = `${dx}px ${dy}px`;
+    if (drag.resizing) {
+      drag.node.style.setProperty("--studio-preview-w", `${Math.max(minimumSize, drag.w + dx)}px`);
+      drag.node.style.setProperty("--studio-preview-h", `${Math.max(minimumSize, drag.h + dy)}px`);
+    } else {
+      drag.node.style.translate = `${dx}px ${dy}px`;
+    }
   });
 
   const finish = (event, commit) => {
     if (!drag || event.pointerId !== drag.pointer) return;
-    const { node, id, x, y, moved } = drag;
+    const { node, id, x, y, moved, resizing, w, h } = drag;
     drag = null;
     node.classList.remove("studio-dragging");
     node.style.translate = "";
+    node.style.removeProperty("--studio-preview-w");
+    node.style.removeProperty("--studio-preview-h");
     if (!moved) return;
     suppressClick = true;
-    if (commit) emitMove(root, id, Math.round(event.clientX - x), Math.round(event.clientY - y));
+    const dx = Math.round(event.clientX - x);
+    const dy = Math.round(event.clientY - y);
+    if (commit && resizing) emitResize(root, id, Math.max(minimumSize, w + dx), Math.max(minimumSize, h + dy));
+    else if (commit) emitMove(root, id, dx, dy);
   };
   root.addEventListener("pointerup", (event) => finish(event, true));
   root.addEventListener("pointercancel", (event) => finish(event, false));

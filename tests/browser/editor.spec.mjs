@@ -283,3 +283,36 @@ test("Layout and Flow share one session: stack, heading, edit, reorder, spacing,
   await expect(preview.getByRole("heading")).toHaveText(["Details", "Welcome"]);
   await expect(preview).toHaveAttribute("data-density", "compact");
 });
+
+const size = (locator) => locator.evaluate((el) => ({ w: parseInt(el.style.getPropertyValue("--ef-diagram-w")), h: parseInt(el.style.getPropertyValue("--ef-diagram-h")) }));
+
+test("Resize: the handle drag and the inspector fields are each one command", async ({ page }) => {
+  await open(page);
+  const target = node(page, "Request submitted");
+  await target.click();
+  const before = await size(target);
+  const entries = Number(await history(page).textContent());
+  const handle = target.locator(".studio-resize-handle");
+  const box = await handle.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 20, box.y + 10, { steps: 6 });
+  await page.mouse.move(box.x + 46, box.y + 26, { steps: 6 });
+  await page.mouse.up();
+  await expect.poll(() => size(target)).toEqual({ w: before.w + 40, h: before.h + 20 });
+  await expect(history(page)).toHaveText(String(entries + 1));
+  await expect(target).toHaveAttribute("aria-pressed", "true");
+  const width = page.getByRole("group", { name: "Size" }).getByLabel("Width");
+  await expect(width).toHaveValue(String(before.w + 40));
+  await width.fill("300");
+  await width.press("Tab");
+  await expect.poll(() => size(target)).toEqual({ w: 300, h: before.h + 20 });
+  await expect(history(page)).toHaveText(String(entries + 2));
+  await width.fill("0");
+  await width.press("Tab");
+  await expect(status(page)).toContainText("Not changed");
+  await expect(history(page)).toHaveText(String(entries + 2));
+  await page.getByRole("button", { name: "Undo" }).click();
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect.poll(() => size(target)).toEqual(before);
+});

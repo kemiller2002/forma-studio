@@ -120,7 +120,8 @@ Done and tested:
   consumes.
 - **STUDIO-GH-11 (active):** the Flow editor. The engine runs on .NET
   WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has
-  - a canvas with drag and arrow-key moves (one command per gesture);
+  - a canvas with drag and arrow-key moves, and resize by corner handle or
+    inspector Width/Height (one command per gesture);
   - a Structure list with multi-selection toggles;
   - an inspector for label, lane, metadata (Mixed across a selection),
     fill, palette and style, with the effective source shown;
@@ -138,12 +139,12 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (50) and `npm run app:build && npm run app:test` (16 Playwright tests,
+  (50) and `npm run app:build && npm run app:test` (17 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. Editor refinements: resize handles, reconnect by dragging an endpoint,
+1. Editor refinements: reconnect by dragging an endpoint,
    zoom, snapping and guides, and a template/fragment picker built on
    `Fragment.applyCommand`.
 2. Surface the semantic diff and merge in a review UI (read-only compare of

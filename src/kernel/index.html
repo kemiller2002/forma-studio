@@ -26,6 +26,7 @@
   <p class="studio-hidden">History entries: <span data-text="historyCount">0</span></p>
   <!-- The gesture adapter writes a completed drag or arrow-key nudge here. -->
   <input type="hidden" id="gesture-move" data-event="gesture-move">
+  <input type="hidden" id="gesture-resize" data-event="gesture-resize">
 
   <nav class="studio-toolbar" aria-label="Surfaces">
     <button type="button" data-event="open-diagram" data-bind-aria-current="flowCurrent" data-text="flowLabel"></button>
@@ -97,6 +98,7 @@
                   <dt data-text="m3Label" data-bind-hidden="m3Hidden"></dt><dd data-bind-hidden="m3Hidden"><span data-text="m3Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m3State" data-text="m3Note" data-bind-hidden="m3NoteHidden"></span></dd>
                   <dt data-text="m4Label" data-bind-hidden="m4Hidden"></dt><dd data-bind-hidden="m4Hidden"><span data-text="m4Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m4State" data-text="m4Note" data-bind-hidden="m4NoteHidden"></span></dd>
                 </dl>
+                <span class="studio-resize-handle" aria-hidden="true"></span>
               </article>
             </template>
             <template data-each="edgeLabels" data-key="key">
@@ -141,6 +143,12 @@
                 <button type="button" data-event="move-right">Move right</button>
                 <button type="button" data-event="move-up">Move up</button>
                 <button type="button" data-event="move-down">Move down</button>
+              </div>
+            </template>
+            <template data-if="selectionIsNode">
+              <div class="studio-choices" role="group" aria-label="Size">
+                <div class="ef-field"><label class="ef-field__label">Width<input type="number" min="1" step="1" data-event="set-width" data-bind-value="widthValue"></label></div>
+                <div class="ef-field"><label class="ef-field__label">Height<input type="number" min="1" step="1" data-event="set-height" data-bind-value="heightValue"></label></div>
               </div>
             </template>
             <template data-if="selectionIsNode">

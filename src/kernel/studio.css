@@ -39,3 +39,21 @@ body { margin: 0; }
 
 /* Forma gives value-state tags a display value; the hidden attribute must still win. */
 .studio [hidden] { display: none !important; }
+
+/* Resize handle: an editor adorner, never part of the exported diagram. */
+.studio .ef-diagram-node .studio-resize-handle {
+  position: absolute;
+  inset-inline-end: -6px;
+  inset-block-end: -6px;
+  inline-size: 12px;
+  block-size: 12px;
+  border: 2px solid CanvasText;
+  background: Canvas;
+  cursor: nwse-resize;
+  display: none;
+}
+.studio .ef-diagram-node.studio-selected .studio-resize-handle { display: block; }
+.studio .ef-diagram-node.studio-dragging[style*="--studio-preview-w"] {
+  inline-size: var(--studio-preview-w);
+  min-block-size: var(--studio-preview-h);
+}
