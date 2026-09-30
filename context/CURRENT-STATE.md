@@ -118,7 +118,7 @@ Done and tested:
   handoff 1.0.0, Forma contract 2.0.0), the CLI in `tools/FormaStudio.Cli`,
   and the cross-repo fixture in `examples/purchase-request/`, which Folio
   consumes.
-- **STUDIO-GH-11 (active):** the Flow editor. The engine runs on .NET
+- **STUDIO-GH-11 (complete):** the Flow and Layout editor. The engine runs on .NET
   WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has
   - a canvas with drag and arrow-key moves, and resize by corner handle or
     inspector Width/Height (one command per gesture);
@@ -153,12 +153,19 @@ Done and tested:
     of headings with text editing, reordering and contract-bounded density
     (no x/y). One undo history spans both surfaces, and a command that
     changes nothing adds no history entry.
-- **STUDIO-GH-13 (active):** State and Architecture profiles, `Diff.between`,
+- **STUDIO-GH-13 (complete):** State and Architecture profiles, `Diff.between`,
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
   (52) and `npm run app:build && npm run app:test` (23 Playwright tests,
   Chromium).
+
+- **STUDIO-GH-12 (complete, mechanical):** file attribution for PR #12 as
+  a whole. The #9 and #10 completion events were recorded after their
+  changes were committed, so they carry no paths. Without an active item,
+  PR-mode ROS validation (`ROS_BASE_REF` = PR base) reported those files as
+  unattributed. Future work: run `ros work complete` before committing
+  the work's changes.
 
 Next legal work, in order:
 
