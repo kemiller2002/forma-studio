@@ -1,0 +1,1405 @@
+{
+  "exportVersion": "1.0.0",
+  "kind": "forma-studio.agent-export",
+  "scope": "agent-export",
+  "project": {
+    "projectId": "purchase-request-example",
+    "name": "Purchase request example",
+    "schemaVersion": 2,
+    "formaVersion": "0.3.0",
+    "revision": "sha256:a0f6b76111ca88efbc545eb7e2bf44eb257651c91e543f301488356db50436cb"
+  },
+  "formaContract": {
+    "contract": "forma.diagram-presentation",
+    "contractVersion": "2.0.0"
+  },
+  "profiles": [
+    {
+      "id": "workflow",
+      "version": "1.0.0",
+      "name": "Workflow",
+      "description": "Start, end, activity and decision with labelled outcomes and semantic lanes. A specification only; it does not execute.",
+      "nodeKinds": [
+        {
+          "kind": "start",
+          "label": "Start"
+        },
+        {
+          "kind": "end",
+          "label": "End"
+        },
+        {
+          "kind": "activity",
+          "label": "Activity"
+        },
+        {
+          "kind": "decision",
+          "label": "Decision"
+        }
+      ],
+      "edgeKinds": [
+        {
+          "kind": "flow",
+          "label": "Flow",
+          "directed": true
+        }
+      ]
+    }
+  ],
+  "pages": [],
+  "diagrams": [
+    {
+      "diagramId": "purchase-request",
+      "name": "Purchase request",
+      "revision": "sha256:4effeb2f6b92fc697a8ad13bec70554b73b63de34cf07e7cac9f52887f959027",
+      "profile": {
+        "id": "workflow",
+        "version": "1.0.0",
+        "available": true
+      },
+      "specificationOnly": true,
+      "groups": [
+        {
+          "groupId": "lane-requester",
+          "kind": "lane",
+          "label": "Requester",
+          "semantic": true,
+          "members": [
+            "submitted",
+            "prepare",
+            "revise"
+          ],
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1060,
+            "height": 220
+          },
+          "metadata": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "groupId": "lane-finance",
+          "kind": "lane",
+          "label": "Finance",
+          "semantic": true,
+          "members": [
+            "budget-check",
+            "approve"
+          ],
+          "geometry": {
+            "x": 0,
+            "y": 230,
+            "width": 1060,
+            "height": 220
+          },
+          "metadata": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "groupId": "lane-procurement",
+          "kind": "lane",
+          "label": "Procurement",
+          "semantic": true,
+          "members": [
+            "order",
+            "placed"
+          ],
+          "geometry": {
+            "x": 0,
+            "y": 460,
+            "width": 1060,
+            "height": 250
+          },
+          "metadata": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        }
+      ],
+      "nodes": [
+        {
+          "nodeId": "submitted",
+          "kind": "start",
+          "kindLabel": "Start",
+          "label": "Request submitted",
+          "lane": "lane-requester",
+          "geometry": {
+            "x": 40,
+            "y": 66,
+            "width": 150,
+            "height": 88
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "default",
+              "value": {
+                "type": "enum",
+                "value": "not-started"
+              },
+              "text": "Not started",
+              "note": "default"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Requester"
+              },
+              "text": "Requester",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "intake"
+              },
+              "text": "Intake"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "ellipse",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "start"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "prepare",
+          "kind": "activity",
+          "kindLabel": "Activity",
+          "label": "Prepare request",
+          "lane": "lane-requester",
+          "geometry": {
+            "x": 250,
+            "y": 26,
+            "width": 210,
+            "height": 168
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "in-progress"
+              },
+              "text": "In progress"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Requester"
+              },
+              "text": "Requester",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "intake"
+              },
+              "text": "Intake"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "palette": "highlight"
+              },
+              "accent": {
+                "literal": "#6b3fa0"
+              }
+            },
+            "effective": {
+              "fill": {
+                "css": "#efe6fb",
+                "sourceKind": "palette",
+                "source": "highlight",
+                "layer": "object-override"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "css": "#6b3fa0",
+                "sourceKind": "literal",
+                "source": "#6b3fa0",
+                "layer": "object-override"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "rounded",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "activity"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "revise",
+          "kind": "activity",
+          "kindLabel": "Activity",
+          "label": "Revise request",
+          "lane": "lane-requester",
+          "geometry": {
+            "x": 600,
+            "y": 26,
+            "width": 210,
+            "height": 168
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "blocked"
+              },
+              "text": "Blocked"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Requester"
+              },
+              "text": "Requester",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "intake"
+              },
+              "text": "Intake"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "literal": "#e3f4e1"
+              },
+              "accent": {
+                "literal": "#2e6b2a"
+              }
+            },
+            "effective": {
+              "fill": {
+                "css": "#e3f4e1",
+                "sourceKind": "literal",
+                "source": "#e3f4e1",
+                "layer": "object-override"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "css": "#2e6b2a",
+                "sourceKind": "literal",
+                "source": "#2e6b2a",
+                "layer": "object-override"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "rounded",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "activity"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "budget-check",
+          "kind": "decision",
+          "kindLabel": "Decision",
+          "label": "Within budget?",
+          "lane": "lane-finance",
+          "geometry": {
+            "x": 280,
+            "y": 265,
+            "width": 150,
+            "height": 150
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "default",
+              "value": {
+                "type": "enum",
+                "value": "not-started"
+              },
+              "text": "Not started",
+              "note": "default"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Finance"
+              },
+              "text": "Finance",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "review"
+              },
+              "text": "Review"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "style": "decision-emphasis",
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "css": "var(--ef-color-accent-primary)",
+                "sourceKind": "token",
+                "source": "--ef-color-accent-primary",
+                "layer": "named-style",
+                "style": "decision-emphasis",
+                "styleRevision": 1
+              },
+              "accent": {
+                "css": "var(--ef-color-accent-primary)",
+                "sourceKind": "token",
+                "source": "--ef-color-accent-primary",
+                "layer": "named-style",
+                "style": "decision-emphasis",
+                "styleRevision": 1
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "diamond",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "decision"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "approve",
+          "kind": "activity",
+          "kindLabel": "Activity",
+          "label": "Approve spend",
+          "lane": "lane-finance",
+          "geometry": {
+            "x": 600,
+            "y": 256,
+            "width": 210,
+            "height": 168
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "blocked"
+              },
+              "text": "Blocked"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Finance"
+              },
+              "text": "Finance",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "review"
+              },
+              "text": "Review"
+            },
+            {
+              "field": "tags",
+              "label": "Tags",
+              "state": "explicit",
+              "value": {
+                "type": "tags",
+                "value": [
+                  "audit",
+                  "spend"
+                ]
+              },
+              "text": "audit, spend"
+            },
+            {
+              "field": "ticket",
+              "label": "Ticket",
+              "state": "explicit",
+              "value": {
+                "type": "url",
+                "value": "https://tickets.example.com/PR-1042"
+              },
+              "text": "https://tickets.example.com/PR-1042"
+            }
+          ],
+          "references": [
+            {
+              "id": "req-42",
+              "kind": "requirement",
+              "requirement": "REQ-42",
+              "label": "Spend approval requirement",
+              "availability": "unverified"
+            },
+            {
+              "id": "forma-53",
+              "kind": "issue",
+              "repository": "kemiller2002/forma",
+              "number": 53,
+              "label": "Workflow color contract",
+              "availability": "unverified"
+            }
+          ],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "css": "#fde8d7",
+                "sourceKind": "palette",
+                "source": "workflow-blocked",
+                "layer": "metadata-mapping",
+                "mapping": "status-color",
+                "field": "status",
+                "legend": "Status is Blocked"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "css": "#9a3b00",
+                "sourceKind": "literal",
+                "source": "#9a3b00",
+                "layer": "metadata-mapping",
+                "mapping": "status-color",
+                "field": "status",
+                "legend": "Status is Blocked"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "rounded",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "activity"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "order",
+          "kind": "activity",
+          "kindLabel": "Activity",
+          "label": "Issue purchase order",
+          "lane": "lane-procurement",
+          "geometry": {
+            "x": 600,
+            "y": 482,
+            "width": 210,
+            "height": 196
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "default",
+              "value": {
+                "type": "enum",
+                "value": "not-started"
+              },
+              "text": "Not started",
+              "note": "default"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Procurement"
+              },
+              "text": "Procurement",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "fulfilment"
+              },
+              "text": "Fulfilment"
+            },
+            {
+              "field": "tags",
+              "label": "Tags",
+              "state": "explicit",
+              "value": {
+                "type": "tags",
+                "value": [
+                  "audit",
+                  "spend"
+                ]
+              },
+              "text": "audit, spend"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "palette": "highlight"
+              },
+              "accent": {
+                "literal": "#6b3fa0"
+              }
+            },
+            "effective": {
+              "fill": {
+                "css": "#efe6fb",
+                "sourceKind": "palette",
+                "source": "highlight",
+                "layer": "object-override"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "css": "#6b3fa0",
+                "sourceKind": "literal",
+                "source": "#6b3fa0",
+                "layer": "object-override"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "rounded",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "activity"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "placed",
+          "kind": "end",
+          "kindLabel": "End",
+          "label": "Order placed",
+          "lane": "lane-procurement",
+          "geometry": {
+            "x": 880,
+            "y": 536,
+            "width": 150,
+            "height": 88
+          },
+          "locked": false,
+          "metadata": [
+            {
+              "field": "status",
+              "label": "Status",
+              "state": "default",
+              "value": {
+                "type": "enum",
+                "value": "not-started"
+              },
+              "text": "Not started",
+              "note": "default"
+            },
+            {
+              "field": "owner",
+              "label": "Owner",
+              "state": "derived",
+              "value": {
+                "type": "text",
+                "value": "Procurement"
+              },
+              "text": "Procurement",
+              "note": "derived from lane"
+            },
+            {
+              "field": "phase",
+              "label": "Phase",
+              "state": "explicit",
+              "value": {
+                "type": "enum",
+                "value": "fulfilment"
+              },
+              "text": "Fulfilment"
+            }
+          ],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "layer": "forma-default"
+              },
+              "shape": {
+                "value": "ellipse",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "end"
+              }
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edgeId": "e-submit",
+          "kind": "flow",
+          "directed": true,
+          "source": "submitted",
+          "target": "prepare",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "solid",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "flow"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-check",
+          "kind": "flow",
+          "directed": true,
+          "source": "prepare",
+          "target": "budget-check",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "solid",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "flow"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-yes",
+          "kind": "flow",
+          "directed": true,
+          "source": "budget-check",
+          "target": "approve",
+          "label": "yes, within budget",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "solid",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "flow"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-no",
+          "kind": "flow",
+          "directed": true,
+          "source": "budget-check",
+          "target": "revise",
+          "label": "no, over budget",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "overrides": {
+              "line": "dashed"
+            },
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "dashed",
+                "layer": "object-override"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-resubmit",
+          "kind": "flow",
+          "directed": true,
+          "source": "revise",
+          "target": "prepare",
+          "label": "resubmit",
+          "routing": "manual",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "overrides": {
+              "line": "dotted"
+            },
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "dotted",
+                "layer": "object-override"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-approved",
+          "kind": "flow",
+          "directed": true,
+          "source": "approve",
+          "target": "order",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "solid",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "flow"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        },
+        {
+          "edgeId": "e-placed",
+          "kind": "flow",
+          "directed": true,
+          "source": "order",
+          "target": "placed",
+          "routing": "orthogonal",
+          "metadata": [],
+          "references": [],
+          "appearance": {
+            "effective": {
+              "fill": {
+                "layer": "forma-default"
+              },
+              "stroke": {
+                "layer": "forma-default"
+              },
+              "accent": {
+                "layer": "forma-default"
+              },
+              "foreground": {
+                "layer": "forma-default"
+              },
+              "connectorStroke": {
+                "layer": "forma-default"
+              },
+              "connectorWidth": {
+                "layer": "forma-default"
+              },
+              "line": {
+                "value": "solid",
+                "layer": "profile-default",
+                "profile": "workflow",
+                "kind": "flow"
+              },
+              "shape": {
+                "layer": "forma-default"
+              }
+            }
+          }
+        }
+      ],
+      "metadata": [],
+      "references": []
+    }
+  ],
+  "metadataFields": [
+    {
+      "key": "status",
+      "name": "Status",
+      "help": "Progress of the activity as recorded by its owner.",
+      "type": {
+        "kind": "enum",
+        "options": [
+          {
+            "id": "not-started",
+            "label": "Not started"
+          },
+          {
+            "id": "in-progress",
+            "label": "In progress"
+          },
+          {
+            "id": "blocked",
+            "label": "Blocked"
+          },
+          {
+            "id": "done",
+            "label": "Done"
+          }
+        ]
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "default": {
+        "type": "enum",
+        "value": "not-started"
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "owner",
+      "name": "Owner",
+      "help": "Team responsible, derived from the lane.",
+      "type": {
+        "kind": "text",
+        "maxLength": 80
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "required": false,
+      "derivation": {
+        "kind": "membership",
+        "group": "lane"
+      },
+      "origin": "project"
+    },
+    {
+      "key": "phase",
+      "name": "Phase",
+      "help": "Stage of the purchase lifecycle.",
+      "type": {
+        "kind": "enum",
+        "options": [
+          {
+            "id": "intake",
+            "label": "Intake"
+          },
+          {
+            "id": "review",
+            "label": "Review"
+          },
+          {
+            "id": "fulfilment",
+            "label": "Fulfilment"
+          }
+        ]
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "tags",
+      "name": "Tags",
+      "help": "Free classification for search and export.",
+      "type": {
+        "kind": "tags",
+        "ordered": false
+      },
+      "appliesTo": [
+        "node",
+        "edge"
+      ],
+      "disclosure": {
+        "scopes": [
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": false
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "ticket",
+      "name": "Ticket",
+      "help": "Tracking ticket for the activity.",
+      "type": {
+        "kind": "url"
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": false
+      },
+      "required": false,
+      "origin": "project"
+    }
+  ],
+  "palette": [
+    {
+      "id": "workflow-blocked",
+      "name": "Workflow blocked",
+      "value": {
+        "literal": "#fde8d7"
+      },
+      "description": "Fill for items whose status is Blocked."
+    },
+    {
+      "id": "highlight",
+      "name": "Author highlight",
+      "value": {
+        "literal": "#efe6fb"
+      },
+      "description": "A highlight authors choose by hand. It carries no status."
+    }
+  ],
+  "appearanceStyles": [
+    {
+      "id": "decision-emphasis",
+      "name": "Decision emphasis",
+      "revision": 1,
+      "targets": [
+        "node"
+      ],
+      "appearance": {
+        "stroke": {
+          "token": "--ef-color-accent-primary"
+        },
+        "accent": {
+          "token": "--ef-color-accent-primary"
+        }
+      }
+    }
+  ],
+  "presentationMappings": [
+    {
+      "id": "status-color",
+      "name": "Status color",
+      "field": "status",
+      "targets": [
+        "node"
+      ],
+      "rules": [
+        {
+          "match": {
+            "equals": "blocked"
+          },
+          "outcome": {
+            "appearance": {
+              "fill": {
+                "palette": "workflow-blocked"
+              },
+              "accent": {
+                "literal": "#9a3b00"
+              }
+            }
+          },
+          "legend": "Status is Blocked"
+        }
+      ],
+      "fallbacks": {
+        "missing": "none",
+        "unknown": "none",
+        "unavailable": "none",
+        "invalid": "none",
+        "unmapped": "none"
+      },
+      "enabled": true
+    }
+  ],
+  "precedence": [
+    "forma-default",
+    "profile-default",
+    "named-style",
+    "metadata-mapping",
+    "object-override"
+  ],
+  "validation": [],
+  "provenance": {
+    "generator": "forma-studio-engine",
+    "exportScope": "agent-export"
+  }
+}

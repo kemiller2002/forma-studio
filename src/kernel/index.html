@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forma Studio: Flow editor</title>
+  <link rel="stylesheet" href="./forma/tokens.css">
+  <link rel="stylesheet" href="./forma/foundations.css">
+  <link rel="stylesheet" href="./forma/components.css">
+  <link rel="stylesheet" href="./studio.css">
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+<main class="studio">
+  <header class="studio-toolbar">
+    <h1><span data-text="diagramName">Loading…</span> <small data-text="profileName"></small></h1>
+    <div class="ef-actions" role="toolbar" aria-label="History and file">
+      <button type="button" data-event="undo" data-bind-disabled="undoDisabled">Undo</button>
+      <button type="button" data-event="redo" data-bind-disabled="redoDisabled">Redo</button>
+      <button type="button" data-event="save">Save</button>
+      <button type="button" data-event="load">Open saved</button>
+    </div>
+  </header>
+
+  <p class="studio-status" role="status" aria-live="polite" data-text="status">Starting the editor…</p>
+  <p class="studio-hidden">History entries: <span data-text="historyCount">0</span></p>
+  <!-- The gesture adapter writes a completed drag or arrow-key nudge here. -->
+  <input type="hidden" id="gesture-move" data-event="gesture-move">
+  <input type="hidden" id="gesture-resize" data-event="gesture-resize">
+  <input type="hidden" id="gesture-reconnect" data-event="gesture-reconnect">
+
+  <nav class="studio-toolbar" aria-label="Surfaces">
+    <button type="button" data-event="open-diagram" data-bind-aria-current="flowCurrent" data-text="flowLabel"></button>
+    <template data-each="pages" data-key="key">
+      <button type="button" data-event="open-page" data-bind-aria-current="current" data-text="label"></button>
+    </template>
+    <button type="button" data-event="add-page">Add Layout page</button>
+  </nav>
+
+  <section class="studio-panel" aria-labelledby="layout-heading" data-bind-hidden="flowVisible">
+    <h2 id="layout-heading">Layout: <span data-text="pageName"></span></h2>
+    <p>Layout is semantic composition: items stack in order and spacing comes from the Forma stack's density, never from x/y positions.</p>
+    <div class="studio-choices" role="group" aria-label="Stack spacing">
+      <template data-each="densities" data-key="key">
+        <button type="button" data-event="layout-density" data-text="label"></button>
+      </template>
+    </div>
+    <button type="button" data-event="layout-add-heading">Add heading</button>
+    <ol class="studio-list" aria-label="Page structure">
+      <template data-each="layoutItems" data-key="key">
+        <li class="studio-panel">
+          <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+          <span class="studio-choices"><button type="button" data-event="layout-move-up">Move earlier</button><button type="button" data-event="layout-move-down">Move later</button></span>
+        </li>
+      </template>
+    </ol>
+    <h3>Preview</h3>
+    <section class="ef-stack" aria-label="Page preview" data-bind-data-density="density">
+      <template data-each="layoutItems" data-key="key"><h2 data-text="text"></h2></template>
+    </section>
+  </section>
+
+  <div class="studio-workspace" data-bind-hidden="layoutVisible">
+    <section class="studio-panel" aria-labelledby="canvas-heading">
+      <h2 id="canvas-heading">Canvas</h2>
+      <div class="studio-toolbar" role="toolbar" aria-label="Add and connect">
+        <div class="studio-choices" role="group" aria-label="Kind to add">
+          <template data-each="kinds" data-key="key">
+            <button type="button" data-event="choose-kind" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <button type="button" data-event="add-node">Add item</button>
+        <button type="button" data-event="connect-start" data-bind-disabled="connectDisabled">Connect from selection</button>
+        <template data-if="connecting"><button type="button" data-event="cancel">Cancel connecting</button></template>
+        <template data-if="reconnecting"><button type="button" data-event="cancel">Cancel reconnecting</button></template>
+        <button type="button" data-event="delete">Delete selection</button>
+      </div>
+      <div class="studio-toolbar" role="toolbar" aria-label="View">
+        <button type="button" data-event="zoom-out" data-bind-disabled="zoomOutDisabled">Zoom out</button>
+        <span>Zoom <span data-text="zoomLabel"></span></span>
+        <button type="button" data-event="zoom-in" data-bind-disabled="zoomInDisabled">Zoom in</button>
+        <button type="button" data-event="zoom-reset">Actual size</button>
+        <button type="button" data-event="toggle-snap" data-bind-aria-pressed="snapPressed">Snap to grid</button>
+      </div>
+      <figure class="ef-diagram" aria-labelledby="canvas-title">
+        <figcaption id="canvas-title" data-text="diagramName"></figcaption>
+        <div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Diagram canvas. Drag items to move them, or focus an item and use the arrow keys. The Structure list offers the same actions.">
+          <div class="ef-diagram__canvas" data-bind-style="canvasStyle" data-bind-data-zoom="zoomFactor" data-bind-data-snap="snapPressed">
+            <template data-each="groups" data-key="key">
+              <div class="ef-diagram-group" data-bind-data-ef-group="variant" data-bind-style="style">
+                <p class="ef-diagram-group__header"><span class="ef-diagram-group__kind" data-text="kind"></span> <span class="ef-diagram-group__label" data-text="label"></span></p>
+              </div>
+            </template>
+            <svg class="ef-diagram__wires" aria-hidden="true" focusable="false">
+              <defs><marker id="studio-arrow" class="ef-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+            </svg>
+            <template data-each="edges" data-key="key">
+              <div class="studio-wire-layer"><svg class="ef-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-ef-line="line" data-bind-style="style" marker-end="url(#studio-arrow)"/></svg></div>
+            </template>
+            <template data-each="nodes" data-key="key">
+              <article tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-style="style" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
+                <p class="ef-diagram-node__kind" data-text="kind"></p>
+                <h3 class="ef-diagram-node__label" data-text="label"></h3>
+                <dl class="ef-diagram-node__meta">
+                  <dt data-text="m1Label" data-bind-hidden="m1Hidden"></dt><dd data-bind-hidden="m1Hidden"><span data-text="m1Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m1State" data-text="m1Note" data-bind-hidden="m1NoteHidden"></span></dd>
+                  <dt data-text="m2Label" data-bind-hidden="m2Hidden"></dt><dd data-bind-hidden="m2Hidden"><span data-text="m2Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m2State" data-text="m2Note" data-bind-hidden="m2NoteHidden"></span></dd>
+                  <dt data-text="m3Label" data-bind-hidden="m3Hidden"></dt><dd data-bind-hidden="m3Hidden"><span data-text="m3Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m3State" data-text="m3Note" data-bind-hidden="m3NoteHidden"></span></dd>
+                  <dt data-text="m4Label" data-bind-hidden="m4Hidden"></dt><dd data-bind-hidden="m4Hidden"><span data-text="m4Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m4State" data-text="m4Note" data-bind-hidden="m4NoteHidden"></span></dd>
+                </dl>
+                <span class="studio-resize-handle" aria-hidden="true"></span>
+              </article>
+            </template>
+            <template data-each="edgeLabels" data-key="key">
+              <span class="ef-diagram-connector__label" data-bind-style="style" data-text="text"></span>
+            </template>
+            <template data-each="endpoints" data-key="key">
+              <button type="button" class="studio-endpoint" data-event="reconnect-end" data-bind-data-end="key" data-bind-style="style" data-bind-aria-pressed="pressed" data-bind-aria-label="label"></button>
+            </template>
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <aside class="studio-panel" aria-label="Structure and inspector">
+      <nav class="studio-panel" aria-labelledby="structure-heading">
+        <h2 id="structure-heading">Structure</h2>
+        <p>Every item and connector, in canvas order. Choose one to select it without using the canvas.</p>
+        <ol class="studio-list">
+          <template data-each="outline" data-key="key">
+            <li class="studio-outline-row"><button type="button" data-event="select" data-bind-aria-current="current" data-text="text"></button><button type="button" class="studio-toggle" data-event="toggle-select" data-bind-aria-label="toggleLabel" data-bind-aria-pressed="inSelection">±</button></li>
+          </template>
+        </ol>
+      </nav>
+
+      <section class="studio-panel" aria-labelledby="review-heading">
+        <h2 id="review-heading">Review changes</h2>
+        <p data-text="changeCount"></p>
+        <ul class="studio-list" aria-label="Changes since the last save or open">
+          <template data-each="changes" data-key="key">
+            <li><strong data-text="category"></strong>: <span data-text="summary"></span></li>
+          </template>
+        </ul>
+        <button type="button" data-event="check-saved">Check the saved copy for changes</button>
+        <template data-if="mergeOpen">
+          <div>
+            <h3>Changes in the saved copy</h3>
+            <ul class="studio-list" aria-label="Changes in the saved copy">
+              <template data-each="mergeIncoming" data-key="key"><li data-text="text"></li></template>
+            </ul>
+            <h3>Conflicts</h3>
+            <ul class="studio-list" aria-label="Merge conflicts">
+              <template data-each="mergeConflicts" data-key="key">
+                <li>
+                  <span data-text="text"></span>
+                  <span class="studio-choices" data-bind-hidden="blocking">
+                    <button type="button" data-event="merge-keep-mine" data-bind-aria-pressed="minePressed">Keep mine</button>
+                    <button type="button" data-event="merge-take-saved" data-bind-aria-pressed="savedPressed">Use saved</button>
+                  </span>
+                </li>
+              </template>
+            </ul>
+            <button type="button" data-event="merge-apply">Apply merge</button>
+            <button type="button" data-event="merge-cancel">Cancel merge</button>
+          </div>
+        </template>
+      </section>
+
+      <section class="studio-panel" aria-labelledby="templates-heading">
+        <h2 id="templates-heading">Templates</h2>
+        <button type="button" data-event="copy-selection">Copy selection as template</button>
+        <div class="studio-choices" role="group" aria-label="Template to insert">
+          <template data-each="templates" data-key="key">
+            <button type="button" data-event="choose-template" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <template data-if="templateChosen">
+          <div>
+            <p data-text="templateDescription"></p>
+            <ul class="studio-list" aria-label="What inserting brings along">
+              <template data-each="templatePlan" data-key="key"><li data-text="text"></li></template>
+            </ul>
+            <button type="button" data-event="insert-template">Insert template</button>
+          </div>
+        </template>
+      </section>
+
+      <section class="studio-panel" aria-labelledby="inspector-heading">
+        <h2 id="inspector-heading">Inspector</h2>
+        <template data-if="noSelection"><p>Select an item on the canvas or in the Structure list.</p></template>
+        <template data-if="hasSelection">
+          <div class="studio-panel">
+            <p><strong data-text="selectedKind"></strong>: <span data-text="selectedLabel"></span> (<span data-text="selectionCount"></span> selected)</p>
+            <template data-if="multiSelection">
+              <div class="studio-choices" role="group" aria-label="Arrange the selection">
+                <button type="button" data-event="align-left">Align left edges</button>
+                <button type="button" data-event="align-top">Align top edges</button>
+                <button type="button" data-event="distribute-horizontally">Distribute horizontally</button>
+              </div>
+            </template>
+            <div class="ef-field">
+              <label class="ef-field__label" for="inspector-label">Label</label>
+              <input id="inspector-label" type="text" data-event="set-label" data-bind-value="labelValue">
+            </div>
+            <template data-if="selectionIsNode">
+              <div class="studio-choices" role="group" aria-label="Move by 8 units">
+                <button type="button" data-event="move-left">Move left</button>
+                <button type="button" data-event="move-right">Move right</button>
+                <button type="button" data-event="move-up">Move up</button>
+                <button type="button" data-event="move-down">Move down</button>
+              </div>
+            </template>
+            <template data-if="selectionIsNode">
+              <div class="studio-choices" role="group" aria-label="Size">
+                <div class="ef-field"><label class="ef-field__label">Width<input type="number" min="1" step="1" data-event="set-width" data-bind-value="widthValue"></label></div>
+                <div class="ef-field"><label class="ef-field__label">Height<input type="number" min="1" step="1" data-event="set-height" data-bind-value="heightValue"></label></div>
+              </div>
+            </template>
+            <template data-if="selectionIsNode">
+              <div class="studio-choices" role="group" aria-label="Lane (responsibility)">
+                <template data-each="lanes" data-key="key">
+                  <button type="button" data-event="assign-lane" data-bind-aria-pressed="pressed" data-text="label"></button>
+                </template>
+                <button type="button" data-event="assign-lane">No lane</button>
+              </div>
+            </template>
+
+            <h3>Metadata</h3>
+            <dl class="studio-meta" aria-label="All metadata for the selection">
+              <template data-each="metadataRows" data-key="key">
+                <div><dt data-text="label"></dt><dd><span data-text="text"></span> (<span data-text="state"></span>)</dd></div>
+              </template>
+            </dl>
+            <div class="studio-choices" role="group" aria-label="Field to edit">
+              <template data-each="fields" data-key="key">
+                <button type="button" data-event="choose-field" data-bind-aria-pressed="pressed" data-text="label"></button>
+              </template>
+            </div>
+            <template data-if="fieldChosen">
+              <div class="studio-panel">
+                <p><strong data-text="fieldName"></strong>: <span data-text="fieldHelp"></span></p>
+                <template data-if="fieldIsEnum">
+                  <div class="studio-choices" role="group" aria-label="Value">
+                    <template data-each="fieldChoices" data-key="key">
+                      <button type="button" data-event="set-field-option" data-text="label"></button>
+                    </template>
+                  </div>
+                </template>
+                <div class="ef-field">
+                  <label class="ef-field__label" for="inspector-field-value">Value as text</label>
+                  <input id="inspector-field-value" type="text" data-event="set-field-value">
+                </div>
+                <div class="studio-choices">
+                  <button type="button" data-event="set-field-unknown">Mark unknown</button>
+                  <button type="button" data-event="clear-field">Clear to default</button>
+                </div>
+                <template data-if="mappingAvailable">
+                  <div class="studio-panel">
+                    <p><strong>Color by this field.</strong> The rule reads the value; it never changes it.</p>
+                    <div class="studio-choices" role="group" aria-label="When the value is">
+                      <template data-each="mappingValues" data-key="key">
+                        <button type="button" data-event="mapping-value" data-bind-aria-pressed="pressed" data-text="label"></button>
+                      </template>
+                    </div>
+                    <div class="studio-choices" role="group" aria-label="Use the palette slot">
+                      <template data-each="mappingSlots" data-key="key">
+                        <button type="button" data-event="mapping-slot" data-bind-aria-pressed="pressed" data-text="label"></button>
+                      </template>
+                    </div>
+                    <button type="button" data-event="create-mapping-rule">Add color rule</button>
+                  </div>
+                </template>
+              </div>
+            </template>
+
+            <h3>Appearance</h3>
+            <div class="ef-field">
+              <label class="ef-field__label" for="inspector-fill">Fill color (#rrggbb)</label>
+              <span class="ef-field__description" id="inspector-fill-source">Current fill: <span data-text="fillSource"></span></span>
+              <input id="inspector-fill" type="text" aria-describedby="inspector-fill-source" data-event="set-fill" data-bind-value="fillValue">
+            </div>
+            <div class="studio-choices" role="group" aria-label="Fill from the project palette">
+              <template data-each="palette" data-key="key">
+                <button type="button" data-event="choose-fill-palette" data-text="label"></button>
+              </template>
+              <button type="button" data-event="reset-fill">Reset fill</button>
+            </div>
+            <p>Stroke: <span data-text="strokeSource"></span></p>
+            <p>Named style: <span data-text="styleName"></span></p>
+            <div class="studio-choices" role="group" aria-label="Named style">
+              <template data-each="styles" data-key="key">
+                <button type="button" data-event="choose-style" data-text="label"></button>
+              </template>
+              <button type="button" data-event="choose-style">No style</button>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="studio-panel" aria-labelledby="project-heading">
+        <h2 id="project-heading">Project</h2>
+        <h3>New metadata field</h3>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-field-name">Field name</label>
+          <input id="new-field-name" type="text" data-event="draft-field-name" data-bind-value="draftFieldName">
+        </div>
+        <div class="studio-choices" role="group" aria-label="Field type">
+          <template data-each="fieldTypes" data-key="key">
+            <button type="button" data-event="draft-field-type" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <template data-if="draftFieldIsChoice">
+          <div class="ef-field">
+            <label class="ef-field__label" for="new-field-options">Choices</label>
+            <span class="ef-field__description" id="new-field-options-help">Separate choices with commas.</span>
+            <input id="new-field-options" type="text" aria-describedby="new-field-options-help" data-event="draft-field-options" data-bind-value="draftFieldOptions">
+          </div>
+        </template>
+        <div class="studio-choices" role="group" aria-label="Where the field may appear">
+          <template data-each="fieldScopes" data-key="key">
+            <button type="button" data-event="draft-field-scope" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <button type="button" data-event="create-field">Create field</button>
+
+        <h3>Palette</h3>
+        <ul class="studio-list" aria-label="Palette slots">
+          <template data-each="paletteRows" data-key="key">
+            <li><span data-text="label"></span> <code data-text="value"></code> (<span data-text="uses"></span>)
+              <span class="studio-choices"><button type="button" data-event="delete-slot">Delete</button><button type="button" data-event="materialize-slot">Delete, keep colors</button></span>
+            </li>
+          </template>
+        </ul>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-slot-name">New slot name</label>
+          <input id="new-slot-name" type="text" data-event="draft-slot-name" data-bind-value="draftSlotName">
+        </div>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-slot-color">New slot color (#rrggbb)</label>
+          <input id="new-slot-color" type="text" data-event="draft-slot-color" data-bind-value="draftSlotColor">
+        </div>
+        <button type="button" data-event="create-slot">Add palette slot</button>
+
+        <h3>Color rules</h3>
+        <ul class="studio-list" aria-label="Color rules">
+          <template data-each="mappings" data-key="key"><li data-text="text"></li></template>
+        </ul>
+      </section>
+
+      <section class="studio-panel" aria-labelledby="findings-heading">
+        <h2 id="findings-heading">Validation (<span data-text="findingCount"></span>)</h2>
+        <ul class="studio-list">
+          <template data-each="findings" data-key="key"><li data-text="text"></li></template>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</main>
+</body>
+</html>

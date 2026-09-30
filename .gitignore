@@ -39,3 +39,14 @@ logs/*
 #   npx @echelon-foundry/visual-engineering init
 .visual-engineering/
 # END echelon:visual-engineering
+
+# .NET build output
+bin/
+obj/
+app-dist/
+build/
+test-results/
+playwright-report/
+
+# npm generates this in CI; the repository does not commit a lockfile.
+package-lock.json

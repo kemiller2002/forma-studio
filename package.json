@@ -12,6 +12,7 @@
     "@echelon-foundry/typescript-wasm-kernel": "0.6.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.63.0",
     "typescript": "5.9.3"
   },
@@ -19,6 +20,8 @@
     "requirements:validate": "node scripts/validate-requirements.mjs",
     "schema:validate": "node scripts/validate-schema.mjs",
     "site:build": "node scripts/build-site.mjs",
-    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build"
+    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build",
+    "app:build": "node scripts/build-app.mjs",
+    "app:test": "playwright test"
   }
 }

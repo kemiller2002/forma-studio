@@ -1,0 +1,203 @@
+@layer echelon.foundations {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :where(html) {
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-family: var(--ef-primitive-font-family-sans, system-ui, sans-serif);
+    background: var(--ef-color-surface-primary, #f2efe7);
+    color: var(--ef-color-text-primary, #171a18);
+  }
+
+  :where(body) {
+    margin: 0;
+    background: var(--ef-color-surface-primary, #f2efe7);
+    color: var(--ef-color-text-primary, #171a18);
+    font-family: var(--ef-primitive-font-family-sans, system-ui, sans-serif);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  :where(h1, h2) {
+    color: var(--ef-color-text-heading, #202421);
+    font-family: var(--ef-primitive-font-family-display, Georgia, serif);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  :where(h3, h4, h5, h6) {
+    color: var(--ef-color-text-heading, #202421);
+    line-height: 1.25;
+  }
+
+  :where(p) {
+    color: var(--ef-color-text-secondary, #686d68);
+    max-inline-size: 72ch;
+  }
+
+  :where(a) {
+    color: var(--ef-color-accent-primary, #905831);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  :where(button, input, select, textarea) {
+    max-inline-size: 100%;
+    font: inherit;
+  }
+
+  :where(img, picture, video, canvas, svg) {
+    max-inline-size: 100%;
+  }
+
+  :where(img, video, canvas) {
+    block-size: auto;
+  }
+
+  :where(button, .ef-button) {
+    min-block-size: 2.75rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--ef-color-border-functional, #3a403c);
+    border-radius: var(--ef-primitive-radius-none, 0);
+    background: var(--ef-color-surface-primary, #f2efe7);
+    color: var(--ef-color-text-primary, #171a18);
+    font-weight: 700;
+    /*
+     * Hover and press feedback is perceptual interpolation (MOT-014, MOT-026):
+     * it changes the surface, never the hit target's position or size. The
+     * fallbacks restate the shared vocabulary for pages that load
+     * foundations.css without components.css.
+     */
+    transition:
+      background-color var(--ef-motion-perceptual-duration, 120ms) var(--ef-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1)),
+      border-color var(--ef-motion-perceptual-duration, 120ms) var(--ef-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1));
+  }
+
+  :where(button, .ef-button):where(:not(:disabled)):hover {
+    background: var(--ef-color-surface-secondary, #e3e0d7);
+  }
+
+  /*
+   * Press onset is a direct projection of pointer/key down: it begins
+   * immediately and never delays activation. Release returns through the
+   * perceptual interpolation above.
+   */
+  :where(button, .ef-button):where(:not(:disabled)):active {
+    background: color-mix(in srgb, var(--ef-color-surface-secondary, #e3e0d7) 82%, var(--ef-color-text-primary, #171a18));
+    transition-duration: var(--ef-motion-direct-duration, 0ms);
+  }
+
+  :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select) {
+    min-block-size: 2.75rem;
+    inline-size: 100%;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--ef-color-border-functional, #3a403c);
+    border-radius: var(--ef-primitive-radius-none, 0);
+    background: var(--ef-color-surface-primary, #f2efe7);
+    color: var(--ef-color-text-primary, #171a18);
+  }
+
+  :where(:focus-visible) {
+    outline: 3px solid var(--ef-color-focus-gap, #f2efe7);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px var(--ef-color-focus-ring, #171a18);
+  }
+
+  .ef-stack { display: flex; flex-direction: column; gap: var(--ef-stack-gap, var(--ef-primitive-spacing-4, 1rem)); }
+  .ef-cluster { display: flex; flex-wrap: wrap; gap: var(--ef-cluster-gap, var(--ef-primitive-spacing-3, 0.75rem)); align-items: center; }
+  .ef-grid { display: grid; gap: var(--ef-grid-gap, var(--ef-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-grid-min, 16rem)), 1fr)); }
+  .ef-section { padding-block: var(--ef-section-space, var(--ef-primitive-spacing-7, 3rem)); }
+  .ef-surface { min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }
+  .ef-surface :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
+  :where(h1, h2, h3, h4, h5, h6, p, a, label, legend, td, th) {
+    overflow-wrap: anywhere;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    /*
+     * Forced-colors token projection (FORMA-A11Y-001). Every semantic color
+     * token resolves to a system color, so author colors agree with what the
+     * user agent forces: foreground roles become CanvasText and surfaces
+     * become Canvas, for every theme, brand and skin scope. Without this,
+     * theme text colors survive where engines do not force them (for example
+     * -webkit-text-fill-color, which resolves currentcolor before forcing, and
+     * engines that only emulate the media query), producing light theme text
+     * on a forced Canvas. !important in this early layer outranks later theme
+     * and brand layers: the user's forced-colors choice wins. Selection and
+     * state rules that need Highlight keep their explicit forced-colors rules.
+     */
+    :root, [data-ef-theme], [data-ef-brand], [data-ef-skin] {
+      --ef-color-text-primary: CanvasText !important;
+      --ef-color-text-heading: CanvasText !important;
+      --ef-color-text-secondary: CanvasText !important;
+      --ef-color-text-muted: CanvasText !important;
+      --ef-color-text-on-secondary-surface: CanvasText !important;
+      --ef-color-text-inverse: CanvasText !important;
+      --ef-color-accent-primary: CanvasText !important;
+      --ef-color-accent-secondary: CanvasText !important;
+      --ef-color-accent-hover: CanvasText !important;
+      --ef-color-border-functional: CanvasText !important;
+      --ef-color-border-subtle: CanvasText !important;
+      --ef-color-status-danger: CanvasText !important;
+      --ef-color-status-warning: CanvasText !important;
+      --ef-color-status-success: CanvasText !important;
+      --ef-color-status-info: CanvasText !important;
+      --ef-color-control-active: CanvasText !important;
+      --ef-color-control-thumb: Canvas !important;
+      --ef-color-control-track: CanvasText !important;
+      --ef-color-focus-ring: CanvasText !important;
+      --ef-color-focus-gap: Canvas !important;
+      --ef-color-surface-primary: Canvas !important;
+      --ef-color-surface-secondary: Canvas !important;
+      --ef-color-surface-elevated: Canvas !important;
+      --ef-color-surface-inverse: Canvas !important;
+      --ef-color-surface-inverse-secondary: Canvas !important;
+      color: CanvasText;
+      background-color: Canvas;
+    }
+
+    :where(button, .ef-button, input, textarea, select, .ef-surface) {
+      border-color: CanvasText;
+    }
+  }
+
+  /* Visual Engineering composition primitives -------------------------- */
+  .ef-breakout { inline-size: min(100%, var(--ef-breakout-max, 90rem)); max-inline-size: none; }
+  .ef-rail { --ef-rail-measure: minmax(12rem, 18rem); --ef-rail-content-min: 50%; --ef-rail-space: var(--ef-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: var(--ef-rail-measure) minmax(var(--ef-rail-content-min), 1fr); gap: var(--ef-rail-space); align-items: start; }
+  .ef-rail[data-side="end"] { grid-template-columns: minmax(var(--ef-rail-content-min), 1fr) var(--ef-rail-measure); }
+  .ef-rail > * { min-inline-size: 0; }
+  .ef-responsive-grid { --ef-responsive-grid-min: 16rem; --ef-responsive-grid-space: var(--ef-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-responsive-grid-min)), 1fr)); gap: var(--ef-responsive-grid-space); }
+  .ef-responsive-grid > * { min-inline-size: 0; }
+  .ef-span-2 { grid-column: span 2; }
+  .ef-span-full { grid-column: 1 / -1; }
+  .ef-bounded-overflow { max-inline-size: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+  .ef-priority-stack { --ef-priority-min: 18rem; --ef-priority-space: var(--ef-primitive-spacing-4, 1rem); display: flex; flex-wrap: wrap; gap: var(--ef-priority-space); align-items: start; }
+  .ef-priority-stack > * { flex: 1 1 var(--ef-priority-min); min-inline-size: min(100%, var(--ef-priority-min)); }
+  .ef-priority-stack > [data-priority="primary"] { flex-grow: 2; }
+  .ef-focus-stage { --ef-focus-stage-support: minmax(14rem, 20rem); --ef-focus-stage-space: var(--ef-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: minmax(0, 1fr) var(--ef-focus-stage-support); gap: var(--ef-focus-stage-space); align-items: start; }
+  .ef-focus-stage__primary, .ef-focus-stage__support { min-inline-size: 0; }
+  .ef-mosaic { --ef-mosaic-space: var(--ef-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--ef-mosaic-space); }
+  .ef-mosaic > * { min-inline-size: 0; }
+  .ef-mosaic > [data-span="2"] { grid-column: span 2; }
+  .ef-mosaic > [data-span="full"] { grid-column: 1 / -1; }
+  .ef-dense-ledger { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .ef-dense-ledger :is(th, td) { padding: var(--ef-ledger-cell-space, var(--ef-primitive-spacing-2, 0.5rem)); border-block-end: 1px solid var(--ef-color-border-subtle, #e3e0d7); text-align: start; vertical-align: top; }
+  [data-density="relaxed"] { --ef-density-space: var(--ef-primitive-spacing-5, 1.5rem); }
+  [data-density="standard"] { --ef-density-space: var(--ef-primitive-spacing-4, 1rem); }
+  [data-density="compact"], [data-density="analytical"] { --ef-density-space: var(--ef-primitive-spacing-2, 0.5rem); }
+  :where(.ef-stack, .ef-grid, .ef-responsive-grid, .ef-priority-stack)[data-density] { gap: var(--ef-density-space); }
+  @media (max-width: 48rem) { .ef-rail, .ef-rail[data-side="end"], .ef-focus-stage { grid-template-columns: minmax(0, 1fr); } .ef-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ef-span-2 { grid-column: 1 / -1; } }
+  @media (max-width: 30rem) { .ef-mosaic { grid-template-columns: minmax(0, 1fr); } .ef-mosaic > [data-span="2"], .ef-mosaic > [data-span="full"] { grid-column: auto; } .ef-responsive-grid { --ef-responsive-grid-min: 100%; } .ef-priority-stack { --ef-priority-min: 100%; } }
+}
