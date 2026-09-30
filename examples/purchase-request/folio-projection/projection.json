@@ -7,7 +7,7 @@
     "projectId": "purchase-request-example",
     "diagramId": "purchase-request",
     "diagramName": "Purchase request",
-    "revision": "sha256:b9077dd3fb4b0fe1b3382e1d7af68ba3f3ec946a7f0757fcce5cc128f9f304a4",
+    "revision": "sha256:4effeb2f6b92fc697a8ad13bec70554b73b63de34cf07e7cac9f52887f959027",
     "schemaVersion": 2,
     "profile": {
       "id": "workflow",
@@ -22,16 +22,16 @@
   },
   "content": {
     "html": "diagram.html",
-    "sha256": "sha256:340a581f7d00e879a907279ec861114fc773dce4d846ff693c0dc415acfe9cd5"
+    "sha256": "sha256:0a42ba2332db584fad6b2050205e57a943d4142a2178d3a139f9afe5abbf90d8"
   },
   "bounds": {
     "x": 0,
     "y": -24,
     "width": 1060,
-    "height": 794,
+    "height": 734,
     "padding": 24,
     "canvasWidth": 1108,
-    "canvasHeight": 842,
+    "canvasHeight": 782,
     "unit": "logical-px"
   },
   "objects": [
@@ -897,6 +897,6 @@
   ],
   "provenance": {
     "generator": "forma-studio-engine",
-    "projectRevision": "sha256:aec40836dafd3ce771ba68cf001ceb4b8f5f31b85270f0bbdcb75993a1560d43"
+    "projectRevision": "sha256:a0f6b76111ca88efbc545eb7e2bf44eb257651c91e543f301488356db50436cb"
   }
 }

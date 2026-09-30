@@ -7,7 +7,7 @@
     "name": "Purchase request example",
     "schemaVersion": 2,
     "formaVersion": "0.3.0",
-    "revision": "sha256:aec40836dafd3ce771ba68cf001ceb4b8f5f31b85270f0bbdcb75993a1560d43"
+    "revision": "sha256:a0f6b76111ca88efbc545eb7e2bf44eb257651c91e543f301488356db50436cb"
   },
   "formaContract": {
     "contract": "forma.diagram-presentation",
@@ -51,7 +51,7 @@
     {
       "diagramId": "purchase-request",
       "name": "Purchase request",
-      "revision": "sha256:b9077dd3fb4b0fe1b3382e1d7af68ba3f3ec946a7f0757fcce5cc128f9f304a4",
+      "revision": "sha256:4effeb2f6b92fc697a8ad13bec70554b73b63de34cf07e7cac9f52887f959027",
       "profile": {
         "id": "workflow",
         "version": "1.0.0",
@@ -73,7 +73,7 @@
             "x": 0,
             "y": 0,
             "width": 1060,
-            "height": 240
+            "height": 220
           },
           "metadata": [],
           "appearance": {
@@ -116,9 +116,9 @@
           ],
           "geometry": {
             "x": 0,
-            "y": 250,
+            "y": 230,
             "width": 1060,
-            "height": 240
+            "height": 220
           },
           "metadata": [],
           "appearance": {
@@ -161,9 +161,9 @@
           ],
           "geometry": {
             "x": 0,
-            "y": 500,
+            "y": 460,
             "width": 1060,
-            "height": 270
+            "height": 250
           },
           "metadata": [],
           "appearance": {
@@ -205,7 +205,7 @@
           "lane": "lane-requester",
           "geometry": {
             "x": 40,
-            "y": 76,
+            "y": 66,
             "width": 150,
             "height": 88
           },
@@ -285,7 +285,7 @@
           "lane": "lane-requester",
           "geometry": {
             "x": 250,
-            "y": 40,
+            "y": 26,
             "width": 210,
             "height": 168
           },
@@ -378,7 +378,7 @@
           "lane": "lane-requester",
           "geometry": {
             "x": 600,
-            "y": 40,
+            "y": 26,
             "width": 210,
             "height": 168
           },
@@ -471,7 +471,7 @@
           "lane": "lane-finance",
           "geometry": {
             "x": 280,
-            "y": 295,
+            "y": 265,
             "width": 150,
             "height": 150
           },
@@ -562,7 +562,7 @@
           "lane": "lane-finance",
           "geometry": {
             "x": 600,
-            "y": 286,
+            "y": 256,
             "width": 210,
             "height": 168
           },
@@ -692,9 +692,9 @@
           "lane": "lane-procurement",
           "geometry": {
             "x": 600,
-            "y": 526,
+            "y": 482,
             "width": 210,
-            "height": 190
+            "height": 196
           },
           "locked": false,
           "metadata": [
@@ -799,7 +799,7 @@
           "lane": "lane-procurement",
           "geometry": {
             "x": 880,
-            "y": 577,
+            "y": 536,
             "width": 150,
             "height": 88
           },

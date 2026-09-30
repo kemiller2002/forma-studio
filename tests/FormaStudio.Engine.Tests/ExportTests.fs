@@ -112,7 +112,7 @@ let projectionManifest =
         | Some(JString digest) -> expect (digest.StartsWith "sha256:" && digest.Length = 71) "content digest"
         | _ -> fail "missing content digest"
         let bounds = [ "x"; "y"; "width"; "height" ] |> List.map (fun k -> path m [ "bounds"; k ])
-        equal [ Some(JNumber "0"); Some(JNumber "-24"); Some(JNumber "1060"); Some(JNumber "794") ] bounds "deterministic content bounds include manual routes"
+        equal [ Some(JNumber "0"); Some(JNumber "-24"); Some(JNumber "1060"); Some(JNumber "734") ] bounds "deterministic content bounds include manual routes"
         expect (arrayAt m [ "excluded" ] |> List.contains (JString "selection")) "editor state excluded")
 
 let projectionIsDeterministicAndFresh =
