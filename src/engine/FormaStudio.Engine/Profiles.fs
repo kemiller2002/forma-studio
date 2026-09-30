@@ -127,7 +127,98 @@ module Profiles =
           SemanticLanes = true
           Description = "Start, end, activity and decision with labelled outcomes and semantic lanes. A specification only; it does not execute." }
 
-    let registry = [ general; workflow ]
+    let private nodeTarget (diagram: Diagram) (id: NodeId) = target diagram id
+
+    /// State machine documentation. Transitions carry "trigger [guard] / action"
+    /// as authored label text. The profile documents a state model; it is not the
+    /// authoritative domain state machine (FDA-085, FDA-086).
+    let private validateState (diagram: Diagram) =
+        let initials = diagram.Nodes |> List.filter (fun n -> n.Kind = "initial")
+        let outgoing id = diagram.Edges |> List.filter (fun e -> e.Source.Node = id)
+        let initialFindings =
+            match initials with
+            | [ _ ] -> []
+            | [] when not (List.isEmpty diagram.Nodes) ->
+                [ Finding.create "state.initial.missing" Warning ProfileRule (sprintf "diagram:%s" (Id.value diagram.Id)) "The state diagram has no initial state." ]
+            | [] -> []
+            | many ->
+                many |> List.map (fun n -> Finding.create "state.initial.multiple" Warning ProfileRule (nodeTarget diagram n.Id) "A state diagram has exactly one initial state.")
+        let reachable =
+            let rec walk visited frontier =
+                match frontier with
+                | [] -> visited
+                | id :: rest when Set.contains id visited -> walk visited rest
+                | id :: rest -> walk (Set.add id visited) ((outgoing id |> List.map (fun e -> e.Target.Node)) @ rest)
+            walk Set.empty (initials |> List.map _.Id)
+        let unreachable =
+            if List.isEmpty initials then []
+            else
+                diagram.Nodes
+                |> List.filter (fun n -> not (reachable.Contains n.Id))
+                |> List.map (fun n -> Finding.create "state.unreachable" Warning ProfileRule (nodeTarget diagram n.Id) (sprintf "State '%s' cannot be reached from the initial state." n.Label))
+        let unlabelled =
+            diagram.Edges
+            |> List.filter (fun e -> e.Label |> Option.forall System.String.IsNullOrWhiteSpace)
+            |> List.filter (fun e -> diagram.Nodes |> List.exists (fun n -> n.Id = e.Source.Node && n.Kind = "state"))
+            |> List.map (fun e -> Finding.create "state.transition.trigger" Advisory ProfileRule (sprintf "diagram:%s/edge:%s" (Id.value diagram.Id) (Id.value e.Id)) "Name the trigger that causes this transition.")
+        initialFindings @ unreachable @ unlabelled
+
+    let state =
+        { Id = "state"
+          Version = "1.0.0"
+          Name = "State"
+          NodeKinds =
+            [ { node "initial" "Initial state" Ellipse with MaxIncoming = Some 0 }
+              node "state" "State" Rounded
+              { node "final" "Final state" Ellipse with MaxOutgoing = Some 0 } ]
+          EdgeKinds = [ { Kind = "transition"; Label = "Transition"; Directed = true; DefaultLine = Solid } ]
+          CanConnect =
+            fun source _ targetKind ->
+                if source.Kind = "final" then Error "A final state has no outgoing transitions."
+                elif targetKind.Kind = "initial" then Error "Nothing transitions into the initial state."
+                else Ok()
+          Validate = validateState
+          SemanticLanes = false
+          Description = "States and triggered transitions that document a state model. Not the authoritative application state machine." }
+
+    /// Architecture overview. Boundaries are explicit groups; whether a boundary is
+    /// a trust or deployment boundary is authored metadata, and the profile never
+    /// infers security from notation (FDA-087..089).
+    let private validateArchitecture (diagram: Diagram) =
+        let kindOf id = diagram.Nodes |> List.tryFind (fun n -> n.Id = id) |> Option.map _.Kind
+        diagram.Edges
+        |> List.choose (fun e ->
+            let edgeTarget = sprintf "diagram:%s/edge:%s" (Id.value diagram.Id) (Id.value e.Id)
+            match e.Kind, kindOf e.Source.Node, kindOf e.Target.Node with
+            | "message", Some s, Some t when s <> "queue" && t <> "queue" ->
+                Some(Finding.create "architecture.message.queue" Advisory ProfileRule edgeTarget "A message relationship usually passes through a queue; name the channel if it does not.")
+            | _ -> None)
+
+    let architecture =
+        { Id = "architecture"
+          Version = "1.0.0"
+          Name = "Architecture"
+          NodeKinds =
+            [ node "actor" "Actor" Pill
+              node "service" "Service" Rounded
+              node "storage" "Storage" Rectangle
+              node "queue" "Queue" Pill
+              node "external" "External system" Rectangle ]
+          EdgeKinds =
+            [ { Kind = "dependency"; Label = "Depends on"; Directed = true; DefaultLine = Solid }
+              { Kind = "data"; Label = "Data flow"; Directed = true; DefaultLine = Dashed }
+              { Kind = "message"; Label = "Message"; Directed = true; DefaultLine = Dotted }
+              { Kind = "control"; Label = "Control"; Directed = true; DefaultLine = Solid } ]
+          CanConnect =
+            fun source edge targetKind ->
+                if source.Kind = "storage" && edge.Kind = "control" then Error "Storage does not control other components; use a data relationship."
+                elif targetKind.Kind = "actor" && edge.Kind = "control" then Error "Systems do not control actors; use a message or data relationship."
+                else Ok()
+          Validate = validateArchitecture
+          SemanticLanes = false
+          Description = "Systems, storage, queues and explicit boundaries with typed relationships. Boundary trust is authored metadata, never implied by notation." }
+
+    let registry = [ general; workflow; state; architecture ]
 
     /// Profiles are identified by id and version; an unavailable profile is never
     /// replaced by General (DOCUMENT-MODEL "Diagram profile").

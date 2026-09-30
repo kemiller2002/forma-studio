@@ -30,5 +30,7 @@
     <Compile Include="Export.fs" />
     <Compile Include="Projection.fs" />
     <Compile Include="EditorApp.fs" />
+    <Compile Include="Diff.fs" />
+    <Compile Include="Fragment.fs" />
   </ItemGroup>
 </Project>
