@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 // Flow editor vertical slice (#11): every canonical change is one F# engine
@@ -10,7 +11,8 @@ const open = async (page, width = 1400) => {
 };
 const history = (page) => page.locator('[data-text="historyCount"]');
 const node = (page, label) => page.locator(".ef-diagram__canvas article", { has: page.locator(".ef-diagram-node__label", { hasText: label }) });
-const outlineItem = (page, text) => page.locator(".studio-list button", { hasText: text });
+const structure = (page) => page.getByRole("navigation", { name: "Structure" });
+const outlineItem = (page, text) => structure(page).getByRole("button").filter({ hasText: text });
 const status = (page) => page.getByRole("status");
 const position = (locator) => locator.evaluate((el) => ({ x: parseInt(el.style.getPropertyValue("--ef-diagram-x")), y: parseInt(el.style.getPropertyValue("--ef-diagram-y")) }));
 
@@ -23,7 +25,7 @@ test.beforeEach(async ({ page }) => {
 test("the sample renders with Forma contracts and hides source-only metadata on the canvas", async ({ page }) => {
   await open(page);
   await expect(page.locator("path.ef-diagram-connector")).toHaveCount(7);
-  await expect(page.locator(".studio-list button")).toHaveCount(14);
+  await expect(structure(page).getByRole("button")).toHaveCount(14);
   await expect(page.locator(".ef-diagram__canvas")).not.toContainText("CC-7731");
   await expect(page.locator(".ef-diagram__canvas")).not.toContainText("Cost center");
   await expect(node(page, "Within budget?")).toHaveAttribute("data-ef-shape", "diamond");
@@ -98,7 +100,7 @@ test("metadata edits change the mapped color without touching other layers", asy
   await outlineItem(page, "Activity: Approve spend").click();
   await expect(page.locator("#inspector-fill-source")).toContainText("mapping Status color");
   await page.getByRole("group", { name: "Field to edit" }).getByRole("button", { name: "Status" }).click();
-  await page.getByRole("group", { name: "Value" }).getByRole("button", { name: "Done" }).click();
+  await page.getByRole("group", { name: "Value", exact: true }).getByRole("button", { name: "Done" }).click();
   await expect(node(page, "Approve spend")).toContainText("Done");
   await expect(page.locator("#inspector-fill-source")).toContainText("Forma default");
   await page.getByRole("button", { name: "Clear to default" }).click();
@@ -144,4 +146,78 @@ test("at 390px the page reflows and the canvas scrolls in its own region", async
   expect(await viewport.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
   await outlineItem(page, "Decision: Within budget?").click();
   await expect(outlineItem(page, "Decision: Within budget?")).toHaveAttribute("aria-current", "true");
+});
+
+test("an ordinary user defines a choice field, sets it and colors by it without JSON", async ({ page }) => {
+  await open(page);
+  await page.getByLabel("Field name").fill("Risk level");
+  await page.getByLabel("Field name").press("Tab");
+  await page.getByRole("group", { name: "Field type" }).getByRole("button", { name: "Choice list" }).click();
+  await page.getByLabel("Choices").fill("Low, High");
+  await page.getByLabel("Choices").press("Tab");
+  await page.getByRole("button", { name: "Create field" }).click();
+  await expect(page.getByRole("status")).toContainText("Field Risk level added");
+  await expect(history(page)).toHaveText("1");
+
+  await page.getByLabel("New slot name").fill("Risk high");
+  await page.getByLabel("New slot name").press("Tab");
+  await page.getByLabel("New slot color (#rrggbb)").fill("#fbd3e9");
+  await page.getByLabel("New slot color (#rrggbb)").press("Tab");
+  await page.getByRole("button", { name: "Add palette slot" }).click();
+  await expect(page.getByRole("list", { name: "Palette slots" })).toContainText("Risk high");
+
+  await outlineItem(page, "Activity: Prepare request").click();
+  await page.getByRole("group", { name: "Field to edit" }).getByRole("button", { name: "Risk level" }).click();
+  await page.getByRole("group", { name: "Value", exact: true }).getByRole("button", { name: "High" }).click();
+  await expect(node(page, "Prepare request")).toContainText("High");
+
+  await page.getByRole("group", { name: "When the value is" }).getByRole("button", { name: "High" }).click();
+  await page.getByRole("group", { name: "Use the palette slot" }).getByRole("button", { name: "Risk high" }).click();
+  await page.getByRole("button", { name: "Add color rule" }).click();
+  await expect(page.getByRole("list", { name: "Color rules" })).toContainText("Risk level is High");
+  // Prepare request keeps its authored highlight: an override beats a mapping.
+  await expect(page.locator("#inspector-fill-source")).toContainText("set on this item");
+  await page.getByRole("button", { name: "Reset fill" }).click();
+  await expect(node(page, "Prepare request")).toHaveAttribute("style", /--ef-diagram-fill: #fbd3e9;/);
+  await expect(page.locator("#inspector-fill-source")).toContainText("Risk level is High");
+});
+
+test("an in-use palette slot cannot be deleted silently; materializing keeps the colors", async ({ page }) => {
+  await open(page);
+  const row = page.getByRole("list", { name: "Palette slots" }).getByRole("listitem").filter({ hasText: "Author highlight" });
+  await expect(row).toContainText("2 uses");
+  await row.getByRole("button", { name: "Delete", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Not changed");
+  await row.getByRole("button", { name: "Delete, keep colors" }).click();
+  await expect(page.getByRole("list", { name: "Palette slots" })).not.toContainText("Author highlight");
+  await expect(node(page, "Prepare request")).toHaveAttribute("style", /--ef-diagram-fill: #efe6fb;/);
+});
+
+test("moving an activity between lanes reports the responsibility change", async ({ page }) => {
+  await open(page);
+  await outlineItem(page, "Activity: Approve spend").click();
+  await page.getByRole("group", { name: "Lane (responsibility)" }).getByRole("button", { name: "Procurement" }).click();
+  await expect(page.getByRole("status")).toContainText("Responsibility for 'Approve spend' changes from Finance to Procurement");
+  await expect(node(page, "Approve spend")).toContainText("Procurement");
+});
+
+test("the editor has no automatically detectable WCAG A/AA violations, with and without a selection", async ({ page }) => {
+  const wcag = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
+  await open(page);
+  const empty = await new AxeBuilder({ page }).withTags(wcag).analyze();
+  expect(empty.violations, JSON.stringify(empty.violations, null, 2)).toEqual([]);
+  await outlineItem(page, "Activity: Approve spend").click();
+  await page.getByRole("group", { name: "Field to edit" }).getByRole("button", { name: "Status" }).click();
+  const selected = await new AxeBuilder({ page }).withTags(wcag).analyze();
+  expect(selected.violations, JSON.stringify(selected.violations, null, 2)).toEqual([]);
+});
+
+test("forced colors keep selection and boundaries visible", async ({ page }) => {
+  await open(page);
+  await page.emulateMedia({ forcedColors: "active" });
+  await outlineItem(page, "Activity: Approve spend").click();
+  const selected = node(page, "Approve spend");
+  await expect(selected).toHaveClass(/studio-selected/);
+  expect(await selected.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe("dashed");
+  expect(await node(page, "Prepare request").evaluate((el) => getComputedStyle(el).borderTopStyle)).toBe("solid");
 });

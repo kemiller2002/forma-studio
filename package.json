@@ -12,6 +12,7 @@
     "@echelon-foundry/typescript-wasm-kernel": "0.6.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.63.0",
     "typescript": "5.9.3"
   },

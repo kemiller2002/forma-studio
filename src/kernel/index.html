@@ -105,6 +105,14 @@
                 <button type="button" data-event="move-down">Move down</button>
               </div>
             </template>
+            <template data-if="selectionIsNode">
+              <div class="studio-choices" role="group" aria-label="Lane (responsibility)">
+                <template data-each="lanes" data-key="key">
+                  <button type="button" data-event="assign-lane" data-bind-aria-pressed="pressed" data-text="label"></button>
+                </template>
+                <button type="button" data-event="assign-lane">No lane</button>
+              </div>
+            </template>
 
             <h3>Metadata</h3>
             <dl class="studio-meta" aria-label="All metadata for the selection">
@@ -135,6 +143,22 @@
                   <button type="button" data-event="set-field-unknown">Mark unknown</button>
                   <button type="button" data-event="clear-field">Clear to default</button>
                 </div>
+                <template data-if="mappingAvailable">
+                  <div class="studio-panel">
+                    <p><strong>Color by this field.</strong> The rule reads the value; it never changes it.</p>
+                    <div class="studio-choices" role="group" aria-label="When the value is">
+                      <template data-each="mappingValues" data-key="key">
+                        <button type="button" data-event="mapping-value" data-bind-aria-pressed="pressed" data-text="label"></button>
+                      </template>
+                    </div>
+                    <div class="studio-choices" role="group" aria-label="Use the palette slot">
+                      <template data-each="mappingSlots" data-key="key">
+                        <button type="button" data-event="mapping-slot" data-bind-aria-pressed="pressed" data-text="label"></button>
+                      </template>
+                    </div>
+                    <button type="button" data-event="create-mapping-rule">Add color rule</button>
+                  </div>
+                </template>
               </div>
             </template>
 
@@ -160,6 +184,56 @@
             </div>
           </div>
         </template>
+      </section>
+
+      <section class="studio-panel" aria-labelledby="project-heading">
+        <h2 id="project-heading">Project</h2>
+        <h3>New metadata field</h3>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-field-name">Field name</label>
+          <input id="new-field-name" type="text" data-event="draft-field-name" data-bind-value="draftFieldName">
+        </div>
+        <div class="studio-choices" role="group" aria-label="Field type">
+          <template data-each="fieldTypes" data-key="key">
+            <button type="button" data-event="draft-field-type" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <template data-if="draftFieldIsChoice">
+          <div class="ef-field">
+            <label class="ef-field__label" for="new-field-options">Choices</label>
+            <span class="ef-field__description" id="new-field-options-help">Separate choices with commas.</span>
+            <input id="new-field-options" type="text" aria-describedby="new-field-options-help" data-event="draft-field-options" data-bind-value="draftFieldOptions">
+          </div>
+        </template>
+        <div class="studio-choices" role="group" aria-label="Where the field may appear">
+          <template data-each="fieldScopes" data-key="key">
+            <button type="button" data-event="draft-field-scope" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <button type="button" data-event="create-field">Create field</button>
+
+        <h3>Palette</h3>
+        <ul class="studio-list" aria-label="Palette slots">
+          <template data-each="paletteRows" data-key="key">
+            <li><span data-text="label"></span> <code data-text="value"></code> (<span data-text="uses"></span>)
+              <span class="studio-choices"><button type="button" data-event="delete-slot">Delete</button><button type="button" data-event="materialize-slot">Delete, keep colors</button></span>
+            </li>
+          </template>
+        </ul>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-slot-name">New slot name</label>
+          <input id="new-slot-name" type="text" data-event="draft-slot-name" data-bind-value="draftSlotName">
+        </div>
+        <div class="ef-field">
+          <label class="ef-field__label" for="new-slot-color">New slot color (#rrggbb)</label>
+          <input id="new-slot-color" type="text" data-event="draft-slot-color" data-bind-value="draftSlotColor">
+        </div>
+        <button type="button" data-event="create-slot">Add palette slot</button>
+
+        <h3>Color rules</h3>
+        <ul class="studio-list" aria-label="Color rules">
+          <template data-each="mappings" data-key="key"><li data-text="text"></li></template>
+        </ul>
       </section>
 
       <section class="studio-panel" aria-labelledby="findings-heading">

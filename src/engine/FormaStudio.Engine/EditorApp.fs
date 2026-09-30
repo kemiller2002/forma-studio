@@ -9,6 +9,24 @@ type PendingGesture =
     | NoPending
     | Connecting of NodeId
 
+/// Where a new project-local field may appear (FDA-1181, FDA-820).
+type FieldScopeChoice =
+    | PrintedAndExported
+    | ExportedOnly
+    | EditorOnly
+
+/// Unsubmitted form input. Drafts are view state: they never enter the project
+/// until a create command succeeds.
+type Drafts =
+    { FieldName: string
+      FieldType: string
+      FieldOptions: string
+      FieldScope: FieldScopeChoice
+      SlotName: string
+      SlotColor: string
+      MappingValue: string option
+      MappingSlot: string option }
+
 type EditorState =
     { Session: Session
       Diagram: DiagramId
@@ -16,7 +34,7 @@ type EditorState =
       AddKind: string
       Field: FieldKey option
       Status: string
-      Findings: Finding list }
+      Drafts: Drafts }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -30,7 +48,26 @@ module EditorApp =
           AddKind = "activity"
           Field = None
           Status = "Ready."
-          Findings = [] }
+          Drafts =
+            { FieldName = ""; FieldType = "choice"; FieldOptions = ""; FieldScope = PrintedAndExported
+              SlotName = ""; SlotColor = ""; MappingValue = None; MappingSlot = None } }
+
+    let fieldTypes =
+        [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
+
+    let private scopeChoices = [ "printed", PrintedAndExported, "Printed and exported"; "export", ExportedOnly, "Exported only"; "editor", EditorOnly, "Editor only" ]
+
+    /// A stable, readable key from a display name; display names can change later
+    /// without touching the key (FDA-1184).
+    let slug (text: string) =
+        let lowered = text.Trim().ToLowerInvariant()
+        let chars = lowered |> Seq.map (fun c -> if System.Char.IsLetterOrDigit c && c < '\u0080' then c else '-') |> Seq.toArray |> System.String
+        let collapsed = System.Text.RegularExpressions.Regex.Replace(chars, "-+", "-").Trim('-')
+        if collapsed = "" then "field" else collapsed
+
+    let private unique (used: Set<string>) (candidate: string) =
+        if not (used.Contains candidate) then candidate
+        else Seq.initInfinite (fun i -> sprintf "%s-%d" candidate (i + 2)) |> Seq.find (used.Contains >> not)
 
     // -- events ---------------------------------------------------------------
 
@@ -128,6 +165,72 @@ module EditorApp =
     let private storage correlation operation extra =
         JObject([ "kind", JString "Storage"; "correlationId", JString correlation; "operation", JString operation; "key", JString storageKey ] @ extra)
 
+    /// Creates a project-local field from the form, without JSON (FDA-1180..1191).
+    /// Printed fields are also shown on the canvas; the whole change is one batch,
+    /// so one undo removes it.
+    let private createField state =
+        let d = state.Drafts
+        let options =
+            d.FieldOptions.Split(',') |> Array.map (fun o -> o.Trim()) |> Array.filter ((<>) "") |> Array.distinct |> List.ofArray
+            |> List.map (fun label -> { Id = slug label; Label = label })
+        let fieldType =
+            match d.FieldType with
+            | "number" -> Ok(NumberField(None, None))
+            | "boolean" -> Ok BooleanField
+            | "choice" when List.isEmpty options -> Error "List the choices, separated by commas."
+            | "choice" -> Ok(EnumField options)
+            | "date" -> Ok DateTimeField
+            | "url" -> Ok UrlField
+            | "tags" -> Ok(TagsField false)
+            | _ -> Ok(TextField None)
+        let disclosure =
+            match d.FieldScope with
+            | PrintedAndExported -> { Scopes = set [ Rendered; AgentExport; ProvenanceExport ]; DerivedPresentation = true }
+            | ExportedOnly -> { Scopes = set [ AgentExport; ProvenanceExport ]; DerivedPresentation = false }
+            | EditorOnly -> MetadataRules.disclosureSourceOnly
+        match System.String.IsNullOrWhiteSpace d.FieldName, fieldType, diagramOf state with
+        | true, _, _ -> { state with Status = "Name the field first." }
+        | _, Error message, _ -> { state with Status = sprintf "Not changed: %s" message }
+        | _, _, None -> state
+        | false, Ok fieldType, Some diagram ->
+            let key = unique ((project state).Fields |> List.map (fun f -> Id.value f.Key) |> Set.ofList) (slug d.FieldName)
+            let fieldKey: FieldKey = Samples.idOf key
+            let definition =
+                { Key = fieldKey; Name = d.FieldName.Trim(); Help = None; Type = fieldType; AppliesTo = set [ NodeTarget; EdgeTarget; GroupTarget ]
+                  Disclosure = disclosure; Default = None; Required = false; Derivation = None; Origin = ProjectLocal }
+            let display =
+                if d.FieldScope = PrintedAndExported then
+                    [ Flow(SetDisplay(state.Diagram, { diagram.Display with NodeFields = diagram.Display.NodeFields @ [ fieldKey ] })) ]
+                else []
+            let created = run (Batch("define field", MetadataCmd(DefineField definition) :: display)) (sprintf "Field %s added." definition.Name) state
+            { created with Field = Some fieldKey; Drafts = { created.Drafts with FieldName = ""; FieldOptions = "" } }
+
+    /// Adds or replaces one exact-match rule on the chosen choice field's mapping:
+    /// value -> palette slot fill (FDA-1210..1220). Mapping ids are stable per field.
+    let private createMappingRule state =
+        let p = project state
+        match state.Field |> Option.bind (fun k -> ProjectOps.tryField k p), state.Drafts.MappingValue, state.Drafts.MappingSlot with
+        | Some({ Type = EnumField options } as field), Some value, Some slotKey ->
+            match options |> List.tryFind (fun o -> o.Id = value), Id.create<PaletteKind> slotKey with
+            | Some option, Ok slot ->
+                let rule = { Match = Equals option.Id; Outcome = UseAppearance { Appearance.empty with Fill = Some(PaletteColor slot) }; Legend = sprintf "%s is %s" field.Name option.Label }
+                let mappingId: MappingId = Samples.idOf (sprintf "map-%s" (Id.value field.Key))
+                let command =
+                    match ProjectOps.tryMapping mappingId p with
+                    | Some existing ->
+                        let rules = (existing.Rules |> List.filter (fun r -> r.Match <> Equals option.Id)) @ [ rule ]
+                        AppearanceCmd(UpdateMapping { existing with Rules = rules; Enabled = true })
+                    | None ->
+                        AppearanceCmd(
+                            DefineMapping
+                                { Id = mappingId; Name = sprintf "%s color" field.Name; Field = field.Key; Targets = set [ NodeTarget ]; Rules = [ rule ]; Enabled = true
+                                  Fallbacks = { Missing = NoMapping; Unknown = NoMapping; Unavailable = NoMapping; Invalid = NoMapping; Unmapped = NoMapping } }
+                        )
+                run command (sprintf "Items whose %s is %s now take this fill." field.Name option.Label) state
+            | _ -> { state with Status = "Choose a value and a palette slot." }
+        | Some _, _, _ -> { state with Status = "Mappings work on choice fields: choose a value and a palette slot." }
+        | None, _, _ -> { state with Status = "Choose a metadata field first." }
+
     /// Applies one semantic event. Returns the new state and any effect requests.
     let private onEvent (e: Event) state : EditorState * JsonValue list =
         let value = defaultArg e.Value ""
@@ -215,6 +318,41 @@ module EditorApp =
                 let style = if key = "" then None else Id.create<StyleKind> key |> Result.toOption
                 noEffects (run (AppearanceCmd(ApplyStyle([ target ], style))) (if style.IsSome then "Style applied." else "Style removed.") state)
             | None -> noEffects { state with Status = "Select an item first." }
+        | "draft-field-name" -> noEffects { state with Drafts = { state.Drafts with FieldName = value } }
+        | "draft-field-type" -> noEffects { state with Drafts = { state.Drafts with FieldType = key } }
+        | "draft-field-options" -> noEffects { state with Drafts = { state.Drafts with FieldOptions = value } }
+        | "draft-field-scope" ->
+            let scope = scopeChoices |> List.tryFind (fun (k, _, _) -> k = key) |> Option.map (fun (_, v, _) -> v) |> Option.defaultValue state.Drafts.FieldScope
+            noEffects { state with Drafts = { state.Drafts with FieldScope = scope } }
+        | "create-field" -> noEffects (createField state)
+        | "draft-slot-name" -> noEffects { state with Drafts = { state.Drafts with SlotName = value } }
+        | "draft-slot-color" -> noEffects { state with Drafts = { state.Drafts with SlotColor = value } }
+        | "create-slot" ->
+            match HexColor.parse state.Drafts.SlotColor with
+            | _ when System.String.IsNullOrWhiteSpace state.Drafts.SlotName -> noEffects { state with Status = "Name the palette slot first." }
+            | Error message -> noEffects { state with Status = sprintf "Not changed: %s" message }
+            | Ok hex ->
+                let key = unique ((project state).Palette |> List.map (fun p -> Id.value p.Id) |> Set.ofList) (slug state.Drafts.SlotName)
+                let slot = { Id = Samples.idOf key; Name = state.Drafts.SlotName.Trim(); Value = PaletteLiteral hex; Description = None }
+                let created = run (AppearanceCmd(AddPaletteSlot slot)) (sprintf "Palette slot %s added." slot.Name) state
+                noEffects { created with Drafts = { created.Drafts with SlotName = ""; SlotColor = "" } }
+        | "delete-slot" ->
+            match Id.create<PaletteKind> key with
+            | Ok slot -> noEffects (run (AppearanceCmd(RemovePaletteSlot(slot, BlockPaletteIfUsed))) "Palette slot deleted." state)
+            | Error _ -> noEffects state
+        | "materialize-slot" ->
+            match Id.create<PaletteKind> key with
+            | Ok slot -> noEffects (run (AppearanceCmd(RemovePaletteSlot(slot, MaterializePalette))) "Palette slot deleted; its color is now set directly where it was used." state)
+            | Error _ -> noEffects state
+        | "mapping-value" -> noEffects { state with Drafts = { state.Drafts with MappingValue = Some key } }
+        | "mapping-slot" -> noEffects { state with Drafts = { state.Drafts with MappingSlot = Some key } }
+        | "create-mapping-rule" -> noEffects (createMappingRule state)
+        | "assign-lane" ->
+            match selectedNode state with
+            | Some node ->
+                let lane = if key = "" then None else Id.create<GroupKind> key |> Result.toOption
+                noEffects (run (Flow(AssignLane(state.Diagram, node.Id, lane))) "Lane changed." state)
+            | None -> noEffects { state with Status = "Select an item to change its lane." }
         | "save" -> { state with Status = "Saving…" }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
         | "load" -> { state with Status = "Loading…" }, [ storage "load" "get" [] ]
         | other -> noEffects { state with Status = sprintf "Unrecognized action '%s'." other }
@@ -294,6 +432,14 @@ module EditorApp =
         | StyleLayer(id, revision) -> sprintf "%s (named style %s, revision %d)" source (ProjectOps.tryStyle id project |> Option.map _.Name |> Option.defaultValue (Id.value id)) revision
         | MappingLayer(id, _, legend) -> sprintf "%s (mapping %s: %s)" source (ProjectOps.tryMapping id project |> Option.map _.Name |> Option.defaultValue (Id.value id)) legend
         | OverrideLayer -> sprintf "%s (set on this item)" source
+
+    /// References to a palette slot across object overrides, styles and mappings (FDA-1207).
+    let private paletteUseCount (p: Project) (slot: PaletteSlotId) =
+        let usesSlot (a: Appearance) = Appearance.colors a |> List.exists (function PaletteColor id -> id = slot | _ -> false)
+        let objects = ProjectOps.allObjects p |> List.filter (fun r -> ProjectOps.appearanceOf r p |> Option.exists (fun a -> usesSlot a.Overrides)) |> List.length
+        let styles = p.Styles |> List.filter (fun st -> usesSlot st.Appearance) |> List.length
+        let mappings = p.Mappings |> List.filter (fun m -> m.Rules |> List.exists (fun r -> match r.Outcome with UseAppearance a -> usesSlot a | UseStyle _ -> false)) |> List.length
+        objects + styles + mappings
 
     let view (state: EditorState) : JsonValue =
         let p = project state
@@ -457,6 +603,47 @@ module EditorApp =
                   "styleName", str styleName
                   "palette", p.Palette |> List.map (fun s -> item [ "key", str (Id.value s.Id); "label", str s.Name ]) |> JArray
                   "styles", p.Styles |> List.map (fun s -> item [ "key", str (Id.value s.Id); "label", str s.Name ]) |> JArray
+                  "draftFieldName", str state.Drafts.FieldName
+                  "draftFieldOptions", str state.Drafts.FieldOptions
+                  "draftFieldIsChoice", JBool(state.Drafts.FieldType = "choice")
+                  "fieldTypes", fieldTypes |> List.map (fun (k, label) -> item [ "key", str k; "label", str label; "pressed", str (if k = state.Drafts.FieldType then "true" else "false") ]) |> JArray
+                  "fieldScopes", scopeChoices |> List.map (fun (k, v, label) -> item [ "key", str k; "label", str label; "pressed", str (if v = state.Drafts.FieldScope then "true" else "false") ]) |> JArray
+                  "draftSlotName", str state.Drafts.SlotName
+                  "draftSlotColor", str state.Drafts.SlotColor
+                  "paletteRows",
+                  p.Palette
+                  |> List.map (fun slot ->
+                      let uses = paletteUseCount p slot.Id
+                      let value = match slot.Value with PaletteLiteral h -> HexColor.value h | PaletteToken t -> TokenRef.value t
+                      item [ "key", str (Id.value slot.Id); "label", str slot.Name; "value", str value; "uses", str (sprintf "%d %s" uses (if uses = 1 then "use" else "uses")) ])
+                  |> JArray
+                  "mappingAvailable", JBool(match chosenField with Some { Type = EnumField _; Disclosure = d } -> d.DerivedPresentation | _ -> false)
+                  "mappingValues",
+                  (match chosenField with
+                   | Some { Type = EnumField options } -> options |> List.map (fun o -> item [ "key", str o.Id; "label", str o.Label; "pressed", str (if Some o.Id = state.Drafts.MappingValue then "true" else "false") ])
+                   | _ -> [])
+                  |> JArray
+                  "mappingSlots", p.Palette |> List.map (fun slot -> item [ "key", str (Id.value slot.Id); "label", str slot.Name; "pressed", str (if Some(Id.value slot.Id) = state.Drafts.MappingSlot then "true" else "false") ]) |> JArray
+                  "mappings",
+                  p.Mappings
+                  |> List.map (fun m ->
+                      let affected =
+                          diagram.Nodes
+                          |> List.filter (fun n ->
+                              match (effect (NodeRef(diagram.Id, n.Id))).Fill.Layer with
+                              | MappingLayer(id, _, _) -> id = m.Id
+                              | _ -> false)
+                          |> List.length
+                      let rules = m.Rules |> List.map _.Legend |> String.concat "; "
+                      item [ "key", str (Id.value m.Id); "text", str (sprintf "%s: %s. Currently colors %d %s." m.Name rules affected (if affected = 1 then "item" else "items")) ])
+                  |> JArray
+                  "lanes",
+                  diagram.Groups
+                  |> List.filter (fun g -> g.Kind = Lane)
+                  |> List.map (fun g ->
+                      let inLane = match selected with Some(NodeRef(_, n)) -> List.contains n g.Members | _ -> false
+                      item [ "key", str (Id.value g.Id); "label", str g.Label; "pressed", str (if inLane then "true" else "false") ])
+                  |> JArray
                   "findingCount", Json.ofInt blockers.Length
                   "findings", blockers |> List.mapi (fun i f -> item [ "key", str (sprintf "f%d" i); "text", str f.Message ]) |> JArray ]
 
