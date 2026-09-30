@@ -100,3 +100,45 @@ The bootstrap workflow is manual-only recovery/bootstrap tooling and is not part
 
 - The marketing site is scaffolded and build-validated, but custom-domain DNS/Pages settings are external repository/account configuration.
 - The editor implementation itself has not been built yet; this branch establishes the governed requirements, architecture, schema, dependencies, and public-site foundation it will be built against.
+
+## Implementation state (2026-09-30, branch `claude/forma-studio-design-authoring-kv77ea`, PR #12)
+
+This supersedes the "Open implementation obligations" and "Known constraints"
+sections above where they differ.
+
+Done and tested:
+
+- **STUDIO-GH-9 (complete):** a pure F# canonical model and shared command
+  core in `src/engine/FormaStudio.Engine`. It covers typed identity,
+  geometry, pages, diagrams, profiles (General, Workflow), metadata,
+  references, palette, styles, mappings and overrides; one command surface,
+  one Editor session, the appearance cascade and disclosure; the schema v2
+  codec and v1 migration. Decision: `DF-STUDIO-2026-B7E1`.
+- **STUDIO-GH-10 (complete):** `AgentExport` and `Projection` (Folio
+  handoff 1.0.0, Forma contract 2.0.0), the CLI in `tools/FormaStudio.Cli`,
+  and the cross-repo fixture in `examples/purchase-request/`, which Folio
+  consumes.
+- **STUDIO-GH-11 (active):** the Flow editor. The engine runs on .NET
+  WebAssembly (`src/wasm`) behind the Limen kernel (`src/kernel`). It has a
+  canvas with drag and arrow-key moves (one command per gesture), a
+  Structure list, an inspector (label, metadata, fill, palette, style), a
+  non-drag connect workflow, undo/redo and save/open via Limen Storage.
+- Tests: `dotnet run --project tests/FormaStudio.Engine.Tests` (37) and
+  `npm run app:build && npm run app:test` (9 Playwright tests, Chromium).
+
+Next legal work, in order:
+
+1. Finish STUDIO-GH-11: palette, style and mapping management screens;
+   metadata field definition UI; multi-select and bulk metadata; forced-colors
+   and axe checks for the editor; lane assignment from the inspector.
+2. The Layout editor surface on the same Editor session (the engine already
+   supports Stack/Heading).
+3. State and Architecture profiles, templates and dependency closure,
+   semantic diff and merge, and large-graph fixtures (Phases 10, 16-18 of the
+   initiative).
+4. Replace `vendor/forma` with a released Forma artifact once
+   kemiller2002/forma#91 ships.
+
+Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming
+is off because F# formatting uses reflection); editor browser tests run in
+Chromium only.
