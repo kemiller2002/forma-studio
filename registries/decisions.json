@@ -1,0 +1,17 @@
+[
+  {
+    "confidence": "high",
+    "created": "2026-09-30",
+    "id": "DF-STUDIO-2026-B7E1",
+    "path": "research/decisions/DF-STUDIO-2026-B7E1--canonical-engine-model-and-shared-command-core.md",
+    "related": [
+      "architecture/ARCHITECTURE.md",
+      "architecture/DOCUMENT-MODEL.md",
+      "requirements/16-flow-diagram-authoring.md",
+      "kemiller2002/forma-studio#9"
+    ],
+    "status": "accepted",
+    "title": "Canonical engine model and shared command core for Layout and Flow",
+    "work_item": "STUDIO-GH-9"
+  }
+]

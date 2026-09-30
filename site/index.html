@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" data-ef-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Forma Studio is a visual application specification environment built on real Forma components.">
+  <title>Forma Studio | Echelon Foundry</title>
+  <link rel="stylesheet" href="./assets/forma.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Forma Studio home">
+      <span class="brand-mark">EF</span>
+      <span><strong>Echelon / Foundry</strong><small>Forma Studio</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="#why">Why</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#status">Status</a>
+      <a class="nav-cta" href="https://forma.echelonfoundry.com/">Forma ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <p class="eyebrow">Visual application specification</p>
+      <h1>Design the application.<br><em>Specify the implementation.</em></h1>
+      <p class="lede">Forma Studio lets people compose real Forma components into pages, connect those pages into flows, preview the actual responsive browser result, and save the design as a machine-readable specification.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#workflow">See how it works</a>
+        <a class="button secondary" href="https://github.com/kemiller2002/forma-studio">View source ↗</a>
+      </div>
+      <dl class="hero-facts">
+        <div><dt>Artifact</dt><dd>Typed project specification</dd></div>
+        <div><dt>Canvas</dt><dd>Real Forma HTML + CSS</dd></div>
+        <div><dt>Application authority</dt><dd>F# + Ordo</dd></div>
+        <div><dt>Browser boundary</dt><dd>Limen</dd></div>
+      </dl>
+    </section>
+
+    <section id="why" class="section light">
+      <div class="section-kicker">Why this exists</div>
+      <div class="split-heading">
+        <h2>Stop handing implementation teams a picture of an application.</h2>
+        <p>A visual mockup is useful to humans, but it leaves component identity, responsive behavior, tokens, navigation, accessibility intent, and implementation boundaries open to interpretation. Forma Studio makes those things explicit.</p>
+      </div>
+      <div class="card-grid three">
+        <article><span class="index">01</span><h3>Real components</h3><p>The preview uses the same Forma patterns and CSS the implementation consumes. Studio does not maintain a second visual copy.</p></article>
+        <article><span class="index">02</span><h3>Linked pages</h3><p>Pages have stable identities and routes. Links form an explicit navigation graph that can be previewed and validated before application code exists.</p></article>
+        <article><span class="index">03</span><h3>Machine-readable handoff</h3><p>The saved artifact describes pages, components, properties, tokens, links, scenarios, obligations, and validation findings without requiring screenshot interpretation.</p></article>
+      </div>
+    </section>
+
+    <section id="workflow" class="section dark">
+      <div class="section-kicker">Workflow</div>
+      <h2>From composition to specification</h2>
+      <ol class="flow">
+        <li><span>01</span><div><h3>Create pages</h3><p>Give each page a stable ID and, when appropriate, an application route.</p></div></li>
+        <li><span>02</span><div><h3>Compose with Forma</h3><p>Add canonical components, configure legal properties, bind tokens, and use named slots instead of arbitrary canvas pixels.</p></div></li>
+        <li><span>03</span><div><h3>Connect the flow</h3><p>Link component actions to target pages or external destinations. Studio validates broken and unreachable paths.</p></div></li>
+        <li><span>04</span><div><h3>Stress the design</h3><p>Preview at 320px through desktop widths, switch themes, and apply loading, empty, error, and long-content scenarios.</p></div></li>
+        <li><span>05</span><div><h3>Hand off structure, not pixels</h3><p>Export the typed project for developers, agents, CI, and future tooling.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="section light">
+      <div class="section-kicker">A different canvas</div>
+      <div class="comparison">
+        <div>
+          <p class="comparison-label">General design canvas</p>
+          <pre><code>Rectangle
+  + text
+  + color
+  + click prototype
+  ↓
+developer interprets intent</code></pre>
+        </div>
+        <div class="comparison-arrow" aria-hidden="true">→</div>
+        <div>
+          <p class="comparison-label">Forma Studio</p>
+          <pre><code>Page: Detail
+  Forma / Record Header
+  Forma / Data Grid
+  navigation → /edit
+  ↓
+typed implementation contract</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture" class="section dark">
+      <div class="section-kicker">Architecture</div>
+      <div class="split-heading">
+        <h2>Each layer owns one kind of truth.</h2>
+        <p>The browser renders and performs browser capabilities. It does not own the document. Presentation comes from Forma. Studio state and legal editing transitions live in F#. Limen is the threshold between them.</p>
+      </div>
+      <div class="architecture" role="img" aria-label="Forma HTML and CSS connect through Limen to the F sharp Studio engine and typed project specification">
+        <div><strong>Forma</strong><span>HTML · CSS · tokens · accessibility presentation</span></div>
+        <b>↓</b>
+        <div><strong>Limen</strong><span>DOM · storage · clipboard · navigation · HTTP</span></div>
+        <b>↓</b>
+        <div><strong>F# Studio Engine</strong><span>state · legal transitions · undo · validation · projections</span></div>
+        <b>↓</b>
+        <div><strong>Project Specification</strong><span>pages · components · links · scenarios · obligations</span></div>
+      </div>
+    </section>
+
+    <section class="section light">
+      <div class="section-kicker">What it is not</div>
+      <div class="card-grid four">
+        <article><h3>Not Illustrator</h3><p>No goal of becoming a freehand vector or photo editor.</p></article>
+        <article><h3>Not a second Forma</h3><p>Canonical component internals stay in Forma rather than being forked inside Studio.</p></article>
+        <article><h3>Not hidden business logic</h3><p>A convincing prototype never licenses Studio to invent application rules.</p></article>
+        <article><h3>Not screenshot handoff</h3><p>Images may communicate a design, but the typed specification remains authoritative.</p></article>
+      </div>
+    </section>
+
+    <section id="status" class="section callout">
+      <p class="eyebrow">Current status</p>
+      <h2>The contract is being built first.</h2>
+      <p>Forma Studio is in greenfield development. The repository begins with explicit requirements, a versioned project schema, a linked-page fixture, and the Echelon engineering capability stack before editor implementation starts.</p>
+      <a class="button primary" href="https://github.com/kemiller2002/forma-studio">Follow development ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>Echelon / Foundry</strong><p>Systems architecture &amp; applied research</p></div>
+    <div><a href="https://echelonfoundry.com/">echelonfoundry.com ↗</a><a href="https://forma.echelonfoundry.com/">Forma ↗</a></div>
+  </footer>
+</body>
+</html>

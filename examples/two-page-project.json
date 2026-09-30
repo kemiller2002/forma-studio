@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "projectId": "example-linked-pages",
+  "name": "Linked pages example",
+  "description": "A minimal Forma Studio project demonstrating explicit page navigation.",
+  "formaVersion": "0.1.0",
+  "startPageId": "home",
+  "pages": [
+    {
+      "pageId": "home",
+      "name": "Home",
+      "route": "/",
+      "nodes": [
+        {
+          "nodeId": "home-header",
+          "componentId": "record-header",
+          "properties": {
+            "label": "Forma Studio"
+          },
+          "navigation": [
+            {
+              "actionId": "go-details",
+              "trigger": "activate",
+              "target": {
+                "kind": "page",
+                "pageId": "details",
+                "history": "push"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "details",
+      "name": "Details",
+      "route": "/details",
+      "nodes": [
+        {
+          "nodeId": "details-panel",
+          "componentId": "preview-surface",
+          "content": {
+            "heading": "Second page"
+          }
+        }
+      ]
+    }
+  ],
+  "scenarios": [],
+  "assets": [],
+  "metadata": {
+    "purpose": "Demonstrate page linking in the persisted visual specification."
+  }
+}

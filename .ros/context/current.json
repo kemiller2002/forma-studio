@@ -1,0 +1,238 @@
+{
+  "schemaVersion": "1.0.0",
+  "protocolVersion": "1.0.0",
+  "repository": "forma-studio",
+  "actor": "agent:claude-code",
+  "startedAt": "2026-09-23T06:09:10.445Z",
+  "updatedAt": "2026-09-30T20:46:05.000Z",
+  "baselineDirtyPaths": [],
+  "workItems": [
+    {
+      "id": "ROS-INSTALL-3-1-4",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "installation",
+          "path": ".ros/installation.json"
+        }
+      ],
+      "updatedAt": "2026-09-23T06:09:10.445Z",
+      "completedAt": "2026-09-23T06:09:10.445Z"
+    },
+    {
+      "id": "STUDIO-GH-4",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "scripts/validate-requirements.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "requirements/AUDIT-COVERAGE-2026-09-30.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T17:07:19.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T170706174Z-5f3ba38c"
+      ],
+      "completedAt": "2026-09-30T17:07:19.000Z"
+    },
+    {
+      "id": "STUDIO-GH-9",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Commands.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Codec.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/ModelTests.fs"
+        },
+        {
+          "type": "decision",
+          "path": "research/decisions/DF-STUDIO-2026-B7E1--canonical-engine-model-and-shared-command-core.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T18:33:37.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T174536119Z-d004ff75"
+      ],
+      "completedAt": "2026-09-30T18:33:37.000Z"
+    },
+    {
+      "id": "STUDIO-GH-10",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Projection.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Export.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/ExportTests.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "examples/purchase-request/README.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T18:33:37.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T180427559Z-5501c467"
+      ],
+      "completedAt": "2026-09-30T18:33:37.000Z"
+    },
+    {
+      "id": "STUDIO-GH-11",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/EditorApp.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/index.html"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/gestures.js"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Diff.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Fragment.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Templates.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/editor.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/CollaborationTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/EditorAppTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-30T19:20:23.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T183258137Z-973f3254"
+      ],
+      "completedAt": "2026-09-30T19:20:23.000Z"
+    },
+    {
+      "id": "STUDIO-GH-13",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/EditorApp.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/index.html"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/gestures.js"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Diff.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Fragment.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Templates.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/editor.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/CollaborationTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/EditorAppTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-30T19:20:23.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T183937724Z-709aac95"
+      ],
+      "completedAt": "2026-09-30T19:20:23.000Z"
+    },
+    {
+      "id": "STUDIO-GH-12",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [],
+      "updatedAt": "2026-09-30T19:20:35.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T192035692Z-c8e807d5"
+      ],
+      "completedAt": "2026-09-30T19:20:35.000Z"
+    },
+    {
+      "id": "WI-0001",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [],
+      "updatedAt": "2026-09-30T19:57:16.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T195716000Z-0a309521"
+      ],
+      "completedAt": "2026-09-30T19:57:16.000Z"
+    },
+    {
+      "id": "STUDIO-GH-2",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [],
+      "updatedAt": "2026-09-30T20:46:05.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T204605102Z-f5f49a64"
+      ],
+      "completedAt": "2026-09-30T20:46:05.000Z"
+    }
+  ]
+}

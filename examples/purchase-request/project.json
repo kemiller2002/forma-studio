@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 2,
+  "projectId": "purchase-request-example",
+  "name": "Purchase request example",
+  "formaVersion": "0.3.0",
+  "pages": [],
+  "diagrams": [
+    {
+      "diagramId": "purchase-request",
+      "name": "Purchase request",
+      "profile": {
+        "id": "workflow",
+        "version": "1.0.0"
+      },
+      "groups": [
+        {
+          "groupId": "lane-requester",
+          "kind": "lane",
+          "label": "Requester",
+          "x": 0,
+          "y": 0,
+          "width": 1060,
+          "height": 220,
+          "members": [
+            "submitted",
+            "prepare",
+            "revise"
+          ],
+          "semantic": true
+        },
+        {
+          "groupId": "lane-finance",
+          "kind": "lane",
+          "label": "Finance",
+          "x": 0,
+          "y": 230,
+          "width": 1060,
+          "height": 220,
+          "members": [
+            "budget-check",
+            "approve"
+          ],
+          "semantic": true
+        },
+        {
+          "groupId": "lane-procurement",
+          "kind": "lane",
+          "label": "Procurement",
+          "x": 0,
+          "y": 460,
+          "width": 1060,
+          "height": 250,
+          "members": [
+            "order",
+            "placed"
+          ],
+          "semantic": true
+        }
+      ],
+      "nodes": [
+        {
+          "nodeId": "submitted",
+          "kind": "start",
+          "label": "Request submitted",
+          "x": 40,
+          "y": 66,
+          "width": 150,
+          "height": 88,
+          "metadata": {
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "intake"
+            }
+          }
+        },
+        {
+          "nodeId": "prepare",
+          "kind": "activity",
+          "label": "Prepare request",
+          "x": 250,
+          "y": 26,
+          "width": 210,
+          "height": 168,
+          "metadata": {
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "intake"
+            },
+            "status": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "in-progress"
+            }
+          },
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "palette": "highlight"
+              },
+              "accent": {
+                "literal": "#6b3fa0"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "revise",
+          "kind": "activity",
+          "label": "Revise request",
+          "x": 600,
+          "y": 26,
+          "width": 210,
+          "height": 168,
+          "metadata": {
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "intake"
+            },
+            "status": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "blocked"
+            }
+          },
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "literal": "#e3f4e1"
+              },
+              "accent": {
+                "literal": "#2e6b2a"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "budget-check",
+          "kind": "decision",
+          "label": "Within budget?",
+          "x": 280,
+          "y": 265,
+          "width": 150,
+          "height": 150,
+          "metadata": {
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "review"
+            }
+          },
+          "appearance": {
+            "style": "decision-emphasis"
+          }
+        },
+        {
+          "nodeId": "approve",
+          "kind": "activity",
+          "label": "Approve spend",
+          "x": 600,
+          "y": 256,
+          "width": 210,
+          "height": 168,
+          "metadata": {
+            "cost-center": {
+              "state": "explicit",
+              "type": "text",
+              "value": "CC-7731-RESTRICTED"
+            },
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "review"
+            },
+            "status": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "blocked"
+            },
+            "tags": {
+              "state": "explicit",
+              "type": "tags",
+              "value": [
+                "audit",
+                "spend"
+              ]
+            },
+            "ticket": {
+              "state": "explicit",
+              "type": "url",
+              "value": "https://tickets.example.com/PR-1042"
+            }
+          },
+          "references": [
+            {
+              "id": "req-42",
+              "target": {
+                "kind": "requirement",
+                "id": "REQ-42"
+              },
+              "label": "Spend approval requirement",
+              "availability": "unverified"
+            },
+            {
+              "id": "forma-53",
+              "target": {
+                "kind": "issue",
+                "repository": "kemiller2002/forma",
+                "number": 53
+              },
+              "label": "Workflow color contract",
+              "availability": "unverified"
+            }
+          ]
+        },
+        {
+          "nodeId": "order",
+          "kind": "activity",
+          "label": "Issue purchase order",
+          "x": 600,
+          "y": 482,
+          "width": 210,
+          "height": 196,
+          "metadata": {
+            "cost-center": {
+              "state": "explicit",
+              "type": "text",
+              "value": "CC-7731-RESTRICTED"
+            },
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "fulfilment"
+            },
+            "tags": {
+              "state": "explicit",
+              "type": "tags",
+              "value": [
+                "audit",
+                "spend"
+              ]
+            }
+          },
+          "appearance": {
+            "overrides": {
+              "fill": {
+                "palette": "highlight"
+              },
+              "accent": {
+                "literal": "#6b3fa0"
+              }
+            }
+          }
+        },
+        {
+          "nodeId": "placed",
+          "kind": "end",
+          "label": "Order placed",
+          "x": 880,
+          "y": 536,
+          "width": 150,
+          "height": 88,
+          "metadata": {
+            "phase": {
+              "state": "explicit",
+              "type": "enum",
+              "value": "fulfilment"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edgeId": "e-submit",
+          "kind": "flow",
+          "source": {
+            "nodeId": "submitted"
+          },
+          "target": {
+            "nodeId": "prepare"
+          },
+          "routing": "orthogonal"
+        },
+        {
+          "edgeId": "e-check",
+          "kind": "flow",
+          "source": {
+            "nodeId": "prepare"
+          },
+          "target": {
+            "nodeId": "budget-check"
+          },
+          "routing": "orthogonal"
+        },
+        {
+          "edgeId": "e-yes",
+          "kind": "flow",
+          "source": {
+            "nodeId": "budget-check"
+          },
+          "target": {
+            "nodeId": "approve"
+          },
+          "label": "yes, within budget",
+          "routing": "orthogonal"
+        },
+        {
+          "edgeId": "e-no",
+          "kind": "flow",
+          "source": {
+            "nodeId": "budget-check"
+          },
+          "target": {
+            "nodeId": "revise"
+          },
+          "label": "no, over budget",
+          "routing": "orthogonal",
+          "appearance": {
+            "overrides": {
+              "line": "dashed"
+            }
+          }
+        },
+        {
+          "edgeId": "e-resubmit",
+          "kind": "flow",
+          "source": {
+            "nodeId": "revise"
+          },
+          "target": {
+            "nodeId": "prepare"
+          },
+          "label": "resubmit",
+          "routing": {
+            "manual": [
+              {
+                "x": 705,
+                "y": -24
+              },
+              {
+                "x": 355,
+                "y": -24
+              }
+            ]
+          },
+          "appearance": {
+            "overrides": {
+              "line": "dotted"
+            }
+          }
+        },
+        {
+          "edgeId": "e-approved",
+          "kind": "flow",
+          "source": {
+            "nodeId": "approve"
+          },
+          "target": {
+            "nodeId": "order"
+          },
+          "routing": "orthogonal"
+        },
+        {
+          "edgeId": "e-placed",
+          "kind": "flow",
+          "source": {
+            "nodeId": "order"
+          },
+          "target": {
+            "nodeId": "placed"
+          },
+          "routing": "orthogonal"
+        }
+      ],
+      "display": {
+        "nodeFields": [
+          "status",
+          "owner",
+          "phase",
+          "cost-center"
+        ],
+        "kindFields": {
+          "decision": [],
+          "end": [],
+          "start": []
+        },
+        "edgeFields": [],
+        "missing": "show-state"
+      }
+    }
+  ],
+  "metadataFields": [
+    {
+      "key": "status",
+      "name": "Status",
+      "help": "Progress of the activity as recorded by its owner.",
+      "type": {
+        "kind": "enum",
+        "options": [
+          {
+            "id": "not-started",
+            "label": "Not started"
+          },
+          {
+            "id": "in-progress",
+            "label": "In progress"
+          },
+          {
+            "id": "blocked",
+            "label": "Blocked"
+          },
+          {
+            "id": "done",
+            "label": "Done"
+          }
+        ]
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "default": {
+        "type": "enum",
+        "value": "not-started"
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "owner",
+      "name": "Owner",
+      "help": "Team responsible, derived from the lane.",
+      "type": {
+        "kind": "text",
+        "maxLength": 80
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "required": false,
+      "derivation": {
+        "kind": "membership",
+        "group": "lane"
+      },
+      "origin": "project"
+    },
+    {
+      "key": "phase",
+      "name": "Phase",
+      "help": "Stage of the purchase lifecycle.",
+      "type": {
+        "kind": "enum",
+        "options": [
+          {
+            "id": "intake",
+            "label": "Intake"
+          },
+          {
+            "id": "review",
+            "label": "Review"
+          },
+          {
+            "id": "fulfilment",
+            "label": "Fulfilment"
+          }
+        ]
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "rendered",
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": true
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "tags",
+      "name": "Tags",
+      "help": "Free classification for search and export.",
+      "type": {
+        "kind": "tags",
+        "ordered": false
+      },
+      "appliesTo": [
+        "node",
+        "edge"
+      ],
+      "disclosure": {
+        "scopes": [
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": false
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "ticket",
+      "name": "Ticket",
+      "help": "Tracking ticket for the activity.",
+      "type": {
+        "kind": "url"
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [
+          "agent-export",
+          "provenance-export"
+        ],
+        "derivedPresentation": false
+      },
+      "required": false,
+      "origin": "project"
+    },
+    {
+      "key": "cost-center",
+      "name": "Cost center",
+      "help": "Internal accounting code. Source-only: never rendered or exported.",
+      "type": {
+        "kind": "text",
+        "maxLength": 40
+      },
+      "appliesTo": [
+        "node"
+      ],
+      "disclosure": {
+        "scopes": [],
+        "derivedPresentation": false
+      },
+      "required": false,
+      "origin": "project"
+    }
+  ],
+  "palette": [
+    {
+      "id": "workflow-blocked",
+      "name": "Workflow blocked",
+      "value": {
+        "literal": "#fde8d7"
+      },
+      "description": "Fill for items whose status is Blocked."
+    },
+    {
+      "id": "highlight",
+      "name": "Author highlight",
+      "value": {
+        "literal": "#efe6fb"
+      },
+      "description": "A highlight authors choose by hand. It carries no status."
+    }
+  ],
+  "appearanceStyles": [
+    {
+      "id": "decision-emphasis",
+      "name": "Decision emphasis",
+      "revision": 1,
+      "targets": [
+        "node"
+      ],
+      "appearance": {
+        "stroke": {
+          "token": "--ef-color-accent-primary"
+        },
+        "accent": {
+          "token": "--ef-color-accent-primary"
+        }
+      }
+    }
+  ],
+  "presentationMappings": [
+    {
+      "id": "status-color",
+      "name": "Status color",
+      "field": "status",
+      "targets": [
+        "node"
+      ],
+      "rules": [
+        {
+          "match": {
+            "equals": "blocked"
+          },
+          "outcome": {
+            "appearance": {
+              "fill": {
+                "palette": "workflow-blocked"
+              },
+              "accent": {
+                "literal": "#9a3b00"
+              }
+            }
+          },
+          "legend": "Status is Blocked"
+        }
+      ],
+      "fallbacks": {
+        "missing": "none",
+        "unknown": "none",
+        "unavailable": "none",
+        "invalid": "none",
+        "unmapped": "none"
+      },
+      "enabled": true
+    }
+  ],
+  "scenarios": [],
+  "assets": []
+}

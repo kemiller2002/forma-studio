@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "forma-studio",
+  "nextSeq": 2,
+  "items": [
+    {
+      "id": "WI-0001",
+      "title": "Keep npm's generated lockfile out of ROS attribution in CI",
+      "description": null,
+      "tags": [],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-09-30T19:57:09.835Z",
+      "updatedAt": "2026-09-30T19:57:16.000Z",
+      "createdBy": "agent:claude-code",
+      "source": "github-pull-request",
+      "sourceReference": "https://github.com/kemiller2002/forma-studio/pull/12"
+    }
+  ]
+}
