@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "agent:claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-09-30T18:39:37.000Z",
+  "updatedAt": "2026-09-30T19:20:23.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -103,24 +103,100 @@
     {
       "id": "STUDIO-GH-11",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-30T18:32:57.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/EditorApp.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/index.html"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/gestures.js"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Diff.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Fragment.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Templates.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/editor.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/CollaborationTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/EditorAppTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-30T19:20:23.000Z",
       "telemetryExecutionIds": [
         "EXE-20260930T183258137Z-973f3254"
-      ]
+      ],
+      "completedAt": "2026-09-30T19:20:23.000Z"
     },
     {
       "id": "STUDIO-GH-13",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-30T18:39:37.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/EditorApp.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/index.html"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/gestures.js"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Diff.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Fragment.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Templates.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/editor.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/CollaborationTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/EditorAppTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-30T19:20:23.000Z",
       "telemetryExecutionIds": [
         "EXE-20260930T183937724Z-709aac95"
-      ]
+      ],
+      "completedAt": "2026-09-30T19:20:23.000Z"
     }
   ]
 }
