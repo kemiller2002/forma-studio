@@ -75,10 +75,17 @@
         <template data-if="reconnecting"><button type="button" data-event="cancel">Cancel reconnecting</button></template>
         <button type="button" data-event="delete">Delete selection</button>
       </div>
+      <div class="studio-toolbar" role="toolbar" aria-label="View">
+        <button type="button" data-event="zoom-out" data-bind-disabled="zoomOutDisabled">Zoom out</button>
+        <span>Zoom <span data-text="zoomLabel"></span></span>
+        <button type="button" data-event="zoom-in" data-bind-disabled="zoomInDisabled">Zoom in</button>
+        <button type="button" data-event="zoom-reset">Actual size</button>
+        <button type="button" data-event="toggle-snap" data-bind-aria-pressed="snapPressed">Snap to grid</button>
+      </div>
       <figure class="ef-diagram" aria-labelledby="canvas-title">
         <figcaption id="canvas-title" data-text="diagramName"></figcaption>
         <div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Diagram canvas. Drag items to move them, or focus an item and use the arrow keys. The Structure list offers the same actions.">
-          <div class="ef-diagram__canvas" data-bind-style="canvasStyle">
+          <div class="ef-diagram__canvas" data-bind-style="canvasStyle" data-bind-data-zoom="zoomFactor">
             <template data-each="groups" data-key="key">
               <div class="ef-diagram-group" data-bind-data-ef-group="variant" data-bind-style="style">
                 <p class="ef-diagram-group__header"><span class="ef-diagram-group__kind" data-text="kind"></span> <span class="ef-diagram-group__label" data-text="label"></span></p>

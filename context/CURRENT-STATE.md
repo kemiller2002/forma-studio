@@ -130,6 +130,8 @@ Done and tested:
     safe deletion, and color rules;
   - non-drag connect; reconnect by dragging a selected connector's endpoint
     handle onto a node, or by pressing the handle and choosing a node;
+  - zoom (50-200%) and 8-unit grid snapping as view state outside the
+    project and its history; drags convert screen pixels to logical units;
   - undo/redo, and save/open via Limen Storage;
   - axe and forced-colors checks;
   - a Layout surface on the same session: a surface navigator switches
@@ -141,13 +143,13 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (50) and `npm run app:build && npm run app:test` (18 Playwright tests,
+  (50) and `npm run app:build && npm run app:test` (19 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. Editor refinements: zoom, snapping and guides, and a template/fragment
-   picker built on
+1. Editor refinements: alignment guides, and a template/fragment picker
+   built on
    `Fragment.applyCommand`.
 2. Surface the semantic diff and merge in a review UI (read-only compare of
    two revisions).

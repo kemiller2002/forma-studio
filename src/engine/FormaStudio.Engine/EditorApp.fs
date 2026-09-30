@@ -43,12 +43,24 @@ type EditorState =
       Drafts: Drafts
       /// The Layout page being edited, if any. Layout and Flow share this session,
       /// its history and its command path; only the visible surface differs.
-      Page: PageId option }
+      Page: PageId option
+      /// Canvas zoom in percent and grid snapping: view preferences that never
+      /// enter the project document or its history (FDA-027).
+      Zoom: int
+      Snap: bool }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
     let storageKey = "forma-studio.project"
     let private step = 8.0
+    let private zoomLevels = [ 50; 75; 100; 125; 150; 200 ]
+
+    /// Adjusts a delta so the moved coordinate lands on the step grid.
+    let private snapped enabled (origin: int) (delta: float) =
+        if enabled then System.Math.Round((float origin + delta) / step) * step - float origin else delta
+
+    let private snapSize enabled (size: float) =
+        if enabled then max step (System.Math.Round(size / step) * step) else size
 
     let initial (project: Project) (diagram: DiagramId) =
         { Session = Editor.start project
@@ -60,7 +72,9 @@ module EditorApp =
           Drafts =
             { FieldName = ""; FieldType = "choice"; FieldOptions = ""; FieldScope = PrintedAndExported
               SlotName = ""; SlotColor = ""; MappingValue = None; MappingSlot = None }
-          Page = None }
+          Page = None
+          Zoom = 100
+          Snap = false }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -353,12 +367,14 @@ module EditorApp =
             match parseDelta value with
             | Some(node, dx, dy) ->
                 let label = ProjectOps.tryNode state.Diagram node (project state) |> Option.map _.Label |> Option.defaultValue "item"
+                let origin = ProjectOps.tryNode state.Diagram node (project state) |> Option.map _.Box.Position
+                let dx, dy = origin |> Option.map (fun o -> snapped state.Snap o.X dx, snapped state.Snap o.Y dy) |> Option.defaultValue (dx, dy)
                 let moved = run (Flow(MoveNodes(state.Diagram, [ node, dx, dy ]))) (sprintf "Moved %s." label) state
                 noEffects { moved with Session = Editor.select [ NodeRef(state.Diagram, node) ] moved.Session }
             | None -> noEffects { state with Status = "Ignored an unreadable move." }
         | "gesture-resize" ->
             match parseDelta value with
-            | Some(node, w, h) -> noEffects (resize state node (fun _ -> w, h))
+            | Some(node, w, h) -> noEffects (resize state node (fun _ -> snapSize state.Snap w, snapSize state.Snap h))
             | None -> noEffects { state with Status = "Ignored an unreadable resize." }
         | "set-width" | "set-height" ->
             match selectedNode state, parseNumber value with
@@ -379,6 +395,17 @@ module EditorApp =
                 | Some edgeEnd, Ok node -> noEffects (reconnect state edge edgeEnd node)
                 | _ -> noEffects { state with Status = "Ignored an unreadable reconnect." }
             | _ -> noEffects { state with Status = "Select a connector to reconnect it." }
+        | "zoom-in" | "zoom-out" ->
+            let next =
+                if e.Name = "zoom-in" then zoomLevels |> List.tryFind (fun z -> z > state.Zoom)
+                else zoomLevels |> List.rev |> List.tryFind (fun z -> z < state.Zoom)
+            match next with
+            | Some z -> noEffects { state with Zoom = z; Status = sprintf "Zoom %d%%." z }
+            | None -> noEffects { state with Status = sprintf "Zoom is already %d%%." state.Zoom }
+        | "zoom-reset" -> noEffects { state with Zoom = 100; Status = "Zoom 100%." }
+        | "toggle-snap" ->
+            let on = not state.Snap
+            noEffects { state with Snap = on; Status = (if on then "Snapping to the 8-unit grid." else "Snapping off.") }
         | "connect-start" ->
             match selectedNode state with
             | Some node -> noEffects { state with Pending = Connecting node.Id; Status = sprintf "Choose the item that %s connects to." node.Label }
@@ -757,7 +784,12 @@ module EditorApp =
                   "undoDisabled", JBool(not (Editor.canUndo state.Session))
                   "redoDisabled", JBool(not (Editor.canRedo state.Session))
                   "historyCount", Json.ofInt state.Session.Undo.Length
-                  "canvasStyle", str (sprintf "--ef-diagram-canvas-w: %dpx; --ef-diagram-canvas-h: %dpx;" width height)
+                  "canvasStyle", str (sprintf "--ef-diagram-canvas-w: %dpx; --ef-diagram-canvas-h: %dpx; --studio-zoom: %s;" width height (string (float state.Zoom / 100.0)))
+                  "zoomFactor", str (string (float state.Zoom / 100.0))
+                  "zoomLabel", str (sprintf "%d%%" state.Zoom)
+                  "zoomOutDisabled", JBool(state.Zoom <= List.head zoomLevels)
+                  "zoomInDisabled", JBool(state.Zoom >= List.last zoomLevels)
+                  "snapPressed", str (if state.Snap then "true" else "false")
                   "viewBox", str (sprintf "0 0 %d %d" width height)
                   "groups", JArray groups
                   "nodes", JArray nodes

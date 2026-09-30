@@ -29,6 +29,8 @@ const emitResize = (root, id, w, h) => emit(root, "gesture-resize", `${id}|${w}|
 const emitReconnect = (root, end, nodeId) => emit(root, "gesture-reconnect", `${end}|${nodeId}`);
 
 const minimumSize = 24;
+// Pointer deltas are screen pixels; the engine works in logical units.
+const zoomOf = (element) => Number(element.closest(".ef-diagram__canvas")?.dataset.zoom) || 1;
 const cssPixels = (node, name) => parseFloat(node.style.getPropertyValue(name)) || 0;
 
 const nodeOf = (target) => target instanceof Element ? target.closest(".ef-diagram__canvas article[data-node-id]") : null;
@@ -57,9 +59,12 @@ export const installGestures = (root = document) => {
 
   root.addEventListener("pointermove", (event) => {
     if (!drag || event.pointerId !== drag.pointer) return;
-    const dx = event.clientX - drag.x;
-    const dy = event.clientY - drag.y;
-    if (!drag.moved && Math.hypot(dx, dy) < dragThreshold) return;
+    const screenDx = event.clientX - drag.x;
+    const screenDy = event.clientY - drag.y;
+    if (!drag.moved && Math.hypot(screenDx, screenDy) < dragThreshold) return;
+    const zoom = zoomOf(drag.node);
+    const dx = screenDx / zoom;
+    const dy = screenDy / zoom;
     drag.moved = true;
     drag.node.classList.add("studio-dragging");
     if (drag.endpoint) {
@@ -82,8 +87,9 @@ export const installGestures = (root = document) => {
     node.style.removeProperty("--studio-preview-h");
     if (!moved) return;
     suppressClick = true;
-    const dx = Math.round(event.clientX - x);
-    const dy = Math.round(event.clientY - y);
+    const zoom = zoomOf(node);
+    const dx = Math.round((event.clientX - x) / zoom);
+    const dy = Math.round((event.clientY - y) / zoom);
     if (commit && endpoint) {
       // Find the node under the pointer, ignoring the handle being dragged.
       node.style.pointerEvents = "none";

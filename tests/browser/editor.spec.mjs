@@ -355,3 +355,36 @@ test("Reconnect: an endpoint drag and the keyboard path are each one Reconnect c
   await connectors.first().click();
   await expect(page.locator("path.ef-diagram-connector.studio-selected-wire")).toHaveAttribute("d", before);
 });
+
+test("Zoom and snapping are view state; drags stay in logical units", async ({ page }) => {
+  await open(page);
+  const entries = Number(await history(page).textContent());
+  const view = page.getByRole("toolbar", { name: "View" });
+  await view.getByRole("button", { name: "Zoom in" }).click();
+  await view.getByRole("button", { name: "Zoom in" }).click();
+  await expect(view.locator('[data-text="zoomLabel"]')).toHaveText("150%");
+  await expect(history(page)).toHaveText(String(entries));
+
+  const target = node(page, "Prepare request");
+  const before = await position(target);
+  const box = await target.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + 20);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2 + 30, box.y + 20, { steps: 5 });
+  await page.mouse.move(box.x + box.width / 2 + 60, box.y + 20 + 30, { steps: 5 });
+  await page.mouse.up();
+  await expect.poll(() => position(target)).toEqual({ x: before.x + 40, y: before.y + 20 });
+
+  await view.getByRole("button", { name: "Snap to grid" }).click();
+  await expect(view.getByRole("button", { name: "Snap to grid" })).toHaveAttribute("aria-pressed", "true");
+  await view.getByRole("button", { name: "Actual size" }).click();
+  const moved = await target.boundingBox();
+  await page.mouse.move(moved.x + moved.width / 2, moved.y + 20);
+  await page.mouse.down();
+  await page.mouse.move(moved.x + moved.width / 2 + 13, moved.y + 20 + 5, { steps: 5 });
+  await page.mouse.up();
+  await expect(history(page)).toHaveText(String(entries + 2));
+  const snappedTo = await position(target);
+  expect(snappedTo.x % 8).toBe(0);
+  expect(snappedTo.y % 8).toBe(0);
+});

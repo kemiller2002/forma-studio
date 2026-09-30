@@ -75,3 +75,7 @@ body { margin: 0; }
 }
 .studio .studio-endpoint[aria-pressed="true"] { background: CanvasText; }
 .studio .studio-endpoint.studio-dragging { cursor: grabbing; }
+
+/* Zoom is a view preference: CSS zoom scales the canvas and its adorners,
+   and the gesture adapter divides pointer deltas by the same factor. */
+.studio .ef-diagram__canvas { zoom: var(--studio-zoom, 1); }
