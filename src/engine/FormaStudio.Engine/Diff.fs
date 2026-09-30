@@ -185,6 +185,48 @@ module Merge =
         { o with Nodes = nodes; Edges = edges; Groups = groups; Name = name; Profile = profile; Display = display; Metadata = metadata; References = references },
         nc @ ec @ gc @ c1 @ c2 @ c3 @ c4 @ c5
 
+    /// Blockers the merged project has that neither side had (Phase 18).
+    let private integrity (ours: Project) (theirs: Project) (merged: Project) =
+        let known = (Validation.blockers ours @ Validation.blockers theirs) |> Set.ofList
+        Validation.blockers merged
+        |> List.filter (fun f -> not (known.Contains f))
+        |> List.map (fun f -> { Code = sprintf "merge.%s" f.Code; Target = f.Target; Message = f.Message })
+
+    /// Conflicts on one identified item, which a reviewer may resolve either way.
+    let isItemConflict (c: MergeConflict) =
+        List.contains c.Code [ "merge.both-changed"; "merge.changed-vs-deleted"; "merge.deleted-vs-changed" ]
+
+    let private replaceItem (key: 'T -> string) (id: string) (mine: 'T list) (other: 'T list) =
+        match other |> List.tryFind (fun x -> key x = id) with
+        | Some t when mine |> List.exists (fun x -> key x = id) -> mine |> List.map (fun x -> if key x = id then t else x)
+        | Some t -> mine @ [ t ]
+        | None -> mine |> List.filter (fun x -> key x <> id)
+
+    /// Replaces one item of a merged project with theirs (or removes it when they
+    /// deleted it). None when the target does not name a single item.
+    let takeTheirs (target: string) (theirs: Project) (merged: Project) : Project option =
+        let within (diagramKey: string) (update: Diagram -> Diagram -> Diagram) =
+            match merged.Diagrams |> List.tryFind (fun d -> Id.value d.Id = diagramKey), theirs.Diagrams |> List.tryFind (fun d -> Id.value d.Id = diagramKey) with
+            | Some mine, Some other -> Some { merged with Diagrams = merged.Diagrams |> List.map (fun d -> if d.Id = mine.Id then update mine other else d) }
+            | _ -> None
+        match target.Split('/') with
+        | [| diagram; element |] when diagram.StartsWith "diagram:" ->
+            let diagramKey = diagram.Substring "diagram:".Length
+            match element.Split(':') with
+            | [| "node"; id |] -> within diagramKey (fun m o -> { m with Nodes = replaceItem (fun (n: DiagramNode) -> Id.value n.Id) id m.Nodes o.Nodes })
+            | [| "edge"; id |] -> within diagramKey (fun m o -> { m with Edges = replaceItem (fun (e: DiagramEdge) -> Id.value e.Id) id m.Edges o.Edges })
+            | [| "group"; id |] -> within diagramKey (fun m o -> { m with Groups = replaceItem (fun (g: DiagramGroup) -> Id.value g.Id) id m.Groups o.Groups })
+            | _ -> None
+        | [| single |] ->
+            match single.Split(':') with
+            | [| "page"; id |] -> Some { merged with Pages = replaceItem (fun (x: Page) -> Id.value x.Id) id merged.Pages theirs.Pages }
+            | [| "field"; id |] -> Some { merged with Fields = replaceItem (fun (x: FieldDefinition) -> Id.value x.Key) id merged.Fields theirs.Fields }
+            | [| "palette"; id |] -> Some { merged with Palette = replaceItem (fun (x: PaletteSlot) -> Id.value x.Id) id merged.Palette theirs.Palette }
+            | [| "style"; id |] -> Some { merged with Styles = replaceItem (fun (x: AppearanceStyle) -> Id.value x.Id) id merged.Styles theirs.Styles }
+            | [| "mapping"; id |] -> Some { merged with Mappings = replaceItem (fun (x: PresentationMapping) -> Id.value x.Id) id merged.Mappings theirs.Mappings }
+            | _ -> None
+        | _ -> None
+
     let three (baseProject: Project) (ours: Project) (theirs: Project) : MergeResult =
         let diagrams, diagramConflicts =
             let find (items: Diagram list) id = items |> List.tryFind (fun (d: Diagram) -> d.Id = id)
@@ -207,9 +249,15 @@ module Merge =
         let merged =
             { ours with Diagrams = diagrams; Pages = pages; Fields = fields; Palette = palette; Styles = styles; Mappings = mappings }
         // Graph-aware pass: blockers that neither side had are merge conflicts.
-        let known = (Validation.blockers ours @ Validation.blockers theirs) |> Set.ofList
-        let integrity =
-            Validation.blockers merged
-            |> List.filter (fun f -> not (known.Contains f))
-            |> List.map (fun f -> { Code = sprintf "merge.%s" f.Code; Target = f.Target; Message = f.Message })
-        { Project = merged; Conflicts = diagramConflicts @ pc @ fc @ plc @ sc @ mc @ integrity }
+        { Project = merged; Conflicts = diagramConflicts @ pc @ fc @ plc @ sc @ mc @ integrity ours theirs merged }
+
+    /// Applies a reviewer's choices: each chosen item conflict takes their version.
+    /// Integrity is re-checked on the result, since a choice can itself break the
+    /// graph (for example, taking their deletion of a node our edge still uses).
+    let resolve (baseProject: Project) (ours: Project) (theirs: Project) (takeTheirsFor: Set<string>) : MergeResult =
+        let first = three baseProject ours theirs
+        let project =
+            first.Conflicts
+            |> List.filter (fun c -> isItemConflict c && takeTheirsFor.Contains c.Target)
+            |> List.fold (fun p c -> takeTheirs c.Target theirs p |> Option.defaultValue p) first.Project
+        { Project = project; Conflicts = (first.Conflicts |> List.filter isItemConflict) @ integrity ours theirs project }

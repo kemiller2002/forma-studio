@@ -452,3 +452,46 @@ test("Alignment guides show while dragging and the drop lands on the aligned edg
   await expect(page.locator(".studio-guide")).toHaveCount(0);
   await expect.poll(() => position(target)).toEqual({ x: before.x + 30, y: before.y });
 });
+
+// Simulates another tab changing the saved copy: edits the stored project text.
+const editSavedCopy = (page, from, to) =>
+  page.evaluate(([a, b]) => {
+    const key = "forma-studio.project";
+    localStorage.setItem(key, localStorage.getItem(key).replaceAll(a, b));
+  }, [from, to]);
+
+test("Merge review: saved-copy changes merge with local edits; a conflict is resolved per item; one undo reverts", async ({ page }) => {
+  await open(page);
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(status(page)).toHaveText("Saved.");
+  const review = page.getByRole("region", { name: "Review changes" });
+  await review.getByRole("button", { name: "Check the saved copy for changes" }).click();
+  await expect(status(page)).toContainText("has not changed");
+
+  // Another tab renames two nodes; locally we rename one of the same nodes differently.
+  await editSavedCopy(page, "Revise request", "Revise and resubmit");
+  await editSavedCopy(page, "Issue purchase order", "Raise purchase order");
+  await node(page, "Issue purchase order").click();
+  const label = page.getByLabel("Label", { exact: true });
+  await label.fill("Send purchase order");
+  await label.press("Tab");
+  const entries = Number(await history(page).textContent());
+
+  await review.getByRole("button", { name: "Check the saved copy for changes" }).click();
+  await expect(review.getByRole("list", { name: "Changes in the saved copy" }).getByRole("listitem")).toHaveCount(2);
+  const conflicts = review.getByRole("list", { name: "Merge conflicts" }).getByRole("listitem");
+  await expect(conflicts).toHaveCount(1);
+  await expect(conflicts.first()).toContainText("node:order");
+  await conflicts.first().getByRole("button", { name: "Use saved" }).click();
+  await expect(conflicts.first().getByRole("button", { name: "Use saved" })).toHaveAttribute("aria-pressed", "true");
+  await review.getByRole("button", { name: "Apply merge" }).click();
+  await expect(status(page)).toContainText("Merged the saved changes");
+  await expect(history(page)).toHaveText(String(entries + 1));
+  await expect(node(page, "Revise and resubmit")).toHaveCount(1);
+  await expect(node(page, "Raise purchase order")).toHaveCount(1);
+  await expect(review).toContainText("No changes since the last save or open.");
+
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(node(page, "Send purchase order")).toHaveCount(1);
+  await expect(node(page, "Revise request")).toHaveCount(1);
+});

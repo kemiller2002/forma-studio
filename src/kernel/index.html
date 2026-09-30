@@ -140,6 +140,29 @@
             <li><strong data-text="category"></strong>: <span data-text="summary"></span></li>
           </template>
         </ul>
+        <button type="button" data-event="check-saved">Check the saved copy for changes</button>
+        <template data-if="mergeOpen">
+          <div>
+            <h3>Changes in the saved copy</h3>
+            <ul class="studio-list" aria-label="Changes in the saved copy">
+              <template data-each="mergeIncoming" data-key="key"><li data-text="text"></li></template>
+            </ul>
+            <h3>Conflicts</h3>
+            <ul class="studio-list" aria-label="Merge conflicts">
+              <template data-each="mergeConflicts" data-key="key">
+                <li>
+                  <span data-text="text"></span>
+                  <span class="studio-choices" data-bind-hidden="blocking">
+                    <button type="button" data-event="merge-keep-mine" data-bind-aria-pressed="minePressed">Keep mine</button>
+                    <button type="button" data-event="merge-take-saved" data-bind-aria-pressed="savedPressed">Use saved</button>
+                  </span>
+                </li>
+              </template>
+            </ul>
+            <button type="button" data-event="merge-apply">Apply merge</button>
+            <button type="button" data-event="merge-cancel">Cancel merge</button>
+          </div>
+        </template>
       </section>
 
       <section class="studio-panel" aria-labelledby="templates-heading">

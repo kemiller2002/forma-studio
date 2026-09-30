@@ -55,7 +55,11 @@ type EditorState =
       /// The project as last saved or opened; the review compares against it.
       Baseline: Project
       /// The project a pending save wrote, adopted as the baseline on success.
-      Saving: Project option }
+      Saving: Project option
+      /// A saved copy that changed since the baseline, under merge review.
+      Incoming: Project option
+      /// Item conflicts the reviewer resolved in favour of the saved copy.
+      TakeSaved: Set<string> }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -86,7 +90,9 @@ module EditorApp =
           Clipboard = None
           Template = None
           Baseline = project
-          Saving = None }
+          Saving = None
+          Incoming = None
+          TakeSaved = Set.empty }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -595,6 +601,23 @@ module EditorApp =
             noEffects (layoutOnRoot state (fun page root -> Layout(SetComponentProperty(page.Id, root.Id, "density", Some(JString key))), "Spacing changed."))
         | "save" -> { state with Status = "Saving…"; Saving = Some(project state) }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
         | "load" -> { state with Status = "Loading…" }, [ storage "load" "get" [] ]
+        | "check-saved" -> { state with Status = "Checking the saved copy…" }, [ storage "compare" "get" [] ]
+        | "merge-take-saved" -> noEffects { state with TakeSaved = state.TakeSaved.Add key }
+        | "merge-keep-mine" -> noEffects { state with TakeSaved = state.TakeSaved.Remove key }
+        | "merge-cancel" -> noEffects { state with Incoming = None; TakeSaved = Set.empty; Status = "Merge cancelled; nothing changed." }
+        | "merge-apply" ->
+            match state.Incoming with
+            | Some saved ->
+                let result = Merge.resolve state.Baseline (project state) saved state.TakeSaved
+                match result.Conflicts |> List.filter (Merge.isItemConflict >> not) with
+                | [] ->
+                    match Editor.adopt result.Project state.Session with
+                    | Ok session ->
+                        // The saved copy is now the common ancestor for the next comparison.
+                        noEffects { state with Session = session; Baseline = saved; Incoming = None; TakeSaved = Set.empty; Status = "Merged the saved changes. One undo reverts the merge." }
+                    | Error findings -> noEffects { state with Status = sprintf "Not merged: %s" (describeFindings findings) }
+                | blocking -> noEffects { state with Status = sprintf "Not merged: %s" (blocking |> List.map _.Message |> String.concat " ") }
+            | None -> noEffects { state with Status = "There is no saved change to merge." }
         | other -> noEffects { state with Status = sprintf "Unrecognized action '%s'." other }
 
     let private onEffect (result: JsonValue) state =
@@ -610,6 +633,14 @@ module EditorApp =
                     // Reopening restores the canonical project, not the undo stack (FDA-1051).
                     let diagram = loaded.Diagrams |> List.tryHead |> Option.map _.Id |> Option.defaultValue state.Diagram
                     { initial loaded diagram with Status = "Loaded the saved project. Undo history starts fresh." }
+                | Error error -> { state with Status = Codec.describeLoadError error }
+            | _ -> { state with Status = "Nothing has been saved yet." }
+        | Some(JString "compare"), Some(JString "Success") ->
+            match field "outcome" result |> Option.bind (field "value") with
+            | Some(JString text) ->
+                match Codec.load text with
+                | Ok saved when saved = state.Baseline -> { state with Incoming = None; Status = "The saved copy has not changed since you opened or saved it." }
+                | Ok saved -> { state with Incoming = Some saved; TakeSaved = Set.empty; Status = "The saved copy has changed. Review the merge below." }
                 | Error error -> { state with Status = Codec.describeLoadError error }
             | _ -> { state with Status = "Nothing has been saved yet." }
         | Some(JString _), Some(JString "Failure") -> { state with Status = "The browser could not complete the storage request."; Saving = None }
@@ -870,6 +901,25 @@ module EditorApp =
                       item [ "key", str (sprintf "%d:%s:%s" i c.Code c.Target); "category", str category; "summary", str c.Summary ])
                   |> JArray
                   "changeCount", str (match List.length changes with 0 -> "No changes since the last save or open." | 1 -> "1 change since the last save or open." | n -> sprintf "%d changes since the last save or open." n)
+                  "mergeOpen", JBool state.Incoming.IsSome
+                  "mergeIncoming",
+                  (match state.Incoming with
+                   | Some saved -> Diff.between state.Baseline saved |> List.mapi (fun i c -> item [ "key", str (sprintf "%d:%s:%s" i c.Code c.Target); "text", str c.Summary ])
+                   | None -> [])
+                  |> JArray
+                  "mergeConflicts",
+                  (match state.Incoming with
+                   | Some saved ->
+                       Merge.resolve state.Baseline p saved state.TakeSaved
+                       |> fun r -> r.Conflicts
+                       |> List.map (fun c ->
+                           let choosable = Merge.isItemConflict c
+                           let saved = state.TakeSaved.Contains c.Target
+                           item [ "key", str c.Target; "text", str (sprintf "%s — %s" c.Target c.Message)
+                                  "choosable", JBool choosable; "blocking", JBool(not choosable)
+                                  "minePressed", str (if saved then "false" else "true"); "savedPressed", str (if saved then "true" else "false") ])
+                   | None -> [])
+                  |> JArray
                   "templates",
                   templatesOf state
                   |> List.map (fun (k, name, _, _) -> item [ "key", str k; "label", str name; "pressed", str (if state.Template = Some k then "true" else "false") ])

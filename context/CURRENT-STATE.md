@@ -140,6 +140,12 @@ Done and tested:
     one batch placed below the diagram;
   - a Review panel listing `Diff.between` changes since the last save or
     open, by category (position, label, meaning, metadata, appearance...);
+  - merge review: "Check the saved copy for changes" runs `Merge.resolve`
+    (base = last save or open, ours = the session, theirs = the saved
+    copy another tab may have changed), lists incoming changes and
+    conflicts with a Keep mine / Use saved choice per item, re-checks
+    integrity after choosing, and applies through `Editor.adopt` as one
+    history entry;
   - undo/redo, and save/open via Limen Storage;
   - axe and forced-colors checks;
   - a Layout surface on the same session: a surface navigator switches
@@ -151,14 +157,12 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (51) and `npm run app:build && npm run app:test` (22 Playwright tests,
+  (52) and `npm run app:build && npm run app:test` (23 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. A merge review UI over `Merge.three` (conflict list with per-item
-   choice) once there is a second revision source to merge from.
-2. Replace `vendor/forma` with a released Forma artifact once
+1. Replace `vendor/forma` with a released Forma artifact once
    kemiller2002/forma#91 ships.
 
 Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming

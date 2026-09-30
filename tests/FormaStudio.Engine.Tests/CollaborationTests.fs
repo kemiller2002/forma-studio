@@ -116,6 +116,30 @@ let reconnectVsDeletedTarget =
         let result = Merge.three b ours theirs
         expect (result.Conflicts |> List.exists (fun c -> c.Target.EndsWith "edge:e-placed")) (sprintf "reconnection conflict reported: %A" result.Conflicts))
 
+let reviewedMerge =
+    test "Merge review: per-item choices, integrity re-checked after choosing, adopted as one history entry" (fun () ->
+        let b = sample ()
+        let ours = apply [ Flow(SetNodeLabel(wd, idOf "order", "Send purchase order")); Flow(Connect(wd, idOf "mine", "flow", ep "approve", ep "revise", Some "rework")) ] b
+        let theirs = apply [ Flow(SetNodeLabel(wd, idOf "order", "Raise purchase order")); Flow(RemoveNode(wd, idOf "prepare", RemoveIncidentEdges)) ] b
+        let label (p: Project) id = (ProjectOps.tryNode wd (idOf id) p |> Option.get).Label
+        let kept = Merge.resolve b ours theirs Set.empty
+        let conflict = kept.Conflicts |> List.find Merge.isItemConflict
+        equal "Send purchase order" (label kept.Project "order") "without a choice ours is kept"
+        let chosen = Merge.resolve b ours theirs (set [ conflict.Target ])
+        equal "Raise purchase order" (label chosen.Project "order") "a choice takes theirs for that item only"
+        equal None (ProjectOps.tryNode wd (idOf "prepare") chosen.Project) "their one-sided deletion still merges"
+        equal [] (chosen.Conflicts |> List.filter (Merge.isItemConflict >> not)) "no integrity conflicts"
+        let session = Editor.start ours
+        let adopted = okOr (Editor.adopt chosen.Project session) "adopt"
+        equal 1 adopted.Undo.Length "one history entry"
+        equal ours (Editor.undo adopted).Project "one undo reverts the merge"
+        // Taking their deletion of a node that our new edge uses breaks integrity.
+        let theirsDeleting = apply [ Flow(RemoveNode(wd, idOf "revise", RemoveIncidentEdges)) ] b
+        let broken = Merge.resolve b ours theirsDeleting Set.empty
+        expect (broken.Conflicts |> List.exists (fun c -> not (Merge.isItemConflict c) && c.Target.EndsWith "edge:mine")) "integrity conflict reported"
+        errorOf (Editor.adopt broken.Project session) "adopting a broken merge" |> ignore
+        equal None (Merge.takeTheirs "diagram:x/unknown:y" theirs ours) "unknown targets are not choosable")
+
 let concurrentStyleEdits =
     test "Merge: concurrent different edits to one style conflict; identical edits agree" (fun () ->
         let b = sample ()
@@ -279,5 +303,5 @@ let builtInTemplates =
                 equal start.Project (Editor.undo inserted).Project (sprintf "%s undoes cleanly" t.Key))))
 
 let all =
-    [ builtInTemplates; stateProfile; architectureProfile; semanticDiff; independentEditsMerge; deletedNodeVsNewEdge; reconnectVsDeletedTarget
+    [ builtInTemplates; reviewedMerge; stateProfile; architectureProfile; semanticDiff; independentEditsMerge; deletedNodeVsNewEdge; reconnectVsDeletedTarget
       concurrentStyleEdits; paletteVsOverride; profileMigrationVsEdit; presenceIsNotProjectState; fragmentClosure; fragmentConflicts; largeGraph ]

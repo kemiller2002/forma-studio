@@ -33,6 +33,16 @@ module Editor =
                   Selection = prune applied.Project session.Selection
                   LastObligations = applied.Obligations })
 
+    /// Adopts a whole project produced by a reviewed operation outside the command
+    /// surface (a three-way merge) as exactly one history entry. A project with
+    /// integrity blockers is rejected and the session is unchanged.
+    let adopt (project: Project) (session: Session) : Result<Session, Finding list> =
+        match Validation.blockers project with
+        | [] when project = session.Project -> Ok session
+        | [] ->
+            Ok { Project = project; Undo = session.Project :: session.Undo; Redo = []; Selection = prune project session.Selection; LastObligations = [] }
+        | blockers -> Error blockers
+
     /// Computes the result of a command without committing it, for previews and
     /// agent change plans (FDA-1023). Nothing in the session changes.
     let preview (command: Command) (session: Session) = Commands.execute command session.Project
