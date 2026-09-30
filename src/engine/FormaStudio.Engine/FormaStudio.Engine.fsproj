@@ -29,8 +29,9 @@
     <Compile Include="Samples.fs" />
     <Compile Include="Export.fs" />
     <Compile Include="Projection.fs" />
-    <Compile Include="EditorApp.fs" />
     <Compile Include="Diff.fs" />
     <Compile Include="Fragment.fs" />
+    <Compile Include="Templates.fs" />
+    <Compile Include="EditorApp.fs" />
   </ItemGroup>
 </Project>

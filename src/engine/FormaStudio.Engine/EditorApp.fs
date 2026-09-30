@@ -47,7 +47,11 @@ type EditorState =
       /// Canvas zoom in percent and grid snapping: view preferences that never
       /// enter the project document or its history (FDA-027).
       Zoom: int
-      Snap: bool }
+      Snap: bool
+      /// Copied nodes with their dependency closure; view state until inserted.
+      Clipboard: DiagramFragment option
+      /// The template (built-in key or "clipboard") chosen for review.
+      Template: string option }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -74,7 +78,9 @@ module EditorApp =
               SlotName = ""; SlotColor = ""; MappingValue = None; MappingSlot = None }
           Page = None
           Zoom = 100
-          Snap = false }
+          Snap = false
+          Clipboard = None
+          Template = None }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -184,6 +190,50 @@ module EditorApp =
             let moved = run (Flow(Reconnect(state.Diagram, edgeId, source, target))) "Reconnected." { state with Pending = NoPending }
             { moved with Session = Editor.select [ EdgeRef(state.Diagram, edgeId) ] moved.Session }
         | None -> { state with Pending = NoPending; Status = "Select a connector to reconnect it." }
+
+    let private templatesOf state =
+        let builtIn =
+            diagramOf state |> Option.map (fun d -> Templates.forProfile d.Profile) |> Option.defaultValue []
+            |> List.map (fun t -> t.Key, t.Name, t.Description, t.Fragment)
+        let copied =
+            state.Clipboard
+            |> Option.map (fun f -> "clipboard", "Copied items", sprintf "%d item(s) and %d connector(s) copied from this project." f.Nodes.Length f.Edges.Length, f)
+            |> Option.toList
+        copied @ builtIn
+
+    let private chosenTemplate state =
+        state.Template |> Option.bind (fun key -> templatesOf state |> List.tryFind (fun (k, _, _, _) -> k = key))
+
+    /// Places a fragment below the current diagram so it never lands on top of
+    /// existing items.
+    let private insertionOffset state (fragment: DiagramFragment) =
+        match diagramOf state, fragment.Nodes with
+        | Some d, (_ :: _ as nodes) ->
+            let b = if List.isEmpty d.Nodes && List.isEmpty d.Groups then { Position = { X = 0; Y = 0 }; Size = { Width = 1; Height = 1 } } else Projection.bounds d
+            let left = nodes |> List.map (fun n -> n.Box.Position.X) |> List.min
+            let top = nodes |> List.map (fun n -> n.Box.Position.Y) |> List.min
+            float (b.Position.X - left), float (b.Position.Y + b.Size.Height + 40 - top)
+        | _ -> 0.0, 0.0
+
+    let private describeDecision (d: DependencyDecision) =
+        let kind = match d.Kind with "field" -> "Field" | "palette" -> "Palette color" | "style" -> "Style" | "mapping" -> "Color rule" | other -> other
+        match d.Action with
+        | Reused -> sprintf "%s %s: reuses the identical one already in this project." kind d.SourceId
+        | Imported -> sprintf "%s %s: will be added to this project." kind d.SourceId
+        | Remapped n -> sprintf "%s %s: differs from this project's; it will be added as %s." kind d.SourceId n
+
+    let private insertTemplate state =
+        match chosenTemplate state with
+        | Some(_, name, _, fragment) ->
+            let dx, dy = insertionOffset state fragment
+            match Fragment.applyCommand fragment (project state) state.Diagram dx dy RemapConflicting with
+            | Ok(command, _) ->
+                let added = match command with Batch(_, steps) -> steps |> List.choose (function Flow(AddNode(_, id, _, _, _, _, _, _)) -> Some(NodeRef(state.Diagram, id)) | _ -> None) | _ -> []
+                let inserted = run command (sprintf "Inserted %s." name) state
+                if inserted.Session.Project = state.Session.Project then inserted
+                else { inserted with Session = Editor.select added inserted.Session; Template = None }
+            | Error message -> { state with Status = sprintf "Not inserted: %s" message }
+        | None -> { state with Status = "Choose a template to insert." }
 
     let private move state (dx: float) (dy: float) =
         match selectedNode state with
@@ -406,6 +456,17 @@ module EditorApp =
         | "toggle-snap" ->
             let on = not state.Snap
             noEffects { state with Snap = on; Status = (if on then "Snapping to the 8-unit grid." else "Snapping off.") }
+        | "copy-selection" ->
+            let nodes = state.Session.Selection |> List.choose (function NodeRef(d, n) when d = state.Diagram -> Some n | _ -> None)
+            if List.isEmpty nodes then noEffects { state with Status = "Select items to copy." }
+            else
+                match Fragment.extract (project state) state.Diagram nodes with
+                | Ok fragment ->
+                    let dependencies = fragment.Fields.Length + fragment.Palette.Length + fragment.Styles.Length + fragment.Mappings.Length
+                    noEffects { state with Clipboard = Some fragment; Template = Some "clipboard"; Status = sprintf "Copied %d item(s) with %d dependency definition(s)." fragment.Nodes.Length dependencies }
+                | Error message -> noEffects { state with Status = sprintf "Not copied: %s" message }
+        | "choose-template" -> noEffects { state with Template = Some key }
+        | "insert-template" -> noEffects (insertTemplate state)
         | "connect-start" ->
             match selectedNode state with
             | Some node -> noEffects { state with Pending = Connecting node.Id; Status = sprintf "Choose the item that %s connects to." node.Label }
@@ -790,6 +851,21 @@ module EditorApp =
                   "zoomOutDisabled", JBool(state.Zoom <= List.head zoomLevels)
                   "zoomInDisabled", JBool(state.Zoom >= List.last zoomLevels)
                   "snapPressed", str (if state.Snap then "true" else "false")
+                  "templates",
+                  templatesOf state
+                  |> List.map (fun (k, name, _, _) -> item [ "key", str k; "label", str name; "pressed", str (if state.Template = Some k then "true" else "false") ])
+                  |> JArray
+                  "templateChosen", JBool (chosenTemplate state |> Option.isSome)
+                  "templateDescription", str (chosenTemplate state |> Option.map (fun (_, _, d, _) -> d) |> Option.defaultValue "")
+                  "templatePlan",
+                  (match chosenTemplate state with
+                   | Some(_, _, _, fragment) ->
+                       match Fragment.plan fragment p RemapConflicting with
+                       | Ok [] -> [ item [ "key", str "none"; "text", str "No fields, colors or rules to bring along." ] ]
+                       | Ok decisions -> decisions |> List.map (fun d -> item [ "key", str (sprintf "%s:%s" d.Kind d.SourceId); "text", str (describeDecision d) ])
+                       | Error message -> [ item [ "key", str "error"; "text", str message ] ]
+                   | None -> [])
+                  |> JArray
                   "viewBox", str (sprintf "0 0 %d %d" width height)
                   "groups", JArray groups
                   "nodes", JArray nodes

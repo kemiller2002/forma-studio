@@ -132,6 +132,10 @@ Done and tested:
     handle onto a node, or by pressing the handle and choosing a node;
   - zoom (50-200%) and 8-unit grid snapping as view state outside the
     project and its history; drags convert screen pixels to logical units;
+  - a Templates panel: built-in fragments per profile (`Templates.fs`, each
+    authored through commands and extracted) and "Copy selection as
+    template"; the dependency plan is shown before insert, and insert is
+    one batch placed below the diagram;
   - undo/redo, and save/open via Limen Storage;
   - axe and forced-colors checks;
   - a Layout surface on the same session: a surface navigator switches
@@ -143,14 +147,12 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (50) and `npm run app:build && npm run app:test` (19 Playwright tests,
+  (51) and `npm run app:build && npm run app:test` (20 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
-1. Editor refinements: alignment guides, and a template/fragment picker
-   built on
-   `Fragment.applyCommand`.
+1. Editor refinements: alignment guides while dragging.
 2. Surface the semantic diff and merge in a review UI (read-only compare of
    two revisions).
 3. Replace `vendor/forma` with a released Forma artifact once

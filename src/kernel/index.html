@@ -132,6 +132,25 @@
         </ol>
       </nav>
 
+      <section class="studio-panel" aria-labelledby="templates-heading">
+        <h2 id="templates-heading">Templates</h2>
+        <button type="button" data-event="copy-selection">Copy selection as template</button>
+        <div class="studio-choices" role="group" aria-label="Template to insert">
+          <template data-each="templates" data-key="key">
+            <button type="button" data-event="choose-template" data-bind-aria-pressed="pressed" data-text="label"></button>
+          </template>
+        </div>
+        <template data-if="templateChosen">
+          <div>
+            <p data-text="templateDescription"></p>
+            <ul class="studio-list" aria-label="What inserting brings along">
+              <template data-each="templatePlan" data-key="key"><li data-text="text"></li></template>
+            </ul>
+            <button type="button" data-event="insert-template">Insert template</button>
+          </div>
+        </template>
+      </section>
+
       <section class="studio-panel" aria-labelledby="inspector-heading">
         <h2 id="inspector-heading">Inspector</h2>
         <template data-if="noSelection"><p>Select an item on the canvas or in the Structure list.</p></template>

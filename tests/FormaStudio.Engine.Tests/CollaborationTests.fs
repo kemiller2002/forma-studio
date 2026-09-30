@@ -254,6 +254,30 @@ let largeGraph =
         printfn "       large graph: validate %.2fs, round trip %.2fs, command %.2fs, projection %.2fs" validationSeconds roundTripSeconds commandSeconds projectionSeconds
         expect (validationSeconds < 20.0 && roundTripSeconds < 20.0 && commandSeconds < 20.0 && projectionSeconds < 60.0) "within generous bounds")
 
+let builtInTemplates =
+    test "Every built-in template inserts into an empty diagram of its profile as one undoable step" (fun () ->
+        [ "general"; "workflow"; "state"; "architecture" ]
+        |> List.iter (fun profileId ->
+            let profile = { Id = profileId; Version = "1.0.0" }
+            let d: DiagramId = idOf "target"
+            let start = Editor.start (okOr (Commands.execute (Flow(AddDiagram(d, "Target", profile))) (Samples.emptyProject "t" "T")) "diagram").Project
+            let templates = Templates.forProfile profile
+            expect (not (List.isEmpty templates)) (sprintf "%s offers a template" profileId)
+            templates
+            |> List.iter (fun t ->
+                let command, _ = okOr (Fragment.applyCommand t.Fragment start.Project d 0.0 0.0 RejectConflicting) t.Key
+                let inserted = okOr (Editor.dispatch command start) t.Key
+                let diagram = ProjectOps.tryDiagram d inserted.Project |> Option.get
+                equal t.Fragment.Nodes.Length diagram.Nodes.Length (sprintf "%s nodes" t.Key)
+                equal t.Fragment.Edges.Length diagram.Edges.Length (sprintf "%s connectors" t.Key)
+                equal 1 inserted.Undo.Length (sprintf "%s is one history entry" t.Key)
+                // Diagram-level findings (such as a missing start node) belong to the
+                // otherwise empty target, not to the template's own objects.
+                let onInserted (f: Finding) = f.Target.Contains "/node:" || f.Target.Contains "/edge:"
+                let warnings = Validation.run inserted.Project |> List.filter (fun f -> f.Severity <> Advisory && onInserted f)
+                equal [] (warnings |> List.map _.Code) (sprintf "%s objects insert without warnings" t.Key)
+                equal start.Project (Editor.undo inserted).Project (sprintf "%s undoes cleanly" t.Key))))
+
 let all =
-    [ stateProfile; architectureProfile; semanticDiff; independentEditsMerge; deletedNodeVsNewEdge; reconnectVsDeletedTarget
+    [ builtInTemplates; stateProfile; architectureProfile; semanticDiff; independentEditsMerge; deletedNodeVsNewEdge; reconnectVsDeletedTarget
       concurrentStyleEdits; paletteVsOverride; profileMigrationVsEdit; presenceIsNotProjectState; fragmentClosure; fragmentConflicts; largeGraph ]

@@ -388,3 +388,31 @@ test("Zoom and snapping are view state; drags stay in logical units", async ({ p
   expect(snappedTo.x % 8).toBe(0);
   expect(snappedTo.y % 8).toBe(0);
 });
+
+test("Templates: a built-in or copied fragment inserts in one step with its dependencies reviewed first", async ({ page }) => {
+  await open(page);
+  const templates = page.getByRole("region", { name: "Templates" });
+  const entries = Number(await history(page).textContent());
+  const edgesBefore = await page.locator("path.ef-diagram-connector").count();
+
+  await templates.getByRole("button", { name: "Approval decision" }).click();
+  await expect(templates.getByRole("list", { name: "What inserting brings along" })).toContainText("No fields, colors or rules");
+  await templates.getByRole("button", { name: "Insert template" }).click();
+  await expect(status(page)).toHaveText("Inserted Approval decision.");
+  await expect(history(page)).toHaveText(String(entries + 1));
+  await expect(node(page, "Approved?")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("path.ef-diagram-connector")).toHaveCount(edgesBefore + 2);
+
+  // Copy a node that carries metadata and a color rule, then review and insert it.
+  await page.getByRole("button", { name: "Undo" }).click();
+  await node(page, "Approve spend").click();
+  await templates.getByRole("button", { name: "Copy selection as template" }).click();
+  await expect(status(page)).toContainText("Copied 1 item(s)");
+  const plan = templates.getByRole("list", { name: "What inserting brings along" });
+  await expect(plan).toContainText("reuses the identical one already in this project");
+  await templates.getByRole("button", { name: "Insert template" }).click();
+  await expect(node(page, "Approve spend")).toHaveCount(2);
+  await expect(history(page)).toHaveText(String(entries + 1));
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(node(page, "Approve spend")).toHaveCount(1);
+});
