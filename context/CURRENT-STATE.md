@@ -136,6 +136,8 @@ Done and tested:
     authored through commands and extracted) and "Copy selection as
     template"; the dependency plan is shown before insert, and insert is
     one batch placed below the diagram;
+  - a Review panel listing `Diff.between` changes since the last save or
+    open, by category (position, label, meaning, metadata, appearance...);
   - undo/redo, and save/open via Limen Storage;
   - axe and forced-colors checks;
   - a Layout surface on the same session: a surface navigator switches
@@ -147,14 +149,14 @@ Done and tested:
   `Merge.three` (graph-aware conflicts), `Fragment` (dependency closure and
   reconciliation by id), and a 2,000-node / 3,000-edge proof.
 - Tests: `dotnet run --project tests/FormaStudio.Engine.Tests -c Release`
-  (51) and `npm run app:build && npm run app:test` (20 Playwright tests,
+  (51) and `npm run app:build && npm run app:test` (21 Playwright tests,
   Chromium).
 
 Next legal work, in order:
 
 1. Editor refinements: alignment guides while dragging.
-2. Surface the semantic diff and merge in a review UI (read-only compare of
-   two revisions).
+2. A merge review UI over `Merge.three` (conflict list with per-item
+   choice) once there is a second revision source to merge from.
 3. Replace `vendor/forma` with a released Forma artifact once
    kemiller2002/forma#91 ships.
 

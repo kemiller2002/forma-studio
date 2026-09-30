@@ -51,7 +51,11 @@ type EditorState =
       /// Copied nodes with their dependency closure; view state until inserted.
       Clipboard: DiagramFragment option
       /// The template (built-in key or "clipboard") chosen for review.
-      Template: string option }
+      Template: string option
+      /// The project as last saved or opened; the review compares against it.
+      Baseline: Project
+      /// The project a pending save wrote, adopted as the baseline on success.
+      Saving: Project option }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -80,7 +84,9 @@ module EditorApp =
           Zoom = 100
           Snap = false
           Clipboard = None
-          Template = None }
+          Template = None
+          Baseline = project
+          Saving = None }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -587,14 +593,15 @@ module EditorApp =
                 | None -> Batch("nothing", []), "Nothing to reorder."))
         | "layout-density" ->
             noEffects (layoutOnRoot state (fun page root -> Layout(SetComponentProperty(page.Id, root.Id, "density", Some(JString key))), "Spacing changed."))
-        | "save" -> { state with Status = "Saving…" }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
+        | "save" -> { state with Status = "Saving…"; Saving = Some(project state) }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
         | "load" -> { state with Status = "Loading…" }, [ storage "load" "get" [] ]
         | other -> noEffects { state with Status = sprintf "Unrecognized action '%s'." other }
 
     let private onEffect (result: JsonValue) state =
         let field name json = Json.field name json
         match field "correlationId" result, field "outcome" result |> Option.bind (field "kind") with
-        | Some(JString "save"), Some(JString "Success") -> { state with Status = "Saved." }
+        | Some(JString "save"), Some(JString "Success") ->
+            { state with Status = "Saved."; Baseline = defaultArg state.Saving state.Baseline; Saving = None }
         | Some(JString "load"), Some(JString "Success") ->
             match field "outcome" result |> Option.bind (field "value") with
             | Some(JString text) ->
@@ -605,7 +612,7 @@ module EditorApp =
                     { initial loaded diagram with Status = "Loaded the saved project. Undo history starts fresh." }
                 | Error error -> { state with Status = Codec.describeLoadError error }
             | _ -> { state with Status = "Nothing has been saved yet." }
-        | Some(JString _), Some(JString "Failure") -> { state with Status = "The browser could not complete the storage request." }
+        | Some(JString _), Some(JString "Failure") -> { state with Status = "The browser could not complete the storage request."; Saving = None }
         | _ -> state
 
     // -- view ------------------------------------------------------------------
@@ -682,6 +689,7 @@ module EditorApp =
         | Some diagram ->
             let profile = Profiles.tryFind diagram.Profile
             let selected = selectedRef state
+            let changes = Diff.between state.Baseline p
             let isSelected r = List.contains r state.Session.Selection
             let connectingFrom = match state.Pending with Connecting n -> Some n | _ -> None
             let kindLabel kind = profile |> Option.bind (fun pr -> Profiles.nodeKind pr kind) |> Option.map _.Label |> Option.defaultValue kind
@@ -851,6 +859,17 @@ module EditorApp =
                   "zoomOutDisabled", JBool(state.Zoom <= List.head zoomLevels)
                   "zoomInDisabled", JBool(state.Zoom >= List.last zoomLevels)
                   "snapPressed", str (if state.Snap then "true" else "false")
+                  "changes",
+                  changes
+                  |> List.mapi (fun i c ->
+                      let category =
+                          match c.Category with
+                          | Topology -> "Structure" | Geometry -> "Position or size" | Semantic -> "Meaning" | Label -> "Label"
+                          | MetadataChange -> "Metadata" | Presentation -> "Appearance" | PresentationDefinition -> "Palette, style or rule"
+                          | Routing -> "Routing" | Membership -> "Lane or group" | ReferenceChange -> "Reference" | Schema -> "Schema" | LayoutChange -> "Layout"
+                      item [ "key", str (sprintf "%d:%s:%s" i c.Code c.Target); "category", str category; "summary", str c.Summary ])
+                  |> JArray
+                  "changeCount", str (match List.length changes with 0 -> "No changes since the last save or open." | 1 -> "1 change since the last save or open." | n -> sprintf "%d changes since the last save or open." n)
                   "templates",
                   templatesOf state
                   |> List.map (fun (k, name, _, _) -> item [ "key", str k; "label", str name; "pressed", str (if state.Template = Some k then "true" else "false") ])

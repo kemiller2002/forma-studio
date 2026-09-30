@@ -132,6 +132,16 @@
         </ol>
       </nav>
 
+      <section class="studio-panel" aria-labelledby="review-heading">
+        <h2 id="review-heading">Review changes</h2>
+        <p data-text="changeCount"></p>
+        <ul class="studio-list" aria-label="Changes since the last save or open">
+          <template data-each="changes" data-key="key">
+            <li><strong data-text="category"></strong>: <span data-text="summary"></span></li>
+          </template>
+        </ul>
+      </section>
+
       <section class="studio-panel" aria-labelledby="templates-heading">
         <h2 id="templates-heading">Templates</h2>
         <button type="button" data-event="copy-selection">Copy selection as template</button>

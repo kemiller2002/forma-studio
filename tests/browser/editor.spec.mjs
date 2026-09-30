@@ -416,3 +416,23 @@ test("Templates: a built-in or copied fragment inserts in one step with its depe
   await page.getByRole("button", { name: "Undo" }).click();
   await expect(node(page, "Approve spend")).toHaveCount(1);
 });
+
+test("Review lists semantic changes since the last save, separating movement from meaning", async ({ page }) => {
+  await open(page);
+  const review = page.getByRole("region", { name: "Review changes" });
+  await expect(review).toContainText("No changes since the last save or open.");
+  const target = node(page, "Prepare request");
+  await target.focus();
+  await page.keyboard.press("ArrowRight");
+  await target.click();
+  const label = page.getByLabel("Label", { exact: true });
+  await label.fill("Draft request");
+  await label.press("Tab");
+  const changes = review.getByRole("list", { name: "Changes since the last save or open" }).getByRole("listitem");
+  await expect(changes).toHaveCount(2);
+  await expect(changes.filter({ hasText: "Position or size" })).toHaveCount(1);
+  await expect(changes.filter({ hasText: "Label" })).toHaveCount(1);
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(status(page)).toHaveText("Saved.");
+  await expect(review).toContainText("No changes since the last save or open.");
+});
