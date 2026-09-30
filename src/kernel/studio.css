@@ -18,7 +18,7 @@ body { margin: 0; }
 .studio-outline-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px; }
 .studio-outline-row .studio-toggle { inline-size: auto; min-inline-size: 2.75rem; text-align: center; }
 .studio-outline-row .studio-toggle[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
-.studio-list button[aria-current="true"], .studio-choices button[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
+.studio-list button[aria-current="true"], .studio-toolbar button[aria-current="page"], .studio-choices button[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
 .studio-choices { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-1, 0.25rem); }
 .studio-meta { display: grid; gap: var(--ef-primitive-spacing-1, 0.25rem); margin: 0; }
 .studio-meta > div { display: flex; flex-wrap: wrap; gap: 0 var(--ef-primitive-spacing-2, 0.5rem); }

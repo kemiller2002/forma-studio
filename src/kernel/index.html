@@ -27,7 +27,38 @@
   <!-- The gesture adapter writes a completed drag or arrow-key nudge here. -->
   <input type="hidden" id="gesture-move" data-event="gesture-move">
 
-  <div class="studio-workspace">
+  <nav class="studio-toolbar" aria-label="Surfaces">
+    <button type="button" data-event="open-diagram" data-bind-aria-current="flowCurrent" data-text="flowLabel"></button>
+    <template data-each="pages" data-key="key">
+      <button type="button" data-event="open-page" data-bind-aria-current="current" data-text="label"></button>
+    </template>
+    <button type="button" data-event="add-page">Add Layout page</button>
+  </nav>
+
+  <section class="studio-panel" aria-labelledby="layout-heading" data-bind-hidden="flowVisible">
+    <h2 id="layout-heading">Layout: <span data-text="pageName"></span></h2>
+    <p>Layout is semantic composition: items stack in order and spacing comes from the Forma stack's density, never from x/y positions.</p>
+    <div class="studio-choices" role="group" aria-label="Stack spacing">
+      <template data-each="densities" data-key="key">
+        <button type="button" data-event="layout-density" data-text="label"></button>
+      </template>
+    </div>
+    <button type="button" data-event="layout-add-heading">Add heading</button>
+    <ol class="studio-list" aria-label="Page structure">
+      <template data-each="layoutItems" data-key="key">
+        <li class="studio-panel">
+          <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+          <span class="studio-choices"><button type="button" data-event="layout-move-up">Move earlier</button><button type="button" data-event="layout-move-down">Move later</button></span>
+        </li>
+      </template>
+    </ol>
+    <h3>Preview</h3>
+    <section class="ef-stack" aria-label="Page preview" data-bind-data-density="density">
+      <template data-each="layoutItems" data-key="key"><h2 data-text="text"></h2></template>
+    </section>
+  </section>
+
+  <div class="studio-workspace" data-bind-hidden="layoutVisible">
     <section class="studio-panel" aria-labelledby="canvas-heading">
       <h2 id="canvas-heading">Canvas</h2>
       <div class="studio-toolbar" role="toolbar" aria-label="Add and connect">

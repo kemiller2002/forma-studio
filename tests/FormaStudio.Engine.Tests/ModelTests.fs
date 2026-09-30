@@ -126,7 +126,9 @@ let rejectedCommandsDoNotMutate =
         errorOf (Editor.dispatch (Flow(AddNode(d, idOf "c", "box", "Bad", 0.0, 0.0, 0.0, 50.0))) s) "zero width" |> ignore
         errorOf (Editor.dispatch (Flow(AddNode(d, idOf "c", "gizmo", "Bad", 0.0, 0.0, 50.0, 50.0))) s) "unknown kind" |> ignore
         errorOf (Editor.dispatch (Batch("atomic", [ Flow(AddNode(d, idOf "c", "box", "C", 0.0, 0.0, 50.0, 50.0)); Flow(RemoveEdge(d, idOf "nope")) ])) s) "failing batch" |> ignore
-        equal None (ProjectOps.tryNode d (idOf "c") s.Project) "failed batch applied nothing")
+        equal None (ProjectOps.tryNode d (idOf "c") s.Project) "failed batch applied nothing"
+        let still = okOr (Editor.dispatch (Flow(MoveNodes(d, [ idOf "a", 0.0, 0.0 ]))) s) "zero move"
+        equal s.Undo.Length still.Undo.Length "a command that changes nothing adds no history entry")
 
 let geometryNormalization =
     test "Geometry: whole-unit rounding, legal negatives, invalid values rejected" (fun () ->

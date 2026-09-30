@@ -34,7 +34,10 @@ type EditorState =
       AddKind: string
       Field: FieldKey option
       Status: string
-      Drafts: Drafts }
+      Drafts: Drafts
+      /// The Layout page being edited, if any. Layout and Flow share this session,
+      /// its history and its command path; only the visible surface differs.
+      Page: PageId option }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -50,7 +53,8 @@ module EditorApp =
           Status = "Ready."
           Drafts =
             { FieldName = ""; FieldType = "choice"; FieldOptions = ""; FieldScope = PrintedAndExported
-              SlotName = ""; SlotColor = ""; MappingValue = None; MappingSlot = None } }
+              SlotName = ""; SlotColor = ""; MappingValue = None; MappingSlot = None }
+          Page = None }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -262,6 +266,15 @@ module EditorApp =
         | Some _, _, _ -> { state with Status = "Mappings work on choice fields: choose a value and a palette slot." }
         | None, _, _ -> { state with Status = "Choose a metadata field first." }
 
+    /// Runs a Layout command against the open page's root stack.
+    let private layoutOnRoot state (build: Page -> ComponentNode -> Command * string) =
+        match state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state)) with
+        | Some page ->
+            match page.Nodes |> List.tryFind (fun n -> n.Component = "stack") with
+            | Some root -> let command, message = build page root in run command message state
+            | None -> { state with Status = "This page has no stack to edit." }
+        | None -> { state with Status = "Open a Layout page first." }
+
     /// Applies one semantic event. Returns the new state and any effect requests.
     let private onEvent (e: Event) state : EditorState * JsonValue list =
         let value = defaultArg e.Value ""
@@ -392,6 +405,38 @@ module EditorApp =
                 let lane = if key = "" then None else Id.create<GroupKind> key |> Result.toOption
                 noEffects (run (Flow(AssignLane(state.Diagram, node.Id, lane))) "Lane changed." state)
             | None -> noEffects { state with Status = "Select an item to change its lane." }
+        | "add-page" ->
+            let used = (project state).Pages |> List.map (fun pg -> Id.value pg.Id) |> Set.ofList
+            let number = Seq.initInfinite (fun i -> i + 1) |> Seq.find (fun i -> not (used.Contains(sprintf "page-%d" i)))
+            let pageId: PageId = Samples.idOf (sprintf "page-%d" number)
+            let rootId: ComponentNodeId = Samples.idOf (sprintf "page-%d-stack" number)
+            let created =
+                run (Batch("add page", [ Layout(AddPage(pageId, sprintf "Page %d" number, Some(sprintf "/page-%d" number))); Layout(AddComponent(pageId, None, 0, rootId, "stack")) ]))
+                    (sprintf "Page %d added with an empty stack." number) state
+            noEffects { created with Page = (if created.Session.Project <> state.Session.Project then Some pageId else state.Page) }
+        | "open-page" -> noEffects { state with Page = Id.create<PageKind> key |> Result.toOption; Status = "Layout page opened." }
+        | "open-diagram" -> noEffects { state with Page = None; Status = "Diagram opened." }
+        | "layout-add-heading" -> noEffects (layoutOnRoot state (fun page root ->
+            let used = ProjectOps.componentIds page.Nodes |> List.map Id.value |> Set.ofList
+            let headingId: ComponentNodeId = Samples.idOf (unique used (sprintf "%s-heading" (Id.value page.Id)))
+            let index = root.Slots |> Map.tryFind "children" |> Option.map List.length |> Option.defaultValue 0
+            Batch("add heading", [ Layout(AddComponent(page.Id, Some { Parent = root.Id; Slot = "children" }, index, headingId, "heading"))
+                                   Layout(SetComponentContent(page.Id, headingId, "text", "New heading"))
+                                   Layout(SetComponentProperty(page.Id, headingId, "level", Some(Json.ofInt 2))) ]), "Heading added."))
+        | "layout-set-text" ->
+            match state.Page, Id.create<ComponentKind> key with
+            | Some page, Ok heading -> noEffects (run (Layout(SetComponentContent(page, heading, "text", value))) "Heading text changed." state)
+            | _ -> noEffects state
+        | "layout-move-up" | "layout-move-down" ->
+            noEffects (layoutOnRoot state (fun page root ->
+                let children = root.Slots |> Map.tryFind "children" |> Option.defaultValue []
+                match children |> List.tryFindIndex (fun c -> Id.value c.Id = key) with
+                | Some index ->
+                    let target = if e.Name = "layout-move-up" then max 0 (index - 1) else min (children.Length - 1) (index + 1)
+                    Layout(MoveComponent(page.Id, children.[index].Id, Some { Parent = root.Id; Slot = "children" }, target)), "Reordered."
+                | None -> Batch("nothing", []), "Nothing to reorder."))
+        | "layout-density" ->
+            noEffects (layoutOnRoot state (fun page root -> Layout(SetComponentProperty(page.Id, root.Id, "density", Some(JString key))), "Spacing changed."))
         | "save" -> { state with Status = "Saving…" }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
         | "load" -> { state with Status = "Loading…" }, [ storage "load" "get" [] ]
         | other -> noEffects { state with Status = sprintf "Unrecognized action '%s'." other }
@@ -614,7 +659,25 @@ module EditorApp =
             let blockers = Validation.run p |> List.filter (fun f -> f.Target.StartsWith(sprintf "diagram:%s" (Id.value diagram.Id)))
 
             JObject
-                [ "diagramName", str diagram.Name
+                [ "pages", p.Pages |> List.map (fun pg -> item [ "key", str (Id.value pg.Id); "label", str (sprintf "Layout: %s" pg.Name); "current", str (if state.Page = Some pg.Id then "page" else "false") ]) |> JArray
+                  "flowLabel", str (sprintf "Flow: %s" diagram.Name)
+                  "flowCurrent", str (if state.Page.IsNone then "page" else "false")
+                  "flowVisible", JBool state.Page.IsNone
+                  "layoutVisible", JBool state.Page.IsSome
+                  "pageName", str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.map _.Name |> Option.defaultValue "")
+                  "density",
+                  str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))
+                       |> Option.bind (fun root -> Map.tryFind "density" root.Properties) |> Option.map (function JString d -> d | _ -> "standard") |> Option.defaultValue "standard")
+                  "layoutItems",
+                  (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))
+                   |> Option.map (fun root -> root.Slots |> Map.tryFind "children" |> Option.defaultValue [])
+                   |> Option.defaultValue []
+                   |> List.map (fun c ->
+                       let text = c.Content |> Map.tryFind "text" |> Option.map (function JString t -> t | _ -> "") |> Option.defaultValue ""
+                       item [ "key", str (Id.value c.Id); "text", str text; "label", str (sprintf "Heading text for %s" (Id.value c.Id)) ]))
+                  |> JArray
+                  "densities", [ "relaxed"; "standard"; "compact"; "analytical" ] |> List.map (fun d -> item [ "key", str d; "label", str d ]) |> JArray
+                  "diagramName", str diagram.Name
                   "profileName", str (profile |> Option.map (fun pr -> sprintf "%s profile %s" pr.Name pr.Version) |> Option.defaultValue "Unavailable profile")
                   "status", str state.Status
                   "undoDisabled", JBool(not (Editor.canUndo state.Session))

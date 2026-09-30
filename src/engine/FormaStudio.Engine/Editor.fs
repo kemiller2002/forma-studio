@@ -23,11 +23,15 @@ module Editor =
     let dispatch (command: Command) (session: Session) : Result<Session, Finding list> =
         Commands.execute command session.Project
         |> Result.map (fun applied ->
-            { Project = applied.Project
-              Undo = session.Project :: session.Undo
-              Redo = []
-              Selection = prune applied.Project session.Selection
-              LastObligations = applied.Obligations })
+            if applied.Project = session.Project then
+                // A command that changes nothing is not a history entry.
+                { session with LastObligations = applied.Obligations }
+            else
+                { Project = applied.Project
+                  Undo = session.Project :: session.Undo
+                  Redo = []
+                  Selection = prune applied.Project session.Selection
+                  LastObligations = applied.Obligations })
 
     /// Computes the result of a command without committing it, for previews and
     /// agent change plans (FDA-1023). Nothing in the session changes.

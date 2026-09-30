@@ -241,3 +241,45 @@ test("multi-selection edits metadata atomically, shows mixed values and arranges
   await page.getByRole("button", { name: "Undo" }).click();
   expect(new Set(await Promise.all(["Prepare request", "Issue purchase order"].map(async (label) => (await position(node(page, label))).y))).size).toBe(2);
 });
+
+test("Layout and Flow share one session: stack, heading, edit, reorder, spacing, undo, redo, save, reopen", async ({ page }) => {
+  await open(page);
+  await page.getByRole("button", { name: "Add Layout page" }).click();
+  await expect(page.getByRole("heading", { name: "Layout: Page 1" })).toBeVisible();
+  await page.getByRole("button", { name: "Add heading" }).click();
+  await page.getByRole("button", { name: "Add heading" }).click();
+  const fields = page.getByRole("list", { name: "Page structure" }).getByRole("textbox");
+  await fields.nth(0).fill("Welcome");
+  await fields.nth(0).press("Tab");
+  await fields.nth(1).fill("Details");
+  await fields.nth(1).press("Tab");
+  const preview = page.getByRole("region", { name: "Page preview" });
+  await expect(preview.getByRole("heading")).toHaveText(["Welcome", "Details"]);
+  await page.getByRole("list", { name: "Page structure" }).getByRole("listitem").nth(1).getByRole("button", { name: "Move earlier" }).click();
+  await expect(preview.getByRole("heading")).toHaveText(["Details", "Welcome"]);
+  await page.getByRole("group", { name: "Stack spacing" }).getByRole("button", { name: "compact" }).click();
+  await expect(preview).toHaveAttribute("data-density", "compact");
+  const layoutEntries = Number(await history(page).textContent());
+  // Switch surface, edit the Flow diagram, then undo across both surfaces.
+  await page.getByRole("button", { name: "Flow: Purchase request" }).click();
+  const target = node(page, "Request submitted");
+  const before = await position(target);
+  await target.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(history(page)).toHaveText(String(layoutEntries + 1));
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect.poll(() => position(target)).toEqual(before);
+  await page.getByRole("button", { name: "Undo" }).click();
+  await page.getByRole("button", { name: "Layout: Page 1" }).click();
+  await expect(preview).toHaveAttribute("data-density", "standard");
+  await page.getByRole("button", { name: "Redo" }).click();
+  await expect(preview).toHaveAttribute("data-density", "compact");
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(status(page)).toHaveText("Saved.");
+  await page.reload();
+  await page.waitForFunction(() => document.documentElement.dataset.studioReady === "true");
+  await page.getByRole("button", { name: "Open saved" }).click();
+  await page.getByRole("button", { name: "Layout: Page 1" }).click();
+  await expect(preview.getByRole("heading")).toHaveText(["Details", "Welcome"]);
+  await expect(preview).toHaveAttribute("data-density", "compact");
+});
