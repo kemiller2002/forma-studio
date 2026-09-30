@@ -1,7 +1,7 @@
 # Vendored Forma presentation (pre-release)
 
 `tokens.css`, `foundations.css` and `components.css` are verbatim `dist/` output
-of kemiller2002/forma at `19422c3c2c097d9110811e77693c080afdbd540e`, which is the
+of kemiller2002/forma at `923dec1d10e3797d96ac1070a9d7a07dcb8ad939`, which is the
 diagram presentation contract 2.0.0 (kemiller2002/forma#88, PR #91), built with
 `npm run build`.
 
