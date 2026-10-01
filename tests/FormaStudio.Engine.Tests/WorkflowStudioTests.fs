@@ -223,3 +223,12 @@ let interactiveTests =
           expect (interactive.Html.Contains "<forma-workflow mode=\"view\"") "public element"
           expect (interactive.Dependencies |> List.exists (function Forma.Workflow.RuntimeModule(p, _, _) -> p = "@echelon-foundry/forma-workflow" | _ -> false)) "declared runtime"
           expect (not (System.Text.RegularExpressions.Regex.IsMatch(interactive.Html, "studio-|studio\\.css|forma-studio/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))) "no Studio asset or class") ]
+
+let componentTests =
+    [ test "A component hierarchy exports on its own, with its children and nothing else" (fun () ->
+          let p = designs ()
+          let page = pageOf p "application"
+          let result = (HtmlExport.componentTree HtmlExport.defaults WorkflowLibrary.empty page (Samples.idOf "app-form")).Value
+          expect (result.Html.Contains "<section class=\"ef-surface\" aria-labelledby=\"surface-app-form\">") "root"
+          expect (result.Html.Contains "field-app-email") "children"
+          expect (not (result.Html.Contains "Crew scheduling</h1>")) "siblings excluded") ]

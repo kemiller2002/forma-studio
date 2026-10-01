@@ -721,6 +721,14 @@ module EditorApp =
             match state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state)) |> Option.orElse ((project state).Pages |> List.tryHead) with
             | Some page -> noEffects (showExport state (Id.value page.Id) (HtmlExport.page (exportOptions state) state.Workflows page))
             | None -> noEffects { state with Status = "Add a Layout page to export it." }
+        | "export-component" ->
+            let componentKey = key.Split('|').[0]
+            match state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state)), Id.create<ComponentKind> componentKey with
+            | Some page, Ok id ->
+                match HtmlExport.componentTree (exportOptions state) state.Workflows page id with
+                | Some result -> noEffects (showExport state componentKey result)
+                | None -> noEffects { state with Status = "That component is no longer on the page." }
+            | _ -> noEffects { state with Status = "Open a Layout page to export a component." }
         | "export-workflow" ->
             match WorkflowLibrary.current state.Workflows with
             | Some entry ->

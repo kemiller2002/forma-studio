@@ -8,7 +8,7 @@ produces the same output.
 
 | Target | Output |
 |---|---|
-| **HTML fragment** | Markup for the Layout page or workflow, to insert into an existing page. The first line declares the public assets it needs. |
+| **HTML fragment** | Markup for the Layout page, one component hierarchy ("Export as HTML" on a Layout item) or workflow, to insert into an existing page. The first line declares the public assets it needs. |
 | **Complete HTML document** | `<!doctype html>`, `lang`, charset, viewport, title, description, links to exactly the declared Forma stylesheets, an optional public brand (`data-ef-brand`), and the design inside `<main>`. |
 
 ```bash

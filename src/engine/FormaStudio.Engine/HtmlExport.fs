@@ -186,6 +186,15 @@ module HtmlExport =
         let parts = page.Nodes |> List.map (exportNode workflows)
         wrap opts (page.Title |> Option.defaultValue page.Name) page.Description (parts |> List.collect fst) (parts |> List.collect snd)
 
+    /// Exports one component and everything inside it (a component hierarchy).
+    let componentTree (opts: HtmlExportOptions) (workflows: WorkflowLibrary) (page: Page) (id: ComponentNodeId) =
+        let rec find (nodes: ComponentNode list) =
+            nodes |> List.tryPick (fun n -> if n.Id = id then Some n else n.Slots |> Map.toList |> List.collect snd |> find)
+        find page.Nodes
+        |> Option.map (fun node ->
+            let markup, omitted = exportNode workflows node
+            wrap opts (page.Title |> Option.defaultValue page.Name) page.Description markup omitted)
+
     /// Exports one portable workflow (rendered by Forma). Interactive output is
     /// Forma's own interactive document or fragment, with the public runtime declared.
     let workflow (opts: HtmlExportOptions) (entry: WorkflowEntry) =
