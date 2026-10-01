@@ -176,3 +176,169 @@ Folio is **not a mandatory runtime dependency for the initial Forma-only composi
 Shared dependencies MUST be pinned to released versions or immutable artifacts. Floating versions and moving repository branches are prohibited as application baselines. Any not-applicable decision or exception MUST be explicit and reviewable.
 
 Forma Studio MUST record the reviewed Forma version and SHOULD automate detection of a newer available Forma release without automatically changing the pinned version.
+
+
+## Portable workflows and embeddable designer
+
+Status: **Required**
+
+Forma Studio workflow authoring MUST be designed as an embeddable capability, not only as a standalone Studio screen. Applications MUST be able to host the workflow designer/editor within their own Forma-based user experience without reproducing Studio internals.
+
+The embeddable workflow surface MUST support explicit host modes including, at minimum:
+
+- view/read-only,
+- inspect,
+- edit,
+- select/pick,
+- and interactive/runtime visualization where application state is projected onto a workflow.
+
+Embedding MUST expose a small, versioned host contract for loading a workflow, receiving validated changes, selecting/focusing workflow objects, reporting validation findings, and requesting supported commands. Host applications MUST NOT need direct access to Studio's internal state representation.
+
+The embedded designer MUST retain Forma accessibility, responsive, mobile/touch, theme/skin, motion, and keyboard contracts. An embedding host MUST be able to inherit an approved Forma brand/skin without rewriting workflow content.
+
+Embedding MUST NOT require an iframe when the same-origin/application architecture can host the public component directly. If an iframe or isolated host is supported for stronger isolation, it MUST use the same portable workflow contract and an explicit versioned message boundary.
+
+The workflow renderer/editor SHOULD be independently consumable from the full Studio application so applications that only need workflow display or constrained editing do not need to ship the complete Studio shell.
+
+### Standard portable workflow file
+
+Forma MUST publish a canonical, documented, versioned workflow interchange format that can be created without Forma Studio and then opened, validated, rendered, and edited by Forma Studio.
+
+The canonical format SHOULD use a human-readable, source-control-friendly representation. JSON MUST be the normative interchange encoding unless a later governed requirement replaces it.
+
+A portable workflow file MUST NOT contain private Studio implementation state. The file MUST describe the workflow itself.
+
+The normative top-level contract MUST include, at minimum:
+
+- format identifier,
+- schema/version identifier,
+- stable workflow identifier,
+- title/name and optional description,
+- target Forma compatibility/version information,
+- workflow metadata,
+- nodes/items,
+- connections/edges,
+- optional groups/containers/swimlanes,
+- presentation/layout information,
+- interaction/navigation information where applicable,
+- validation-relevant semantics,
+- extension data,
+- and provenance information sufficient to identify the producing system when supplied.
+
+Every addressable workflow object MUST have a stable identifier that survives ordinary editing and layout changes. References between objects MUST use those stable identifiers rather than array position or transient DOM identity.
+
+### Workflow node/item contract
+
+A workflow node/item MUST be capable of representing, where applicable:
+
+- stable identifier,
+- semantic kind/type,
+- label/title and optional description,
+- position and size or layout intent,
+- visual variant,
+- color using an approved semantic/token representation where possible,
+- icon or public visual role,
+- state/status,
+- ports/connection points when required,
+- application/domain reference,
+- arbitrary metadata,
+- accessibility text/semantics,
+- interaction/navigation intent,
+- and namespaced extension data.
+
+Workflow objects MUST support metadata so applications can attach domain meaning without changing the visual workflow contract. Metadata MUST be serializable and round-trip through Studio unchanged when Studio does not understand it.
+
+### Connection/edge contract
+
+Connections MUST be first-class objects with stable identifiers. They MUST be capable of representing source, target, optional source/target ports, direction, semantic kind, label, visual treatment, state, metadata, and namespaced extension data.
+
+Studio MUST validate dangling references, invalid connection types, unsupported ports, duplicate identifiers, and other structural errors without silently deleting external data.
+
+### Extensibility and namespacing
+
+The portable format MUST define a safe extension mechanism for producer-specific data. Extensions MUST be namespaced so multiple systems can add information without key collisions.
+
+Unknown extension data MUST round-trip unchanged unless it is invalid according to the base serialization rules. Studio MUST NOT require understanding an extension merely to open and save an otherwise valid workflow.
+
+Core semantics required for interoperable rendering MUST NOT be hidden inside producer-specific extensions.
+
+### Separation of semantics and layout
+
+The workflow format MUST distinguish semantic workflow information from editor/layout information sufficiently that another system can generate a meaningful workflow without calculating exact pixel placement.
+
+Position/layout information MAY be omitted when the producer does not know it. Studio MUST be able to apply a deterministic default layout or request layout generation without changing workflow semantics.
+
+Re-layout MUST NOT change stable IDs, metadata, domain references, edge semantics, or other non-layout information.
+
+### File naming and published layout
+
+Forma MUST publish a standard repository/file layout for workflow assets so humans and automated systems can discover them consistently.
+
+The initial convention MUST support a structure equivalent to:
+
+```text
+forma/
+  workflows/
+    <workflow-id>.forma-workflow.json
+```
+
+A repository MAY contain multiple workflow files. Related optional assets or examples MAY be placed beneath a directory named for the workflow when needed, but the workflow file MUST remain independently understandable unless its manifest explicitly declares those dependencies.
+
+The canonical filename suffix MUST be `.forma-workflow.json` unless superseded by a versioned migration.
+
+Forma MUST publish the JSON Schema for the portable format at a stable repository/package path. The schema MUST be usable by systems that do not depend on Forma Studio.
+
+### External producers and consumers
+
+Creating a valid workflow MUST NOT require running Forma Studio. Other Echelon systems, agents, command-line tools, backend services, and third-party applications MUST be able to produce a workflow file by following the published schema.
+
+Studio MUST treat externally generated valid workflows as first-class documents rather than imports that are converted into a private one-way format.
+
+A workflow created by another system MUST be able to follow this lifecycle without semantic loss:
+
+```text
+external producer
+  -> portable workflow file
+  -> Forma Studio open/edit/validate
+  -> portable workflow file
+  -> external consumer
+```
+
+Round-trip tests MUST prove preservation of stable IDs, semantic fields, metadata, unknown namespaced extensions, and connections.
+
+### Validation and compatibility
+
+The workflow schema MUST use explicit semantic versioning or another governed compatibility scheme. Producers MUST declare the format version they emit.
+
+Studio MUST distinguish:
+
+- valid and fully supported,
+- valid with unknown preserved extensions,
+- valid but requiring migration,
+- structurally invalid,
+- semantically invalid,
+- and valid format using Forma capabilities unavailable in the selected target version.
+
+Schema validation MUST be available independently of the visual designer so CI, Praxis, agents, and other systems can validate generated workflows.
+
+### Security boundary
+
+Portable workflow files MUST be data, not executable code. The core format MUST NOT permit arbitrary JavaScript, inline event-handler code, executable HTML, or other producer-supplied code to execute merely because a workflow is opened.
+
+Interactions MUST be represented as declarative intents/actions whose implementation is supplied by the embedding host or approved runtime capability.
+
+Studio MUST safely display untrusted workflow labels, descriptions, metadata, and extension data without treating them as executable markup.
+
+### Reference implementation and examples
+
+Forma MUST publish:
+
+- the normative workflow schema,
+- a minimal valid workflow,
+- a representative multi-step workflow,
+- a workflow containing groups/swimlanes,
+- a workflow demonstrating object and edge metadata,
+- a workflow demonstrating namespaced external-system extensions,
+- and an embedding example showing a workflow created outside Studio and then hosted/edited using the embeddable designer.
+
+These examples MUST be part of compatibility tests so the published interchange contract remains executable evidence rather than documentation only.
