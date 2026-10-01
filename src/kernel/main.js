@@ -1,7 +1,8 @@
-// The only browser wiring: Limen kernel + WebAssembly transport + gesture adapter.
+// The only browser wiring: Limen kernel + WebAssembly transport + gesture and workflow adapters.
 import { BrowserKernel } from "./limen/index.js";
-import { createStudioTransport } from "./transport.js";
+import { createStudioTransport, studioExports } from "./transport.js";
 import { installGestures } from "./gestures.js";
+import { installWorkflows } from "./workflows.js";
 
 // Bridge mechanism diagnostics only (never domain meaning).
 const diagnostics = {
@@ -15,4 +16,5 @@ const diagnostics = {
 
 installGestures(document);
 await new BrowserKernel(createStudioTransport(), document, diagnostics).start();
+await installWorkflows(document, studioExports());
 document.documentElement.dataset.studioReady = "true";

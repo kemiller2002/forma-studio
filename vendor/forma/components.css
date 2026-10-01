@@ -35,6 +35,8 @@
     font-size: 0.8125rem;
     line-height: 1.4;
   }
+  /* On a secondary surface, text-secondary falls below 4.5:1; use the surface's own text colour (forma#93). */
+  .ef-surface .ef-field__description { color: var(--ef-color-text-on-secondary-surface, #3a403c); }
 
   /* Motion model vocabulary --------------------------------------------- */
   /*
@@ -4340,6 +4342,8 @@
    *   node:      --ef-diagram-fill, --ef-diagram-stroke, --ef-diagram-accent,
    *              --ef-diagram-foreground
    *   connector: --ef-diagram-connector-stroke, --ef-diagram-connector-width
+   *   group:     the node properties plus --ef-diagram-h (M2, forma#88)
+   * The machine-readable contract is contracts/diagram-presentation.json.
    * Non-color cues: the visible node kind text, data-ef-shape, data-ef-line and
    * the textual relationship list. Focus never reads authored color.
    */
@@ -4551,6 +4555,61 @@
     .ef-diagram-node { break-inside: avoid; --ef-diagram-node-stroke: var(--ef-diagram-stroke, #000); }
     .ef-diagram-group { --ef-diagram-group-stroke: var(--ef-diagram-stroke, #000); }
     .ef-diagram { break-inside: avoid; }
+  }
+
+  /*
+   * Diagram contract 2.1.0 (workflow capability, forma#93; ADR-0006): ports,
+   * node status, node description and the membership list. Presentation only.
+   * Ports are connection-point markers placed by the consumer on a node side
+   * (data-ef-side) at an offset along it (--ef-diagram-port-offset, a
+   * percentage). Status is text in the node's metadata; data-ef-status only
+   * selects a secondary, non-colour cue (outline, border style).
+   */
+  .ef-diagram-node__description { font-size: 0.875rem; line-height: 1.35; overflow-wrap: anywhere; }
+  .ef-diagram-port {
+    position: absolute;
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    box-sizing: border-box;
+    border: 2px solid var(--ef-diagram-node-stroke, var(--ef-color-border-functional, #3a403c));
+    border-radius: 50%;
+    background: var(--ef-color-surface-primary, #f2efe7);
+    transform: translate(-50%, -50%);
+  }
+  .ef-diagram-port[data-ef-side="top"] { left: var(--ef-diagram-port-offset, 50%); top: 0; }
+  .ef-diagram-port[data-ef-side="bottom"] { left: var(--ef-diagram-port-offset, 50%); top: 100%; }
+  .ef-diagram-port[data-ef-side="left"] { left: 0; top: var(--ef-diagram-port-offset, 50%); }
+  .ef-diagram-port[data-ef-side="right"] { left: 100%; top: var(--ef-diagram-port-offset, 50%); }
+  .ef-diagram-port[data-ef-direction="in"] { border-radius: 0; }
+  .ef-diagram-port[data-ef-direction="inout"] { border-radius: 2px; transform: translate(-50%, -50%) rotate(45deg); }
+  .ef-diagram-port__label {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    padding: 0 0.125rem;
+    background: var(--ef-color-surface-primary, #f2efe7);
+    color: var(--ef-color-text-primary, #171a18);
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .ef-diagram-node[data-ef-status="active"] { box-shadow: 0 0 0 3px var(--ef-color-surface-primary, #f2efe7), 0 0 0 6px var(--ef-diagram-node-stroke); }
+  .ef-diagram-node[data-ef-status="blocked"],
+  .ef-diagram-node[data-ef-status="failed"] { border-style: double; border-width: 4px; border-inline-start-width: 6px; }
+  .ef-diagram-node[data-ef-status="skipped"],
+  .ef-diagram-node[data-ef-status="cancelled"] { border-style: dashed; border-inline-start-style: solid; }
+  .ef-diagram-node[data-ef-status="pending"],
+  .ef-diagram-node[data-ef-status="waiting"] { border-style: dotted; border-inline-start-style: solid; }
+  .ef-diagram__membership { display: grid; grid-template-columns: minmax(0, max-content) minmax(0, 1fr); gap: var(--ef-primitive-spacing-1, 0.25rem) var(--ef-primitive-spacing-3, 0.75rem); margin: 0; }
+  .ef-diagram__membership :where(dt) { font-weight: 700; overflow-wrap: anywhere; }
+  .ef-diagram__membership :where(dd) { margin: 0; overflow-wrap: anywhere; }
+  @media (max-width: 30rem) {
+    .ef-diagram__membership { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (forced-colors: active) {
+    .ef-diagram-port, .ef-diagram-port__label { border-color: CanvasText; background: Canvas; color: CanvasText; }
+    .ef-diagram-node[data-ef-status="active"] { box-shadow: none; outline: 3px solid CanvasText; outline-offset: 3px; }
   }
 
   /* BEGIN generated: character-grid coordinates (tools/character-grid-css.mjs) */

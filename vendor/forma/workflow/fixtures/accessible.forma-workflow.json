@@ -1,0 +1,90 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "accessible",
+  "title": "Docking approach",
+  "description": "Every branch is labelled so the paths are distinguishable without seeing the diagram.",
+  "language": "en",
+  "direction": "ltr",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "approach",
+      "kind": "start",
+      "label": "Begin approach",
+      "accessibility": {
+        "description": "The spacecraft starts its final approach at 200 metres."
+      }
+    },
+    {
+      "id": "check",
+      "kind": "decision",
+      "label": "Alignment within limits?",
+      "accessibility": {
+        "name": "Decision: is alignment within limits?"
+      }
+    },
+    {
+      "id": "capture",
+      "kind": "task",
+      "label": "Soft capture"
+    },
+    {
+      "id": "abort",
+      "kind": "task",
+      "label": "Abort and back away"
+    },
+    {
+      "id": "docked",
+      "kind": "end",
+      "label": "Docked"
+    }
+  ],
+  "edges": [
+    {
+      "id": "a1",
+      "source": {
+        "node": "approach"
+      },
+      "target": {
+        "node": "check"
+      }
+    },
+    {
+      "id": "a2",
+      "source": {
+        "node": "check"
+      },
+      "target": {
+        "node": "capture"
+      },
+      "label": "Within limits",
+      "accessibility": {
+        "description": "Normal path."
+      }
+    },
+    {
+      "id": "a3",
+      "source": {
+        "node": "check"
+      },
+      "target": {
+        "node": "abort"
+      },
+      "label": "Out of limits",
+      "line": "dashed"
+    },
+    {
+      "id": "a4",
+      "source": {
+        "node": "capture"
+      },
+      "target": {
+        "node": "docked"
+      }
+    }
+  ]
+}

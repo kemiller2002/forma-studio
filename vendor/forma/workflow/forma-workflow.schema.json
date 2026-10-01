@@ -1,0 +1,1045 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "title": "Forma portable workflow",
+  "description": "Normative structure of a .forma-workflow.json document, format version 1.0. Semantic rules that a schema cannot express (references, ports, membership, compatibility, static accessibility) are defined in docs/workflow/FORMAT.md and enforced by Forma.Workflow validation.",
+  "type": "object",
+  "required": [
+    "format",
+    "formatVersion",
+    "id",
+    "title",
+    "forma",
+    "nodes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "format": {
+      "const": "forma-workflow"
+    },
+    "formatVersion": {
+      "$ref": "#/$defs/semver"
+    },
+    "id": {
+      "description": "Stable workflow identifier. It is also the file stem: forma/workflows/<id>.forma-workflow.json.",
+      "type": "string",
+      "pattern": "^[a-z0-9](?:[a-z0-9-]{0,126}[a-z0-9])?$"
+    },
+    "title": {
+      "$ref": "#/$defs/text"
+    },
+    "description": {
+      "$ref": "#/$defs/longText"
+    },
+    "language": {
+      "description": "BCP 47 language tag of the human-readable text.",
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$"
+    },
+    "direction": {
+      "description": "Base text direction of the human-readable text.",
+      "enum": [
+        "ltr",
+        "rtl",
+        "auto"
+      ]
+    },
+    "forma": {
+      "$ref": "#/$defs/formaTarget"
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "palette": {
+      "description": "Named colour slots. Objects refer to them as palette:<slot>. A slot holds a Forma token or a literal colour, so a brand can re-resolve token slots without rewriting objects.",
+      "type": "object",
+      "maxProperties": 256,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]{0,63}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/colorSource"
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    },
+    "groups": {
+      "type": "array",
+      "maxItems": 2000,
+      "items": {
+        "$ref": "#/$defs/group"
+      }
+    },
+    "layout": {
+      "$ref": "#/$defs/workflowLayout"
+    },
+    "presentation": {
+      "$ref": "#/$defs/presentation"
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,8})\\.(0|[1-9][0-9]{0,8})\\.(0|[1-9][0-9]{0,8})(?:-[0-9A-Za-z.-]{1,64})?$"
+    },
+    "id": {
+      "description": "Stable object identifier. Unique across nodes, edges and groups of one workflow; never an array position or DOM identity.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "localId": {
+      "description": "Identifier unique within its owner (a port within its node, a reference within its object).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "longText": {
+      "type": "string",
+      "maxLength": 20000
+    },
+    "namespace": {
+      "description": "Reverse-DNS style namespace, for example com.example.erp. The forma prefix is reserved for Forma.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+$",
+      "maxLength": 128
+    },
+    "nodeKind": {
+      "description": "Core kind, or a namespaced producer kind <namespace>:<name> (which then needs kindLabel).",
+      "type": "string",
+      "anyOf": [
+        {
+          "enum": [
+            "start",
+            "end",
+            "task",
+            "decision",
+            "merge",
+            "event",
+            "subprocess",
+            "data",
+            "note",
+            "external"
+          ]
+        },
+        {
+          "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+:[a-z][a-z0-9-]{0,63}$"
+        }
+      ]
+    },
+    "edgeKind": {
+      "type": "string",
+      "anyOf": [
+        {
+          "enum": [
+            "sequence",
+            "conditional",
+            "default",
+            "exception",
+            "message",
+            "association",
+            "data"
+          ]
+        },
+        {
+          "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+:[a-z][a-z0-9-]{0,63}$"
+        }
+      ]
+    },
+    "groupKind": {
+      "enum": [
+        "group",
+        "container",
+        "swimlane",
+        "phase"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "anyOf": [
+        {
+          "enum": [
+            "none",
+            "pending",
+            "ready",
+            "active",
+            "waiting",
+            "complete",
+            "blocked",
+            "failed",
+            "skipped",
+            "cancelled",
+            "unknown"
+          ]
+        },
+        {
+          "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+:[a-z][a-z0-9-]{0,63}$"
+        }
+      ]
+    },
+    "status": {
+      "description": "Semantic state. The text label is what people read; colour never carries it alone.",
+      "type": "object",
+      "required": [
+        "state"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/state"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "detail": {
+          "$ref": "#/$defs/longText"
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "allOf": [
+        {
+          "description": "A namespaced state carries its own human-readable label.",
+          "if": {
+            "properties": {
+              "state": {
+                "pattern": ":"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "label"
+            ]
+          }
+        }
+      ]
+    },
+    "colorSource": {
+      "description": "A Forma colour token (token:<name>) or a lowercase six-digit hex literal.",
+      "type": "string",
+      "anyOf": [
+        {
+          "pattern": "^#[0-9a-f]{6}$"
+        },
+        {
+          "enum": [
+            "token:accent-primary",
+            "token:accent-secondary",
+            "token:border-functional",
+            "token:border-subtle",
+            "token:surface-primary",
+            "token:surface-secondary",
+            "token:surface-inverse",
+            "token:text-primary",
+            "token:text-secondary"
+          ]
+        }
+      ]
+    },
+    "colorValue": {
+      "type": "string",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/colorSource"
+        },
+        {
+          "pattern": "^palette:[a-z][a-z0-9-]{0,63}$"
+        }
+      ]
+    },
+    "objectColor": {
+      "description": "Authored appearance. Separate from kind and status (FMD-COLOR-009).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fill": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "stroke": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "accent": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "foreground": {
+          "$ref": "#/$defs/colorValue"
+        }
+      }
+    },
+    "edgeColor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stroke": {
+          "$ref": "#/$defs/colorValue"
+        }
+      }
+    },
+    "metadata": {
+      "description": "Arbitrary application metadata. Forma preserves it unchanged and never interprets it.",
+      "type": "object",
+      "maxProperties": 1000
+    },
+    "extensions": {
+      "description": "Producer-specific data keyed by namespace. Each value is an object. Unknown extensions round-trip unchanged.",
+      "type": "object",
+      "maxProperties": 64,
+      "propertyNames": {
+        "$ref": "#/$defs/namespace"
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/longText"
+        }
+      }
+    },
+    "uri": {
+      "description": "http, https or mailto URL, or a relative reference. Script and data URLs are rejected by validation.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "reference": {
+      "description": "A typed pointer to a host or domain object. Forma displays it; it never dereferences it.",
+      "type": "object",
+      "required": [
+        "id",
+        "system",
+        "key"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/localId"
+        },
+        "system": {
+          "$ref": "#/$defs/namespace"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "href": {
+          "$ref": "#/$defs/uri"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "interactionTarget": {
+      "description": "Exactly one destination.",
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "workflow": {
+          "type": "string",
+          "pattern": "^[a-z0-9](?:[a-z0-9-]{0,126}[a-z0-9])?$"
+        },
+        "node": {
+          "$ref": "#/$defs/id"
+        },
+        "edge": {
+          "$ref": "#/$defs/id"
+        },
+        "group": {
+          "$ref": "#/$defs/id"
+        },
+        "reference": {
+          "$ref": "#/$defs/localId"
+        },
+        "url": {
+          "$ref": "#/$defs/uri"
+        }
+      }
+    },
+    "interaction": {
+      "description": "A declarative intent. The host decides what it does; nothing in a workflow executes.",
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "none",
+            "select",
+            "inspect",
+            "navigate",
+            "open",
+            "command"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/interactionTarget"
+        },
+        "command": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+:[a-z][a-z0-9-]{0,63}$"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "parameters": {
+          "type": "object",
+          "maxProperties": 64
+        }
+      },
+      "allOf": [
+        {
+          "description": "navigate and open need a destination.",
+          "if": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "navigate",
+                  "open"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target"
+            ]
+          }
+        },
+        {
+          "description": "A command names the host command and the text people see.",
+          "if": {
+            "properties": {
+              "action": {
+                "const": "command"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "command",
+              "label"
+            ]
+          }
+        }
+      ]
+    },
+    "port": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/localId"
+        },
+        "side": {
+          "enum": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "in",
+            "out",
+            "inout"
+          ]
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "maxConnections": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "coordinate": {
+      "type": "number",
+      "minimum": -1000000,
+      "maximum": 1000000
+    },
+    "extent": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1000000
+    },
+    "point": {
+      "type": "object",
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "y": {
+          "$ref": "#/$defs/coordinate"
+        }
+      }
+    },
+    "boxLayout": {
+      "description": "Optional presentation geometry in logical canvas units, plus layout intent. Removing every layout object never changes meaning.",
+      "type": "object",
+      "additionalProperties": false,
+      "dependentRequired": {
+        "x": [
+          "y"
+        ],
+        "y": [
+          "x"
+        ]
+      },
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "y": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "width": {
+          "$ref": "#/$defs/extent"
+        },
+        "height": {
+          "$ref": "#/$defs/extent"
+        },
+        "rank": {
+          "description": "Requested layer in the default layout.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "order": {
+          "description": "Requested order within a layer or lane.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "size": {
+          "enum": [
+            "compact",
+            "standard",
+            "wide"
+          ]
+        }
+      }
+    },
+    "edgeLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "routing": {
+          "enum": [
+            "straight",
+            "orthogonal"
+          ]
+        },
+        "waypoints": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        },
+        "label": {
+          "$ref": "#/$defs/point"
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "required": [
+        "node"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "node": {
+          "$ref": "#/$defs/id"
+        },
+        "port": {
+          "$ref": "#/$defs/localId"
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "$ref": "#/$defs/nodeKind"
+        },
+        "kindLabel": {
+          "$ref": "#/$defs/text"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/longText"
+        },
+        "variant": {
+          "description": "Forma shape. Presentation only; it never implies kind.",
+          "enum": [
+            "rectangle",
+            "rounded",
+            "pill",
+            "ellipse",
+            "diamond"
+          ]
+        },
+        "color": {
+          "$ref": "#/$defs/objectColor"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "ports": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/port"
+          }
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "accessibility": {
+          "$ref": "#/$defs/accessibility"
+        },
+        "interaction": {
+          "$ref": "#/$defs/interaction"
+        },
+        "layout": {
+          "$ref": "#/$defs/boxLayout"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "allOf": [
+        {
+          "description": "A namespaced producer kind carries its own human-readable kindLabel.",
+          "if": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "pattern": ":"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "kindLabel"
+            ]
+          }
+        }
+      ]
+    },
+    "edge": {
+      "type": "object",
+      "required": [
+        "id",
+        "source",
+        "target"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "source": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "target": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "direction": {
+          "description": "forward (default): source to target.",
+          "enum": [
+            "forward",
+            "backward",
+            "both",
+            "none"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/edgeKind"
+        },
+        "kindLabel": {
+          "$ref": "#/$defs/text"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/longText"
+        },
+        "line": {
+          "enum": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "color": {
+          "$ref": "#/$defs/edgeColor"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "accessibility": {
+          "$ref": "#/$defs/accessibility"
+        },
+        "interaction": {
+          "$ref": "#/$defs/interaction"
+        },
+        "layout": {
+          "$ref": "#/$defs/edgeLayout"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "allOf": [
+        {
+          "description": "A namespaced producer kind carries its own human-readable kindLabel.",
+          "if": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "pattern": ":"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "kindLabel"
+            ]
+          }
+        }
+      ]
+    },
+    "group": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "$ref": "#/$defs/groupKind"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/longText"
+        },
+        "members": {
+          "description": "Node identifiers. Canvas overlap never implies membership.",
+          "type": "array",
+          "maxItems": 10000,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "parent": {
+          "$ref": "#/$defs/id"
+        },
+        "line": {
+          "enum": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        },
+        "color": {
+          "$ref": "#/$defs/objectColor"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "references": {
+          "$ref": "#/$defs/references"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "accessibility": {
+          "$ref": "#/$defs/accessibility"
+        },
+        "interaction": {
+          "$ref": "#/$defs/interaction"
+        },
+        "layout": {
+          "$ref": "#/$defs/boxLayout"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      }
+    },
+    "formaTarget": {
+      "description": "The Forma release the workflow targets, and optionally the capabilities it requires.",
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/semver"
+        },
+        "requires": {
+          "type": "array",
+          "maxItems": 128,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z0-9-]+)+$"
+          }
+        }
+      }
+    },
+    "workflowLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "description": "Flow direction of the default layout.",
+          "enum": [
+            "right",
+            "down"
+          ]
+        },
+        "mode": {
+          "description": "authored: coordinates are intentional. auto: a renderer may recompute them.",
+          "enum": [
+            "authored",
+            "auto"
+          ]
+        },
+        "canvas": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "$ref": "#/$defs/extent"
+            },
+            "height": {
+              "$ref": "#/$defs/extent"
+            }
+          }
+        }
+      }
+    },
+    "legendEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/localId"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "description": {
+          "$ref": "#/$defs/longText"
+        },
+        "color": {
+          "$ref": "#/$defs/objectColor"
+        },
+        "line": {
+          "enum": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "density": {
+          "enum": [
+            "comfortable",
+            "compact"
+          ]
+        },
+        "legend": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/legendEntry"
+          }
+        },
+        "legendTitle": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "producer": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/text"
+            },
+            "version": {
+              "type": "string",
+              "maxLength": 64
+            },
+            "uri": {
+              "$ref": "#/$defs/uri"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "modifiedAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "source": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "modifiedBy": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "$ref": "#/$defs/text"
+            },
+            "version": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "multi-step",
+  "title": "Payload integration",
+  "description": "Steps that take a payload from delivery to launch-site shipment.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "receive",
+      "kind": "start",
+      "label": "Payload arrives"
+    },
+    {
+      "id": "inspect",
+      "kind": "task",
+      "label": "Receiving inspection"
+    },
+    {
+      "id": "integrate",
+      "kind": "task",
+      "label": "Mechanical integration"
+    },
+    {
+      "id": "test",
+      "kind": "task",
+      "label": "Functional test"
+    },
+    {
+      "id": "ship",
+      "kind": "end",
+      "label": "Ready for launch site"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": {
+        "node": "receive"
+      },
+      "target": {
+        "node": "inspect"
+      }
+    },
+    {
+      "id": "e2",
+      "source": {
+        "node": "inspect"
+      },
+      "target": {
+        "node": "integrate"
+      }
+    },
+    {
+      "id": "e3",
+      "source": {
+        "node": "integrate"
+      },
+      "target": {
+        "node": "test"
+      }
+    },
+    {
+      "id": "e4",
+      "source": {
+        "node": "test"
+      },
+      "target": {
+        "node": "ship"
+      }
+    }
+  ],
+  "provenance": {
+    "producer": {
+      "name": "Forma reference fixtures",
+      "version": "1.0.0"
+    }
+  }
+}

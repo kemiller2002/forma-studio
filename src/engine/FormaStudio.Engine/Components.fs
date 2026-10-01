@@ -42,6 +42,52 @@ module Components =
           Properties = [ "level", intRange 1 6 ]
           Content = [ "text" ] }
 
-    let catalog = [ stack; heading ]
+    let private boolProperty value =
+        match value with
+        | JBool _ -> Ok()
+        | _ -> Error "must be true or false"
+
+    let private idProperty value =
+        match value with
+        | JString s when System.Text.RegularExpressions.Regex.IsMatch(s, "^[a-z0-9](?:[a-z0-9-]{0,126}[a-z0-9])?$") -> Ok()
+        | _ -> Error "must be a workflow id (lowercase words joined by hyphens)"
+
+    /// A paragraph styled by Forma foundations.
+    let text = { Id = "text"; Source = "html:p with forma foundations"; Slots = []; Properties = []; Content = [ "text" ] }
+
+    /// Native button (forma:patterns/button.html).
+    let button =
+        { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty [ "button"; "submit" ] ]; Content = [ "label" ] }
+
+    /// A link that looks like a button (`a.ef-button`, forma:patterns/button.html).
+    let linkButton = { Id = "link-button"; Source = "forma:patterns/button.html"; Slots = []; Properties = []; Content = [ "label"; "href" ] }
+
+    /// Labelled native input (forma:patterns/text-field.html).
+    let textField =
+        { Id = "text-field"
+          Source = "forma:patterns/text-field.html"
+          Slots = []
+          Properties = [ "inputType", enumProperty [ "text"; "email"; "number"; "date"; "tel"; "url"; "search" ]; "required", boolProperty ]
+          Content = [ "label"; "description"; "name" ] }
+
+    /// Row of actions (`.ef-actions`, forma:patterns/button.html).
+    let actions = { Id = "actions"; Source = "forma:patterns/button.html"; Slots = [ "children" ]; Properties = []; Content = [] }
+
+    /// Titled surface section (forma:patterns/surface.html).
+    let surface = { Id = "surface"; Source = "forma:patterns/surface.html"; Slots = [ "children" ]; Properties = []; Content = [ "title" ] }
+
+    /// Responsive grid that reflows to one column (forma:patterns/responsive-grid.html).
+    let responsiveGrid = { Id = "responsive-grid"; Source = "forma:patterns/responsive-grid.html"; Slots = [ "children" ]; Properties = []; Content = [ "label" ] }
+
+    /// Status alert (forma:patterns/alert.html).
+    let alert = { Id = "alert"; Source = "forma:patterns/alert.html"; Slots = []; Properties = []; Content = [ "title"; "text" ] }
+
+    /// Metric with label and context (forma:patterns/metric-card.html).
+    let metricCard = { Id = "metric-card"; Source = "forma:patterns/metric-card.html"; Slots = []; Properties = []; Content = [ "label"; "value"; "context" ] }
+
+    /// A portable workflow rendered by Forma (forma:workflow, .ef-diagram contract 2.1.0).
+    let workflow = { Id = "workflow"; Source = "forma:workflow"; Slots = []; Properties = [ "workflow", idProperty ]; Content = [] }
+
+    let catalog = [ stack; heading; text; button; linkButton; textField; actions; surface; responsiveGrid; alert; metricCard; workflow ]
 
     let tryFind id = catalog |> List.tryFind (fun c -> c.Id = id)

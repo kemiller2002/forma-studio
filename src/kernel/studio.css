@@ -89,3 +89,6 @@ body { margin: 0; }
 }
 .studio .studio-guide[data-axis="x"] { inset-block: 0; inset-inline-start: var(--studio-guide); inline-size: 1px; }
 .studio .studio-guide[data-axis="y"] { inset-inline: 0; inset-block-start: var(--studio-guide); block-size: 1px; }
+.studio-file { display: inline-flex; align-items: center; gap: 0.5rem; min-block-size: 2.75rem; }
+.studio-file input { max-inline-size: 14rem; }
+#export-text { inline-size: 100%; font-family: monospace; }

@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "agent:claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-09-30T20:46:05.000Z",
+  "updatedAt": "2026-10-01T16:47:55.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -233,6 +233,122 @@
         "EXE-20260930T204605102Z-f5f49a64"
       ],
       "completedAt": "2026-09-30T20:46:05.000Z"
+    },
+    {
+      "id": "STUDIO-GH-14",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/WorkflowLibrary.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/kernel/workflows.js"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/WorkflowStudioTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/workflow.spec.mjs"
+        },
+        {
+          "type": "evidence",
+          "path": "docs/evidence/external-workflow-roundtrip.md"
+        },
+        {
+          "type": "decision",
+          "path": "research/decisions/DF-STUDIO-2026-C4A2--portable-workflows-and-html-export.md"
+        }
+      ],
+      "updatedAt": "2026-10-01T12:44:15.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261001T110826641Z-94493f73"
+      ],
+      "completedAt": "2026-10-01T12:44:15.000Z"
+    },
+    {
+      "id": "STUDIO-GH-15",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/HtmlExport.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Designs.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/html-consumer.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/WorkflowStudioTests.fs"
+        },
+        {
+          "type": "evidence",
+          "path": "docs/evidence/html-consumer.md"
+        },
+        {
+          "type": "documentation",
+          "path": "docs/HTML-EXPORT.md"
+        }
+      ],
+      "updatedAt": "2026-10-01T12:44:16.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261001T110826713Z-f75f1928"
+      ],
+      "completedAt": "2026-10-01T12:44:16.000Z"
+    },
+    {
+      "id": "WI-0002",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "vendor/forma/MANIFEST.json"
+        },
+        {
+          "type": "tests",
+          "path": "docs/evidence/external-workflow-roundtrip.md"
+        }
+      ],
+      "updatedAt": "2026-10-01T13:39:56.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261001T133952475Z-18567197"
+      ],
+      "completedAt": "2026-10-01T13:39:56.000Z"
+    },
+    {
+      "id": "WI-0003",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "vendor/forma/MANIFEST.json"
+        },
+        {
+          "type": "tests",
+          "path": "scripts/sync-forma.mjs"
+        }
+      ],
+      "updatedAt": "2026-10-01T16:47:55.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261001T144941628Z-8584f2e8"
+      ],
+      "completedAt": "2026-10-01T16:47:55.000Z"
     }
   ]
 }

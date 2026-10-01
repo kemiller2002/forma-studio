@@ -1,0 +1,188 @@
+{
+  "source": "https://github.com/kemiller2002/forma",
+  "commit": "052cb1db2fcc704274b3ccc7bffb2779d7c87543",
+  "releases": [
+    {
+      "name": "@echelon-foundry/design-system",
+      "version": "0.4.0"
+    },
+    {
+      "name": "@echelon-foundry/forma-workflow",
+      "version": "1.0.0"
+    }
+  ],
+  "files": {
+    "brands/echelon.css": "bae3b8327d1778bb6d695497e9ad83cef217053ba2ae2003a7de8efa7f95d254",
+    "brands/example-harbor.css": "4434552aeff647f6c90b87b6f5c29b76c34d8a039e2939bf16852349e0c40af2",
+    "components.css": "b57aac45b1a8c7bbbb656d691eed56a022e9784e2c65b39a5d756dd21641c5fa",
+    "foundations.css": "357b4796f95ee29fd6ef3243c664477626c44dd15f3a776ce85f7607c5058e6c",
+    "tokens.css": "3e8408c19356505a80902758ee274dafd91877c708906027aa4c5624bf09d8c0",
+    "workflow/browser/forma-workflow.css": "50a20681951f94c0dcd1b0cb76fb6ef14e800cb084ec2c1b33927a67d00aca34",
+    "workflow/browser/forma-workflow.js": "869b962eef1bf6a01f95168a0ef4fe2d5363a8567bbfdababbc44301aed3b306",
+    "workflow/diagram-presentation.json": "6a6c2298df8105c1b5af93bd1763d1807afa95cccd28080d15bf82782f0d3769",
+    "workflow/external-producer/consume.mjs": "8b9195b0a5e4966b83bea8923361c206b1b05057429aed5231d6427b123e2d69",
+    "workflow/external-producer/produce.mjs": "32b9827e944bde26e5a07c560f71c3e29a6e952cb1c9f5a6d4530956f918c5d8",
+    "workflow/fixtures/accessible.forma-workflow.json": "3a5a1e25c2f09c303d800c1c69e068a5e118bc84b75bf0825d85a8305c23f90c",
+    "workflow/fixtures/branching.forma-workflow.json": "20f69e52a9308f4f2e225dfaad5f45e7ad1820008d6dc43d00beaa53b59bebde",
+    "workflow/fixtures/branded.forma-workflow.json": "630739d4c9029e7b70a427602eedf1098203df585d5ffbf0c72e282ac64d2bdc",
+    "workflow/fixtures/color-mapping.forma-workflow.json": "e68409473968c2daf5113c85ffdefa14b6cb6e510fe624be254083d9c9771fa4",
+    "workflow/fixtures/colored.forma-workflow.json": "3e59880668122e9075e9674b6841deea03c94ba30ae629ed235a37561fef4b41",
+    "workflow/fixtures/edge-metadata.forma-workflow.json": "b278b4fcb4950b9699d5819a05057ab9c747809beac9aadeb7eaf631086d89dd",
+    "workflow/fixtures/embedded-edit.forma-workflow.json": "43c5601f27d0f5d10338ee81cbe89446d6322691ffca3384712e5ae039f5f3c4",
+    "workflow/fixtures/embedded-view.forma-workflow.json": "3b43072c0e41bfd0d24a415da966f7927ff6d0b14e0773c4b5ee4bb4a0ec7b7f",
+    "workflow/fixtures/extensions.forma-workflow.json": "5b487bf7f4a61dcff68d68b3a77b40bd12d804f7ed4ff30acc5dc6fd28f4678c",
+    "workflow/fixtures/groups.forma-workflow.json": "50fc3877d979ec7e5c364da054663b039a0e6f281d739c668d637349feb4c0e2",
+    "workflow/fixtures/interactive-export.forma-workflow.json": "6c9ea6d15dd6d4ca65be156c407502f3c83cc06d1ad5e6bc1774693268907df9",
+    "workflow/fixtures/minimal.forma-workflow.json": "1942a2409d6349885308f3720657b4bf71e55635119449d057ea0e9c54c60b09",
+    "workflow/fixtures/mobile.forma-workflow.json": "a47bc7dfe203009cecb3a89ad697cee6efee2bb4ffc587a13ab30d820fe4c782",
+    "workflow/fixtures/multi-step.forma-workflow.json": "653776e030603428cdf725be5718e5259d9d1193087ef2af4403a17b586c0ab8",
+    "workflow/fixtures/no-layout.forma-workflow.json": "4f934f081cdfe990836fa669ced0c894020ec2b36016be54a24884ad7d2acfc8",
+    "workflow/fixtures/node-metadata.forma-workflow.json": "1d1ad3e390859b725f6e9028a182c8d54cf4f696b6beedb0d4d16a20d6bf5bd4",
+    "workflow/fixtures/runtime-ports.forma-workflow.json": "d455b4d7037339e8826dca76941f8c47d3677e2b256e80666811c6976e10625d",
+    "workflow/fixtures/static-export.forma-workflow.json": "1a7eabc3d81328ff190be84f2b97b219d0aba5fae66133f295bdc27b581d4344",
+    "workflow/fixtures/swimlanes.forma-workflow.json": "b5c48bb55b501838e740c56352cc0a86fce39643edecd682f74b6f2ffa4eb94d",
+    "workflow/forma-workflow.schema.json": "433a35e0cf453fbe7eab5b20b38e26d54946ba2697ba759827b253a9f9010427",
+    "workflow/src/Codec.fs": "16fd5c4a7fc24f25d6b9fab08f25fba1caa083ebfa30ffba1a7c2f7d97640056",
+    "workflow/src/CodecDecode.fs": "89b4435c851b5e7615658a7c86cc913f0ada934b6c30c8687221b947a9cf4508",
+    "workflow/src/CodecRead.fs": "c4a9d07d9471dd2834104972266ef8c8324267a79bcd9e95905abbb9cb0f4f27",
+    "workflow/src/Editor.fs": "abd39847e558c661449fd7d24176d82755debc9772bef9255758286db77149af",
+    "workflow/src/Embed.fs": "a2bb8eca592fb59f6fef4a6f63afd81c190ab281bb05ed4a4794778427687601",
+    "workflow/src/EmbedForm.fs": "48ebe63a83d5027586fbfcb926c4e46127c51818791d645d9fca0b8346a1bd1b",
+    "workflow/src/EmbedProtocol.fs": "e40721aa7c62b857cda866a4a407e3e61c576f7bbf275c756c07d640224ca5c1",
+    "workflow/src/EmbedTypes.fs": "8da83b9dcfe2266fdb3f4a96257b38eaad2c7e10cecf8a977ad3b336e9b3b7bc",
+    "workflow/src/EmbedView.fs": "1737b96f77b05fa985a8386b5b39f9b0c2afe36408364ab8b41b79d78bda3bc4",
+    "workflow/src/Forma.Workflow.fsproj": "99c78fd379478da821d20fc6719b385e8600360892dfcf943b680197fd26fc51",
+    "workflow/src/Identifiers.fs": "b756877c0d7a24b96114be4efbed736a676bc822bb4928fd5cc929a5e1c70356",
+    "workflow/src/Json.fs": "3ddfbf3e3f52c59584d37109ba929b6e10064ec392a2b5ba52172d2a26fad827",
+    "workflow/src/JsonSchema.fs": "be585c306b12c9278e5df3168470564d00abdf6e31475cc5faef17e740d6f1e2",
+    "workflow/src/Layout.fs": "c3f22c22144e41f4381f6a4d30be78e83ee776770320e377381fea6b7fbcdb72",
+    "workflow/src/LayoutTypes.fs": "791c5deb2d5a5c801bcadc5cf92f9194c3340df42685045bca088d10e4688d7d",
+    "workflow/src/Markup.fs": "935623dec44d3a9b1e9aa2c11a2d37708719feba65ea1589038050fc65d153f3",
+    "workflow/src/Model.fs": "e2305d7e523d5ed83c8f97f513e0b90e56fec1f3a65d43a5c6845efa6e4c6cae",
+    "workflow/src/Render.fs": "06a20b4f5042eb9d3dc896757a013a81277125161990a673f19a88bbdd9c02dd",
+    "workflow/src/RenderOptions.fs": "1acf382b8ae27a3fd3ba4c278adb6503f0a6c1e0ae2904d8dc76d2e622dfc33e",
+    "workflow/src/Validation.fs": "47f00cf7ed2e056bd7e51c4e3b7de1db358b03eaf990960ecf4a0c3d3ec72c6c",
+    "workflow/src/ValidationRules.fs": "9038887dc65a4d8ea61c1b6488d5999a68c4658aff75727502a679cc8e4a3ab7",
+    "workflow/src/ValidationTypes.fs": "5e108e8fead4fd6033c275b1311a338df2712ab874211537ac6d2b3bc573a4b2",
+    "workflow/src/WorkflowDocument.fs": "07634ea800cfcc054acec99d44ad8c2afe55a39115bc804f8cc6456c8ee89ddc",
+    "workflow/workflow-capabilities.json": "67cab7ce44e99ac9a2cb09647aa76d7249afafece6ea66a846ac06e22ed0c12b"
+  },
+  "released": {
+    "brands/echelon.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/brands/echelon.css"
+    },
+    "brands/example-harbor.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/brands/example-harbor.css"
+    },
+    "components.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/components.css"
+    },
+    "foundations.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/foundations.css"
+    },
+    "tokens.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/tokens.css"
+    },
+    "workflow/browser/forma-workflow.css": {
+      "package": "@echelon-foundry/forma-workflow",
+      "path": "dist/forma-workflow.css"
+    },
+    "workflow/browser/forma-workflow.js": {
+      "package": "@echelon-foundry/forma-workflow",
+      "path": "dist/forma-workflow.js"
+    },
+    "workflow/diagram-presentation.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "contracts/diagram-presentation.json"
+    },
+    "workflow/fixtures/accessible.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/accessible.forma-workflow.json"
+    },
+    "workflow/fixtures/branching.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/branching.forma-workflow.json"
+    },
+    "workflow/fixtures/branded.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/branded.forma-workflow.json"
+    },
+    "workflow/fixtures/color-mapping.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/color-mapping.forma-workflow.json"
+    },
+    "workflow/fixtures/colored.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/colored.forma-workflow.json"
+    },
+    "workflow/fixtures/edge-metadata.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/edge-metadata.forma-workflow.json"
+    },
+    "workflow/fixtures/embedded-edit.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/embedded-edit.forma-workflow.json"
+    },
+    "workflow/fixtures/embedded-view.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/embedded-view.forma-workflow.json"
+    },
+    "workflow/fixtures/extensions.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/extensions.forma-workflow.json"
+    },
+    "workflow/fixtures/groups.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/groups.forma-workflow.json"
+    },
+    "workflow/fixtures/interactive-export.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/interactive-export.forma-workflow.json"
+    },
+    "workflow/fixtures/minimal.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/minimal.forma-workflow.json"
+    },
+    "workflow/fixtures/mobile.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/mobile.forma-workflow.json"
+    },
+    "workflow/fixtures/multi-step.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/multi-step.forma-workflow.json"
+    },
+    "workflow/fixtures/no-layout.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/no-layout.forma-workflow.json"
+    },
+    "workflow/fixtures/node-metadata.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/node-metadata.forma-workflow.json"
+    },
+    "workflow/fixtures/runtime-ports.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/runtime-ports.forma-workflow.json"
+    },
+    "workflow/fixtures/static-export.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/static-export.forma-workflow.json"
+    },
+    "workflow/fixtures/swimlanes.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/swimlanes.forma-workflow.json"
+    },
+    "workflow/forma-workflow.schema.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "schemas/workflow/1.0/forma-workflow.schema.json"
+    },
+    "workflow/workflow-capabilities.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "contracts/workflow-capabilities.json"
+    }
+  }
+}

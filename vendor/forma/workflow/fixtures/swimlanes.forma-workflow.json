@@ -1,0 +1,130 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "swimlanes",
+  "title": "Anomaly response",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "detect",
+      "kind": "event",
+      "label": "Telemetry anomaly"
+    },
+    {
+      "id": "triage",
+      "kind": "task",
+      "label": "Triage the anomaly"
+    },
+    {
+      "id": "decide",
+      "kind": "decision",
+      "label": "Safe to continue?"
+    },
+    {
+      "id": "safe",
+      "kind": "task",
+      "label": "Command safe mode"
+    },
+    {
+      "id": "continue",
+      "kind": "end",
+      "label": "Resume nominal operations"
+    },
+    {
+      "id": "review",
+      "kind": "task",
+      "label": "Engineering review"
+    }
+  ],
+  "edges": [
+    {
+      "id": "s1",
+      "source": {
+        "node": "detect"
+      },
+      "target": {
+        "node": "triage"
+      }
+    },
+    {
+      "id": "s2",
+      "source": {
+        "node": "triage"
+      },
+      "target": {
+        "node": "decide"
+      }
+    },
+    {
+      "id": "s3",
+      "source": {
+        "node": "decide"
+      },
+      "target": {
+        "node": "continue"
+      },
+      "label": "Yes"
+    },
+    {
+      "id": "s4",
+      "source": {
+        "node": "decide"
+      },
+      "target": {
+        "node": "safe"
+      },
+      "label": "No"
+    },
+    {
+      "id": "s5",
+      "source": {
+        "node": "safe"
+      },
+      "target": {
+        "node": "review"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "flight",
+      "kind": "swimlane",
+      "label": "Flight control",
+      "members": [
+        "detect",
+        "triage",
+        "decide",
+        "continue"
+      ]
+    },
+    {
+      "id": "spacecraft",
+      "kind": "swimlane",
+      "label": "Spacecraft",
+      "members": [
+        "safe"
+      ]
+    },
+    {
+      "id": "engineering",
+      "kind": "swimlane",
+      "label": "Engineering",
+      "members": [
+        "review"
+      ]
+    },
+    {
+      "id": "response",
+      "kind": "phase",
+      "label": "Response phase",
+      "members": [
+        "triage",
+        "decide",
+        "safe"
+      ]
+    }
+  ]
+}

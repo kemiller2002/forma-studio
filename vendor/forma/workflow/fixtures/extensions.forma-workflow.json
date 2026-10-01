@@ -1,0 +1,90 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "extensions",
+  "title": "Range safety coordination",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "request",
+      "kind": "start",
+      "label": "Range request",
+      "extensions": {
+        "gov.nasa.example.range": {
+          "rangeId": "ER-1",
+          "window": {
+            "open": "2026-11-02T10:00:00Z",
+            "close": "2026-11-02T14:00:00Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "approve",
+      "kind": "task",
+      "label": "Range approval",
+      "extensions": {
+        "com.example.scheduler": {
+          "priority": 2,
+          "tags": [
+            "range",
+            "safety"
+          ],
+          "nested": {
+            "deep": {
+              "value": [
+                1,
+                2,
+                {
+                  "x": true
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "done",
+      "kind": "end",
+      "label": "Range confirmed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": {
+        "node": "request"
+      },
+      "target": {
+        "node": "approve"
+      },
+      "extensions": {
+        "com.example.scheduler": {
+          "lagMinutes": 15
+        }
+      }
+    },
+    {
+      "id": "x2",
+      "source": {
+        "node": "approve"
+      },
+      "target": {
+        "node": "done"
+      }
+    }
+  ],
+  "extensions": {
+    "com.example.scheduler": {
+      "calendar": "range-ops",
+      "version": "7.3.1"
+    },
+    "org.example.audit": {
+      "retainDays": 3650
+    }
+  }
+}

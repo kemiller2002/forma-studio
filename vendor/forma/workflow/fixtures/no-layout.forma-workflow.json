@@ -1,0 +1,90 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "no-layout",
+  "title": "Crew readiness",
+  "description": "Produced without any coordinates; Forma applies its deterministic default layout.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "medical",
+      "kind": "task",
+      "label": "Medical clearance"
+    },
+    {
+      "id": "training",
+      "kind": "task",
+      "label": "Training sign-off"
+    },
+    {
+      "id": "suits",
+      "kind": "task",
+      "label": "Suit fit check"
+    },
+    {
+      "id": "merge",
+      "kind": "merge",
+      "label": "All checks complete"
+    },
+    {
+      "id": "board",
+      "kind": "task",
+      "label": "Crew readiness board"
+    },
+    {
+      "id": "ready",
+      "kind": "end",
+      "label": "Crew ready"
+    }
+  ],
+  "edges": [
+    {
+      "id": "n1",
+      "source": {
+        "node": "medical"
+      },
+      "target": {
+        "node": "merge"
+      }
+    },
+    {
+      "id": "n2",
+      "source": {
+        "node": "training"
+      },
+      "target": {
+        "node": "merge"
+      }
+    },
+    {
+      "id": "n3",
+      "source": {
+        "node": "suits"
+      },
+      "target": {
+        "node": "merge"
+      }
+    },
+    {
+      "id": "n4",
+      "source": {
+        "node": "merge"
+      },
+      "target": {
+        "node": "board"
+      }
+    },
+    {
+      "id": "n5",
+      "source": {
+        "node": "board"
+      },
+      "target": {
+        "node": "ready"
+      }
+    }
+  ]
+}

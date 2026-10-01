@@ -175,3 +175,26 @@ Next legal work, in order:
 Known constraints: the WebAssembly bundle is about 47 MB untrimmed (trimming
 is off because F# formatting uses reflection); editor browser tests run in
 Chromium only.
+
+
+## Implementation state (2026-10-01, branch `claude/forma-workflow-interchange-wo5aq3`)
+
+- **STUDIO-GH-14:** portable Forma workflows. These are the Workflows surface
+  hosting the public `<forma-workflow>` component on Studio's own runtime
+  (`src/kernel/workflows.js`, `StudioWorkflowInterop`), `WorkflowLibrary`,
+  file open and download, browser persistence, and the external round-trip
+  proof.
+- **STUDIO-GH-15:** HTML export. It produces fragments and complete documents
+  for Layout pages and workflows (`HtmlExport`). It adds nine Layout
+  components mapped to public Forma patterns, reference designs (`Designs`),
+  and the ordinary web-project consumer (`examples/html-consumer`).
+- Forma is pinned to its 0.4.0 release. `vendor/forma` is copied from the
+  forma commit that released `@echelon-foundry/design-system` 0.4.0 and
+  `@echelon-foundry/forma-workflow` 1.0.0. `npm run vendor:release` verifies
+  every packaged file against the published tarballs.
+- Decision: DF-STUDIO-2026-C4A2. Follow-up: #16, converging Flow's Workflow
+  profile onto the portable format.
+- Tests: `npm run engine:test` (68) and `npm run app:test` (46, Chromium).
+
+Next legal work: #16. The `Forma.Workflow` F# source stays vendored, because
+no Forma package ships it.

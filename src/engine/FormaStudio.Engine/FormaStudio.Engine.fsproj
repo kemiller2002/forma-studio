@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- The public Forma workflow capability (vendored pre-release; see vendor/forma/SOURCE.md). -->
+    <ProjectReference Include="../../../vendor/forma/workflow/src/Forma.Workflow.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Identity.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="Geometry.fs" />
@@ -32,6 +37,9 @@
     <Compile Include="Diff.fs" />
     <Compile Include="Fragment.fs" />
     <Compile Include="Templates.fs" />
+    <Compile Include="WorkflowLibrary.fs" />
+    <Compile Include="HtmlExport.fs" />
+    <Compile Include="Designs.fs" />
     <Compile Include="EditorApp.fs" />
   </ItemGroup>
 </Project>

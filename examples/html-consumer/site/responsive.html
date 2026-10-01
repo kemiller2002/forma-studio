@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Station status</title>
+    <link rel="stylesheet" href="assets/forma/tokens.css">
+    <link rel="stylesheet" href="assets/forma/foundations.css">
+    <link rel="stylesheet" href="assets/forma/components.css">
+  </head>
+  <body>
+    <main>
+      <div class="ef-stack" data-density="compact">
+        <h1>Station status</h1>
+        <section class="ef-responsive-grid" aria-label="Station systems">
+          <article class="ef-metric-card">
+            <div class="ef-metric-card__label">Power</div>
+            <div class="ef-metric-card__value">92%</div>
+            <div class="ef-metric-card__context">Solar arrays nominal</div>
+          </article>
+          <article class="ef-metric-card">
+            <div class="ef-metric-card__label">Cabin pressure</div>
+            <div class="ef-metric-card__value">101.3 kPa</div>
+            <div class="ef-metric-card__context">Within limits</div>
+          </article>
+          <article class="ef-metric-card">
+            <div class="ef-metric-card__label">Communications</div>
+            <div class="ef-metric-card__value">2 links</div>
+            <div class="ef-metric-card__context">Next handover 14:20</div>
+          </article>
+          <section class="ef-surface" aria-labelledby="surface-rsp-notes">
+            <h2 id="surface-rsp-notes">Notes</h2>
+            <p>A long note that must wrap on a 320 pixel screen without making the page scroll sideways, because the grid and its cards reflow.</p>
+          </section>
+        </section>
+        <div class="ef-actions"><button type="button">Refresh status</button></div>
+      </div>
+    </main>
+  </body>
+</html>

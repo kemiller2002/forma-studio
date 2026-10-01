@@ -20,8 +20,15 @@
     "requirements:validate": "node scripts/validate-requirements.mjs",
     "schema:validate": "node scripts/validate-schema.mjs",
     "site:build": "node scripts/build-site.mjs",
-    "check": "npm run requirements:validate && npm run schema:validate && npm run site:build",
+    "check": "npm run requirements:validate && npm run schema:validate && npm run vendor:check && npm run site:build",
     "app:build": "node scripts/build-app.mjs",
-    "app:test": "playwright test"
+    "app:test": "npm run html:consumer && playwright test",
+    "engine:test": "dotnet run --project tests/FormaStudio.Engine.Tests -c Release",
+    "vendor:check": "node scripts/sync-forma.mjs --check",
+    "vendor:release": "node scripts/sync-forma.mjs --release",
+    "html:export": "node scripts/export-reference-html.mjs",
+    "html:check": "node scripts/export-reference-html.mjs --check",
+    "html:consumer": "node examples/html-consumer/build.mjs vendor/forma",
+    "proof:external": "node scripts/proof-external.mjs"
   }
 }

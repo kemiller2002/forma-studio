@@ -1,0 +1,117 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "embedded-edit",
+  "title": "Experiment proposal",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "metadata": {
+    "lab": "Microgravity research"
+  },
+  "nodes": [
+    {
+      "id": "draft",
+      "kind": "task",
+      "label": "Draft proposal",
+      "ports": [
+        {
+          "id": "out",
+          "side": "right",
+          "direction": "out"
+        }
+      ]
+    },
+    {
+      "id": "peer",
+      "kind": "task",
+      "label": "Peer review",
+      "ports": [
+        {
+          "id": "in",
+          "side": "left",
+          "direction": "in"
+        },
+        {
+          "id": "accepted",
+          "side": "right",
+          "direction": "out",
+          "label": "Accepted"
+        },
+        {
+          "id": "revise",
+          "side": "bottom",
+          "direction": "out",
+          "label": "Revise"
+        }
+      ],
+      "interaction": {
+        "action": "command",
+        "command": "com.example.lab:open-review",
+        "label": "Open review"
+      }
+    },
+    {
+      "id": "schedule",
+      "kind": "end",
+      "label": "Schedule on station",
+      "references": [
+        {
+          "id": "slot",
+          "system": "com.example.lab",
+          "type": "Station slot",
+          "key": "ISS-INC-74-12"
+        }
+      ],
+      "interaction": {
+        "action": "navigate",
+        "target": {
+          "reference": "slot"
+        },
+        "label": "Open slot"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "p1",
+      "source": {
+        "node": "draft",
+        "port": "out"
+      },
+      "target": {
+        "node": "peer",
+        "port": "in"
+      }
+    },
+    {
+      "id": "p2",
+      "source": {
+        "node": "peer",
+        "port": "accepted"
+      },
+      "target": {
+        "node": "schedule"
+      },
+      "label": "Accepted"
+    },
+    {
+      "id": "p3",
+      "source": {
+        "node": "peer",
+        "port": "revise"
+      },
+      "target": {
+        "node": "draft"
+      },
+      "label": "Revise",
+      "line": "dashed"
+    }
+  ],
+  "extensions": {
+    "com.example.lab": {
+      "proposalId": "MGR-77"
+    }
+  }
+}
