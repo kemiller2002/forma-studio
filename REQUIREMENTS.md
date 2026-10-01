@@ -182,6 +182,8 @@ Forma Studio MUST record the reviewed Forma version and SHOULD automate detectio
 
 Status: **Required**
 
+The normative portable workflow interchange, renderer, and embedding contract is owned by Forma in `requirements/PORTABLE-WORKFLOW-INTERCHANGE.md`. Forma Studio MUST implement that public contract as a conforming author/editor and MUST NOT fork it into a Studio-private format.
+
 Forma Studio workflow authoring MUST be designed as an embeddable capability, not only as a standalone Studio screen. Applications MUST be able to host the workflow designer/editor within their own Forma-based user experience without reproducing Studio internals.
 
 The embeddable workflow surface MUST support explicit host modes including, at minimum:
@@ -342,3 +344,89 @@ Forma MUST publish:
 - and an embedding example showing a workflow created outside Studio and then hosted/edited using the embeddable designer.
 
 These examples MUST be part of compatibility tests so the published interchange contract remains executable evidence rather than documentation only.
+
+
+## Standards-based HTML design export
+
+Status: **Required**
+
+Forma Studio MUST support HTML as a first-class design output. A user MUST be able to take a completed supported design and produce standards-based HTML that can be inserted immediately into a web project without requiring that project to adopt a proprietary Forma Studio document format or Studio runtime.
+
+The Studio project/specification format exists to preserve editable design intent; it MUST NOT be the only usable output of the designer.
+
+### Export targets
+
+Studio MUST support at least two HTML export targets:
+
+1. **HTML fragment**: semantic markup for the selected page, view, component composition, or workflow that can be pasted/inserted into an existing HTML document or web project.
+2. **Complete HTML document**: a valid document including doctype, document structure, required metadata, and explicit references/import instructions for the public Forma assets needed to render the design.
+
+A complete exported document MUST be capable of opening as ordinary HTML using the declared public assets. A fragment MUST clearly declare its external Forma asset/version requirements rather than hiding them in Studio state.
+
+### No proprietary runtime requirement
+
+Ordinary exported UI MUST NOT require Forma Studio, a Studio JavaScript bundle, a proprietary renderer, or a proprietary browser plugin.
+
+When a design uses only HTML/CSS Forma capabilities, the exported result MUST remain HTML/CSS. Studio MUST NOT introduce JavaScript merely because the design was created visually.
+
+When a design requires interaction, Studio MUST generate declarative HTML plus only the public runtime contract actually required by that capability, such as an approved Forma/Limen integration. The generated document MUST identify that runtime dependency explicitly.
+
+### Forma-native markup
+
+HTML export MUST use public Forma markup, classes, custom elements, semantic attributes, tokens, and patterns applicable to the pinned Forma version.
+
+Studio MUST NOT flatten Forma components into opaque generated markup merely to reproduce the preview. The output SHOULD remain understandable and maintainable by a developer familiar with HTML and Forma.
+
+Where Forma provides a custom component tag, Studio SHOULD emit that public tag rather than a Studio-specific equivalent.
+
+### Immediate project insertion
+
+Exported fragments MUST avoid assumptions about Studio directory structure, build output, editor state, local storage, or generated IDs that exist only during an editing session.
+
+A developer MUST be able to:
+
+```text
+design in Forma Studio
+  -> export HTML
+  -> add the declared Forma assets/dependencies
+  -> insert the HTML into a web project
+  -> render the designed UI
+```
+
+without converting the output through another Studio-specific tool.
+
+Studio SHOULD offer copy-to-clipboard and file export for HTML, but the underlying generated result MUST be identical/deterministic for the same design and export options.
+
+### Semantic quality
+
+Generated HTML MUST favor semantic native elements before generic containers when Forma's public contract permits them. Heading order, landmarks, form labels, accessible names, relationships, keyboard behavior, and other authored accessibility semantics MUST survive export.
+
+Generated HTML MUST NOT contain inline event-handler source, executable content copied from untrusted metadata, or unsafe unsanitized authored values.
+
+### Styling and assets
+
+Studio MUST distinguish markup from dependencies. It MUST be possible to determine which pinned Forma stylesheet/package assets, brand/skin assets, and optional public runtime modules are required by an export.
+
+Studio SHOULD support an export mode that references installed/package-managed Forma assets and a self-contained demonstration mode where doing so does not violate Forma's distribution contract.
+
+Studio MUST NOT duplicate the entire Forma stylesheet into every normal fragment export.
+
+### Round-trip expectations
+
+HTML is a deployment/export format and MUST remain standards-based and usable independently. The portable Studio/Workflow specifications remain the lossless authoring/interchange formats.
+
+Studio MAY support importing supported Forma HTML back into the designer, but it MUST NOT claim arbitrary HTML is losslessly round-trippable. When importing generated Forma HTML, Studio SHOULD recognize its public Forma constructs and reconstruct as much editable semantic intent as the public contracts permit.
+
+### HTML export verification
+
+Compatibility tests MUST include representative desktop and mobile layouts, controls, forms, overlays, branded/white-label output, accessibility states, motion/reduced-motion behavior, Aegis presentation, and workflow rendering.
+
+Tests MUST verify that generated HTML:
+
+- is deterministic,
+- contains no Studio-private runtime dependency,
+- uses only declared public Forma capabilities,
+- preserves required accessibility semantics,
+- renders at required responsive widths,
+- declares required assets,
+- and can be consumed outside Forma Studio.
