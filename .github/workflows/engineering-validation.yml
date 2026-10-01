@@ -45,6 +45,9 @@ jobs:
           rm -rf "$CE_TMP"
           npx --yes @echelon-foundry/typescript-wasm-kernel@0.6.2 verify --strict
 
+      - name: Vendored Forma matches its recorded source commit
+        run: npm run vendor:check
+
       - name: Restore and build F# engine with Aegis
         run: |
           dotnet restore src/engine/FormaStudio.Engine/FormaStudio.Engine.fsproj
@@ -53,10 +56,13 @@ jobs:
       - name: Test F# engine (commands, history, persistence, appearance, disclosure)
         run: dotnet run --project tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj -c Release
 
+      - name: HTML export is deterministic (reference designs, workflows)
+        run: npm run html:check
+
       - name: Build the Flow editor (F# engine on .NET WebAssembly + Limen kernel)
         run: npm run app:build
 
-      - name: Test the Flow editor in Chromium
+      - name: Test the editor, workflow surface, external round trip and HTML consumer in Chromium
         run: |
           npx playwright install --with-deps chromium
           npm run app:test

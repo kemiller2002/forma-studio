@@ -1,0 +1,118 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "runtime-ports",
+  "title": "Propellant loading",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "tank",
+      "kind": "data",
+      "label": "Propellant tank",
+      "ports": [
+        {
+          "id": "fill",
+          "side": "left",
+          "direction": "in",
+          "maxConnections": 1
+        },
+        {
+          "id": "vent",
+          "side": "top",
+          "direction": "out"
+        },
+        {
+          "id": "feed",
+          "side": "right",
+          "direction": "out"
+        }
+      ],
+      "status": {
+        "state": "active",
+        "label": "Filling"
+      }
+    },
+    {
+      "id": "supply",
+      "kind": "external",
+      "label": "Ground supply",
+      "ports": [
+        {
+          "id": "out",
+          "side": "right",
+          "direction": "out"
+        }
+      ],
+      "status": {
+        "state": "complete",
+        "label": "Connected"
+      }
+    },
+    {
+      "id": "engine",
+      "kind": "task",
+      "label": "Engine chill-down",
+      "ports": [
+        {
+          "id": "in",
+          "side": "left",
+          "direction": "in"
+        }
+      ],
+      "status": {
+        "state": "blocked",
+        "label": "Waiting for temperature"
+      }
+    },
+    {
+      "id": "vent",
+      "kind": "task",
+      "label": "Boil-off vent",
+      "status": {
+        "state": "gov.nasa.example.ops:monitoring",
+        "label": "Monitoring"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "r1",
+      "source": {
+        "node": "supply",
+        "port": "out"
+      },
+      "target": {
+        "node": "tank",
+        "port": "fill"
+      },
+      "label": "LOX fill"
+    },
+    {
+      "id": "r2",
+      "source": {
+        "node": "tank",
+        "port": "feed"
+      },
+      "target": {
+        "node": "engine",
+        "port": "in"
+      },
+      "label": "Feed"
+    },
+    {
+      "id": "r3",
+      "source": {
+        "node": "tank",
+        "port": "vent"
+      },
+      "target": {
+        "node": "vent"
+      },
+      "label": "Vent",
+      "line": "dotted"
+    }
+  ]
+}

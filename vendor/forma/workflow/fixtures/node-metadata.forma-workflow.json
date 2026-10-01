@@ -1,0 +1,80 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "node-metadata",
+  "title": "Flight software release",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "metadata": {
+    "program": "Example mission",
+    "classification": "public",
+    "revision": 3
+  },
+  "nodes": [
+    {
+      "id": "build",
+      "kind": "task",
+      "label": "Build flight software",
+      "metadata": {
+        "owner": "FSW team",
+        "buildNumber": 4127,
+        "requirements": [
+          "FSW-12",
+          "FSW-31"
+        ],
+        "verified": true,
+        "thresholds": {
+          "cpu": 0.7,
+          "memory": 0.8
+        }
+      }
+    },
+    {
+      "id": "qualify",
+      "kind": "task",
+      "label": "Qualification test",
+      "metadata": {
+        "owner": "V&V",
+        "procedure": "QT-0042",
+        "estimateHours": 36.5
+      }
+    },
+    {
+      "id": "release",
+      "kind": "end",
+      "label": "Release to mission",
+      "references": [
+        {
+          "id": "cr",
+          "system": "gov.nasa.example.config",
+          "type": "Change request",
+          "key": "CR-2291",
+          "label": "Change request CR-2291",
+          "href": "https://example.org/cr/2291"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "m1",
+      "source": {
+        "node": "build"
+      },
+      "target": {
+        "node": "qualify"
+      }
+    },
+    {
+      "id": "m2",
+      "source": {
+        "node": "qualify"
+      },
+      "target": {
+        "node": "release"
+      }
+    }
+  ]
+}

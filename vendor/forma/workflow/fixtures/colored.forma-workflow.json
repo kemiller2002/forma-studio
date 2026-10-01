@@ -1,0 +1,131 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "colored",
+  "title": "Mission operations by team",
+  "description": "Fill colour shows the owning team. It says nothing about status: each step states its status in text.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "palette": {
+    "archive": "token:surface-secondary"
+  },
+  "nodes": [
+    {
+      "id": "plan",
+      "kind": "task",
+      "label": "Plan the pass",
+      "color": {
+        "fill": "#e8f0ff",
+        "accent": "#2f5fb3",
+        "foreground": "#1d1d1b"
+      },
+      "status": {
+        "state": "complete"
+      }
+    },
+    {
+      "id": "uplink",
+      "kind": "task",
+      "label": "Uplink commands",
+      "color": {
+        "fill": "#e8f0ff",
+        "accent": "#2f5fb3",
+        "foreground": "#1d1d1b"
+      },
+      "status": {
+        "state": "active"
+      }
+    },
+    {
+      "id": "downlink",
+      "kind": "task",
+      "label": "Receive telemetry",
+      "color": {
+        "fill": "#fff1d6",
+        "accent": "#8a5300",
+        "foreground": "#1d1d1b"
+      },
+      "status": {
+        "state": "pending"
+      }
+    },
+    {
+      "id": "archive",
+      "kind": "end",
+      "label": "Archive the pass",
+      "color": {
+        "fill": "palette:archive",
+        "foreground": "token:text-primary"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "c1",
+      "source": {
+        "node": "plan"
+      },
+      "target": {
+        "node": "uplink"
+      }
+    },
+    {
+      "id": "c2",
+      "source": {
+        "node": "uplink"
+      },
+      "target": {
+        "node": "downlink"
+      },
+      "color": {
+        "stroke": "#2f5fb3"
+      },
+      "width": 3
+    },
+    {
+      "id": "c3",
+      "source": {
+        "node": "downlink"
+      },
+      "target": {
+        "node": "archive"
+      },
+      "color": {
+        "stroke": "token:accent-secondary"
+      }
+    }
+  ],
+  "presentation": {
+    "legendTitle": "Key: fill colour by owning team",
+    "legend": [
+      {
+        "id": "ops",
+        "label": "Flight operations",
+        "description": "blue fill",
+        "color": {
+          "fill": "#e8f0ff",
+          "accent": "#2f5fb3"
+        }
+      },
+      {
+        "id": "ground",
+        "label": "Ground network",
+        "description": "amber fill",
+        "color": {
+          "fill": "#fff1d6",
+          "accent": "#8a5300"
+        }
+      },
+      {
+        "id": "data",
+        "label": "Data systems",
+        "description": "neutral fill",
+        "color": {
+          "fill": "palette:archive"
+        }
+      }
+    ]
+  }
+}

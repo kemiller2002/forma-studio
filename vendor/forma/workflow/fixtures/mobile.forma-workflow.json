@@ -1,0 +1,80 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "mobile",
+  "title": "Countdown checklist",
+  "description": "A narrow, top-to-bottom workflow intended for phone screens.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "t60",
+      "kind": "task",
+      "label": "T-60 minutes: crew strapped in",
+      "layout": {
+        "size": "compact"
+      }
+    },
+    {
+      "id": "t30",
+      "kind": "task",
+      "label": "T-30 minutes: hatch closed",
+      "layout": {
+        "size": "compact"
+      }
+    },
+    {
+      "id": "t10",
+      "kind": "task",
+      "label": "T-10 minutes: terminal count",
+      "layout": {
+        "size": "compact"
+      }
+    },
+    {
+      "id": "t0",
+      "kind": "end",
+      "label": "Liftoff",
+      "layout": {
+        "size": "compact"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "t1",
+      "source": {
+        "node": "t60"
+      },
+      "target": {
+        "node": "t30"
+      }
+    },
+    {
+      "id": "t2",
+      "source": {
+        "node": "t30"
+      },
+      "target": {
+        "node": "t10"
+      }
+    },
+    {
+      "id": "t3",
+      "source": {
+        "node": "t10"
+      },
+      "target": {
+        "node": "t0"
+      }
+    }
+  ],
+  "layout": {
+    "direction": "down"
+  },
+  "presentation": {
+    "density": "compact"
+  }
+}

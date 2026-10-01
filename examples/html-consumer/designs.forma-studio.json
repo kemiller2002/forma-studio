@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 2,
+  "projectId": "html-export-designs",
+  "name": "HTML export reference designs",
+  "formaVersion": "0.3.0",
+  "startPageId": "application",
+  "pages": [
+    {
+      "pageId": "application",
+      "name": "Crew scheduling",
+      "route": "/application",
+      "nodes": [
+        {
+          "nodeId": "application-stack",
+          "componentId": "stack",
+          "properties": {
+            "density": "standard"
+          },
+          "slots": {
+            "children": [
+              {
+                "nodeId": "app-title",
+                "componentId": "heading",
+                "properties": {
+                  "level": 1
+                },
+                "content": {
+                  "text": "Crew scheduling"
+                }
+              },
+              {
+                "nodeId": "app-intro",
+                "componentId": "text",
+                "content": {
+                  "text": "Assign crew members to upcoming training sessions. Changes take effect after review."
+                }
+              },
+              {
+                "nodeId": "app-alert",
+                "componentId": "alert",
+                "content": {
+                  "text": "Assign instructors before Friday so sessions stay on the schedule.",
+                  "title": "Two sessions need an instructor"
+                }
+              },
+              {
+                "nodeId": "app-window",
+                "componentId": "surface",
+                "content": {
+                  "title": "Next training window"
+                },
+                "slots": {
+                  "children": [
+                    {
+                      "nodeId": "app-window-text",
+                      "componentId": "text",
+                      "content": {
+                        "text": "Neutral buoyancy sessions run Monday to Thursday."
+                      }
+                    },
+                    {
+                      "nodeId": "app-window-metric",
+                      "componentId": "metric-card",
+                      "content": {
+                        "context": "of 24 this week",
+                        "label": "Open seats",
+                        "value": "6"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "nodeId": "app-form",
+                "componentId": "surface",
+                "content": {
+                  "title": "Request a session"
+                },
+                "slots": {
+                  "children": [
+                    {
+                      "nodeId": "app-email",
+                      "componentId": "text-field",
+                      "properties": {
+                        "inputType": "email",
+                        "required": true
+                      },
+                      "content": {
+                        "description": "We send the confirmation here.",
+                        "label": "Work email",
+                        "name": "email"
+                      }
+                    },
+                    {
+                      "nodeId": "app-date",
+                      "componentId": "text-field",
+                      "properties": {
+                        "inputType": "date"
+                      },
+                      "content": {
+                        "label": "Preferred date",
+                        "name": "date"
+                      }
+                    },
+                    {
+                      "nodeId": "app-actions",
+                      "componentId": "actions",
+                      "slots": {
+                        "children": [
+                          {
+                            "nodeId": "app-submit",
+                            "componentId": "button",
+                            "properties": {
+                              "type": "submit"
+                            },
+                            "content": {
+                              "label": "Request session"
+                            }
+                          },
+                          {
+                            "nodeId": "app-help",
+                            "componentId": "link-button",
+                            "content": {
+                              "href": "https://example.org/policy",
+                              "label": "Read the training policy"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "pageId": "responsive",
+      "name": "Station status",
+      "route": "/responsive",
+      "nodes": [
+        {
+          "nodeId": "responsive-stack",
+          "componentId": "stack",
+          "properties": {
+            "density": "compact"
+          },
+          "slots": {
+            "children": [
+              {
+                "nodeId": "rsp-title",
+                "componentId": "heading",
+                "properties": {
+                  "level": 1
+                },
+                "content": {
+                  "text": "Station status"
+                }
+              },
+              {
+                "nodeId": "rsp-grid",
+                "componentId": "responsive-grid",
+                "content": {
+                  "label": "Station systems"
+                },
+                "slots": {
+                  "children": [
+                    {
+                      "nodeId": "rsp-power",
+                      "componentId": "metric-card",
+                      "content": {
+                        "context": "Solar arrays nominal",
+                        "label": "Power",
+                        "value": "92%"
+                      }
+                    },
+                    {
+                      "nodeId": "rsp-air",
+                      "componentId": "metric-card",
+                      "content": {
+                        "context": "Within limits",
+                        "label": "Cabin pressure",
+                        "value": "101.3 kPa"
+                      }
+                    },
+                    {
+                      "nodeId": "rsp-comms",
+                      "componentId": "metric-card",
+                      "content": {
+                        "context": "Next handover 14:20",
+                        "label": "Communications",
+                        "value": "2 links"
+                      }
+                    },
+                    {
+                      "nodeId": "rsp-notes",
+                      "componentId": "surface",
+                      "content": {
+                        "title": "Notes"
+                      },
+                      "slots": {
+                        "children": [
+                          {
+                            "nodeId": "rsp-notes-text",
+                            "componentId": "text",
+                            "content": {
+                              "text": "A long note that must wrap on a 320 pixel screen without making the page scroll sideways, because the grid and its cards reflow."
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "nodeId": "rsp-actions",
+                "componentId": "actions",
+                "slots": {
+                  "children": [
+                    {
+                      "nodeId": "rsp-refresh",
+                      "componentId": "button",
+                      "content": {
+                        "label": "Refresh status"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "pageId": "workflow",
+      "name": "Launch readiness",
+      "route": "/workflow",
+      "nodes": [
+        {
+          "nodeId": "workflow-stack",
+          "componentId": "stack",
+          "properties": {
+            "density": "standard"
+          },
+          "slots": {
+            "children": [
+              {
+                "nodeId": "wf-title",
+                "componentId": "heading",
+                "properties": {
+                  "level": 1
+                },
+                "content": {
+                  "text": "Launch readiness"
+                }
+              },
+              {
+                "nodeId": "wf-intro",
+                "componentId": "text",
+                "content": {
+                  "text": "The poll below is a portable Forma workflow. Every relationship is also listed in text."
+                }
+              },
+              {
+                "nodeId": "wf-diagram",
+                "componentId": "workflow",
+                "properties": {
+                  "workflow": "branching"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "diagrams": [],
+  "metadataFields": [],
+  "palette": [],
+  "appearanceStyles": [],
+  "presentationMappings": [],
+  "scenarios": [],
+  "assets": []
+}

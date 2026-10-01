@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./forma/tokens.css">
   <link rel="stylesheet" href="./forma/foundations.css">
   <link rel="stylesheet" href="./forma/components.css">
+  <link rel="stylesheet" href="./forma-workflow/forma-workflow.css">
   <link rel="stylesheet" href="./studio.css">
   <script type="module" src="./main.js"></script>
 </head>
@@ -35,9 +36,10 @@
       <button type="button" data-event="open-page" data-bind-aria-current="current" data-text="label"></button>
     </template>
     <button type="button" data-event="add-page">Add Layout page</button>
+    <button type="button" data-event="open-workflows" data-bind-aria-current="workflowsCurrent">Workflows (<span data-text="workflowCount"></span>)</button>
   </nav>
 
-  <section class="studio-panel" aria-labelledby="layout-heading" data-bind-hidden="flowVisible">
+  <section class="studio-panel" aria-labelledby="layout-heading" data-bind-hidden="layoutHidden">
     <h2 id="layout-heading">Layout: <span data-text="pageName"></span></h2>
     <p>Layout is semantic composition: items stack in order and spacing comes from the Forma stack's density, never from x/y positions.</p>
     <div class="studio-choices" role="group" aria-label="Stack spacing">
@@ -46,6 +48,16 @@
       </template>
     </div>
     <button type="button" data-event="layout-add-heading">Add heading</button>
+    <div class="studio-choices" role="group" aria-label="Add a Forma component">
+      <template data-each="componentChoices" data-key="key">
+        <button type="button" data-event="layout-add-component" data-text="label"></button>
+      </template>
+    </div>
+    <div class="studio-choices" role="group" aria-label="Where new components go">
+      <template data-each="layoutTargets" data-key="key">
+        <button type="button" data-event="layout-target" data-bind-aria-pressed="pressed" data-text="label"></button>
+      </template>
+    </div>
     <ol class="studio-list" aria-label="Page structure">
       <template data-each="layoutItems" data-key="key">
         <li class="studio-panel">
@@ -60,7 +72,31 @@
     </section>
   </section>
 
-  <div class="studio-workspace" data-bind-hidden="layoutVisible">
+  <section class="studio-panel" aria-labelledby="workflow-heading" data-bind-hidden="workflowHidden">
+    <h2 id="workflow-heading">Workflows</h2>
+    <p>Portable <code>.forma-workflow.json</code> documents, edited with the public Forma workflow component. Files from other systems open as they are; metadata and extensions Studio does not understand are kept.</p>
+    <div class="studio-toolbar" role="toolbar" aria-label="Workflow files">
+      <button type="button" data-event="workflow-new">New workflow</button>
+      <label class="studio-file">Open .forma-workflow.json <input type="file" id="workflow-file" accept=".json,application/json"></label>
+      <button type="button" id="workflow-download">Download file</button>
+      <button type="button" data-event="workflow-save">Save workflows in browser</button>
+      <button type="button" data-event="workflow-load">Open saved workflows</button>
+    </div>
+    <nav class="studio-toolbar" aria-label="Open workflows">
+      <template data-each="workflows" data-key="key">
+        <button type="button" data-event="workflow-select" data-bind-aria-current="current"><span data-text="label"></span> <small data-text="validity"></small></button>
+      </template>
+    </nav>
+    <p data-bind-hidden="workflowNone">No workflow is open. Create one or open a file.</p>
+    <!-- The engine names the document to show; the adapter loads it when data-revision changes. -->
+    <textarea id="workflow-source" class="studio-hidden" aria-hidden="true" tabindex="-1" data-bind-value="workflowDocument" data-bind-data-revision="workflowRevision" data-bind-data-file="workflowFile"></textarea>
+    <input type="hidden" id="workflow-opened" data-event="workflow-opened">
+    <input type="hidden" id="workflow-changed" data-event="workflow-changed">
+    <div id="workflow-host"></div>
+  </section>
+
+
+  <div class="studio-workspace" data-bind-hidden="flowHidden">
     <section class="studio-panel" aria-labelledby="canvas-heading">
       <h2 id="canvas-heading">Canvas</h2>
       <div class="studio-toolbar" role="toolbar" aria-label="Add and connect">
@@ -354,6 +390,34 @@
       </section>
     </aside>
   </div>
+  <section class="studio-panel" aria-labelledby="export-heading">
+    <h2 id="export-heading">HTML export</h2>
+    <p>Standards-based HTML that uses only public Forma markup and assets. Static designs export without script.</p>
+    <div class="studio-choices" role="group" aria-label="Export as">
+      <template data-each="exportTargets" data-key="key">
+        <button type="button" data-event="export-target" data-bind-aria-pressed="pressed" data-text="label"></button>
+      </template>
+    </div>
+    <div class="studio-choices" role="group" aria-label="Brand">
+      <template data-each="exportBrands" data-key="key">
+        <button type="button" data-event="export-brand" data-bind-aria-pressed="pressed" data-text="label"></button>
+      </template>
+    </div>
+    <div class="studio-toolbar">
+      <button type="button" data-event="export-page">Export Layout page</button>
+      <button type="button" data-event="export-workflow">Export current workflow</button>
+      <button type="button" data-event="copy-export" data-bind-disabled="exportEmpty">Copy HTML</button>
+      <button type="button" id="export-download" data-bind-disabled="exportEmpty">Download HTML</button>
+    </div>
+    <p data-text="exportSummary"></p>
+    <ul aria-label="Left out of the export">
+      <template data-each="exportOmitted" data-key="key"><li data-text="text"></li></template>
+    </ul>
+    <div class="ef-field">
+      <label class="ef-field__label" for="export-text">Exported HTML</label>
+      <textarea id="export-text" rows="12" readonly data-bind-value="exportText" data-bind-data-file="exportFile"></textarea>
+    </div>
+  </section>
 </main>
 </body>
 </html>

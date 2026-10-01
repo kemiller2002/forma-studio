@@ -50,3 +50,6 @@ playwright-report/
 
 # npm generates this in CI; the repository does not commit a lockfile.
 package-lock.json
+vendor/forma/workflow/src/bin/
+vendor/forma/workflow/src/obj/
+examples/html-consumer/site/assets/

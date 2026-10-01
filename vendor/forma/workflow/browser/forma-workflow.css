@@ -1,0 +1,107 @@
+/*
+ * Editor chrome for <forma-workflow> (@echelon-foundry/forma-workflow).
+ * Production workflow presentation is the public .ef-diagram contract in
+ * @echelon-foundry/design-system; these ef-workflow-editor* rules are
+ * editor-only affordances (selection, handles, panels) and never appear in
+ * exported static HTML (FMD-DIA-007, ADR-0006). Load after Forma's CSS.
+ */
+@layer echelon.workflow-editor {
+  forma-workflow { display: block; min-inline-size: 0; }
+  .ef-workflow-host { min-inline-size: 0; }
+
+  .ef-workflow-editor { display: grid; gap: var(--ef-primitive-spacing-3, 0.75rem); min-inline-size: 0; }
+  .ef-workflow-editor__toolbar { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-2, 0.5rem) var(--ef-primitive-spacing-4, 1rem); align-items: end; }
+  .ef-workflow-editor__toolbar .ef-select-field { min-inline-size: 10rem; }
+  .ef-workflow-editor__zoom-level { min-inline-size: 3.5rem; text-align: center; font-variant-numeric: tabular-nums; align-self: center; }
+  .ef-workflow-editor__pending {
+    margin: 0;
+    padding: var(--ef-primitive-spacing-2, 0.5rem) var(--ef-primitive-spacing-3, 0.75rem);
+    border: 2px dashed var(--ef-color-border-functional, #3a403c);
+  }
+
+  /* Layout: structure | canvas | inspector on wide screens; stacked below 64rem. */
+  .ef-workflow-editor__layout {
+    display: grid;
+    gap: var(--ef-primitive-spacing-4, 1rem);
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    min-inline-size: 0;
+  }
+  @media (min-width: 64rem) {
+    .ef-workflow-editor__layout { grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr) minmax(16rem, 22rem); }
+    .ef-workflow-editor[data-mode="pick"] .ef-workflow-editor__layout { grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr); }
+    .ef-workflow-editor__layout--canvas { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 63.99rem) {
+    /* On narrow screens the canvas comes first; lists and inspector follow in reading order. */
+    .ef-workflow-editor__canvas { order: -1; }
+  }
+
+  .ef-workflow-editor__canvas { min-inline-size: 0; }
+  .ef-workflow-editor__canvas .ef-diagram__canvas { zoom: var(--ef-workflow-zoom, 1); }
+  .ef-workflow-editor__canvas .ef-diagram__viewport { max-block-size: min(70vh, 48rem); }
+
+  .ef-workflow-editor__list { display: grid; gap: var(--ef-primitive-spacing-1, 0.25rem); margin: 0; padding: 0; list-style: none; }
+  .ef-workflow-editor__list button,
+  .ef-workflow-editor__relation {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+  .ef-workflow-editor__list button[aria-pressed="true"],
+  .ef-workflow-editor__relation[aria-pressed="true"] { outline: 3px solid var(--ef-color-accent-primary, #2f5fb3); outline-offset: 1px; }
+  .ef-workflow-editor__hint { margin: 0 0 var(--ef-primitive-spacing-2, 0.5rem); font-size: 0.875rem; }
+  .ef-workflow-editor__rows { display: grid; gap: var(--ef-primitive-spacing-2, 0.5rem); margin: 0; padding: 0; list-style: none; }
+  .ef-workflow-editor__rows > li { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-2, 0.5rem); align-items: center; overflow-wrap: anywhere; }
+  .ef-workflow-editor__rows > li > input[type="text"] { flex: 1 1 10rem; min-inline-size: 0; }
+  .ef-workflow-editor__geometry { display: grid; grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr)); gap: var(--ef-primitive-spacing-2, 0.5rem); }
+  .ef-workflow-editor__form { display: grid; gap: var(--ef-primitive-spacing-2, 0.5rem); margin-block-start: var(--ef-primitive-spacing-3, 0.75rem); }
+  .ef-workflow-editor__inspector { display: grid; gap: var(--ef-primitive-spacing-3, 0.75rem); min-inline-size: 0; }
+  .ef-workflow-editor__inspector > h2 { margin: 0; font-size: 1.125rem; overflow-wrap: anywhere; }
+  .ef-workflow-editor__extensions { margin: 0; }
+  .ef-workflow-editor__extensions code,
+  .ef-workflow-editor__facts code { overflow-wrap: anywhere; white-space: pre-wrap; }
+  .ef-workflow-editor__findings { border-block-start: 1px solid var(--ef-color-border-subtle, #c9c3b6); padding-block-start: var(--ef-primitive-spacing-3, 0.75rem); }
+  .ef-workflow-editor__findings button { text-align: start; }
+
+  /* Canvas affordances. */
+  .ef-workflow-editor[data-mode="inspect"] .ef-workflow-editor__object,
+  .ef-workflow-editor[data-mode="edit"] .ef-workflow-editor__object,
+  .ef-workflow-editor[data-mode="pick"] .ef-workflow-editor__object { cursor: pointer; }
+  .ef-workflow-editor__selected { outline: 3px solid var(--ef-color-accent-primary, #2f5fb3); outline-offset: 4px; }
+  .ef-workflow-editor[data-mode="edit"] .ef-workflow-editor__selected[data-fw-drag="move"] { cursor: move; touch-action: none; }
+  .ef-workflow-editor__object:focus-visible { outline: 3px solid var(--ef-color-text-primary, #171a18); outline-offset: 4px; }
+  .ef-workflow-editor__intent { margin-block-start: var(--ef-primitive-spacing-2, 0.5rem); min-block-size: 2.75rem; }
+  .ef-workflow-editor__resize,
+  .ef-workflow-editor__connect {
+    position: absolute;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    box-sizing: border-box;
+    border: 2px solid var(--ef-color-surface-primary, #f2efe7);
+    background: var(--ef-color-accent-primary, #2f5fb3);
+    touch-action: none;
+  }
+  /* Handles sit on the corner and edge; a 44px hit area comes from the ::after. */
+  .ef-workflow-editor__resize { inset-inline-end: -0.875rem; inset-block-end: -0.875rem; cursor: nwse-resize; }
+  .ef-workflow-editor__connect { inset-inline-end: -0.875rem; inset-block-start: calc(50% - 0.875rem); border-radius: 50%; cursor: crosshair; }
+  .ef-workflow-editor__resize::after,
+  .ef-workflow-editor__connect::after { content: ""; position: absolute; inset: -0.5rem; }
+  [data-fw-connecting="true"] { outline-style: dashed; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ef-workflow-editor * { scroll-behavior: auto; transition: none; animation: none; }
+  }
+  @media (forced-colors: active) {
+    .ef-workflow-editor__selected,
+    .ef-workflow-editor__list button[aria-pressed="true"],
+    .ef-workflow-editor__relation[aria-pressed="true"] { outline-color: Highlight; }
+    .ef-workflow-editor__resize, .ef-workflow-editor__connect { background: Highlight; border-color: Canvas; }
+    .ef-workflow-editor__pending { border-color: CanvasText; }
+  }
+  @media print {
+    .ef-workflow-editor__toolbar, .ef-workflow-editor__structure, .ef-workflow-editor__inspector, .ef-workflow-editor__findings,
+    .ef-workflow-editor__resize, .ef-workflow-editor__connect, .ef-workflow-editor__intent { display: none; }
+  }
+}

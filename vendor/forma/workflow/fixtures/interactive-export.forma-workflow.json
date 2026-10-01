@@ -1,0 +1,62 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "interactive-export",
+  "title": "Interactive export reference",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "kind": "start",
+      "label": "Request",
+      "interaction": {
+        "action": "inspect"
+      }
+    },
+    {
+      "id": "b",
+      "kind": "task",
+      "label": "Review",
+      "interaction": {
+        "action": "command",
+        "command": "com.example.host:approve",
+        "label": "Approve"
+      }
+    },
+    {
+      "id": "c",
+      "kind": "end",
+      "label": "Done",
+      "interaction": {
+        "action": "navigate",
+        "target": {
+          "url": "https://example.org/done"
+        },
+        "label": "Open record"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "i1",
+      "source": {
+        "node": "a"
+      },
+      "target": {
+        "node": "b"
+      }
+    },
+    {
+      "id": "i2",
+      "source": {
+        "node": "b"
+      },
+      "target": {
+        "node": "c"
+      }
+    }
+  ]
+}

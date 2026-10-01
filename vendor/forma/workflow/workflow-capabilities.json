@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "contract": "forma.workflow-capabilities",
+  "contractVersion": "1.0.0",
+  "formatVersions": ["1.0.0"],
+  "formaVersion": "0.4.0",
+  "decision": "docs/decisions/ADR-0006-portable-workflow-capability.md",
+  "requirements": "requirements/PORTABLE-WORKFLOW-INTERCHANGE.md",
+  "rule": "A workflow targeting a Forma version earlier than a capability's 'since' version, or requiring a capability this list does not contain, is valid format using unavailable Forma capabilities.",
+  "capabilities": {
+    "workflow.core": { "since": "0.4.0", "description": "Nodes, edges, labels, kinds, descriptions and the accessible relationship list." },
+    "workflow.shapes": { "since": "0.4.0", "description": "Node variants rectangle, rounded, pill, ellipse and diamond (diagram contract 2.0.0)." },
+    "workflow.color": { "since": "0.4.0", "description": "Authored fill, stroke, accent, foreground and connector stroke as tokens or literals." },
+    "workflow.palette": { "since": "0.4.0", "description": "Named palette slots referenced as palette:<slot>." },
+    "workflow.groups": { "since": "0.4.0", "description": "Groups and containers with explicit membership." },
+    "workflow.swimlanes": { "since": "0.4.0", "description": "Swimlanes and phases." },
+    "workflow.ports": { "since": "0.4.0", "description": "Named connection points on node sides (diagram contract 2.1.0)." },
+    "workflow.status": { "since": "0.4.0", "description": "Semantic status shown as text on nodes, edges and groups (diagram contract 2.1.0)." },
+    "workflow.references": { "since": "0.4.0", "description": "Typed domain references displayed as text or links." },
+    "workflow.interactions": { "since": "0.4.0", "description": "Declarative interaction intents reported to the host." },
+    "workflow.legend": { "since": "0.4.0", "description": "A key explaining authored colour and line meaning." },
+    "workflow.layout": { "since": "0.4.0", "description": "Authored geometry, waypoints and the deterministic default layout." },
+    "workflow.embed": { "since": "0.4.0", "description": "The @echelon-foundry/forma-workflow embeddable renderer and editor." }
+  }
+}

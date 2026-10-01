@@ -13,5 +13,20 @@
     "status": "accepted",
     "title": "Canonical engine model and shared command core for Layout and Flow",
     "work_item": "STUDIO-GH-9"
+  },
+  {
+    "confidence": "high",
+    "created": "2026-10-01",
+    "id": "DF-STUDIO-2026-C4A2",
+    "path": "research/decisions/DF-STUDIO-2026-C4A2--portable-workflows-and-html-export.md",
+    "related": [
+      "REQUIREMENTS.md",
+      "kemiller2002/forma requirements/PORTABLE-WORKFLOW-INTERCHANGE.md",
+      "kemiller2002/forma docs/decisions/ADR-0006-portable-workflow-capability.md",
+      "research/decisions/DF-STUDIO-2026-B7E1--canonical-engine-model-and-shared-command-core.md"
+    ],
+    "status": "accepted",
+    "title": "Studio authors portable workflows with the public Forma component and exports standards-based HTML",
+    "work_item": "STUDIO-GH-14, STUDIO-GH-15"
   }
 ]

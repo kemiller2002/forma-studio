@@ -77,6 +77,26 @@ Internal navigation targets stable page IDs. Routes are projections and may chan
 
 `src/engine` and `src/kernel` are the enforced Limen boundary directories. Browser capabilities do not belong in the engine.
 
+## Portable workflows and HTML export
+
+- **Workflows.** Studio opens, edits and saves Forma's portable
+  `.forma-workflow.json` documents with the public `<forma-workflow>` component.
+  See [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
+- **HTML export.** Studio exports deterministic HTML fragments and complete
+  documents that use only public Forma markup and assets. See
+  [`docs/HTML-EXPORT.md`](docs/HTML-EXPORT.md) and
+  [`examples/html-consumer`](examples/html-consumer).
+- **Evidence.** [`docs/evidence/`](docs/evidence/).
+- **Decision.** [`DF-STUDIO-2026-C4A2`](research/decisions/DF-STUDIO-2026-C4A2--portable-workflows-and-html-export.md).
+
+~~~bash
+npm run engine:test      # F# engine, workflow library and HTML export tests
+npm run html:check       # export determinism
+npm run app:build && npm run app:test   # editor, workflows, round trip, HTML consumer (Chromium)
+npm run proof:external   # records docs/evidence/external-workflow-roundtrip.md
+npm run vendor:check     # vendored Forma matches its recorded commit
+~~~
+
 ## Marketing site
 
 site/ contains the static public marketing source.

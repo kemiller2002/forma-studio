@@ -1,0 +1,91 @@
+/* Generated from echelon.brand.json. Do not edit directly. */
+@layer echelon.brand {
+  [data-ef-brand="echelon"] {
+  --ef-primitive-font-family-display: Newsreader, Georgia, serif;
+  --ef-primitive-font-family-sans: Manrope, system-ui, sans-serif;
+  --ef-primitive-font-family-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --ef-primitive-radius-small: 4px;
+  --ef-primitive-radius-medium: 8px;
+  --ef-primitive-radius-pill: 999px;
+  --ef-color-text-primary: #171a18;
+  --ef-color-text-heading: #202421;
+  --ef-color-text-secondary: #686d68;
+  --ef-color-text-on-secondary-surface: #3a403c;
+  --ef-color-text-inverse: #f2efe7;
+  --ef-color-surface-primary: #f2efe7;
+  --ef-color-surface-secondary: #e3e0d7;
+  --ef-color-surface-inverse: #202421;
+  --ef-color-surface-inverse-secondary: #3a403c;
+  --ef-color-accent-primary: #905831;
+  --ef-color-accent-secondary: #47756b;
+  --ef-color-border-subtle: #e3e0d7;
+  --ef-color-border-functional: #3a403c;
+  --ef-color-focus-ring: #171a18;
+  --ef-color-focus-gap: #f2efe7;
+  --ef-color-control-track: #686d68;
+  --ef-color-control-thumb: #f2efe7;
+  --ef-color-control-active: #905831;
+}
+  [data-ef-theme="light"] [data-ef-brand="echelon"], [data-ef-brand="echelon"][data-ef-theme="light"] {
+  --ef-color-text-primary: #171a18;
+  --ef-color-text-heading: #202421;
+  --ef-color-text-secondary: #686d68;
+  --ef-color-text-on-secondary-surface: #3a403c;
+  --ef-color-text-inverse: #f2efe7;
+  --ef-color-surface-primary: #f2efe7;
+  --ef-color-surface-secondary: #e3e0d7;
+  --ef-color-surface-inverse: #202421;
+  --ef-color-surface-inverse-secondary: #3a403c;
+  --ef-color-accent-primary: #905831;
+  --ef-color-accent-secondary: #47756b;
+  --ef-color-border-subtle: #e3e0d7;
+  --ef-color-border-functional: #3a403c;
+  --ef-color-focus-ring: #171a18;
+  --ef-color-focus-gap: #f2efe7;
+  --ef-color-control-track: #686d68;
+  --ef-color-control-thumb: #f2efe7;
+  --ef-color-control-active: #905831;
+}
+  [data-ef-theme="dark"] [data-ef-brand="echelon"], [data-ef-brand="echelon"][data-ef-theme="dark"] {
+  --ef-color-text-primary: #f2efe7;
+  --ef-color-text-heading: #f2efe7;
+  --ef-color-text-secondary: #e3e0d7;
+  --ef-color-text-on-secondary-surface: #f2efe7;
+  --ef-color-text-inverse: #171a18;
+  --ef-color-surface-primary: #171a18;
+  --ef-color-surface-secondary: #202421;
+  --ef-color-surface-inverse: #f2efe7;
+  --ef-color-surface-inverse-secondary: #e3e0d7;
+  --ef-color-accent-primary: #a87e5e;
+  --ef-color-accent-secondary: #698d84;
+  --ef-color-border-subtle: #3a403c;
+  --ef-color-border-functional: #e3e0d7;
+  --ef-color-focus-ring: #f2efe7;
+  --ef-color-focus-gap: #171a18;
+  --ef-color-control-track: #686d68;
+  --ef-color-control-thumb: #f2efe7;
+  --ef-color-control-active: #a87e5e;
+}
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-ef-theme]) [data-ef-brand="echelon"]:not([data-ef-theme]), :root[data-ef-brand="echelon"]:not([data-ef-theme]) {
+  --ef-color-text-primary: #f2efe7;
+  --ef-color-text-heading: #f2efe7;
+  --ef-color-text-secondary: #e3e0d7;
+  --ef-color-text-on-secondary-surface: #f2efe7;
+  --ef-color-text-inverse: #171a18;
+  --ef-color-surface-primary: #171a18;
+  --ef-color-surface-secondary: #202421;
+  --ef-color-surface-inverse: #f2efe7;
+  --ef-color-surface-inverse-secondary: #e3e0d7;
+  --ef-color-accent-primary: #a87e5e;
+  --ef-color-accent-secondary: #698d84;
+  --ef-color-border-subtle: #3a403c;
+  --ef-color-border-functional: #e3e0d7;
+  --ef-color-focus-ring: #f2efe7;
+  --ef-color-focus-gap: #171a18;
+  --ef-color-control-track: #686d68;
+  --ef-color-control-thumb: #f2efe7;
+  --ef-color-control-active: #a87e5e;
+}
+  }
+}

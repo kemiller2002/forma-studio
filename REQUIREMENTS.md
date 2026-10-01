@@ -430,3 +430,21 @@ Tests MUST verify that generated HTML:
 - renders at required responsive widths,
 - declares required assets,
 - and can be consumed outside Forma Studio.
+
+
+## Implementation status (2026-10-01)
+
+| Requirement | Implementation | Evidence |
+|---|---|---|
+| Portable workflows: public format, no private fork | `WorkflowLibrary` holds Forma's canonical documents; editing uses the public `<forma-workflow>` component via `StudioWorkflowInterop` | `tests/FormaStudio.Engine.Tests/WorkflowStudioTests.fs`; `tests/browser/workflow.spec.mjs` |
+| External producers and consumers; lifecycle round trip | File open and download; Forma validation (`forma-studio workflow-validate`) | `docs/evidence/external-workflow-roundtrip.md` (`npm run proof:external`) |
+| Validation classes; unknown extensions preserved | `Forma.Workflow.Validation`; the library keeps semantically invalid documents with findings | engine and browser tests |
+| Embeddable designer; host modes; versioned contract | Owned by Forma (`@echelon-foundry/forma-workflow`, `forma-workflow-host/1`); Studio is one host | kemiller2002/forma `tests/browser/workflow-embed.spec.mjs` |
+| HTML fragment and complete document export | `HtmlExport` (Layout pages and workflows); export panel and CLI `html` / `workflow-html` | engine export tests; `npm run html:check` |
+| No proprietary runtime; static stays static; public Forma markup | Forma `Markup` tree; component-to-pattern map in `Components.catalog`; omissions reported | `tests/browser/html-consumer.spec.mjs`; `docs/evidence/html-consumer.md` |
+| HTML export verification | Desktop, mobile, branded, workflow, forms, accessibility | as above |
+
+Not yet covered here: the Flow profile is not converged onto the portable format
+(kemiller2002/forma-studio#16). HTML export covers Studio's current Layout
+catalog. Overlays, motion presets and Aegis fault patterns enter the catalog as
+Studio adds them (requirements 03 and 15).

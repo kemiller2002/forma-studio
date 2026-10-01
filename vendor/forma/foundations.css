@@ -107,6 +107,8 @@
 
   .ef-stack { display: flex; flex-direction: column; gap: var(--ef-stack-gap, var(--ef-primitive-spacing-4, 1rem)); }
   .ef-cluster { display: flex; flex-wrap: wrap; gap: var(--ef-cluster-gap, var(--ef-primitive-spacing-3, 0.75rem)); align-items: center; }
+  /* .ef-actions (catalog: button) is an application-layer row of related actions; it was styled only in marketing.css (forma#93 gap). */
+  .ef-actions { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-3, 0.75rem); align-items: center; }
   .ef-grid { display: grid; gap: var(--ef-grid-gap, var(--ef-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-grid-min, 16rem)), 1fr)); }
   .ef-section { padding-block: var(--ef-section-space, var(--ef-primitive-spacing-7, 3rem)); }
   .ef-surface { min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "edge-metadata",
+  "title": "Data handoff",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "instrument",
+      "kind": "data",
+      "label": "Instrument data"
+    },
+    {
+      "id": "pipeline",
+      "kind": "task",
+      "label": "Processing pipeline"
+    },
+    {
+      "id": "archive",
+      "kind": "external",
+      "label": "Public archive"
+    }
+  ],
+  "edges": [
+    {
+      "id": "d1",
+      "source": {
+        "node": "instrument"
+      },
+      "target": {
+        "node": "pipeline"
+      },
+      "kind": "data",
+      "label": "Raw frames",
+      "metadata": {
+        "format": "FITS",
+        "rateMbps": 12.5,
+        "encrypted": false
+      }
+    },
+    {
+      "id": "d2",
+      "source": {
+        "node": "pipeline"
+      },
+      "target": {
+        "node": "archive"
+      },
+      "kind": "message",
+      "label": "Calibrated products",
+      "metadata": {
+        "latencyHours": 48,
+        "schema": {
+          "name": "products",
+          "version": "2.1"
+        }
+      },
+      "status": {
+        "state": "waiting"
+      }
+    }
+  ]
+}

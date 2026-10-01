@@ -1,0 +1,89 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "groups",
+  "title": "Ground systems checkout",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "power",
+      "kind": "task",
+      "label": "Power-on test"
+    },
+    {
+      "id": "comms",
+      "kind": "task",
+      "label": "Communications check"
+    },
+    {
+      "id": "fuel",
+      "kind": "task",
+      "label": "Propellant loading rehearsal"
+    },
+    {
+      "id": "report",
+      "kind": "end",
+      "label": "Checkout report"
+    }
+  ],
+  "edges": [
+    {
+      "id": "g1",
+      "source": {
+        "node": "power"
+      },
+      "target": {
+        "node": "comms"
+      }
+    },
+    {
+      "id": "g2",
+      "source": {
+        "node": "comms"
+      },
+      "target": {
+        "node": "report"
+      }
+    },
+    {
+      "id": "g3",
+      "source": {
+        "node": "fuel"
+      },
+      "target": {
+        "node": "report"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "avionics",
+      "kind": "container",
+      "label": "Avionics",
+      "members": [
+        "power",
+        "comms"
+      ],
+      "parent": "vehicle"
+    },
+    {
+      "id": "propulsion",
+      "kind": "group",
+      "label": "Propulsion",
+      "members": [
+        "fuel"
+      ],
+      "line": "dashed",
+      "parent": "vehicle"
+    },
+    {
+      "id": "vehicle",
+      "kind": "group",
+      "label": "Vehicle systems",
+      "description": "Contains the avionics and propulsion groups."
+    }
+  ]
+}

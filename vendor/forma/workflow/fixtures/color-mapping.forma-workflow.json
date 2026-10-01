@@ -1,0 +1,111 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "color-mapping",
+  "title": "Risk-coded review queue",
+  "description": "Colours come from an explicit mapping the producer applied to the metadata field risk. The mapping belongs to the producer; Forma only renders the resolved colours. Risk is also stated in text.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "r1",
+      "kind": "task",
+      "label": "Thermal model update",
+      "metadata": {
+        "risk": "high"
+      },
+      "color": {
+        "fill": "#fde2e1",
+        "accent": "#9b1c1c",
+        "foreground": "#1d1d1b"
+      }
+    },
+    {
+      "id": "r2",
+      "kind": "task",
+      "label": "Antenna re-point",
+      "metadata": {
+        "risk": "medium"
+      },
+      "color": {
+        "fill": "#fff1d6",
+        "accent": "#8a5300",
+        "foreground": "#1d1d1b"
+      }
+    },
+    {
+      "id": "r3",
+      "kind": "task",
+      "label": "Battery trend report",
+      "metadata": {
+        "risk": "low"
+      },
+      "color": {
+        "fill": "#e3f4e8",
+        "accent": "#1e6b3a",
+        "foreground": "#1d1d1b"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "q1",
+      "source": {
+        "node": "r1"
+      },
+      "target": {
+        "node": "r2"
+      }
+    },
+    {
+      "id": "q2",
+      "source": {
+        "node": "r2"
+      },
+      "target": {
+        "node": "r3"
+      }
+    }
+  ],
+  "presentation": {
+    "legendTitle": "Key: risk (producer mapping of metadata field risk)",
+    "legend": [
+      {
+        "id": "high",
+        "label": "High risk",
+        "color": {
+          "fill": "#fde2e1",
+          "accent": "#9b1c1c"
+        }
+      },
+      {
+        "id": "medium",
+        "label": "Medium risk",
+        "color": {
+          "fill": "#fff1d6",
+          "accent": "#8a5300"
+        }
+      },
+      {
+        "id": "low",
+        "label": "Low risk",
+        "color": {
+          "fill": "#e3f4e8",
+          "accent": "#1e6b3a"
+        }
+      }
+    ]
+  },
+  "extensions": {
+    "com.example.riskboard": {
+      "mapping": {
+        "field": "risk",
+        "high": "#fde2e1",
+        "medium": "#fff1d6",
+        "low": "#e3f4e8"
+      }
+    }
+  }
+}

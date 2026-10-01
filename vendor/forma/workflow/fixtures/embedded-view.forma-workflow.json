@@ -1,0 +1,93 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "embedded-view",
+  "title": "Sample return",
+  "description": "Runtime state projected onto a read-only workflow.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "collect",
+      "kind": "start",
+      "label": "Collect sample",
+      "status": {
+        "state": "complete"
+      }
+    },
+    {
+      "id": "seal",
+      "kind": "task",
+      "label": "Seal container",
+      "status": {
+        "state": "complete"
+      }
+    },
+    {
+      "id": "ascend",
+      "kind": "task",
+      "label": "Ascent to orbit",
+      "status": {
+        "state": "active",
+        "label": "In progress",
+        "detail": "Burn 2 of 3"
+      }
+    },
+    {
+      "id": "transfer",
+      "kind": "task",
+      "label": "Transfer to return vehicle",
+      "status": {
+        "state": "pending"
+      }
+    },
+    {
+      "id": "land",
+      "kind": "end",
+      "label": "Earth landing",
+      "status": {
+        "state": "pending"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "v1",
+      "source": {
+        "node": "collect"
+      },
+      "target": {
+        "node": "seal"
+      }
+    },
+    {
+      "id": "v2",
+      "source": {
+        "node": "seal"
+      },
+      "target": {
+        "node": "ascend"
+      }
+    },
+    {
+      "id": "v3",
+      "source": {
+        "node": "ascend"
+      },
+      "target": {
+        "node": "transfer"
+      }
+    },
+    {
+      "id": "v4",
+      "source": {
+        "node": "transfer"
+      },
+      "target": {
+        "node": "land"
+      }
+    }
+  ]
+}

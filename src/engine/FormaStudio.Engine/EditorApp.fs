@@ -59,7 +59,24 @@ type EditorState =
       /// A saved copy that changed since the baseline, under merge review.
       Incoming: Project option
       /// Item conflicts the reviewer resolved in favour of the saved copy.
-      TakeSaved: Set<string> }
+      TakeSaved: Set<string>
+      /// Portable workflow documents, edited in the public Forma workflow component.
+      Workflows: WorkflowLibrary
+      /// The Workflows surface is showing (instead of the Flow diagram or a Layout page).
+      WorkflowVisible: bool
+      /// HTML export settings and the last result (view state, never in the project).
+      Export: ExportView
+      /// Where new Layout components go: a container on the open page, or its root stack.
+      LayoutTarget: string option }
+
+/// The HTML export panel: what was exported last and how.
+and ExportView =
+    { Target: HtmlTarget
+      Brand: string option
+      Text: string
+      FileName: string
+      Omitted: string list
+      Summary: string }
 
 [<RequireQualifiedAccess>]
 module EditorApp =
@@ -92,7 +109,11 @@ module EditorApp =
           Baseline = project
           Saving = None
           Incoming = None
-          TakeSaved = Set.empty }
+          TakeSaved = Set.empty
+          Workflows = WorkflowLibrary.empty
+          WorkflowVisible = false
+          Export = { Target = HtmlFragment; Brand = None; Text = ""; FileName = "export.html"; Omitted = []; Summary = "Nothing exported yet." }
+          LayoutTarget = None }
 
     let fieldTypes =
         [ "text", "Text"; "number", "Number"; "boolean", "Yes or no"; "choice", "Choice list"; "date", "Date or time"; "url", "Link"; "tags", "Tags" ]
@@ -313,6 +334,29 @@ module EditorApp =
 
     let private storage correlation operation extra =
         JObject([ "kind", JString "Storage"; "correlationId", JString correlation; "operation", JString operation; "key", JString storageKey ] @ extra)
+
+    /// Portable workflows persist under their own key, as their own documents.
+    let workflowStorageKey = "forma-studio.workflows"
+
+    let private workflowStorage correlation operation extra =
+        JObject([ "kind", JString "Storage"; "correlationId", JString correlation; "operation", JString operation; "key", JString workflowStorageKey ] @ extra)
+
+    let private exportOptions (state: EditorState) =
+        { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand }
+
+    let private showExport (state: EditorState) (name: string) (result: HtmlExportResult) =
+        let kind = match state.Export.Target with HtmlFragment -> "fragment" | HtmlDocument -> "document"
+        let deps =
+            result.Dependencies
+            |> List.map (function Forma.Workflow.Stylesheet(pkg, v, path) | Forma.Workflow.RuntimeModule(pkg, v, path) -> $"{pkg}@{v}/{path}")
+        { state with
+            Export =
+                { state.Export with
+                    Text = result.Html
+                    FileName = name + (if state.Export.Target = HtmlDocument then ".html" else ".fragment.html")
+                    Omitted = result.Omitted
+                    Summary = $"HTML {kind} for {name}. Needs: " + String.concat ", " deps + "." }
+            Status = (if result.Omitted.IsEmpty then $"Exported {name} as an HTML {kind}." else $"Exported {name}; {result.Omitted.Length} item(s) have no public Forma contract and were left out.") }
 
     /// Creates a project-local field from the form, without JSON (FDA-1180..1191).
     /// Printed fields are also shown on the canvas; the whole change is one batch,
@@ -576,8 +620,8 @@ module EditorApp =
                 run (Batch("add page", [ Layout(AddPage(pageId, sprintf "Page %d" number, Some(sprintf "/page-%d" number))); Layout(AddComponent(pageId, None, 0, rootId, "stack")) ]))
                     (sprintf "Page %d added with an empty stack." number) state
             noEffects { created with Page = (if created.Session.Project <> state.Session.Project then Some pageId else state.Page) }
-        | "open-page" -> noEffects { state with Page = Id.create<PageKind> key |> Result.toOption; Status = "Layout page opened." }
-        | "open-diagram" -> noEffects { state with Page = None; Status = "Diagram opened." }
+        | "open-page" -> noEffects { state with Page = Id.create<PageKind> key |> Result.toOption; WorkflowVisible = false; Status = "Layout page opened." }
+        | "open-diagram" -> noEffects { state with Page = None; WorkflowVisible = false; Status = "Diagram opened." }
         | "layout-add-heading" -> noEffects (layoutOnRoot state (fun page root ->
             let used = ProjectOps.componentIds page.Nodes |> List.map Id.value |> Set.ofList
             let headingId: ComponentNodeId = Samples.idOf (unique used (sprintf "%s-heading" (Id.value page.Id)))
@@ -586,13 +630,56 @@ module EditorApp =
                                    Layout(SetComponentContent(page.Id, headingId, "text", "New heading"))
                                    Layout(SetComponentProperty(page.Id, headingId, "level", Some(Json.ofInt 2))) ]), "Heading added."))
         | "layout-set-text" ->
-            match state.Page, Id.create<ComponentKind> key with
-            | Some page, Ok heading -> noEffects (run (Layout(SetComponentContent(page, heading, "text", value))) "Heading text changed." state)
+            // key is "<component id>" (heading text) or "<component id>|<content key>".
+            let componentKey, contentKey = match key.Split('|') with [| c; k |] -> c, k | _ -> key, "text"
+            match state.Page, Id.create<ComponentKind> componentKey with
+            | Some page, Ok id -> noEffects (run (Layout(SetComponentContent(page, id, contentKey, value))) "Text changed." state)
             | _ -> noEffects state
+        | "layout-target" -> noEffects { state with LayoutTarget = (if key = "" || key = "root" then None else Some key) }
+        | "layout-add-component" ->
+            match Components.tryFind key with
+            | None -> noEffects { state with Status = "That component is not in Studio's Forma catalog." }
+            | Some contract ->
+                noEffects (layoutOnRoot state (fun page root ->
+                    let used = ProjectOps.componentIds page.Nodes |> List.map Id.value |> Set.ofList
+                    let id: ComponentNodeId = Samples.idOf (unique used (sprintf "%s-%s" (Id.value page.Id) contract.Id))
+                    let containers = ProjectOps.componentIds page.Nodes
+                    let parent =
+                        state.LayoutTarget
+                        |> Option.bind (fun t -> containers |> List.tryFind (fun c -> Id.value c = t))
+                        |> Option.defaultValue root.Id
+                    let siblings =
+                        let rec find (nodes: ComponentNode list) =
+                            nodes |> List.tryPick (fun n -> if n.Id = parent then Some n else n.Slots |> Map.toList |> List.collect snd |> find)
+                        find page.Nodes |> Option.bind (fun n -> n.Slots |> Map.tryFind "children") |> Option.map List.length |> Option.defaultValue 0
+                    let defaults =
+                        match contract.Id with
+                        | "heading" -> [ "text", "New heading" ]
+                        | "text" -> [ "text", "New paragraph." ]
+                        | "button" | "link-button" -> [ "label", "Continue" ] @ (if contract.Id = "link-button" then [ "href", "#" ] else [])
+                        | "text-field" -> [ "label", "New field" ]
+                        | "surface" -> [ "title", "New section" ]
+                        | "responsive-grid" -> [ "label", "Summary" ]
+                        | "alert" -> [ "title", "Notice"; "text", "Describe what changed." ]
+                        | "metric-card" -> [ "label", "Metric"; "value", "0" ]
+                        | _ -> []
+                    let props =
+                        match contract.Id, WorkflowLibrary.current state.Workflows with
+                        | "heading", _ -> [ "level", Json.ofInt 2 ]
+                        | "workflow", Some entry -> [ "workflow", JString entry.Id ]
+                        | _ -> []
+                    Batch(
+                        "add " + contract.Id,
+                        Layout(AddComponent(page.Id, Some { Parent = parent; Slot = "children" }, siblings, id, contract.Id))
+                        :: (defaults |> List.map (fun (k, v) -> Layout(SetComponentContent(page.Id, id, k, v))))
+                        @ (props |> List.map (fun (k, v) -> Layout(SetComponentProperty(page.Id, id, k, Some v))))
+                    ),
+                    (sprintf "Added %s." contract.Id)))
         | "layout-move-up" | "layout-move-down" ->
             noEffects (layoutOnRoot state (fun page root ->
                 let children = root.Slots |> Map.tryFind "children" |> Option.defaultValue []
-                match children |> List.tryFindIndex (fun c -> Id.value c.Id = key) with
+                let componentKey = key.Split('|').[0]
+                match children |> List.tryFindIndex (fun c -> Id.value c.Id = componentKey) with
                 | Some index ->
                     let target = if e.Name = "layout-move-up" then max 0 (index - 1) else min (children.Length - 1) (index + 1)
                     Layout(MoveComponent(page.Id, children.[index].Id, Some { Parent = root.Id; Slot = "children" }, target)), "Reordered."
@@ -602,6 +689,43 @@ module EditorApp =
         | "save" -> { state with Status = "Saving…"; Saving = Some(project state) }, [ storage "save" "set" [ "value", JString(Codec.serialize (project state)) ] ]
         | "load" -> { state with Status = "Loading…" }, [ storage "load" "get" [] ]
         | "check-saved" -> { state with Status = "Checking the saved copy…" }, [ storage "compare" "get" [] ]
+        | "open-workflows" -> noEffects { state with WorkflowVisible = true; Status = "Workflows opened." }
+        | "workflow-new" ->
+            match WorkflowLibrary.blank "New workflow" state.Workflows with
+            | Ok(lib, entry) -> noEffects { state with Workflows = lib; WorkflowVisible = true; Status = $"Created {WorkflowLibrary.fileName entry}." }
+            | Error message -> noEffects { state with Status = message }
+        | "workflow-opened" ->
+            match WorkflowLibrary.openText value state.Workflows with
+            | Ok(lib, entry) ->
+                noEffects { state with Workflows = lib; WorkflowVisible = true; Status = $"Opened {entry.Title} ({entry.Class}); unknown metadata and extensions are kept as they are." }
+            | Error message -> noEffects { state with Status = message }
+        | "workflow-changed" ->
+            match WorkflowLibrary.adoptChange value state.Workflows with
+            | Ok(lib, entry) -> noEffects { state with Workflows = lib; Status = $"{entry.Title}: change kept ({entry.Class})." }
+            | Error message -> noEffects { state with Status = message }
+        | "workflow-select" ->
+            match WorkflowLibrary.select key state.Workflows with
+            | Some lib -> noEffects { state with Workflows = lib; WorkflowVisible = true; Status = "Workflow opened." }
+            | None -> noEffects { state with Status = "That workflow is not open." }
+        | "workflow-close" -> noEffects { state with Workflows = WorkflowLibrary.close key state.Workflows; Status = "Workflow closed." }
+        | "workflow-save" ->
+            { state with Status = "Saving workflows…" }, [ workflowStorage "workflows-save" "set" [ "value", JString(WorkflowLibrary.toStorage state.Workflows) ] ]
+        | "workflow-load" -> { state with Status = "Opening saved workflows…" }, [ workflowStorage "workflows-load" "get" [] ]
+        | "export-target" -> noEffects { state with Export = { state.Export with Target = (if key = "document" then HtmlDocument else HtmlFragment) } }
+        | "export-brand" -> noEffects { state with Export = { state.Export with Brand = (if key = "" || key = "none" then None else Some key) } }
+        | "export-page" ->
+            match state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state)) |> Option.orElse ((project state).Pages |> List.tryHead) with
+            | Some page -> noEffects (showExport state (Id.value page.Id) (HtmlExport.page (exportOptions state) state.Workflows page))
+            | None -> noEffects { state with Status = "Add a Layout page to export it." }
+        | "export-workflow" ->
+            match WorkflowLibrary.current state.Workflows with
+            | Some entry ->
+                match HtmlExport.workflow (exportOptions state) entry with
+                | Ok result -> noEffects (showExport state entry.Id result)
+                | Error message -> noEffects { state with Status = message }
+            | None -> noEffects { state with Status = "Open a workflow to export it." }
+        | "copy-export" when state.Export.Text <> "" ->
+            { state with Status = "Copying the exported HTML…" }, [ JObject [ "kind", JString "Clipboard"; "correlationId", JString "copy-export"; "operation", JString "writeText"; "text", JString state.Export.Text ] ]
         | "merge-take-saved" -> noEffects { state with TakeSaved = state.TakeSaved.Add key }
         | "merge-keep-mine" -> noEffects { state with TakeSaved = state.TakeSaved.Remove key }
         | "merge-cancel" -> noEffects { state with Incoming = None; TakeSaved = Set.empty; Status = "Merge cancelled; nothing changed." }
@@ -643,6 +767,16 @@ module EditorApp =
                 | Ok saved -> { state with Incoming = Some saved; TakeSaved = Set.empty; Status = "The saved copy has changed. Review the merge below." }
                 | Error error -> { state with Status = Codec.describeLoadError error }
             | _ -> { state with Status = "Nothing has been saved yet." }
+        | Some(JString "workflows-save"), Some(JString "Success") ->
+            { state with Status = $"Saved {state.Workflows.Entries.Length} workflow(s) in this browser."; Workflows = { state.Workflows with Unsaved = Set.empty } }
+        | Some(JString "workflows-load"), Some(JString "Success") ->
+            match field "outcome" result |> Option.bind (field "value") with
+            | Some(JString text) ->
+                match WorkflowLibrary.ofStorage text state.Workflows with
+                | Ok lib -> { state with Workflows = lib; WorkflowVisible = true; Status = $"Opened {lib.Entries.Length} saved workflow(s)." }
+                | Error message -> { state with Status = message }
+            | _ -> { state with Status = "No workflows have been saved in this browser yet." }
+        | Some(JString "copy-export"), Some(JString "Success") -> { state with Status = "Copied the exported HTML." }
         | Some(JString _), Some(JString "Failure") -> { state with Status = "The browser could not complete the storage request."; Saving = None }
         | _ -> state
 
@@ -863,8 +997,40 @@ module EditorApp =
                 [ "pages", p.Pages |> List.map (fun pg -> item [ "key", str (Id.value pg.Id); "label", str (sprintf "Layout: %s" pg.Name); "current", str (if state.Page = Some pg.Id then "page" else "false") ]) |> JArray
                   "flowLabel", str (sprintf "Flow: %s" diagram.Name)
                   "flowCurrent", str (if state.Page.IsNone then "page" else "false")
-                  "flowVisible", JBool state.Page.IsNone
-                  "layoutVisible", JBool state.Page.IsSome
+                  "flowVisible", JBool(state.Page.IsNone && not state.WorkflowVisible)
+                  "layoutVisible", JBool(state.Page.IsSome && not state.WorkflowVisible)
+                  "flowHidden", JBool(state.Page.IsSome || state.WorkflowVisible)
+                  "layoutHidden", JBool(state.Page.IsNone || state.WorkflowVisible)
+                  "workflowHidden", JBool(not state.WorkflowVisible)
+                  "workflowsCurrent", str (if state.WorkflowVisible then "page" else "false")
+                  "workflows",
+                  state.Workflows.Entries
+                  |> List.map (fun e ->
+                      item
+                          [ "key", str e.Id
+                            "label", str (e.Title + (if state.Workflows.Unsaved.Contains e.Id then " (unsaved)" else ""))
+                            "file", str (WorkflowLibrary.fileName e)
+                            "validity", str e.Class
+                            "current", str (if state.Workflows.Current = Some e.Id then "page" else "false") ])
+                  |> JArray
+                  "workflowCount", str (string state.Workflows.Entries.Length)
+                  "workflowDocument", str (WorkflowLibrary.current state.Workflows |> Option.map _.Text |> Option.defaultValue "")
+                  "workflowRevision", str (string state.Workflows.Revision)
+                  "workflowFile", str (WorkflowLibrary.current state.Workflows |> Option.map WorkflowLibrary.fileName |> Option.defaultValue "workflow.forma-workflow.json")
+                  "workflowNone", JBool((WorkflowLibrary.current state.Workflows).IsSome)
+                  "exportTargets",
+                  [ "fragment", "HTML fragment", HtmlFragment; "document", "Complete HTML document", HtmlDocument ]
+                  |> List.map (fun (k, label, t) -> item [ "key", str k; "label", str label; "pressed", str (if state.Export.Target = t then "true" else "false") ])
+                  |> JArray
+                  "exportBrands",
+                  [ "none", "No brand"; "echelon", "Echelon"; "example-harbor", "Example Harbor" ]
+                  |> List.map (fun (k, label) -> item [ "key", str k; "label", str label; "pressed", str (if (state.Export.Brand |> Option.defaultValue "none") = k then "true" else "false") ])
+                  |> JArray
+                  "exportText", str state.Export.Text
+                  "exportFile", str state.Export.FileName
+                  "exportSummary", str state.Export.Summary
+                  "exportOmitted", state.Export.Omitted |> List.mapi (fun i o -> item [ "key", str (string i); "text", str o ]) |> JArray
+                  "exportEmpty", JBool(state.Export.Text = "")
                   "pageName", str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.map _.Name |> Option.defaultValue "")
                   "density",
                   str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))
@@ -874,8 +1040,23 @@ module EditorApp =
                    |> Option.map (fun root -> root.Slots |> Map.tryFind "children" |> Option.defaultValue [])
                    |> Option.defaultValue []
                    |> List.map (fun c ->
-                       let text = c.Content |> Map.tryFind "text" |> Option.map (function JString t -> t | _ -> "") |> Option.defaultValue ""
-                       item [ "key", str (Id.value c.Id); "text", str text; "label", str (sprintf "Heading text for %s" (Id.value c.Id)) ]))
+                       let primary = Components.tryFind c.Component |> Option.bind (fun ct -> List.tryHead ct.Content) |> Option.defaultValue "text"
+                       let text = c.Content |> Map.tryFind primary |> Option.map (function JString t -> t | _ -> "") |> Option.defaultValue ""
+                       let label = if c.Component = "heading" then sprintf "Heading text for %s" (Id.value c.Id) else sprintf "%s %s for %s" c.Component primary (Id.value c.Id)
+                       item [ "key", str (Id.value c.Id + "|" + primary); "text", str text; "label", str label; "kind", str c.Component ]))
+                  |> JArray
+                  "componentChoices",
+                  Components.catalog |> List.filter (fun c -> c.Id <> "stack" && c.Id <> "heading") |> List.map (fun c -> item [ "key", str c.Id; "label", str ("Add " + c.Id) ]) |> JArray
+                  "layoutTargets",
+                  (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p)
+                   |> Option.map (fun pg ->
+                       let rec containers (nodes: ComponentNode list) =
+                           nodes |> List.collect (fun n -> (if n.Component <> "stack" && not (List.isEmpty (Components.tryFind n.Component |> Option.map _.Slots |> Option.defaultValue [])) then [ n ] else []) @ (n.Slots |> Map.toList |> List.collect snd |> containers))
+                       containers pg.Nodes)
+                   |> Option.defaultValue []
+                   |> List.map (fun n -> n.Id, n.Component)
+                   |> fun cs -> ("root", "page") :: (cs |> List.map (fun (id, kind) -> Id.value id, kind + " " + Id.value id))
+                   |> List.map (fun (k, label) -> item [ "key", str k; "label", str ("Add into " + label); "pressed", str (if (state.LayoutTarget |> Option.defaultValue "root") = k then "true" else "false") ]))
                   |> JArray
                   "densities", [ "relaxed"; "standard"; "compact"; "analytical" ] |> List.map (fun d -> item [ "key", str d; "label", str d ]) |> JArray
                   "diagramName", str diagram.Name

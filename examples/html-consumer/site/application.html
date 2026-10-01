@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crew scheduling</title>
+    <link rel="stylesheet" href="assets/forma/tokens.css">
+    <link rel="stylesheet" href="assets/forma/foundations.css">
+    <link rel="stylesheet" href="assets/forma/components.css">
+  </head>
+  <body>
+    <main>
+      <div class="ef-stack" data-density="standard">
+        <h1>Crew scheduling</h1>
+        <p>Assign crew members to upcoming training sessions. Changes take effect after review.</p>
+        <aside class="ef-alert" role="status">
+          <div class="ef-alert__icon" aria-hidden="true">!</div>
+          <div>
+            <h3 class="ef-alert__title">Two sessions need an instructor</h3>
+            <p>Assign instructors before Friday so sessions stay on the schedule.</p>
+          </div>
+        </aside>
+        <section class="ef-surface" aria-labelledby="surface-app-window">
+          <h2 id="surface-app-window">Next training window</h2>
+          <p>Neutral buoyancy sessions run Monday to Thursday.</p>
+          <article class="ef-metric-card">
+            <div class="ef-metric-card__label">Open seats</div>
+            <div class="ef-metric-card__value">6</div>
+            <div class="ef-metric-card__context">of 24 this week</div>
+          </article>
+        </section>
+        <section class="ef-surface" aria-labelledby="surface-app-form">
+          <h2 id="surface-app-form">Request a session</h2>
+          <div class="ef-field">
+            <label class="ef-field__label" for="field-app-email">Work email</label>
+            <span class="ef-field__description" id="field-app-email-description">We send the confirmation here.</span>
+            <input id="field-app-email" name="email" type="email" aria-describedby="field-app-email-description" required>
+          </div>
+          <div class="ef-field">
+            <label class="ef-field__label" for="field-app-date">Preferred date</label>
+            <input id="field-app-date" name="date" type="date">
+          </div>
+          <div class="ef-actions"><button type="submit">Request session</button><a class="ef-button" href="https://example.org/policy">Read the training policy</a></div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

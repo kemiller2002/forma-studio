@@ -1,0 +1,91 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "branching",
+  "title": "Launch readiness poll",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "poll",
+      "kind": "start",
+      "label": "Begin readiness poll"
+    },
+    {
+      "id": "go",
+      "kind": "decision",
+      "label": "All stations go?"
+    },
+    {
+      "id": "hold",
+      "kind": "task",
+      "label": "Call a hold"
+    },
+    {
+      "id": "resolve",
+      "kind": "task",
+      "label": "Resolve the issue"
+    },
+    {
+      "id": "launch",
+      "kind": "end",
+      "label": "Proceed to launch"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-poll",
+      "source": {
+        "node": "poll"
+      },
+      "target": {
+        "node": "go"
+      }
+    },
+    {
+      "id": "e-yes",
+      "source": {
+        "node": "go"
+      },
+      "target": {
+        "node": "launch"
+      },
+      "kind": "conditional",
+      "label": "Go"
+    },
+    {
+      "id": "e-no",
+      "source": {
+        "node": "go"
+      },
+      "target": {
+        "node": "hold"
+      },
+      "kind": "conditional",
+      "label": "No go",
+      "line": "dashed"
+    },
+    {
+      "id": "e-fix",
+      "source": {
+        "node": "hold"
+      },
+      "target": {
+        "node": "resolve"
+      }
+    },
+    {
+      "id": "e-repoll",
+      "source": {
+        "node": "resolve"
+      },
+      "target": {
+        "node": "go"
+      },
+      "label": "Repoll",
+      "line": "dotted"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Launch readiness poll</title>
+    <link rel="stylesheet" href="assets/forma/tokens.css">
+    <link rel="stylesheet" href="assets/forma/foundations.css">
+    <link rel="stylesheet" href="assets/forma/components.css">
+  </head>
+  <body>
+    <main>
+      <figure class="ef-diagram" id="wf-branching" aria-labelledby="wf-branching-title">
+        <figcaption id="wf-branching-title">Launch readiness poll</figcaption>
+        <div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Launch readiness poll diagram, scroll to see all items">
+          <div class="ef-diagram__canvas" style="--ef-diagram-canvas-w: 1136px; --ef-diagram-canvas-h: 273px;">
+            <svg class="ef-diagram__wires" viewBox="0 0 1136 273" aria-hidden="true" focusable="false">
+              <defs>
+                <marker id="wf-branching-arrow" class="ef-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                  <path d="M0 0 L10 5 L0 10 z" />
+                </marker>
+              </defs>
+              <path class="ef-diagram-connector" id="wf-branching-e-e-poll" d="M224 60 L272 60 L272 124 L320 124" marker-end="url(#wf-branching-arrow)" />
+              <path class="ef-diagram-connector" id="wf-branching-e-e-yes" d="M520 124 L568 124 L568 164 L616 164" marker-end="url(#wf-branching-arrow)" />
+              <path class="ef-diagram-connector" id="wf-branching-e-e-no" data-ef-line="dashed" d="M520 124 L568 124 L568 60 L616 60" marker-end="url(#wf-branching-arrow)" />
+              <path class="ef-diagram-connector" id="wf-branching-e-e-fix" d="M816 60 L912 60" marker-end="url(#wf-branching-arrow)" />
+              <path class="ef-diagram-connector" id="wf-branching-e-e-repoll" data-ef-line="dotted" d="M1012 96 L912 60 L912 248 L420 248 L420 224" marker-end="url(#wf-branching-arrow)" />
+            </svg>
+            <article class="ef-diagram-node" id="wf-branching-n-poll" data-ef-shape="pill" aria-labelledby="wf-branching-n-poll-label" style="--ef-diagram-x: 24px; --ef-diagram-y: 24px; --ef-diagram-w: 200px; --ef-diagram-h: 72px;">
+              <p class="ef-diagram-node__kind">Start</p>
+              <h3 class="ef-diagram-node__label" id="wf-branching-n-poll-label">Begin readiness poll</h3>
+            </article>
+            <article class="ef-diagram-node" id="wf-branching-n-go" data-ef-shape="diamond" aria-labelledby="wf-branching-n-go-label" style="--ef-diagram-x: 320px; --ef-diagram-y: 24px; --ef-diagram-w: 200px; --ef-diagram-h: 200px;">
+              <p class="ef-diagram-node__kind">Decision</p>
+              <h3 class="ef-diagram-node__label" id="wf-branching-n-go-label">All stations go?</h3>
+            </article>
+            <article class="ef-diagram-node" id="wf-branching-n-hold" data-ef-shape="rounded" aria-labelledby="wf-branching-n-hold-label" style="--ef-diagram-x: 616px; --ef-diagram-y: 24px; --ef-diagram-w: 200px; --ef-diagram-h: 72px;">
+              <p class="ef-diagram-node__kind">Task</p>
+              <h3 class="ef-diagram-node__label" id="wf-branching-n-hold-label">Call a hold</h3>
+            </article>
+            <article class="ef-diagram-node" id="wf-branching-n-launch" data-ef-shape="pill" aria-labelledby="wf-branching-n-launch-label" style="--ef-diagram-x: 616px; --ef-diagram-y: 128px; --ef-diagram-w: 200px; --ef-diagram-h: 72px;">
+              <p class="ef-diagram-node__kind">End</p>
+              <h3 class="ef-diagram-node__label" id="wf-branching-n-launch-label">Proceed to launch</h3>
+            </article>
+            <article class="ef-diagram-node" id="wf-branching-n-resolve" data-ef-shape="rounded" aria-labelledby="wf-branching-n-resolve-label" style="--ef-diagram-x: 912px; --ef-diagram-y: 24px; --ef-diagram-w: 200px; --ef-diagram-h: 72px;">
+              <p class="ef-diagram-node__kind">Task</p>
+              <h3 class="ef-diagram-node__label" id="wf-branching-n-resolve-label">Resolve the issue</h3>
+            </article>
+            <span class="ef-diagram-connector__label" aria-hidden="true" style="--ef-diagram-x: 544px; --ef-diagram-y: 124px;">Go</span>
+            <span class="ef-diagram-connector__label" aria-hidden="true" style="--ef-diagram-x: 568px; --ef-diagram-y: 92px;">No go</span>
+            <span class="ef-diagram-connector__label" aria-hidden="true" style="--ef-diagram-x: 666px; --ef-diagram-y: 248px;">Repoll</span>
+          </div>
+        </div>
+        <ol class="ef-diagram__relations" aria-label="Relationships">
+          <li>Begin readiness poll leads to All stations go?</li>
+          <li>All stations go? leads to Proceed to launch: “Go”; conditional.</li>
+          <li>All stations go? leads to Call a hold: “No go”; conditional; dashed line.</li>
+          <li>Call a hold leads to Resolve the issue.</li>
+          <li>Resolve the issue leads to All stations go?: “Repoll”; dotted line.</li>
+        </ol>
+      </figure>
+    </main>
+  </body>
+</html>

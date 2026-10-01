@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Forma.Workflow: the portable workflow standard as a library. Model, lossless
+    codec, schema and semantic validation, deterministic layout, static HTML
+    rendering and the embeddable editor engine. No package dependencies beyond
+    FSharp.Core and the base class library (ADR-0006).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsTrimmable>true</IsTrimmable>
+    <PackageId>EchelonFoundry.Forma.Workflow</PackageId>
+    <Version>1.0.0</Version>
+    <Description>Forma portable workflow format: model, validation, layout, HTML rendering and the embeddable editor engine.</Description>
+    <NoWarn>$(NoWarn);FS3370</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The published contracts are the single source: embedded verbatim. -->
+    <EmbeddedResource Include="../forma-workflow.schema.json" LogicalName="Forma.Workflow.forma-workflow.schema.json" />
+    <EmbeddedResource Include="../workflow-capabilities.json" LogicalName="Forma.Workflow.workflow-capabilities.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Json.fs" />
+    <Compile Include="JsonSchema.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="Codec.fs" />
+    <Compile Include="Validation.fs" />
+    <Compile Include="Layout.fs" />
+    <Compile Include="Markup.fs" />
+    <Compile Include="Render.fs" />
+    <Compile Include="Editor.fs" />
+    <Compile Include="Embed.fs" />
+    <Compile Include="EmbedView.fs" />
+    <Compile Include="EmbedProtocol.fs" />
+  </ItemGroup>
+</Project>

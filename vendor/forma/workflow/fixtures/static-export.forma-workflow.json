@@ -1,0 +1,77 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "static-export",
+  "title": "Static export reference",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "kind": "start",
+      "label": "Request",
+      "layout": {
+        "x": 24,
+        "y": 24,
+        "width": 200,
+        "height": 72
+      }
+    },
+    {
+      "id": "b",
+      "kind": "task",
+      "label": "Review",
+      "status": {
+        "state": "active"
+      },
+      "layout": {
+        "x": 320,
+        "y": 24,
+        "width": 200,
+        "height": 96
+      }
+    },
+    {
+      "id": "c",
+      "kind": "end",
+      "label": "Done",
+      "layout": {
+        "x": 616,
+        "y": 24,
+        "width": 200,
+        "height": 72
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "s1",
+      "source": {
+        "node": "a"
+      },
+      "target": {
+        "node": "b"
+      }
+    },
+    {
+      "id": "s2",
+      "source": {
+        "node": "b"
+      },
+      "target": {
+        "node": "c"
+      },
+      "label": "Approved"
+    }
+  ],
+  "layout": {
+    "direction": "right",
+    "mode": "authored",
+    "canvas": {
+      "width": 840,
+      "height": 144
+    }
+  }
+}

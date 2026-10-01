@@ -1,0 +1,85 @@
+{
+  "$schema": "https://forma.echelonfoundry.com/schemas/workflow/1.0/forma-workflow.schema.json",
+  "format": "forma-workflow",
+  "formatVersion": "1.0.0",
+  "id": "branded",
+  "title": "Partner mission review",
+  "description": "Uses only token-backed palette slots, so a Forma brand restyles it without editing the workflow.",
+  "forma": {
+    "version": "0.4.0"
+  },
+  "palette": {
+    "primary": "token:surface-secondary",
+    "accent": "token:accent-primary"
+  },
+  "nodes": [
+    {
+      "id": "brief",
+      "kind": "task",
+      "label": "Partner briefing",
+      "color": {
+        "fill": "palette:primary",
+        "foreground": "token:text-primary"
+      }
+    },
+    {
+      "id": "review",
+      "kind": "task",
+      "label": "Joint review",
+      "color": {
+        "accent": "palette:accent"
+      }
+    },
+    {
+      "id": "signoff",
+      "kind": "end",
+      "label": "Joint sign-off",
+      "color": {
+        "stroke": "palette:accent"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "b1",
+      "source": {
+        "node": "brief"
+      },
+      "target": {
+        "node": "review"
+      }
+    },
+    {
+      "id": "b2",
+      "source": {
+        "node": "review"
+      },
+      "target": {
+        "node": "signoff"
+      },
+      "color": {
+        "stroke": "palette:accent"
+      }
+    }
+  ],
+  "presentation": {
+    "legend": [
+      {
+        "id": "partner",
+        "label": "Partner-owned step",
+        "description": "brand surface fill",
+        "color": {
+          "fill": "palette:primary"
+        }
+      },
+      {
+        "id": "joint",
+        "label": "Joint step",
+        "description": "brand accent",
+        "color": {
+          "accent": "palette:accent"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+/* Generated from example-harbor.brand.json. Do not edit directly. */
+@layer echelon.brand {
+  [data-ef-brand="example-harbor"] {
+  --ef-primitive-font-family-display: Georgia, serif;
+  --ef-primitive-font-family-sans: Arial, sans-serif;
+  --ef-primitive-font-family-mono: "Courier New", monospace;
+  --ef-primitive-radius-small: 8px;
+  --ef-primitive-radius-medium: 12px;
+  --ef-primitive-radius-pill: 999px;
+  --ef-color-text-primary: #15212a;
+  --ef-color-text-heading: #15212a;
+  --ef-color-text-secondary: #43515b;
+  --ef-color-text-on-secondary-surface: #24333d;
+  --ef-color-text-inverse: #f7f9fb;
+  --ef-color-surface-primary: #f7f9fb;
+  --ef-color-surface-secondary: #e4ebf0;
+  --ef-color-surface-inverse: #20384a;
+  --ef-color-surface-inverse-secondary: #31556f;
+  --ef-color-accent-primary: #7a4a00;
+  --ef-color-accent-secondary: #275d6b;
+  --ef-color-border-subtle: #b7c5cf;
+  --ef-color-border-functional: #43515b;
+  --ef-color-focus-ring: #15212a;
+  --ef-color-focus-gap: #f7f9fb;
+  --ef-color-control-track: #5d6d78;
+  --ef-color-control-thumb: #f7f9fb;
+  --ef-color-control-active: #7a4a00;
+}
+  [data-ef-theme="light"] [data-ef-brand="example-harbor"], [data-ef-brand="example-harbor"][data-ef-theme="light"] {
+  --ef-color-text-primary: #15212a;
+  --ef-color-text-heading: #15212a;
+  --ef-color-text-secondary: #43515b;
+  --ef-color-text-on-secondary-surface: #24333d;
+  --ef-color-text-inverse: #f7f9fb;
+  --ef-color-surface-primary: #f7f9fb;
+  --ef-color-surface-secondary: #e4ebf0;
+  --ef-color-surface-inverse: #20384a;
+  --ef-color-surface-inverse-secondary: #31556f;
+  --ef-color-accent-primary: #7a4a00;
+  --ef-color-accent-secondary: #275d6b;
+  --ef-color-border-subtle: #b7c5cf;
+  --ef-color-border-functional: #43515b;
+  --ef-color-focus-ring: #15212a;
+  --ef-color-focus-gap: #f7f9fb;
+  --ef-color-control-track: #5d6d78;
+  --ef-color-control-thumb: #f7f9fb;
+  --ef-color-control-active: #7a4a00;
+}
+  [data-ef-theme="dark"] [data-ef-brand="example-harbor"], [data-ef-brand="example-harbor"][data-ef-theme="dark"] {
+  --ef-color-text-primary: #f7f9fb;
+  --ef-color-text-heading: #f7f9fb;
+  --ef-color-text-secondary: #dbe6ec;
+  --ef-color-text-on-secondary-surface: #f7f9fb;
+  --ef-color-text-inverse: #101820;
+  --ef-color-surface-primary: #101820;
+  --ef-color-surface-secondary: #20303d;
+  --ef-color-surface-inverse: #f7f9fb;
+  --ef-color-surface-inverse-secondary: #dbe6ec;
+  --ef-color-accent-primary: #d7a85b;
+  --ef-color-accent-secondary: #6eb3c0;
+  --ef-color-border-subtle: #40515f;
+  --ef-color-border-functional: #dbe6ec;
+  --ef-color-focus-ring: #f7f9fb;
+  --ef-color-focus-gap: #101820;
+  --ef-color-control-track: #60717e;
+  --ef-color-control-thumb: #f7f9fb;
+  --ef-color-control-active: #d7a85b;
+}
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-ef-theme]) [data-ef-brand="example-harbor"]:not([data-ef-theme]), :root[data-ef-brand="example-harbor"]:not([data-ef-theme]) {
+  --ef-color-text-primary: #f7f9fb;
+  --ef-color-text-heading: #f7f9fb;
+  --ef-color-text-secondary: #dbe6ec;
+  --ef-color-text-on-secondary-surface: #f7f9fb;
+  --ef-color-text-inverse: #101820;
+  --ef-color-surface-primary: #101820;
+  --ef-color-surface-secondary: #20303d;
+  --ef-color-surface-inverse: #f7f9fb;
+  --ef-color-surface-inverse-secondary: #dbe6ec;
+  --ef-color-accent-primary: #d7a85b;
+  --ef-color-accent-secondary: #6eb3c0;
+  --ef-color-border-subtle: #40515f;
+  --ef-color-border-functional: #dbe6ec;
+  --ef-color-focus-ring: #f7f9fb;
+  --ef-color-focus-gap: #101820;
+  --ef-color-control-track: #60717e;
+  --ef-color-control-thumb: #f7f9fb;
+  --ef-color-control-active: #d7a85b;
+}
+  }
+}
