@@ -14,7 +14,12 @@ type HtmlExportOptions =
       /// Optional public Forma brand (brands/<id>.css and data-ef-brand).
       Brand: string option
       Theme: string option
-      Language: string }
+      Language: string
+      /// For workflows only: wrap the static figure in the public <forma-workflow>
+      /// element (read-only view) and declare its runtime. Off by default: static stays static.
+      InteractiveWorkflow: bool
+      /// Where the consuming project serves @echelon-foundry/forma-workflow's dist files.
+      WorkflowRuntimeBase: string }
 
 type HtmlExportResult =
     { Html: string
@@ -31,7 +36,14 @@ type HtmlExportResult =
 module HtmlExport =
     open Forma.Workflow
 
-    let defaults = { Target = HtmlFragment; FormaBase = "node_modules/@echelon-foundry/design-system/dist/"; Brand = None; Theme = None; Language = "en" }
+    let defaults =
+        { Target = HtmlFragment
+          FormaBase = "node_modules/@echelon-foundry/design-system/dist/"
+          Brand = None
+          Theme = None
+          Language = "en"
+          InteractiveWorkflow = false
+          WorkflowRuntimeBase = "node_modules/@echelon-foundry/forma-workflow/dist/" }
 
     let private el = Markup.el
     let private text = Markup.text
@@ -174,9 +186,19 @@ module HtmlExport =
         let parts = page.Nodes |> List.map (exportNode workflows)
         wrap opts (page.Title |> Option.defaultValue page.Name) page.Description (parts |> List.collect fst) (parts |> List.collect snd)
 
-    /// Exports one portable workflow (rendered by Forma).
+    /// Exports one portable workflow (rendered by Forma). Interactive output is
+    /// Forma's own interactive document or fragment, with the public runtime declared.
     let workflow (opts: HtmlExportOptions) (entry: WorkflowEntry) =
         match (Validation.load entry.Text).Workflow with
+        | Some w when opts.InteractiveWorkflow ->
+            let formaOpts =
+                { DocumentOptions.defaults with
+                    FormaBase = opts.FormaBase
+                    Brand = brandOk opts.Brand
+                    Theme = themeOk opts.Theme
+                    Interactivity = InteractiveOutput(ViewMode, opts.WorkflowRuntimeBase) }
+            let rendered = if opts.Target = HtmlDocument then WorkflowDocument.document formaOpts w else WorkflowDocument.fragment formaOpts w
+            Ok { Html = rendered.Html; Dependencies = rendered.Dependencies; Omitted = [] }
         | Some w ->
             let figure = Render.figure RenderOptions.defaults w
             Ok(wrap { opts with Language = w.Language |> Option.defaultValue opts.Language } w.Title w.Description [ figure ] [])

@@ -73,6 +73,7 @@ type EditorState =
 and ExportView =
     { Target: HtmlTarget
       Brand: string option
+      InteractiveWorkflow: bool
       Text: string
       FileName: string
       Omitted: string list
@@ -112,7 +113,7 @@ module EditorApp =
           TakeSaved = Set.empty
           Workflows = WorkflowLibrary.empty
           WorkflowVisible = false
-          Export = { Target = HtmlFragment; Brand = None; Text = ""; FileName = "export.html"; Omitted = []; Summary = "Nothing exported yet." }
+          Export = { Target = HtmlFragment; Brand = None; InteractiveWorkflow = false; Text = ""; FileName = "export.html"; Omitted = []; Summary = "Nothing exported yet." }
           LayoutTarget = None }
 
     let fieldTypes =
@@ -342,7 +343,7 @@ module EditorApp =
         JObject([ "kind", JString "Storage"; "correlationId", JString correlation; "operation", JString operation; "key", JString workflowStorageKey ] @ extra)
 
     let private exportOptions (state: EditorState) =
-        { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand }
+        { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand; InteractiveWorkflow = state.Export.InteractiveWorkflow }
 
     let private showExport (state: EditorState) (name: string) (result: HtmlExportResult) =
         let kind = match state.Export.Target with HtmlFragment -> "fragment" | HtmlDocument -> "document"
@@ -712,6 +713,9 @@ module EditorApp =
             { state with Status = "Saving workflows…" }, [ workflowStorage "workflows-save" "set" [ "value", JString(WorkflowLibrary.toStorage state.Workflows) ] ]
         | "workflow-load" -> { state with Status = "Opening saved workflows…" }, [ workflowStorage "workflows-load" "get" [] ]
         | "export-target" -> noEffects { state with Export = { state.Export with Target = (if key = "document" then HtmlDocument else HtmlFragment) } }
+        | "export-interactive" ->
+            let on = not state.Export.InteractiveWorkflow
+            noEffects { state with Export = { state.Export with InteractiveWorkflow = on }; Status = (if on then "Workflow exports will add the public forma-workflow runtime." else "Workflow exports are static HTML and CSS.") }
         | "export-brand" -> noEffects { state with Export = { state.Export with Brand = (if key = "" || key = "none" then None else Some key) } }
         | "export-page" ->
             match state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state)) |> Option.orElse ((project state).Pages |> List.tryHead) with
@@ -1031,6 +1035,7 @@ module EditorApp =
                   "exportSummary", str state.Export.Summary
                   "exportOmitted", state.Export.Omitted |> List.mapi (fun i o -> item [ "key", str (string i); "text", str o ]) |> JArray
                   "exportEmpty", JBool(state.Export.Text = "")
+                  "exportInteractive", str (if state.Export.InteractiveWorkflow then "true" else "false")
                   "pageName", str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.map _.Name |> Option.defaultValue "")
                   "density",
                   str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))

@@ -100,6 +100,15 @@ test("Studio exports the current workflow as Forma HTML with no script", async (
   await page.getByRole("button", { name: "Complete HTML document" }).click();
   await page.getByRole("button", { name: "Export current workflow" }).click();
   expect(await page.locator("#export-text").inputValue()).toMatch(/^<!doctype html>/);
+  // Interactive output is opt-in and uses only the public runtime, declared.
+  await page.getByRole("button", { name: /Interactive workflow/ }).click();
+  await page.getByRole("button", { name: "Export current workflow" }).click();
+  const interactive = await page.locator("#export-text").inputValue();
+  expect(interactive).toContain('<forma-workflow mode="view"');
+  expect(interactive).toContain('<script type="module" src="node_modules/@echelon-foundry/forma-workflow/dist/forma-workflow.js"></script>');
+  // The document may name its producer in provenance; no Studio class, asset or path may appear.
+  expect(interactive).not.toMatch(/studio-|studio\.css|forma-studio\//i);
+  await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.0.0/forma-workflow.js" })).toBeVisible();
 });
 
 test("the workflow surface is keyboard operable and passes automated accessibility checks", async ({ page }) => {

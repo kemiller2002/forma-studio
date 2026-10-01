@@ -37,7 +37,7 @@ A fragment starts like this:
 ## Dependencies
 
 - **Static designs** need only `tokens.css`, `foundations.css` and `components.css` from `@echelon-foundry/design-system`. They add a brand stylesheet if a brand is chosen. No JavaScript is added because a design was made visually.
-- **Interactive workflows** use only the public `@echelon-foundry/forma-workflow` module. The output declares it. Studio never emits its own JavaScript, classes, ids or assets.
+- **Interactive workflows** are opt-in. Use the "Interactive workflow" toggle. The static figure is wrapped in the public `<forma-workflow mode="view">` element, plus one module script from `@echelon-foundry/forma-workflow`, which the output declares. Studio never emits its own JavaScript, classes, ids or assets.
 - The full Forma stylesheet is never copied into a fragment.
 
 ## What is guaranteed

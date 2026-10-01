@@ -212,3 +212,14 @@ let exportTests =
           let page = pageOf p "workflow"
           let result = HtmlExport.page HtmlExport.defaults WorkflowLibrary.empty page
           expect (result.Omitted |> List.exists (fun o -> o.Contains "not open")) "missing workflow reported") ]
+
+let interactiveTests =
+    [ test "Interactive workflow export is opt-in, uses only the public runtime and declares it" (fun () ->
+          let lib = workflowLibrary ()
+          let entry = (WorkflowLibrary.current lib).Value
+          let staticHtml = match HtmlExport.workflow HtmlExport.defaults entry with Ok r -> r | Error e -> fail e
+          expect (not (staticHtml.Html.Contains "<script")) "static by default"
+          let interactive = match HtmlExport.workflow { HtmlExport.defaults with InteractiveWorkflow = true; Target = HtmlDocument } entry with Ok r -> r | Error e -> fail e
+          expect (interactive.Html.Contains "<forma-workflow mode=\"view\"") "public element"
+          expect (interactive.Dependencies |> List.exists (function Forma.Workflow.RuntimeModule(p, _, _) -> p = "@echelon-foundry/forma-workflow" | _ -> false)) "declared runtime"
+          expect (not (System.Text.RegularExpressions.Regex.IsMatch(interactive.Html, "studio-|studio\\.css|forma-studio/", System.Text.RegularExpressions.RegexOptions.IgnoreCase))) "no Studio asset or class") ]
