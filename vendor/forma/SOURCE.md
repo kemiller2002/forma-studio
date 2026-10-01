@@ -1,10 +1,13 @@
-# Vendored Forma (pre-release)
+# Vendored Forma (release 0.4.0)
 
 Everything in this directory is copied verbatim from kemiller2002/forma by
 `node scripts/sync-forma.mjs <forma checkout>`. `vendor/forma/MANIFEST.json`
-records the source commit and the SHA-256 of every file;
+records the source commit, the SHA-256 of every file, and for each file a
+release package ships, its path in that package.
 `node scripts/sync-forma.mjs --check` (run by `npm run check`) fails if a file
-drifts.
+drifts; `--release` (run in CI) also fails unless every packaged file is
+byte-identical to the published `@echelon-foundry/design-system@0.4.0` and
+`@echelon-foundry/forma-workflow@1.0.0` tarballs.
 
 | Path | Forma source | Used for |
 |---|---|---|
@@ -16,8 +19,10 @@ drifts.
 | `workflow/fixtures/*.forma-workflow.json` | `examples/workflows/forma/workflows` | compatibility fixtures |
 | `workflow/external-producer/*.mjs` | `examples/external-producer` | the external producer and consumer in the round-trip proof |
 
-Source: kemiller2002/forma PR #95 (branch `claude/forma-workflow-interchange-wo5aq3`). The
-workflow capability is not in a published Forma release yet. When Forma 0.4.0
-and `@echelon-foundry/forma-workflow` 1.0.0 are published, replace this
-directory with the pinned release artifacts (REQUIREMENTS.md, "Dependency
-rules").
+Source: the kemiller2002/forma `main` commit that released
+`@echelon-foundry/design-system` 0.4.0 and `@echelon-foundry/forma-workflow`
+1.0.0 (merged PR #95). Studio's engine compiles the `Forma.Workflow` F#
+source, which no Forma package ships, so the source stays vendored from that
+release commit. The `workflow/src` files and the external producer example are
+verified against the commit only; everything else is also verified against the
+published packages.

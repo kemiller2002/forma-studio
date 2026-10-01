@@ -95,6 +95,7 @@ npm run html:check       # export determinism
 npm run app:build && npm run app:test   # editor, workflows, round trip, HTML consumer (Chromium)
 npm run proof:external   # records docs/evidence/external-workflow-roundtrip.md
 npm run vendor:check     # vendored Forma matches its recorded commit
+npm run vendor:release   # ... and the published Forma 0.4.0 packages (network)
 ~~~
 
 ## Marketing site

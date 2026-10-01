@@ -45,8 +45,8 @@ jobs:
           rm -rf "$CE_TMP"
           npx --yes @echelon-foundry/typescript-wasm-kernel@0.6.2 verify --strict
 
-      - name: Vendored Forma matches its recorded source commit
-        run: npm run vendor:check
+      - name: Vendored Forma matches its release commit and the published Forma packages
+        run: npm run vendor:release
 
       - name: Restore and build F# engine with Aegis
         run: |

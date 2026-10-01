@@ -31,11 +31,14 @@ related:
 3. **No private substitutes.** When Studio needs presentation Forma lacks, the
    gap is fixed in Forma. This work fixed two: `.ef-actions` was styled only in
    marketing CSS, and field descriptions on a surface had insufficient contrast.
-4. **Until release, Forma is vendored.** `vendor/forma` is copied by
-   `scripts/sync-forma.mjs` from a cited forma commit, with SHA-256 hashes in
-   `vendor/forma/MANIFEST.json`. CI checks them. When Forma 0.4.0 and
-   `@echelon-foundry/forma-workflow` 1.0.0 are published, Studio switches to
-   the pinned release artifacts.
+4. **Forma is pinned to its 0.4.0 release.** `vendor/forma` is copied by
+   `scripts/sync-forma.mjs` from the forma commit that released
+   `@echelon-foundry/design-system` 0.4.0 and `@echelon-foundry/forma-workflow`
+   1.0.0, with SHA-256 hashes in `vendor/forma/MANIFEST.json`. CI checks every
+   file against that manifest. It also checks every file the two packages ship
+   against the published tarballs (`npm run vendor:release`). The
+   `Forma.Workflow` F# source stays vendored, because Studio's engine compiles
+   it and no Forma package ships it.
 
 ## Flow diagrams
 

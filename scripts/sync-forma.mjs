@@ -1,12 +1,16 @@
 // Copies the public Forma artifacts Studio consumes from a kemiller2002/forma
-// checkout into vendor/forma, and records their hashes and source commit in
-// vendor/forma/MANIFEST.json. Used until Studio pins a released Forma artifact
-// (REQUIREMENTS.md "Dependency rules"); `node scripts/sync-forma.mjs --check`
-// verifies the vendored files still match the manifest.
-//   node scripts/sync-forma.mjs ../forma
+// checkout into vendor/forma, and records their hashes, source commit and
+// release provenance in vendor/forma/MANIFEST.json.
+//   node scripts/sync-forma.mjs ../forma     re-vendor from a checkout of a release commit
+//   node scripts/sync-forma.mjs --check      verify against the manifest (offline)
+//   node scripts/sync-forma.mjs --release    also verify every packaged file against
+//                                            the published npm tarballs (network)
+// Studio's engine compiles Forma.Workflow's F# source, which no package ships, so
+// the source stays vendored; every file a release package does ship must match it.
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
@@ -15,14 +19,60 @@ const manifestPath = join(vendor, "MANIFEST.json");
 const sha = (file) => createHash("sha256").update(readFileSync(file)).digest("hex");
 const walk = (dir) => readdirSync(dir).flatMap((n) => (statSync(join(dir, n)).isDirectory() ? walk(join(dir, n)) : [join(dir, n)]));
 
-if (process.argv.includes("--check")) {
+// The released packages, and where each vendored file sits inside their tarballs.
+const designSystem = { name: "@echelon-foundry/design-system", version: "0.4.0" };
+const workflowPackage = { name: "@echelon-foundry/forma-workflow", version: "1.0.0" };
+const packaged = (vendorPath) =>
+  vendorPath.startsWith("workflow/browser/")
+    ? [workflowPackage, "dist/" + vendorPath.slice("workflow/browser/".length)]
+    : vendorPath.startsWith("workflow/fixtures/")
+      ? [designSystem, "examples/workflows/forma/workflows/" + vendorPath.slice("workflow/fixtures/".length)]
+      : ({
+          "tokens.css": [designSystem, "dist/tokens.css"],
+          "foundations.css": [designSystem, "dist/foundations.css"],
+          "components.css": [designSystem, "dist/components.css"],
+          "brands/echelon.css": [designSystem, "dist/brands/echelon.css"],
+          "brands/example-harbor.css": [designSystem, "dist/brands/example-harbor.css"],
+          "workflow/forma-workflow.schema.json": [designSystem, "schemas/workflow/1.0/forma-workflow.schema.json"],
+          "workflow/workflow-capabilities.json": [designSystem, "contracts/workflow-capabilities.json"],
+          "workflow/diagram-presentation.json": [designSystem, "contracts/diagram-presentation.json"]
+        })[vendorPath];
+
+const fetchPackage = (pkg) => {
+  const dir = mkdtempSync(join(tmpdir(), "forma-release-"));
+  const tarball = execFileSync("npm", ["pack", `${pkg.name}@${pkg.version}`, "--pack-destination", dir, "--silent"], { encoding: "utf8" }).trim().split("\n").pop();
+  execFileSync("tar", ["-xzf", join(dir, tarball), "-C", dir]);
+  return join(dir, "package");
+};
+
+const checkRelease = (manifest) => {
+  const releases = manifest.releases ?? [];
+  const unpacked = new Map(releases.map((pkg) => [pkg.name, fetchPackage(pkg)]));
+  const problems = Object.entries(manifest.released ?? {}).filter(([file, { package: name, path }]) => {
+    const published = join(unpacked.get(name) ?? "", path);
+    return !unpacked.has(name) || !existsSync(published) || sha(published) !== manifest.files[file];
+  });
+  [...unpacked.values()].forEach((dir) => rmSync(dirname(dir), { recursive: true, force: true }));
+  return problems.map(([file, { package: name, path }]) => `${file} (${name}/${path})`);
+};
+
+if (process.argv.includes("--check") || process.argv.includes("--release")) {
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  const problems = Object.entries(manifest.files).filter(([file, hash]) => !existsSync(join(vendor, file)) || sha(join(vendor, file)) !== hash);
-  if (problems.length) {
-    console.error(`vendor/forma differs from forma@${manifest.commit}: ${problems.map(([f]) => f).join(", ")}`);
+  const drift = Object.entries(manifest.files).filter(([file, hash]) => !existsSync(join(vendor, file)) || sha(join(vendor, file)) !== hash).map(([f]) => f);
+  if (drift.length) {
+    console.error(`vendor/forma differs from forma@${manifest.commit}: ${drift.join(", ")}`);
     process.exit(1);
   }
   console.log(`vendor/forma matches forma@${manifest.commit} (${Object.keys(manifest.files).length} files)`);
+  if (process.argv.includes("--release")) {
+    const mismatched = checkRelease(manifest);
+    if (mismatched.length) {
+      console.error(`vendored files differ from the published releases: ${mismatched.join(", ")}`);
+      process.exit(1);
+    }
+    const names = (manifest.releases ?? []).map((p) => `${p.name}@${p.version}`).join(", ");
+    console.log(`${Object.keys(manifest.released ?? {}).length} packaged files match ${names}`);
+  }
   process.exit(0);
 }
 
@@ -71,5 +121,12 @@ writeFileSync(
     .replace("</Project>", studioFSharpCore)
 );
 const files = Object.fromEntries(walk(vendor).filter((f) => !f.endsWith("MANIFEST.json") && !f.endsWith("SOURCE.md") && !f.includes("/bin/") && !f.includes("/obj/")).sort().map((f) => [relative(vendor, f), sha(f)]));
-writeFileSync(manifestPath, JSON.stringify({ source: "https://github.com/kemiller2002/forma", commit, files }, null, 2) + "\n");
-console.log(`vendored forma@${commit}: ${Object.keys(files).length} files`);
+const released = Object.fromEntries(
+  Object.keys(files).flatMap((file) => {
+    const found = packaged(file);
+    return found ? [[file, { package: found[0].name, path: found[1] }]] : [];
+  })
+);
+const manifest = { source: "https://github.com/kemiller2002/forma", commit, releases: [designSystem, workflowPackage], files, released };
+writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
+console.log(`vendored forma@${commit}: ${Object.keys(files).length} files, ${Object.keys(released).length} from ${designSystem.name}@${designSystem.version} and ${workflowPackage.name}@${workflowPackage.version}`);

@@ -188,11 +188,13 @@ Chromium only.
   for Layout pages and workflows (`HtmlExport`). It adds nine Layout
   components mapped to public Forma patterns, reference designs (`Designs`),
   and the ordinary web-project consumer (`examples/html-consumer`).
-- Forma is vendored from kemiller2002/forma PR #95 by `scripts/sync-forma.mjs`,
-  with hashes in `vendor/forma/MANIFEST.json`.
+- Forma is pinned to its 0.4.0 release. `vendor/forma` is copied from the
+  forma commit that released `@echelon-foundry/design-system` 0.4.0 and
+  `@echelon-foundry/forma-workflow` 1.0.0. `npm run vendor:release` verifies
+  every packaged file against the published tarballs.
 - Decision: DF-STUDIO-2026-C4A2. Follow-up: #16, converging Flow's Workflow
   profile onto the portable format.
-- Tests: `npm run engine:test` (66) and `npm run app:test` (46, Chromium).
+- Tests: `npm run engine:test` (68) and `npm run app:test` (46, Chromium).
 
-Next legal work: once Forma 0.4.0 and `@echelon-foundry/forma-workflow` 1.0.0
-are published, replace `vendor/forma` with the pinned release artifacts; then #16.
+Next legal work: #16. The `Forma.Workflow` F# source stays vendored, because
+no Forma package ships it.

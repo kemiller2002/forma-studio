@@ -25,6 +25,7 @@
     "app:test": "npm run html:consumer && playwright test",
     "engine:test": "dotnet run --project tests/FormaStudio.Engine.Tests -c Release",
     "vendor:check": "node scripts/sync-forma.mjs --check",
+    "vendor:release": "node scripts/sync-forma.mjs --release",
     "html:export": "node scripts/export-reference-html.mjs",
     "html:check": "node scripts/export-reference-html.mjs --check",
     "html:consumer": "node examples/html-consumer/build.mjs vendor/forma",

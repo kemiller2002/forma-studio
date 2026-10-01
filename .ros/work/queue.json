@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 3,
+  "nextSeq": 4,
   "items": [
     {
       "id": "WI-0001",
@@ -29,6 +29,22 @@
       "attachments": [],
       "createdAt": "2026-10-01T13:39:41.123Z",
       "updatedAt": "2026-10-01T13:39:56.000Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0003",
+      "title": "Pin vendored Forma to the 0.4.0 release and verify against the published packages",
+      "description": null,
+      "tags": [
+        "vendor,forma,release"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-01T14:49:40.441Z",
+      "updatedAt": "2026-10-01T14:49:40.000Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null
