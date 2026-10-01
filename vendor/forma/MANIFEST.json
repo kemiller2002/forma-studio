@@ -1,6 +1,16 @@
 {
   "source": "https://github.com/kemiller2002/forma",
-  "commit": "eb7fcf160aeb5cc4deab6b887d407afe543b5a68",
+  "commit": "052cb1db2fcc704274b3ccc7bffb2779d7c87543",
+  "releases": [
+    {
+      "name": "@echelon-foundry/design-system",
+      "version": "0.4.0"
+    },
+    {
+      "name": "@echelon-foundry/forma-workflow",
+      "version": "1.0.0"
+    }
+  ],
   "files": {
     "brands/echelon.css": "bae3b8327d1778bb6d695497e9ad83cef217053ba2ae2003a7de8efa7f95d254",
     "brands/example-harbor.css": "4434552aeff647f6c90b87b6f5c29b76c34d8a039e2939bf16852349e0c40af2",
@@ -56,5 +66,123 @@
     "workflow/src/ValidationTypes.fs": "5e108e8fead4fd6033c275b1311a338df2712ab874211537ac6d2b3bc573a4b2",
     "workflow/src/WorkflowDocument.fs": "07634ea800cfcc054acec99d44ad8c2afe55a39115bc804f8cc6456c8ee89ddc",
     "workflow/workflow-capabilities.json": "67cab7ce44e99ac9a2cb09647aa76d7249afafece6ea66a846ac06e22ed0c12b"
+  },
+  "released": {
+    "brands/echelon.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/brands/echelon.css"
+    },
+    "brands/example-harbor.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/brands/example-harbor.css"
+    },
+    "components.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/components.css"
+    },
+    "foundations.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/foundations.css"
+    },
+    "tokens.css": {
+      "package": "@echelon-foundry/design-system",
+      "path": "dist/tokens.css"
+    },
+    "workflow/browser/forma-workflow.css": {
+      "package": "@echelon-foundry/forma-workflow",
+      "path": "dist/forma-workflow.css"
+    },
+    "workflow/browser/forma-workflow.js": {
+      "package": "@echelon-foundry/forma-workflow",
+      "path": "dist/forma-workflow.js"
+    },
+    "workflow/diagram-presentation.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "contracts/diagram-presentation.json"
+    },
+    "workflow/fixtures/accessible.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/accessible.forma-workflow.json"
+    },
+    "workflow/fixtures/branching.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/branching.forma-workflow.json"
+    },
+    "workflow/fixtures/branded.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/branded.forma-workflow.json"
+    },
+    "workflow/fixtures/color-mapping.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/color-mapping.forma-workflow.json"
+    },
+    "workflow/fixtures/colored.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/colored.forma-workflow.json"
+    },
+    "workflow/fixtures/edge-metadata.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/edge-metadata.forma-workflow.json"
+    },
+    "workflow/fixtures/embedded-edit.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/embedded-edit.forma-workflow.json"
+    },
+    "workflow/fixtures/embedded-view.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/embedded-view.forma-workflow.json"
+    },
+    "workflow/fixtures/extensions.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/extensions.forma-workflow.json"
+    },
+    "workflow/fixtures/groups.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/groups.forma-workflow.json"
+    },
+    "workflow/fixtures/interactive-export.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/interactive-export.forma-workflow.json"
+    },
+    "workflow/fixtures/minimal.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/minimal.forma-workflow.json"
+    },
+    "workflow/fixtures/mobile.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/mobile.forma-workflow.json"
+    },
+    "workflow/fixtures/multi-step.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/multi-step.forma-workflow.json"
+    },
+    "workflow/fixtures/no-layout.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/no-layout.forma-workflow.json"
+    },
+    "workflow/fixtures/node-metadata.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/node-metadata.forma-workflow.json"
+    },
+    "workflow/fixtures/runtime-ports.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/runtime-ports.forma-workflow.json"
+    },
+    "workflow/fixtures/static-export.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/static-export.forma-workflow.json"
+    },
+    "workflow/fixtures/swimlanes.forma-workflow.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "examples/workflows/forma/workflows/swimlanes.forma-workflow.json"
+    },
+    "workflow/forma-workflow.schema.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "schemas/workflow/1.0/forma-workflow.schema.json"
+    },
+    "workflow/workflow-capabilities.json": {
+      "package": "@echelon-foundry/design-system",
+      "path": "contracts/workflow-capabilities.json"
+    }
   }
 }

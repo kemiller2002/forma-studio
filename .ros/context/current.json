@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "agent:claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-01T14:49:41.000Z",
+  "updatedAt": "2026-10-01T16:47:55.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -332,13 +332,23 @@
     {
       "id": "WI-0003",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-01T14:49:41.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "vendor/forma/MANIFEST.json"
+        },
+        {
+          "type": "tests",
+          "path": "scripts/sync-forma.mjs"
+        }
+      ],
+      "updatedAt": "2026-10-01T16:47:55.000Z",
       "telemetryExecutionIds": [
         "EXE-20261001T144941628Z-8584f2e8"
-      ]
+      ],
+      "completedAt": "2026-10-01T16:47:55.000Z"
     }
   ]
 }

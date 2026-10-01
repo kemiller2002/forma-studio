@@ -41,10 +41,10 @@
         "vendor,forma,release"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-01T14:49:40.441Z",
-      "updatedAt": "2026-10-01T14:49:40.000Z",
+      "updatedAt": "2026-10-01T16:47:55.000Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null

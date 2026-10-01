@@ -1,6 +1,6 @@
 # Evidence: external workflow round trip through Forma Studio
 
-Recorded by `npm run proof:external` (tests/browser/workflow.spec.mjs) against vendored forma@eb7fcf160aeb5cc4deab6b887d407afe543b5a68.
+Recorded by `npm run proof:external` (tests/browser/workflow.spec.mjs) against vendored forma@052cb1db2fcc704274b3ccc7bffb2779d7c87543.
 
 1. The external producer (`produce.mjs`, schema only, no Forma code) wrote `mission-handoff.forma-workflow.json`.
 2. Forma validation: `supported-with-preserved-extensions`, extensions org.example.scheduler.
