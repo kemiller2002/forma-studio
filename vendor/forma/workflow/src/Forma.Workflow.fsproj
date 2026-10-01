@@ -25,14 +25,24 @@
   <ItemGroup>
     <Compile Include="Json.fs" />
     <Compile Include="JsonSchema.fs" />
+    <Compile Include="Identifiers.fs" />
     <Compile Include="Model.fs" />
+    <Compile Include="CodecRead.fs" />
+    <Compile Include="CodecDecode.fs" />
     <Compile Include="Codec.fs" />
+    <Compile Include="ValidationTypes.fs" />
+    <Compile Include="ValidationRules.fs" />
     <Compile Include="Validation.fs" />
+    <Compile Include="LayoutTypes.fs" />
     <Compile Include="Layout.fs" />
     <Compile Include="Markup.fs" />
+    <Compile Include="RenderOptions.fs" />
     <Compile Include="Render.fs" />
+    <Compile Include="WorkflowDocument.fs" />
     <Compile Include="Editor.fs" />
+    <Compile Include="EmbedTypes.fs" />
     <Compile Include="Embed.fs" />
+    <Compile Include="EmbedForm.fs" />
     <Compile Include="EmbedView.fs" />
     <Compile Include="EmbedProtocol.fs" />
   </ItemGroup>
