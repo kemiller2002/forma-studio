@@ -36,4 +36,7 @@
     <Compile Include="EmbedView.fs" />
     <Compile Include="EmbedProtocol.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="10.1.400" />
+  </ItemGroup>
 </Project>

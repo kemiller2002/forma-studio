@@ -56,12 +56,19 @@ for (const file of readdirSync(join(forma, "examples/workflows/forma/workflows")
   mkdirSync(join(vendor, "workflow/fixtures"), { recursive: true });
   cpSync(join(forma, "examples/workflows/forma/workflows", file), join(vendor, "workflow/fixtures", file));
 }
-// The project file is the upstream one with resource paths pointing at the vendored contracts.
+// The project file is the upstream one with resource paths pointing at the vendored contracts,
+// and with FSharp.Core pinned to Studio's version (Aegis.Core needs >= 10.1.400) so the SDK's
+// implicit FSharp.Core cannot differ between Studio's projects and this one (NU1605).
+const studioFSharpCore = `  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="10.1.400" />
+  </ItemGroup>
+</Project>`;
 writeFileSync(
   join(vendor, "workflow/src/Forma.Workflow.fsproj"),
   fsproj
     .replace("../../../schemas/workflow/1.0/forma-workflow.schema.json", "../forma-workflow.schema.json")
     .replace("../../../contracts/workflow-capabilities.json", "../workflow-capabilities.json")
+    .replace("</Project>", studioFSharpCore)
 );
 const files = Object.fromEntries(walk(vendor).filter((f) => !f.endsWith("MANIFEST.json") && !f.endsWith("SOURCE.md") && !f.includes("/bin/") && !f.includes("/obj/")).sort().map((f) => [relative(vendor, f), sha(f)]));
 writeFileSync(manifestPath, JSON.stringify({ source: "https://github.com/kemiller2002/forma", commit, files }, null, 2) + "\n");

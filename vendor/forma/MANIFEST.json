@@ -1,6 +1,6 @@
 {
   "source": "https://github.com/kemiller2002/forma",
-  "commit": "b56a6a16145b3d21e37c7adb0ceb270e3d4f2704",
+  "commit": "92f75ed38138af7322ac34c7e957515d806665e1",
   "files": {
     "brands/echelon.css": "bae3b8327d1778bb6d695497e9ad83cef217053ba2ae2003a7de8efa7f95d254",
     "brands/example-harbor.css": "4434552aeff647f6c90b87b6f5c29b76c34d8a039e2939bf16852349e0c40af2",
@@ -37,7 +37,7 @@
     "workflow/src/Embed.fs": "94f1ad20036a7ef8bc769374a07ae6fff16c67de4a868deebccd78943359fecf",
     "workflow/src/EmbedProtocol.fs": "e40721aa7c62b857cda866a4a407e3e61c576f7bbf275c756c07d640224ca5c1",
     "workflow/src/EmbedView.fs": "e3ff236321e42c37d986a2726a25615cd30bb97b41103e4c1e826143e74301bb",
-    "workflow/src/Forma.Workflow.fsproj": "e8f34268fd56bdcd9105aad2ac8b4e80892f0cb2de2a62db90a34620d5a882f0",
+    "workflow/src/Forma.Workflow.fsproj": "3874b6ed964c5299e6ecc09346d143e54144dbd187164a8b7f385905b49c6df8",
     "workflow/src/Json.fs": "3ddfbf3e3f52c59584d37109ba929b6e10064ec392a2b5ba52172d2a26fad827",
     "workflow/src/JsonSchema.fs": "be585c306b12c9278e5df3168470564d00abdf6e31475cc5faef17e740d6f1e2",
     "workflow/src/Layout.fs": "6ce709d8cc277be4da280b7b017cb6bb28b1e4261c9e47ef587cc17877fc7f80",
