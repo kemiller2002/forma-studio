@@ -28,6 +28,12 @@
     <Compile Include="AppearanceResolution.fs" />
     <Compile Include="Validation.fs" />
     <Compile Include="Components.fs" />
+    <Compile Include="Commands.Types.fs" />
+    <Compile Include="Commands.Support.fs" />
+    <Compile Include="Commands.Layout.fs" />
+    <Compile Include="Commands.Flow.fs" />
+    <Compile Include="Commands.Metadata.fs" />
+    <Compile Include="Commands.Appearance.fs" />
     <Compile Include="Commands.fs" />
     <Compile Include="Editor.fs" />
     <Compile Include="Codec.fs" />
@@ -40,6 +46,21 @@
     <Compile Include="WorkflowLibrary.fs" />
     <Compile Include="HtmlExport.fs" />
     <Compile Include="Designs.fs" />
+    <Compile Include="EditorIntents.fs" />
+    <Compile Include="EditorState.fs" />
+    <Compile Include="EditorEvent.fs" />
+    <Compile Include="Interaction.fs" />
+    <Compile Include="HostEffects.fs" />
+    <Compile Include="Interaction.Canvas.fs" />
+    <Compile Include="Interaction.Templates.fs" />
+    <Compile Include="Interaction.History.fs" />
+    <Compile Include="Interaction.Inspector.fs" />
+    <Compile Include="Interaction.Definitions.fs" />
+    <Compile Include="Interaction.Layout.fs" />
+    <Compile Include="Interaction.Workflows.fs" />
+    <Compile Include="Interaction.Export.fs" />
+    <Compile Include="Interaction.Review.fs" />
+    <Compile Include="EditorView.fs" />
     <Compile Include="EditorApp.fs" />
   </ItemGroup>
 </Project>

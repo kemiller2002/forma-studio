@@ -12,6 +12,7 @@
     <Compile Include="ModelTests.fs" />
     <Compile Include="ExportTests.fs" />
     <Compile Include="EditorAppTests.fs" />
+    <Compile Include="EditorCharacterizationTests.fs" />
     <Compile Include="CollaborationTests.fs" />
     <Compile Include="WorkflowStudioTests.fs" />
     <Compile Include="Program.fs" />

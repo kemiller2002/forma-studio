@@ -198,3 +198,25 @@ Chromium only.
 
 Next legal work: #16. The `Forma.Workflow` F# source stays vendored, because
 no Forma package ships it.
+
+## Implementation state (2026-10-05, branch `quality/editor-event-contract`)
+
+- **STUDIO-GH-18:** editor orchestration decomposed without splitting
+  canonical authority. `EditorEvent` (one discriminated union, 86 events in 9
+  areas) is the single source of event names; wire names are derived from case
+  names and `src/kernel/editor-events.js` is generated from it. `EditorApp.fs`
+  is a thin dispatcher (1241 -> 75 lines) over `Interaction.*.fs` per-area
+  update functions; command-construction policy moved to `EditorIntents`,
+  effects to `HostEffects`, the projection to `EditorView`. `Commands.fs` is
+  split by family; `Commands.execute` stays the only public authority.
+- Characterization: `tests/FormaStudio.Engine.Tests/golden/editor-events.golden.txt`
+  pins 236 event scenarios (status, history, project hash, view hash, effects).
+  Regenerate only deliberately (`FORMA_STUDIO_UPDATE_GOLDEN=1`).
+- Enforcement: `EditorEventContractTests` (round trip, page/test bindings,
+  generated catalog, agent-only events) and `EditorConformanceTests` (no
+  event-name literals, dependency direction, Batch construction only in the
+  intent/command layers, source-size ratchet in
+  `tests/FormaStudio.Engine.Tests/source-size-baseline.json`).
+- Retained concentration: `EditorView.fs` (425 lines) under an owned exception
+  expiring 2027-01-31; next step is per-panel projections.
+- Tests: `npm run engine:test` (82) and `npm run app:test` (46, Chromium).

@@ -21,6 +21,8 @@
 // its center comes within a few units of another node's, and the released
 // delta lands on that line. Guides are preview adorners only; grid snapping,
 // when on, takes precedence and is applied by the engine.
+import { editorEvents } from "./editor-events.js";
+
 const dragThreshold = 3;
 const nudge = (event) => (event.shiftKey ? 1 : 8);
 
@@ -29,9 +31,9 @@ const emit = (root, inputId, value) => {
   input.value = value;
   input.dispatchEvent(new Event("change", { bubbles: true }));
 };
-const emitMove = (root, id, dx, dy) => emit(root, "gesture-move", `${id}|${dx}|${dy}`);
-const emitResize = (root, id, w, h) => emit(root, "gesture-resize", `${id}|${w}|${h}`);
-const emitReconnect = (root, end, nodeId) => emit(root, "gesture-reconnect", `${end}|${nodeId}`);
+const emitMove = (root, id, dx, dy) => emit(root, editorEvents.gestureMove, `${id}|${dx}|${dy}`);
+const emitResize = (root, id, w, h) => emit(root, editorEvents.gestureResize, `${id}|${w}|${h}`);
+const emitReconnect = (root, end, nodeId) => emit(root, editorEvents.gestureReconnect, `${end}|${nodeId}`);
 
 const minimumSize = 24;
 // Pointer deltas are screen pixels; the engine works in logical units.
