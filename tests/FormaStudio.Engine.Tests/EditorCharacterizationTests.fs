@@ -132,8 +132,9 @@ let private selEdge = evk "select" "edge:e-yes"
 let private page1 = [ ev "add-page" ]
 let private withHeading = page1 @ [ ev "layout-add-heading" ]
 
-/// Every wire name the engine handled before the event contract was made typed:
-/// 86 names in 81 match arms of the original `onEvent`.
+/// Every wire name the engine handled before the event contract was made typed
+/// (86 names in 81 match arms of the original string `onEvent`). Frozen: the
+/// typed EditorEvent union must keep all of them (EditorEventContractTests).
 let handledNames =
     [ "select"; "clear-selection"; "choose-kind"; "add-node"; "set-label"; "move-left"; "move-right"; "move-up"; "move-down"
       "gesture-move"; "gesture-resize"; "set-width"; "set-height"; "reconnect-end"; "gesture-reconnect"; "zoom-in"; "zoom-out"
@@ -453,12 +454,12 @@ let goldenMatches =
         expect (List.isEmpty differences) (sprintf "%d scenario(s) changed:\n  %s" differences.Length (differences |> List.truncate 8 |> String.concat "\n  ")))
 
 let everyHandledEventIsCharacterized =
-    test "Editor characterization: every handled event name has at least one scenario" (fun () ->
+    test "Editor characterization: every event has at least one scenario" (fun () ->
         let exercised = scenarios () |> List.choose (fun s -> match s.Act with Ev(name, _, _) -> Some name | _ -> None) |> Set.ofList
-        let missing = handledNames |> List.filter (exercised.Contains >> not)
+        let missing = EditorEvent.catalog |> List.map snd |> List.filter (exercised.Contains >> not)
         equal 86 (List.length handledNames) "handled wire names"
         equal 86 (handledNames |> List.distinct |> List.length) "distinct wire names"
-        expect (List.isEmpty missing) (sprintf "events without a scenario: %A" missing))
+        expect (List.isEmpty missing) (sprintf "events without a scenario (add one and regenerate the golden): %A" missing))
 
 let everyHandledEventIsRecognized =
     test "Editor characterization: every handled event name is recognized by the engine" (fun () ->
