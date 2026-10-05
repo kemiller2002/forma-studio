@@ -9,6 +9,7 @@
 //    the adapter loads it into the component;
 //  - file open and download are browser capabilities handled here as plumbing.
 import "./forma-workflow/forma-workflow.js";
+import { editorEvents } from "./editor-events.js";
 
 const emit = (doc, inputId, value) => {
   const input = doc.getElementById(inputId);
@@ -47,10 +48,10 @@ export async function installWorkflows(doc, exportsReady) {
   const show = () => { if (source.value) element.load(source.value); };
   new MutationObserver(show).observe(source, { attributes: true, attributeFilter: ["data-revision"] });
 
-  element.addEventListener("forma-workflow-change", (e) => emit(doc, "workflow-changed", JSON.stringify(e.detail.workflow)));
+  element.addEventListener("forma-workflow-change", (e) => emit(doc, editorEvents.workflowChanged, JSON.stringify(e.detail.workflow)));
   doc.getElementById("workflow-file").addEventListener("change", async (e) => {
     const file = e.target.files?.[0];
-    if (file) emit(doc, "workflow-opened", await file.text());
+    if (file) emit(doc, editorEvents.workflowOpened, await file.text());
     e.target.value = "";
   });
   doc.getElementById("workflow-download").addEventListener("click", async () => {

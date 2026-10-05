@@ -21,7 +21,14 @@ authority. Limen carries data across this threshold.
 Limen `data-*` bindings. `main.js` starts the Limen `BrowserKernel` with
 `transport.js`, which carries messages to the F# engine compiled to .NET
 WebAssembly (`src/wasm/FormaStudio.Wasm`). That C# file only marshals messages;
-every decision is in `EditorApp.fs`.
+every decision is in the F# engine (`EditorApp.fs` dispatches typed events to
+the `Interaction.*.fs` update functions).
+
+`editor-events.js` is generated from the F# `EditorEvent` union, the single
+source of event names. Kernel scripts emit events through it rather than string
+literals, and every `data-event` in `index.html` must name one of its events;
+the engine test suite checks both (`EditorEventContractTests.fs`). Regenerate it
+with `FORMA_STUDIO_UPDATE_GENERATED=1 npm run engine:test`.
 
 `gestures.js` is the one piece of editor-only DOM integration. A pointer drag
 previews with a CSS translate and emits a single `gesture-move` semantic event

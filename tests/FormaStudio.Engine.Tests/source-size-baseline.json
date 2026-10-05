@@ -1,0 +1,40 @@
+{
+  "description": "Source-size ratchet for the editor and command modules (forma-studio#18). Limits are line counts and may only decrease; EditorConformanceTests enforces them. A file may exceed its limit, or a limit may exceed the ceiling, only under an exception with an owner, a reason, a revisit trigger and an expiry date. Lower limits with FORMA_STUDIO_UPDATE_GENERATED=1 (it never raises one).",
+  "ceiling": 320,
+  "limits": {
+    "Commands.Appearance.fs": 265,
+    "Commands.Flow.fs": 279,
+    "Commands.Layout.fs": 115,
+    "Commands.Metadata.fs": 140,
+    "Commands.Support.fs": 27,
+    "Commands.Types.fs": 101,
+    "Commands.fs": 25,
+    "Editor.fs": 67,
+    "EditorApp.fs": 75,
+    "EditorEvent.fs": 194,
+    "EditorIntents.fs": 301,
+    "EditorState.fs": 134,
+    "EditorView.fs": 425,
+    "HostEffects.fs": 79,
+    "Interaction.Canvas.fs": 145,
+    "Interaction.Definitions.fs": 60,
+    "Interaction.Export.fs": 58,
+    "Interaction.History.fs": 15,
+    "Interaction.Inspector.fs": 69,
+    "Interaction.Layout.fs": 50,
+    "Interaction.Review.fs": 35,
+    "Interaction.Templates.fs": 34,
+    "Interaction.Workflows.fs": 33,
+    "Interaction.fs": 44
+  },
+  "exceptions": [
+    {
+      "file": "EditorView.fs",
+      "maxLines": 425,
+      "owner": "kemiller2002 (forma-studio maintainers)",
+      "reason": "The ~350-line view projection was moved out of EditorApp unchanged so the extraction stayed behavior-preserving; splitting it into per-panel projections (canvas, structure, inspector, layout, workflows, export, review) is the next step of forma-studio#18.",
+      "revisit": "Before any new panel or view field is added, or by the expiry date, whichever comes first.",
+      "expires": "2027-01-31"
+    }
+  ]
+}
