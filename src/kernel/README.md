@@ -38,6 +38,17 @@ project changes only through that one engine command.
 `studio.css` holds editor chrome and adorners (`studio-*`). These never reuse
 `ef-*` classes and never appear in exported output.
 
+The canvas binds no inline style: Limen 0.7.0 refuses `data-bind-style`
+(limen#18, Limen `docs/29-binding-security.md`). The engine projects geometry
+and colors as plain `data-*` values (`data-x`/`-y`/`-w`/`-h`, `data-fill`,
+`data-stroke`, `data-accent`, `data-foreground`, `data-connector-stroke`, and
+`data-width`/`-height`/`-zoom` on the canvas). `studio-projection.css` maps
+them onto Forma's diagram custom properties. Logical pixels and `#rrggbb`
+literals go through typed `attr()`. Each public Forma color token has its own
+rule, so a token stays a `var()` and themes and brands still apply. Typed
+`attr()` needs Chromium 133 or later, the browser the editor is tested in.
+`EditorConformanceTests` checks that every token has a rule in every slot.
+
 Build and test:
 
 ```bash

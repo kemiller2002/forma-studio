@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./forma/components.css">
   <link rel="stylesheet" href="./forma-workflow/forma-workflow.css">
   <link rel="stylesheet" href="./studio.css">
+  <link rel="stylesheet" href="./studio-projection.css">
   <script type="module" src="./main.js"></script>
 </head>
 <body>
@@ -121,9 +122,9 @@
       <figure class="ef-diagram" aria-labelledby="canvas-title">
         <figcaption id="canvas-title" data-text="diagramName"></figcaption>
         <div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Diagram canvas. Drag items to move them, or focus an item and use the arrow keys. The Structure list offers the same actions.">
-          <div class="ef-diagram__canvas" data-bind-style="canvasStyle" data-bind-data-zoom="zoomFactor" data-bind-data-snap="snapPressed">
+          <div class="ef-diagram__canvas" data-bind-data-width="canvasWidth" data-bind-data-height="canvasHeight" data-bind-data-zoom="zoomFactor" data-bind-data-snap="snapPressed">
             <template data-each="groups" data-key="key">
-              <div class="ef-diagram-group" data-bind-data-ef-group="variant" data-bind-style="style">
+              <div class="ef-diagram-group" data-bind-data-ef-group="variant" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground">
                 <p class="ef-diagram-group__header"><span class="ef-diagram-group__kind" data-text="kind"></span> <span class="ef-diagram-group__label" data-text="label"></span></p>
               </div>
             </template>
@@ -131,10 +132,10 @@
               <defs><marker id="studio-arrow" class="ef-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
             </svg>
             <template data-each="edges" data-key="key">
-              <div class="studio-wire-layer"><svg class="ef-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-ef-line="line" data-bind-style="style" marker-end="url(#studio-arrow)"/></svg></div>
+              <div class="studio-wire-layer"><svg class="ef-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-ef-line="line" data-bind-data-connector-stroke="stroke" marker-end="url(#studio-arrow)"/></svg></div>
             </template>
             <template data-each="nodes" data-key="key">
-              <article tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-style="style" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
+              <article tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
                 <p class="ef-diagram-node__kind" data-text="kind"></p>
                 <h3 class="ef-diagram-node__label" data-text="label"></h3>
                 <dl class="ef-diagram-node__meta">
@@ -147,10 +148,10 @@
               </article>
             </template>
             <template data-each="edgeLabels" data-key="key">
-              <span class="ef-diagram-connector__label" data-bind-style="style" data-text="text"></span>
+              <span class="ef-diagram-connector__label" data-bind-data-x="x" data-bind-data-y="y" data-text="text"></span>
             </template>
             <template data-each="endpoints" data-key="key">
-              <button type="button" class="studio-endpoint" data-event="reconnect-end" data-bind-data-end="key" data-bind-style="style" data-bind-aria-pressed="pressed" data-bind-aria-label="label"></button>
+              <button type="button" class="studio-endpoint" data-event="reconnect-end" data-bind-data-end="key" data-bind-data-x="x" data-bind-data-y="y" data-bind-aria-pressed="pressed" data-bind-aria-label="label"></button>
             </template>
           </div>
         </div>

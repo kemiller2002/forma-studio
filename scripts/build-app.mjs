@@ -14,7 +14,7 @@ rmSync(published, { recursive: true, force: true });
 execFileSync("dotnet", ["publish", resolve(root, "src/wasm/FormaStudio.Wasm/FormaStudio.Wasm.csproj"), "-c", "Release", "-o", published], { stdio: "inherit" });
 
 mkdirSync(out, { recursive: true });
-for (const file of ["index.html", "main.js", "transport.js", "gestures.js", "workflows.js", "editor-events.js", "studio.css"]) {
+for (const file of ["index.html", "main.js", "transport.js", "gestures.js", "workflows.js", "editor-events.js", "studio.css", "studio-projection.css"]) {
   cpSync(resolve(root, "src/kernel", file), resolve(out, file));
 }
 cpSync(resolve(published, "wwwroot/_framework"), resolve(out, "_framework"), { recursive: true });

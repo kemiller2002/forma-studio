@@ -1,0 +1,100 @@
+/*
+ * The engine's canvas projection, mapped onto Forma's diagram presentation.
+ *
+ * Forma's diagram classes read geometry and colors from custom properties
+ * (--ef-diagram-x/-y/-w/-h, --ef-diagram-fill, ...; see vendor/forma
+ * components.css). Limen 0.7.0 refuses inline style as a binding target
+ * (limen#18, docs/29-binding-security.md): the engine projects plain data-*
+ * values and this stylesheet decides what they mean.
+ *
+ *   - Geometry is a whole number of logical pixels: attr(data-x px).
+ *   - A color is a #rrggbb literal, read as attr(... type(<color>)), or the
+ *     name of a public Forma token (TokenRef.allowed), matched by a rule
+ *     below; attr() cannot name a custom property, and a token must stay a
+ *     var() so themes and brands still apply.
+ *   - An empty value is invalid for its type, so the property is unset and
+ *     Forma's own fallback applies, exactly as when no value was projected.
+ *
+ * The typed attr() rules have zero specificity, so a token rule always wins.
+ * EditorConformanceTests checks that every token has a rule for every slot.
+ */
+:where(.studio) :where(.ef-diagram__canvas) {
+  --ef-diagram-canvas-w: attr(data-width px);
+  --ef-diagram-canvas-h: attr(data-height px);
+  --studio-zoom: attr(data-zoom type(<number>));
+}
+:where(.studio) :where(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label) {
+  --ef-diagram-x: attr(data-x px);
+  --ef-diagram-y: attr(data-y px);
+}
+:where(.studio) :where(.ef-diagram-node, .ef-diagram-group) {
+  --ef-diagram-w: attr(data-w px);
+  --ef-diagram-h: attr(data-h px);
+  --ef-diagram-fill: attr(data-fill type(<color>));
+  --ef-diagram-stroke: attr(data-stroke type(<color>));
+  --ef-diagram-accent: attr(data-accent type(<color>));
+  --ef-diagram-foreground: attr(data-foreground type(<color>));
+}
+:where(.studio) :where(.ef-diagram-connector) {
+  --ef-diagram-connector-stroke: attr(data-connector-stroke type(<color>));
+}
+/* Endpoint handles are editor adorners, positioned by studio.css. */
+:where(.studio) :where(.studio-endpoint) {
+  --studio-x: attr(data-x px);
+  --studio-y: attr(data-y px);
+}
+
+/* Token colors: --ef-diagram-fill. */
+.studio [data-fill="--ef-color-accent-primary"] { --ef-diagram-fill: var(--ef-color-accent-primary); }
+.studio [data-fill="--ef-color-accent-secondary"] { --ef-diagram-fill: var(--ef-color-accent-secondary); }
+.studio [data-fill="--ef-color-border-functional"] { --ef-diagram-fill: var(--ef-color-border-functional); }
+.studio [data-fill="--ef-color-border-subtle"] { --ef-diagram-fill: var(--ef-color-border-subtle); }
+.studio [data-fill="--ef-color-surface-primary"] { --ef-diagram-fill: var(--ef-color-surface-primary); }
+.studio [data-fill="--ef-color-surface-secondary"] { --ef-diagram-fill: var(--ef-color-surface-secondary); }
+.studio [data-fill="--ef-color-surface-inverse"] { --ef-diagram-fill: var(--ef-color-surface-inverse); }
+.studio [data-fill="--ef-color-text-primary"] { --ef-diagram-fill: var(--ef-color-text-primary); }
+.studio [data-fill="--ef-color-text-secondary"] { --ef-diagram-fill: var(--ef-color-text-secondary); }
+
+/* Token colors: --ef-diagram-stroke. */
+.studio [data-stroke="--ef-color-accent-primary"] { --ef-diagram-stroke: var(--ef-color-accent-primary); }
+.studio [data-stroke="--ef-color-accent-secondary"] { --ef-diagram-stroke: var(--ef-color-accent-secondary); }
+.studio [data-stroke="--ef-color-border-functional"] { --ef-diagram-stroke: var(--ef-color-border-functional); }
+.studio [data-stroke="--ef-color-border-subtle"] { --ef-diagram-stroke: var(--ef-color-border-subtle); }
+.studio [data-stroke="--ef-color-surface-primary"] { --ef-diagram-stroke: var(--ef-color-surface-primary); }
+.studio [data-stroke="--ef-color-surface-secondary"] { --ef-diagram-stroke: var(--ef-color-surface-secondary); }
+.studio [data-stroke="--ef-color-surface-inverse"] { --ef-diagram-stroke: var(--ef-color-surface-inverse); }
+.studio [data-stroke="--ef-color-text-primary"] { --ef-diagram-stroke: var(--ef-color-text-primary); }
+.studio [data-stroke="--ef-color-text-secondary"] { --ef-diagram-stroke: var(--ef-color-text-secondary); }
+
+/* Token colors: --ef-diagram-accent. */
+.studio [data-accent="--ef-color-accent-primary"] { --ef-diagram-accent: var(--ef-color-accent-primary); }
+.studio [data-accent="--ef-color-accent-secondary"] { --ef-diagram-accent: var(--ef-color-accent-secondary); }
+.studio [data-accent="--ef-color-border-functional"] { --ef-diagram-accent: var(--ef-color-border-functional); }
+.studio [data-accent="--ef-color-border-subtle"] { --ef-diagram-accent: var(--ef-color-border-subtle); }
+.studio [data-accent="--ef-color-surface-primary"] { --ef-diagram-accent: var(--ef-color-surface-primary); }
+.studio [data-accent="--ef-color-surface-secondary"] { --ef-diagram-accent: var(--ef-color-surface-secondary); }
+.studio [data-accent="--ef-color-surface-inverse"] { --ef-diagram-accent: var(--ef-color-surface-inverse); }
+.studio [data-accent="--ef-color-text-primary"] { --ef-diagram-accent: var(--ef-color-text-primary); }
+.studio [data-accent="--ef-color-text-secondary"] { --ef-diagram-accent: var(--ef-color-text-secondary); }
+
+/* Token colors: --ef-diagram-foreground. */
+.studio [data-foreground="--ef-color-accent-primary"] { --ef-diagram-foreground: var(--ef-color-accent-primary); }
+.studio [data-foreground="--ef-color-accent-secondary"] { --ef-diagram-foreground: var(--ef-color-accent-secondary); }
+.studio [data-foreground="--ef-color-border-functional"] { --ef-diagram-foreground: var(--ef-color-border-functional); }
+.studio [data-foreground="--ef-color-border-subtle"] { --ef-diagram-foreground: var(--ef-color-border-subtle); }
+.studio [data-foreground="--ef-color-surface-primary"] { --ef-diagram-foreground: var(--ef-color-surface-primary); }
+.studio [data-foreground="--ef-color-surface-secondary"] { --ef-diagram-foreground: var(--ef-color-surface-secondary); }
+.studio [data-foreground="--ef-color-surface-inverse"] { --ef-diagram-foreground: var(--ef-color-surface-inverse); }
+.studio [data-foreground="--ef-color-text-primary"] { --ef-diagram-foreground: var(--ef-color-text-primary); }
+.studio [data-foreground="--ef-color-text-secondary"] { --ef-diagram-foreground: var(--ef-color-text-secondary); }
+
+/* Token colors: --ef-diagram-connector-stroke. */
+.studio [data-connector-stroke="--ef-color-accent-primary"] { --ef-diagram-connector-stroke: var(--ef-color-accent-primary); }
+.studio [data-connector-stroke="--ef-color-accent-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-accent-secondary); }
+.studio [data-connector-stroke="--ef-color-border-functional"] { --ef-diagram-connector-stroke: var(--ef-color-border-functional); }
+.studio [data-connector-stroke="--ef-color-border-subtle"] { --ef-diagram-connector-stroke: var(--ef-color-border-subtle); }
+.studio [data-connector-stroke="--ef-color-surface-primary"] { --ef-diagram-connector-stroke: var(--ef-color-surface-primary); }
+.studio [data-connector-stroke="--ef-color-surface-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-surface-secondary); }
+.studio [data-connector-stroke="--ef-color-surface-inverse"] { --ef-diagram-connector-stroke: var(--ef-color-surface-inverse); }
+.studio [data-connector-stroke="--ef-color-text-primary"] { --ef-diagram-connector-stroke: var(--ef-color-text-primary); }
+.studio [data-connector-stroke="--ef-color-text-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-text-secondary); }

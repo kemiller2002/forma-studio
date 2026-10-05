@@ -14,7 +14,10 @@ const node = (page, label) => page.locator(".ef-diagram__canvas article", { has:
 const structure = (page) => page.getByRole("navigation", { name: "Structure" });
 const outlineItem = (page, text) => structure(page).locator("button[data-event=select]").filter({ hasText: text });
 const status = (page) => page.getByRole("status");
-const position = (locator) => locator.evaluate((el) => ({ x: parseInt(el.style.getPropertyValue("--ef-diagram-x")), y: parseInt(el.style.getPropertyValue("--ef-diagram-y")) }));
+// Geometry and colors arrive as data-* values that studio-projection.css maps onto
+// Forma's custom properties (Limen 0.7.0 refuses inline style): read what CSS computed.
+const computed = (locator, name) => locator.evaluate((el, property) => getComputedStyle(el).getPropertyValue(property).trim(), name);
+const position = async (locator) => ({ x: parseInt(await computed(locator, "--ef-diagram-x")), y: parseInt(await computed(locator, "--ef-diagram-y")) });
 
 test.beforeEach(async ({ page }) => {
   page.on("console", (message) => {
@@ -114,13 +117,15 @@ test("fill color accepts text entry, records its source and resets to the next l
   const fill = page.getByLabel("Fill color (#rrggbb)");
   await fill.fill("#FFE0B2");
   await fill.press("Tab");
-  await expect(node(page, "Request submitted")).toHaveAttribute("style", /--ef-diagram-fill: #ffe0b2;/);
+  await expect(node(page, "Request submitted")).toHaveAttribute("data-fill", "#ffe0b2");
+  await expect.poll(() => computed(node(page, "Request submitted"), "--ef-diagram-fill")).toBe("rgb(255, 224, 178)");
   await expect(page.locator("#inspector-fill-source")).toContainText("literal #ffe0b2 (set on this item)");
   await fill.fill("teal-ish");
   await fill.press("Tab");
   await expect(status(page)).toContainText("Not changed");
   await page.getByRole("button", { name: "Reset fill" }).click();
-  await expect(node(page, "Request submitted")).not.toHaveAttribute("style", /--ef-diagram-fill/);
+  await expect(node(page, "Request submitted")).toHaveAttribute("data-fill", "");
+  await expect.poll(() => computed(node(page, "Request submitted"), "--ef-diagram-fill")).toBe("");
 });
 
 test("save and reopen restore the canonical project with a fresh history", async ({ page }) => {
@@ -178,7 +183,8 @@ test("an ordinary user defines a choice field, sets it and colors by it without 
   // Prepare request keeps its authored highlight: an override beats a mapping.
   await expect(page.locator("#inspector-fill-source")).toContainText("set on this item");
   await page.getByRole("button", { name: "Reset fill" }).click();
-  await expect(node(page, "Prepare request")).toHaveAttribute("style", /--ef-diagram-fill: #fbd3e9;/);
+  await expect(node(page, "Prepare request")).toHaveAttribute("data-fill", "#fbd3e9");
+  await expect.poll(() => computed(node(page, "Prepare request"), "--ef-diagram-fill")).toBe("rgb(251, 211, 233)");
   await expect(page.locator("#inspector-fill-source")).toContainText("Risk level is High");
 });
 
@@ -190,7 +196,8 @@ test("an in-use palette slot cannot be deleted silently; materializing keeps the
   await expect(page.getByRole("status")).toContainText("Not changed");
   await row.getByRole("button", { name: "Delete, keep colors" }).click();
   await expect(page.getByRole("list", { name: "Palette slots" })).not.toContainText("Author highlight");
-  await expect(node(page, "Prepare request")).toHaveAttribute("style", /--ef-diagram-fill: #efe6fb;/);
+  await expect(node(page, "Prepare request")).toHaveAttribute("data-fill", "#efe6fb");
+  await expect.poll(() => computed(node(page, "Prepare request"), "--ef-diagram-fill")).toBe("rgb(239, 230, 251)");
 });
 
 test("moving an activity between lanes reports the responsibility change", async ({ page }) => {
@@ -284,7 +291,7 @@ test("Layout and Flow share one session: stack, heading, edit, reorder, spacing,
   await expect(preview).toHaveAttribute("data-density", "compact");
 });
 
-const size = (locator) => locator.evaluate((el) => ({ w: parseInt(el.style.getPropertyValue("--ef-diagram-w")), h: parseInt(el.style.getPropertyValue("--ef-diagram-h")) }));
+const size = async (locator) => ({ w: parseInt(await computed(locator, "--ef-diagram-w")), h: parseInt(await computed(locator, "--ef-diagram-h")) });
 
 test("Resize: the handle drag and the inspector fields are each one command", async ({ page }) => {
   await open(page);
@@ -494,4 +501,41 @@ test("Merge review: saved-copy changes merge with local edits; a conflict is res
   await page.getByRole("button", { name: "Undo" }).click();
   await expect(node(page, "Send purchase order")).toHaveCount(1);
   await expect(node(page, "Revise request")).toHaveCount(1);
+});
+
+test("the canvas is laid out and colored by the stylesheet from data-* values, never inline style", async ({ page }) => {
+  await open(page);
+  const canvas = page.locator(".ef-diagram__canvas");
+  // Limen 0.7.0 refuses inline style as a binding target (limen#18): nothing projected carries one.
+  const projected = page.locator(".ef-diagram__canvas, .ef-diagram__canvas :is(article, .ef-diagram-group, .ef-diagram-connector__label, path.ef-diagram-connector)");
+  expect(await projected.evaluateAll((els) => els.filter((el) => el.hasAttribute("style")).map((el) => el.outerHTML.slice(0, 80)))).toEqual([]);
+
+  // Geometry: every node, group and connector label sits exactly at its projected logical position.
+  const misplaced = await page.locator(".ef-diagram__canvas :is(article, .ef-diagram-group, .ef-diagram-connector__label)").evaluateAll((els) =>
+    els.filter((el) => el.offsetLeft !== Number(el.dataset.x) || el.offsetTop !== Number(el.dataset.y)).map((el) => el.textContent.trim().slice(0, 40)));
+  expect(misplaced).toEqual([]);
+  expect(await page.locator(".ef-diagram__canvas article").evaluateAll((els) => els.every((el) => el.offsetWidth === Number(el.dataset.w)))).toBe(true);
+  const area = await canvas.evaluate((el) => ({ w: el.offsetWidth, h: el.offsetHeight, dw: Number(el.dataset.width), dh: Number(el.dataset.height) }));
+  expect([area.w, area.h]).toEqual([area.dw, area.dh]);
+
+  // A token color stays a token (themes and brands still apply); a literal is read as a <color>.
+  const decision = node(page, "Within budget?");
+  await expect(decision).toHaveAttribute("data-stroke", "--ef-color-accent-primary");
+  const token = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ef-color-accent-primary").trim());
+  expect(token).not.toBe("");
+  expect(await computed(decision, "--ef-diagram-stroke")).toBe(token);
+  expect(await computed(decision, "--ef-diagram-accent")).toBe(token);
+
+  // Zoom is a view preference applied by CSS from data-zoom.
+  await page.getByRole("toolbar", { name: "View" }).getByRole("button", { name: "Zoom in" }).click();
+  await expect(canvas).toHaveAttribute("data-zoom", "1.25");
+  await expect(canvas).toHaveCSS("zoom", "1.25");
+
+  // Endpoint handles of the selected connector sit on its first and last route points.
+  await page.getByRole("navigation", { name: "Structure" }).getByRole("button", { name: /^Connector:/ }).first().click();
+  const handles = page.locator(".studio-endpoint");
+  await expect(handles).toHaveCount(2);
+  const route = (await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d")).match(/-?\d+/g).map(Number);
+  const placed = await handles.evaluateAll((els) => els.map((el) => [parseInt(getComputedStyle(el).getPropertyValue("--studio-x")), parseInt(getComputedStyle(el).getPropertyValue("--studio-y"))]));
+  expect(placed).toEqual([route.slice(0, 2), route.slice(-2)]);
 });

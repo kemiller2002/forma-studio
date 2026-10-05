@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 5,
+  "nextSeq": 6,
   "items": [
     {
       "id": "WI-0001",
@@ -61,6 +61,20 @@
       "attachments": [],
       "createdAt": "2026-10-05T17:15:59.021Z",
       "updatedAt": "2026-10-05T17:18:14Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0005",
+      "title": "Redesign the canvas projection for Limen 0.7.0 binding security: geometry and appearance through data-* attributes and the stylesheet, no data-bind-style (PR #20)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T18:06:32.334Z",
+      "updatedAt": "2026-10-05T18:17:25.000Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null

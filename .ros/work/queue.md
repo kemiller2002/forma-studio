@@ -17,3 +17,4 @@
 | WI-0002 | Re-vendor Forma after the workflow module split (forma@eb7fcf1) with Studio's FSharp.Core pin | complete | vendor,forma | high |
 | WI-0003 | Pin vendored Forma to the 0.4.0 release and verify against the published packages | complete | vendor,forma,release | high |
 | WI-0004 | Upgrade Limen to 0.7.0 (@echelon-foundry/limen): manifest, three workflow references, dependency and build script | complete | limen | medium |
+| WI-0005 | Redesign the canvas projection for Limen 0.7.0 binding security: geometry and appearance through data-* attributes and the stylesheet, no data-bind-style (PR #20) | complete |  | medium |
