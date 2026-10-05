@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 4,
+  "nextSeq": 5,
   "items": [
     {
       "id": "WI-0001",
@@ -45,6 +45,22 @@
       "attachments": [],
       "createdAt": "2026-10-01T14:49:40.441Z",
       "updatedAt": "2026-10-01T16:47:55.000Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0004",
+      "title": "Upgrade Limen to 0.7.0 (@echelon-foundry/limen): manifest, three workflow references, dependency and build script",
+      "description": null,
+      "tags": [
+        "limen"
+      ],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T17:15:59.021Z",
+      "updatedAt": "2026-10-05T17:18:14Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null

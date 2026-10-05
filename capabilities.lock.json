@@ -23,8 +23,8 @@
       "mode": "lifecycle-pinned-git"
     },
     "limen": {
-      "package": "@echelon-foundry/typescript-wasm-kernel",
-      "version": "0.6.2",
+      "package": "@echelon-foundry/limen",
+      "version": "0.7.0",
       "mode": "runtime-and-lifecycle"
     },
     "forma": {

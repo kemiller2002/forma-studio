@@ -29,14 +29,14 @@ echo "Verifying declared Limen boundary directories exist"
 test -d src/engine
 test -d src/kernel
 
-echo "Installing Limen 0.6.2"
-npx --yes @echelon-foundry/typescript-wasm-kernel@0.6.2 init
+echo "Installing Limen 0.7.0"
+npx --yes @echelon-foundry/limen@0.7.0 init
 
 echo "Verifying capability installations"
 npx --yes --package=@echelon-foundry/repository-operating-system@3.1.4 ros verify --strict
 npx --yes @echelon-foundry/sde@1.3.0 verify
 npx --yes @echelon-foundry/visual-engineering@1.0.0 verify --strict
 run_ce verify "--strict"
-npx --yes @echelon-foundry/typescript-wasm-kernel@0.6.2 verify --strict
+npx --yes @echelon-foundry/limen@0.7.0 verify --strict
 
 echo "Capability bootstrap complete. ROS registry/validation should run after the generated state is committed."

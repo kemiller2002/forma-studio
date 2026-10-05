@@ -38,7 +38,7 @@ Verified bootstrap baseline:
 - ROS 3.1.4
 - Visual Engineering 1.0.0
 - Communication Engineering 1.0.0, installed from pinned source commit
-- Limen 0.6.2
+- Limen 0.7.0 (`@echelon-foundry/limen`)
 - Forma 0.1.0 presentation dependency
 - EchelonFoundry.Aegis.Core 1.0.0 pinned in the F# engine project
 
