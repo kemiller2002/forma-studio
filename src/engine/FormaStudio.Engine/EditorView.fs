@@ -90,12 +90,12 @@ module EditorView =
             let b = Projection.bounds diagram
             let dx, dy = Projection.padding - b.Position.X, Projection.padding - b.Position.Y
             let width, height = b.Size.Width + 2 * Projection.padding + 240, b.Size.Height + 2 * Projection.padding + 200
-            let colorDecls (e: EffectiveAppearance) =
-                [ "--ef-diagram-fill", e.Fill; "--ef-diagram-stroke", e.Stroke; "--ef-diagram-accent", e.Accent; "--ef-diagram-foreground", e.Foreground ]
-                |> List.choose (fun (name, v) -> v.Value |> Option.bind _.Css |> Option.map (sprintf "%s: %s;" name))
-            let geometry (bx: Box) =
-                [ sprintf "--ef-diagram-x: %dpx;" (bx.Position.X + dx); sprintf "--ef-diagram-y: %dpx;" (bx.Position.Y + dy)
-                  sprintf "--ef-diagram-w: %dpx;" bx.Size.Width; sprintf "--ef-diagram-h: %dpx;" bx.Size.Height ]
+            // Geometry and colors are data-* values, never inline style (Limen #18):
+            // studio-projection.css maps them onto Forma's diagram custom properties.
+            let color (v: Effective<ColorResolution>) = str (v.Value |> Option.bind (fun c -> AppearanceResolution.colorBinding p c.Source) |> Option.defaultValue "")
+            let colors (e: EffectiveAppearance) = [ "fill", color e.Fill; "stroke", color e.Stroke; "accent", color e.Accent; "foreground", color e.Foreground ]
+            let at (pt: Point) = [ "x", Json.ofInt pt.X; "y", Json.ofInt pt.Y ]
+            let geometry (bx: Box) = at { X = bx.Position.X + dx; Y = bx.Position.Y + dy } @ [ "w", Json.ofInt bx.Size.Width; "h", Json.ofInt bx.Size.Height ]
             let effect r = AppearanceResolution.resolve EditorScope p r |> fst
 
             let groups =
@@ -103,11 +103,11 @@ module EditorView =
                 |> List.map (fun g ->
                     let r = GroupRef(diagram.Id, g.Id)
                     item
-                        [ "key", str (sprintf "group:%s" (Id.value g.Id))
-                          "style", str (String.concat " " (geometry g.Box @ colorDecls (effect r)))
-                          "variant", str (match g.Kind with Group -> "group" | Lane -> "lane" | Phase -> "phase")
-                          "kind", str (match g.Kind with Group -> "Group" | Lane -> "Lane" | Phase -> "Phase")
-                          "label", str g.Label ])
+                        ([ "key", str (sprintf "group:%s" (Id.value g.Id))
+                           "variant", str (match g.Kind with Group -> "group" | Lane -> "lane" | Phase -> "phase")
+                           "kind", str (match g.Kind with Group -> "Group" | Lane -> "Lane" | Phase -> "Phase")
+                           "label", str g.Label ]
+                         @ geometry g.Box @ colors (effect r)))
 
             let nodes =
                 diagram.Nodes
@@ -122,12 +122,11 @@ module EditorView =
                            "id", str (Id.value n.Id)
                            "classes", str (String.concat " " ("ef-diagram-node" :: adorners))
                            "shape", str (shapeName e.Shape.Value)
-                           "style", str (String.concat " " (geometry n.Box @ colorDecls e))
                            "kind", str (kindLabel n.Kind)
                            "label", str n.Label
                            "name", str (sprintf "%s: %s" (kindLabel n.Kind) n.Label)
                            "pressed", str (if isSelected r then "true" else "false") ]
-                         @ metaSlots p diagram r n.Kind))
+                         @ geometry n.Box @ colors e @ metaSlots p diagram r n.Kind))
 
             let nodeById id = diagram.Nodes |> List.tryFind (fun n -> n.Id = id)
             let shift (bx: Box) = { bx with Position = { X = bx.Position.X + dx; Y = bx.Position.Y + dy } }
@@ -151,23 +150,22 @@ module EditorView =
                           "d", str d
                           "line", str (lineName e.Line.Value)
                           "classes", str (if isSelected r then "ef-diagram-connector studio-selected-wire" else "ef-diagram-connector")
-                          "style", str (e.ConnectorStroke.Value |> Option.bind _.Css |> Option.map (sprintf "--ef-diagram-connector-stroke: %s;") |> Option.defaultValue "") ])
+                          "stroke", color e.ConnectorStroke ])
             // Endpoint handles are editor adorners for the one selected connector.
             let endpoints =
                 routed
                 |> List.filter (fun (edge, _, _, _, _) -> selected = Some(EdgeRef(diagram.Id, edge.Id)))
                 |> List.collect (fun (edge, s, t, points, _) ->
-                    let place (pt: Point) = sprintf "--studio-x: %dpx; --studio-y: %dpx;" pt.X pt.Y
                     let pressed which = str (if state.Pending = Reconnecting(edge.Id, which) then "true" else "false")
                     match points, List.tryLast points with
                     | first :: _, Some last ->
-                        [ item [ "key", str "source"; "style", str (place first); "pressed", pressed SourceEnd; "label", str (sprintf "Move the start of this connector (now %s)" s.Label) ]
-                          item [ "key", str "target"; "style", str (place last); "pressed", pressed TargetEnd; "label", str (sprintf "Move the end of this connector (now %s)" t.Label) ] ]
+                        [ item ([ "key", str "source"; "pressed", pressed SourceEnd; "label", str (sprintf "Move the start of this connector (now %s)" s.Label) ] @ at first)
+                          item ([ "key", str "target"; "pressed", pressed TargetEnd; "label", str (sprintf "Move the end of this connector (now %s)" t.Label) ] @ at last) ]
                     | _ -> [])
             let labels =
                 routed
-                |> List.choose (fun (edge, _, _, _, at) ->
-                    edge.Label |> Option.map (fun l -> item [ "key", str (sprintf "edge:%s" (Id.value edge.Id)); "text", str l; "style", str (sprintf "--ef-diagram-x: %dpx; --ef-diagram-y: %dpx;" at.X at.Y) ]))
+                |> List.choose (fun (edge, _, _, _, labelAt) ->
+                    edge.Label |> Option.map (fun l -> item ([ "key", str (sprintf "edge:%s" (Id.value edge.Id)); "text", str l ] @ at labelAt)))
 
             let outline =
                 (diagram.Nodes
@@ -295,7 +293,8 @@ module EditorView =
                   "undoDisabled", JBool(not (Editor.canUndo state.Session))
                   "redoDisabled", JBool(not (Editor.canRedo state.Session))
                   "historyCount", Json.ofInt state.Session.Undo.Length
-                  "canvasStyle", str (sprintf "--ef-diagram-canvas-w: %dpx; --ef-diagram-canvas-h: %dpx; --studio-zoom: %s;" width height (string (float state.Zoom / 100.0)))
+                  "canvasWidth", Json.ofInt width
+                  "canvasHeight", Json.ofInt height
                   "zoomFactor", str (string (float state.Zoom / 100.0))
                   "zoomLabel", str (sprintf "%d%%" state.Zoom)
                   "zoomOutDisabled", JBool(state.Zoom <= List.head EditorState.zoomLevels)

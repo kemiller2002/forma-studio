@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 4,
+  "nextSeq": 7,
   "items": [
     {
       "id": "WI-0001",
@@ -45,6 +45,50 @@
       "attachments": [],
       "createdAt": "2026-10-01T14:49:40.441Z",
       "updatedAt": "2026-10-01T16:47:55.000Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0004",
+      "title": "Upgrade Limen to 0.7.0 (@echelon-foundry/limen): manifest, three workflow references, dependency and build script",
+      "description": null,
+      "tags": [
+        "limen"
+      ],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T17:15:59.021Z",
+      "updatedAt": "2026-10-05T17:18:14Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0005",
+      "title": "Redesign the canvas projection for Limen 0.7.0 binding security: geometry and appearance through data-* attributes and the stylesheet, no data-bind-style (PR #20)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T18:06:32.334Z",
+      "updatedAt": "2026-10-05T18:17:25.000Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0006",
+      "title": "Fix: a canvas drag leaves a text selection on Chrome 153, so the next drag on that node becomes a native text drag (pointercancel) and never commits (PR #20 CI)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T18:45:29.158Z",
+      "updatedAt": "2026-10-05T18:49:54.000Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null

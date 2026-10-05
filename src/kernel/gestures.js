@@ -38,12 +38,13 @@ const emitReconnect = (root, end, nodeId) => emit(root, editorEvents.gestureReco
 const minimumSize = 24;
 // Pointer deltas are screen pixels; the engine works in logical units.
 const zoomOf = (element) => Number(element.closest(".ef-diagram__canvas")?.dataset.zoom) || 1;
-const cssPixels = (node, name) => parseFloat(node.style.getPropertyValue(name)) || 0;
+// The engine projects each node's logical geometry as data-x/-y/-w/-h.
+const logical = (node, name) => Number(node.dataset[name]) || 0;
 const guideReach = 6;
 
 const rectOf = (node) => ({
-  x: cssPixels(node, "--ef-diagram-x"), y: cssPixels(node, "--ef-diagram-y"),
-  w: cssPixels(node, "--ef-diagram-w"), h: cssPixels(node, "--ef-diagram-h"),
+  x: logical(node, "x"), y: logical(node, "y"),
+  w: logical(node, "w"), h: logical(node, "h"),
 });
 // Start, center and end lines of a rectangle on one axis.
 const linesOf = (start, length) => [start, start + length / 2, start + length];
@@ -98,7 +99,7 @@ export const installGestures = (root = document) => {
     drag = {
       canvas, guided, rect: rectOf(node), others,
       node, id: node.dataset.nodeId, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId,
-      resizing, w: cssPixels(node, "--ef-diagram-w"), h: cssPixels(node, "--ef-diagram-h"),
+      resizing, w: logical(node, "w"), h: logical(node, "h"),
     };
     node.setPointerCapture(event.pointerId);
   });

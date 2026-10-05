@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@echelon-foundry/design-system": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.1.0/echelon-foundry-design-system-0.1.0.tgz",
-    "@echelon-foundry/typescript-wasm-kernel": "0.6.2"
+    "@echelon-foundry/limen": "0.7.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

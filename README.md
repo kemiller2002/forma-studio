@@ -24,7 +24,7 @@ Pinned capability versions are recorded in capabilities.lock.json:
 - ROS 3.1.4
 - Visual Engineering 1.0.0
 - Communication Engineering current 1.0.0 source pinned by commit
-- Limen 0.6.2
+- Limen 0.7.0 (`@echelon-foundry/limen`)
 - Forma 0.1.0
 - Aegis Core 1.0.0
 

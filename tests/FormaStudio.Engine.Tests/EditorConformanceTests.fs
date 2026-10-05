@@ -7,6 +7,9 @@
 ///  3. A source-size ratchet over the editor and command modules: the checked-in
 ///     baseline (tests/FormaStudio.Engine.Tests/source-size-baseline.json) may
 ///     only decrease, unless an explicit, owned, expiring exception allows more.
+///  4. The canvas projection writes no inline style (Limen 0.7.0, limen#18):
+///     every public Forma color token has a rule for every color slot in
+///     src/kernel/studio-projection.css.
 ///
 /// Lower the baseline after shrinking a file with:
 ///   FORMA_STUDIO_UPDATE_GENERATED=1 dotnet run --project tests/FormaStudio.Engine.Tests -c Release
@@ -267,4 +270,24 @@ let ratchetRules =
         expect (not (List.isEmpty (check (b [ "A.fs", 50 ] [ ex (Some(DateOnly(2026, 12, 31))) ]) None [ "A.fs", 50 ]))) "an unneeded exception fails"
         expect (not (List.isEmpty (check { b [ "A.fs", 50 ] [] with Ceiling = 200 } (Some(b [ "A.fs", 50 ] [])) [ "A.fs", 50 ]))) "raising the ceiling fails")
 
-let all = [ noStringLiteralEvents; noStringMatchOnEventNames; dependencyDirection; compositeCommandsInIntents; ratchetRules; sourceSizeRatchet ]
+/// The engine projects colors as data-* values; the stylesheet must map every
+/// public token (TokenRef.allowed) in every slot, or a token color silently
+/// falls back to the Forma default.
+let canvasProjectionStyling =
+    test "Conformance: the canvas binds no inline style and the stylesheet maps every color token in every slot" (fun () ->
+        let html = File.ReadAllText(path [ "src"; "kernel"; "index.html" ])
+        expect (not (html.Contains "data-bind-style")) "index.html binds inline style; Limen 0.7.0 refuses it (limen#18)"
+        let css = File.ReadAllText(path [ "src"; "kernel"; "studio-projection.css" ])
+        let slots =
+            [ "fill", "--ef-diagram-fill"; "stroke", "--ef-diagram-stroke"; "accent", "--ef-diagram-accent"
+              "foreground", "--ef-diagram-foreground"; "connector-stroke", "--ef-diagram-connector-stroke" ]
+        let missing =
+            [ for slot, property in slots do
+                  for token in TokenRef.allowed do
+                      let rule = sprintf ".studio [data-%s=\"%s\"] { %s: var(%s); }" slot token property token
+                      if not (css.Contains rule) then rule ]
+        equal [] missing "studio-projection.css token rules"
+        for slot, _ in slots do
+            expect (html.Contains(sprintf "data-bind-data-%s=" slot)) (sprintf "index.html binds no data-%s" slot))
+
+let all = [ noStringLiteralEvents; noStringMatchOnEventNames; dependencyDirection; compositeCommandsInIntents; ratchetRules; sourceSizeRatchet; canvasProjectionStyling ]

@@ -32,11 +32,24 @@ with `FORMA_STUDIO_UPDATE_GENERATED=1 npm run engine:test`.
 
 `gestures.js` is the one piece of editor-only DOM integration. A pointer drag
 previews with a CSS translate and emits a single `gesture-move` semantic event
-when released. Arrow keys on a focused item emit the same event. The canonical
+when released. Canvas nodes are not text-selectable (`studio.css`): a selection
+left by one drag would turn the next drag into a native text drag, which
+cancels the pointer before the move commits. Arrow keys on a focused item emit the same event. The canonical
 project changes only through that one engine command.
 
 `studio.css` holds editor chrome and adorners (`studio-*`). These never reuse
 `ef-*` classes and never appear in exported output.
+
+The canvas binds no inline style: Limen 0.7.0 refuses `data-bind-style`
+(limen#18, Limen `docs/29-binding-security.md`). The engine projects geometry
+and colors as plain `data-*` values (`data-x`/`-y`/`-w`/`-h`, `data-fill`,
+`data-stroke`, `data-accent`, `data-foreground`, `data-connector-stroke`, and
+`data-width`/`-height`/`-zoom` on the canvas). `studio-projection.css` maps
+them onto Forma's diagram custom properties. Logical pixels and `#rrggbb`
+literals go through typed `attr()`. Each public Forma color token has its own
+rule, so a token stays a `var()` and themes and brands still apply. Typed
+`attr()` needs Chromium 133 or later, the browser the editor is tested in.
+`EditorConformanceTests` checks that every token has a rule in every slot.
 
 Build and test:
 

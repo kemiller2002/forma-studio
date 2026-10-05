@@ -39,15 +39,28 @@ type AppearanceScope =
 module AppearanceResolution =
     let private defaultForegroundHex = "#171a18"
 
-    let colorCss (project: Project) (color: ColorRef) =
+    /// The paint a color reference finally names, through a palette slot if needed;
+    /// None when the slot no longer exists.
+    let private paintOf (project: Project) (color: ColorRef) =
         match color with
-        | TokenColor token -> { Source = color; Css = Some(sprintf "var(%s)" (TokenRef.value token)); Palette = None }
-        | LiteralColor hex -> { Source = color; Css = Some(HexColor.value hex); Palette = None }
+        | TokenColor token -> Some(Choice1Of2 token)
+        | LiteralColor hex -> Some(Choice2Of2 hex)
         | PaletteColor id ->
             match ProjectOps.tryPalette id project with
-            | Some { Value = PaletteToken token } -> { Source = color; Css = Some(sprintf "var(%s)" (TokenRef.value token)); Palette = Some id }
-            | Some { Value = PaletteLiteral hex } -> { Source = color; Css = Some(HexColor.value hex); Palette = Some id }
-            | None -> { Source = color; Css = None; Palette = Some id }
+            | Some { Value = PaletteToken token } -> Some(Choice1Of2 token)
+            | Some { Value = PaletteLiteral hex } -> Some(Choice2Of2 hex)
+            | None -> None
+
+    let colorCss (project: Project) (color: ColorRef) =
+        { Source = color
+          Css = paintOf project color |> Option.map (function Choice1Of2 token -> sprintf "var(%s)" (TokenRef.value token) | Choice2Of2 hex -> HexColor.value hex)
+          Palette = match color with PaletteColor id -> Some id | _ -> None }
+
+    /// A color as a binding value: the public Forma token name or the `#rrggbb`
+    /// literal. The page's stylesheet turns either into Forma's custom property,
+    /// so no projection writes inline style (Limen binding security, limen#18).
+    let colorBinding (project: Project) (color: ColorRef) =
+        paintOf project color |> Option.map (function Choice1Of2 token -> TokenRef.value token | Choice2Of2 hex -> HexColor.value hex)
 
     let private kindOf reference = ObjectRef.kind reference
 
