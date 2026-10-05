@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 6,
+  "nextSeq": 7,
   "items": [
     {
       "id": "WI-0001",
@@ -75,6 +75,20 @@
       "attachments": [],
       "createdAt": "2026-10-05T18:06:32.334Z",
       "updatedAt": "2026-10-05T18:17:25.000Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0006",
+      "title": "Fix: a canvas drag leaves a text selection on Chrome 153, so the next drag on that node becomes a native text drag (pointercancel) and never commits (PR #20 CI)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-05T18:45:29.158Z",
+      "updatedAt": "2026-10-05T18:49:54.000Z",
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null

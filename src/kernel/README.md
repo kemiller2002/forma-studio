@@ -32,7 +32,9 @@ with `FORMA_STUDIO_UPDATE_GENERATED=1 npm run engine:test`.
 
 `gestures.js` is the one piece of editor-only DOM integration. A pointer drag
 previews with a CSS translate and emits a single `gesture-move` semantic event
-when released. Arrow keys on a focused item emit the same event. The canonical
+when released. Canvas nodes are not text-selectable (`studio.css`): a selection
+left by one drag would turn the next drag into a native text drag, which
+cancels the pointer before the move commits. Arrow keys on a focused item emit the same event. The canonical
 project changes only through that one engine command.
 
 `studio.css` holds editor chrome and adorners (`studio-*`). These never reuse

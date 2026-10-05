@@ -18,3 +18,4 @@
 | WI-0003 | Pin vendored Forma to the 0.4.0 release and verify against the published packages | complete | vendor,forma,release | high |
 | WI-0004 | Upgrade Limen to 0.7.0 (@echelon-foundry/limen): manifest, three workflow references, dependency and build script | complete | limen | medium |
 | WI-0005 | Redesign the canvas projection for Limen 0.7.0 binding security: geometry and appearance through data-* attributes and the stylesheet, no data-bind-style (PR #20) | complete |  | medium |
+| WI-0006 | Fix: a canvas drag leaves a text selection on Chrome 153, so the next drag on that node becomes a native text drag (pointercancel) and never commits (PR #20 CI) | complete |  | medium |

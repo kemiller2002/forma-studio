@@ -539,3 +539,23 @@ test("the canvas is laid out and colored by the stylesheet from data-* values, n
   const placed = await handles.evaluateAll((els) => els.map((el) => [parseInt(getComputedStyle(el).getPropertyValue("--studio-x")), parseInt(getComputedStyle(el).getPropertyValue("--studio-y"))]));
   expect(placed).toEqual([route.slice(0, 2), route.slice(-2)]);
 });
+
+test("a drag leaves no text selection, so the next drag on the same node is a drag too", async ({ page }) => {
+  await open(page);
+  await page.evaluate(() => { window.studioNativeDrags = 0; document.addEventListener("dragstart", () => { window.studioNativeDrags += 1; }, true); });
+  const entries = Number(await history(page).textContent());
+  const target = node(page, "Prepare request");
+  for (const [n, dx] of [[1, 40], [2, 24]]) {
+    const before = await position(target);
+    // Start on the kind text: a text selection left there would make this a native text drag.
+    const kind = await target.locator(".ef-diagram-node__kind").boundingBox();
+    await page.mouse.move(kind.x + 4, kind.y + kind.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(kind.x + 4 + dx, kind.y + kind.height / 2 + 8, { steps: 6 });
+    await page.mouse.up();
+    await expect(history(page)).toHaveText(String(entries + n));
+    await expect.poll(() => position(target)).toEqual({ x: before.x + dx, y: before.y + 8 });
+    expect(await page.evaluate(() => getSelection().toString())).toBe("");
+  }
+  expect(await page.evaluate(() => window.studioNativeDrags)).toBe(0);
+});
