@@ -21,4 +21,4 @@
 | WI-0006 | Fix: a canvas drag leaves a text selection on Chrome 153, so the next drag on that node becomes a native text drag (pointercancel) and never commits (PR #20 CI) | complete |  | medium |
 | WI-0007 | Upgrade Forma to 0.4.1 (vendored and site package) and Limen to 0.7.1 | complete |  | medium |
 | WI-0008 | Fix axe accessibility violations in the editor (light and dark) and the marketing site, and add an axe Playwright gate | complete | a11y | high |
-| WI-0009 | Move forma-studio to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | ready | praxis, ordo, toolchain | medium |
+| WI-0009 | Move forma-studio to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
