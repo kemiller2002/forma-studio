@@ -23,4 +23,4 @@
 | WI-0008 | Fix axe accessibility violations in the editor (light and dark) and the marketing site, and add an axe Playwright gate | complete | a11y | high |
 | WI-0009 | Move forma-studio to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0010 | Move forma-studio to Ordo 1.4.1 | complete | ordo, toolchain | medium |
-| WI-0011 | Move forma-studio to Praxis 3.7.2, Ordo 1.4.2, Visual Engineering 1.0.1 and adopt Conditor | ready | praxis, ordo, toolchain | medium |
+| WI-0011 | Move forma-studio to Praxis 3.7.2, Ordo 1.4.2, Visual Engineering 1.0.1 and adopt Conditor | complete | praxis, ordo, toolchain | medium |
