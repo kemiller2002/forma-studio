@@ -76,7 +76,7 @@ const showGuides = (canvas, { alignX, alignY }) => {
 };
 const clearGuides = (canvas) => canvas?.querySelectorAll(".studio-guide").forEach((g) => g.remove());
 
-const nodeOf = (target) => target instanceof Element ? target.closest(".ef-diagram__canvas article[data-node-id]") : null;
+const nodeOf = (target) => target instanceof Element ? target.closest(".ef-diagram__canvas .ef-diagram-node[data-node-id]") : null;
 const endpointOf = (target) => target instanceof Element ? target.closest(".studio-endpoint") : null;
 
 export const installGestures = (root = document) => {
@@ -95,7 +95,7 @@ export const installGestures = (root = document) => {
     const resizing = event.target instanceof Element && event.target.classList.contains("studio-resize-handle");
     const canvas = node.closest(".ef-diagram__canvas");
     const guided = !resizing && canvas?.dataset.snap !== "true";
-    const others = guided ? [...canvas.querySelectorAll("article[data-node-id]")].filter((n) => n !== node).map(rectOf) : [];
+    const others = guided ? [...canvas.querySelectorAll(".ef-diagram-node[data-node-id]")].filter((n) => n !== node).map(rectOf) : [];
     drag = {
       canvas, guided, rect: rectOf(node), others,
       node, id: node.dataset.nodeId, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId,

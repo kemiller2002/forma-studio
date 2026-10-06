@@ -20,3 +20,4 @@
 | WI-0005 | Redesign the canvas projection for Limen 0.7.0 binding security: geometry and appearance through data-* attributes and the stylesheet, no data-bind-style (PR #20) | complete |  | medium |
 | WI-0006 | Fix: a canvas drag leaves a text selection on Chrome 153, so the next drag on that node becomes a native text drag (pointercancel) and never commits (PR #20 CI) | complete |  | medium |
 | WI-0007 | Upgrade Forma to 0.4.1 (vendored and site package) and Limen to 0.7.1 | complete |  | medium |
+| WI-0008 | Fix axe accessibility violations in the editor (light and dark) and the marketing site, and add an axe Playwright gate | complete | a11y | high |
