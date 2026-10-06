@@ -27,10 +27,11 @@ body { margin: 0; }
 /* Limen needs an HTML root per repeated connector; it only positions the Forma SVG. */
 .studio-wire-layer { position: absolute; inset: 0; pointer-events: none; }
 /* Canvas adorners: selection, connection source and drag preview. */
-/* A node is a draggable control (role="button"), not text to select. Without this,
+/* A node is a draggable control (a div with role="button": ARIA does not allow
+   the button role on <article>), not text to select. Without this,
    mousedown starts a text selection; one left behind turns the next drag into a
    native text drag, which cancels the pointer (pointercancel) before the move commits. */
-.ef-diagram__canvas article { cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
+.ef-diagram__canvas .ef-diagram-node { cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
 .studio-selected { outline: 3px dashed var(--ef-color-focus-ring, #1f5fbf); outline-offset: 5px; }
 .studio-connect-source { outline: 3px dotted var(--ef-color-focus-ring, #1f5fbf); outline-offset: 5px; }
 .studio-dragging { cursor: grabbing; opacity: 0.85; z-index: 3; }

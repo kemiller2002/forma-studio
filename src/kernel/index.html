@@ -135,7 +135,7 @@
               <div class="studio-wire-layer"><svg class="ef-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-ef-line="line" data-bind-data-connector-stroke="stroke" marker-end="url(#studio-arrow)"/></svg></div>
             </template>
             <template data-each="nodes" data-key="key">
-              <article tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
+              <div tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
                 <p class="ef-diagram-node__kind" data-text="kind"></p>
                 <h3 class="ef-diagram-node__label" data-text="label"></h3>
                 <dl class="ef-diagram-node__meta">
@@ -145,7 +145,7 @@
                   <dt data-text="m4Label" data-bind-hidden="m4Hidden"></dt><dd data-bind-hidden="m4Hidden"><span data-text="m4Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m4State" data-text="m4Note" data-bind-hidden="m4NoteHidden"></span></dd>
                 </dl>
                 <span class="studio-resize-handle" aria-hidden="true"></span>
-              </article>
+              </div>
             </template>
             <template data-each="edgeLabels" data-key="key">
               <span class="ef-diagram-connector__label" data-bind-data-x="x" data-bind-data-y="y" data-text="text"></span>

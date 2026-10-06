@@ -7,10 +7,10 @@ const open = async (page, width = 1400) => {
   await page.setViewportSize({ width, height: 1000 });
   await page.goto("/");
   await page.waitForFunction(() => document.documentElement.dataset.studioReady === "true");
-  await expect(page.locator(".ef-diagram__canvas article")).toHaveCount(7);
+  await expect(page.locator(".ef-diagram__canvas .ef-diagram-node")).toHaveCount(7);
 };
 const history = (page) => page.locator('[data-text="historyCount"]');
-const node = (page, label) => page.locator(".ef-diagram__canvas article", { has: page.locator(".ef-diagram-node__label", { hasText: label }) });
+const node = (page, label) => page.locator(".ef-diagram__canvas .ef-diagram-node", { has: page.locator(".ef-diagram-node__label", { hasText: label }) });
 const structure = (page) => page.getByRole("navigation", { name: "Structure" });
 const outlineItem = (page, text) => structure(page).locator("button[data-event=select]").filter({ hasText: text });
 const status = (page) => page.getByRole("status");
@@ -507,14 +507,14 @@ test("the canvas is laid out and colored by the stylesheet from data-* values, n
   await open(page);
   const canvas = page.locator(".ef-diagram__canvas");
   // Limen 0.7.0 refuses inline style as a binding target (limen#18): nothing projected carries one.
-  const projected = page.locator(".ef-diagram__canvas, .ef-diagram__canvas :is(article, .ef-diagram-group, .ef-diagram-connector__label, path.ef-diagram-connector)");
+  const projected = page.locator(".ef-diagram__canvas, .ef-diagram__canvas :is(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label, path.ef-diagram-connector)");
   expect(await projected.evaluateAll((els) => els.filter((el) => el.hasAttribute("style")).map((el) => el.outerHTML.slice(0, 80)))).toEqual([]);
 
   // Geometry: every node, group and connector label sits exactly at its projected logical position.
-  const misplaced = await page.locator(".ef-diagram__canvas :is(article, .ef-diagram-group, .ef-diagram-connector__label)").evaluateAll((els) =>
+  const misplaced = await page.locator(".ef-diagram__canvas :is(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label)").evaluateAll((els) =>
     els.filter((el) => el.offsetLeft !== Number(el.dataset.x) || el.offsetTop !== Number(el.dataset.y)).map((el) => el.textContent.trim().slice(0, 40)));
   expect(misplaced).toEqual([]);
-  expect(await page.locator(".ef-diagram__canvas article").evaluateAll((els) => els.every((el) => el.offsetWidth === Number(el.dataset.w)))).toBe(true);
+  expect(await page.locator(".ef-diagram__canvas .ef-diagram-node").evaluateAll((els) => els.every((el) => el.offsetWidth === Number(el.dataset.w)))).toBe(true);
   const area = await canvas.evaluate((el) => ({ w: el.offsetWidth, h: el.offsetHeight, dw: Number(el.dataset.width), dh: Number(el.dataset.height) }));
   expect([area.w, area.h]).toEqual([area.dw, area.dh]);
 

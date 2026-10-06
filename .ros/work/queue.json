@@ -106,6 +106,22 @@
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "WI-0008",
+      "title": "Fix axe accessibility violations in the editor (light and dark) and the marketing site, and add an axe Playwright gate",
+      "description": null,
+      "tags": [
+        "a11y"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-06T10:27:15Z",
+      "updatedAt": "2026-10-06T10:27:16Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

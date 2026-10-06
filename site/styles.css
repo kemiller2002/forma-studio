@@ -72,7 +72,9 @@
     letter-spacing: .16em;
     font-family: var(--studio-mono);
     font-size: .72rem;
-    color: var(--studio-bronze);
+    /* Forma 0.4.1 on-surface pairing: a surface that cannot carry accent text
+       sets --ef-surface-accent-text-color; elsewhere the theme's accent applies. */
+    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #905831));
   }
 
   h1, h2 { font-family: var(--studio-display); font-weight: 500; line-height: .98; letter-spacing: -.025em; }
@@ -90,14 +92,18 @@
 
   .hero-facts { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-top: 1px solid var(--studio-iron); }
   .hero-facts div { padding: 1.2rem 1.2rem 0 0; }
-  .hero-facts dt { color: var(--studio-graphite); font-family: var(--studio-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+  .hero-facts dt { color: var(--ef-color-text-secondary, #e3e0d7); font-family: var(--studio-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
   .hero-facts dd { margin: .4rem 0 0; font-size: .9rem; }
 
   .section { padding-block: clamp(5rem, 10vw, 9rem); }
   .section.light { background: var(--studio-parchment); color: var(--studio-carbon); }
-  .section.dark { background: var(--studio-charcoal); color: var(--studio-parchment); }
-  .section.light .section-kicker { color: var(--studio-bronze); }
-  .section.dark .section-kicker { color: var(--ef-primitive-color-oxide-bronze-light, #a87e5e); }
+  /* Dark sections are Forma's secondary surface in the dark theme; accent text
+     there uses the surface's paired text color, as Forma's own surfaces do. */
+  .section.dark {
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #f2efe7);
+    background: var(--ef-color-surface-secondary, #202421);
+    color: var(--ef-color-text-on-secondary-surface, #f2efe7);
+  }
 
   .split-heading { display: grid; grid-template-columns: 1.4fr .8fr; gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: 4rem; }
   .split-heading h2 { margin-bottom: 0; }
@@ -113,7 +119,7 @@
 
   .flow { list-style: none; padding: 0; margin: 4rem 0 0; border-top: 1px solid var(--studio-iron); }
   .flow li { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--studio-iron); }
-  .flow li > span { font-family: var(--studio-mono); color: var(--ef-primitive-color-oxide-bronze-light, #a87e5e); }
+  .flow li > span { font-family: var(--studio-mono); color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #a87e5e)); }
   .flow h3 { font-family: var(--studio-display); font-size: 1.6rem; font-weight: 500; }
   .flow p { color: var(--studio-stone); max-width: 760px; }
 
@@ -129,7 +135,7 @@
   .architecture span { margin-top: .35rem; color: var(--studio-stone); font-size: .82rem; }
   .architecture b { padding: .6rem; color: var(--ef-primitive-color-oxide-bronze-light, #a87e5e); }
 
-  .callout { background: var(--studio-iron); color: var(--studio-parchment); }
+  .callout { --ef-surface-accent-text-color: var(--ef-color-text-primary, #f2efe7); background: var(--studio-iron); color: var(--ef-color-text-primary, #f2efe7); }
   .callout p:not(.eyebrow) { max-width: 760px; color: var(--studio-stone); font-size: 1.05rem; }
 
   footer { display: flex; justify-content: space-between; gap: 2rem; padding-block: 3rem; border-top: 1px solid var(--studio-iron); color: var(--studio-stone); font-size: .82rem; }

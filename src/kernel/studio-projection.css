@@ -33,7 +33,25 @@
   --ef-diagram-fill: attr(data-fill type(<color>));
   --ef-diagram-stroke: attr(data-stroke type(<color>));
   --ef-diagram-accent: attr(data-accent type(<color>));
-  --ef-diagram-foreground: attr(data-foreground type(<color>));
+  /* Without an authored foreground, text takes the color paired with the fill
+     (--studio-paired-foreground, below), or Forma's default when there is none. */
+  --ef-diagram-foreground: attr(data-foreground type(<color>), var(--studio-paired-foreground));
+}
+/*
+ * Foreground paired with the fill. A #rrggbb fill is fixed paint: it does not
+ * follow the theme, so text on it must not either. The engine's contrast
+ * finding (AppearanceResolution, appearance.contrast) checks a literal fill
+ * against Forma's carbon text; render exactly that, in every theme. A
+ * secondary or inverse surface token takes Forma's on-surface text token.
+ */
+:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill^="#"]) {
+  --studio-paired-foreground: var(--ef-primitive-color-carbon, #171a18);
+}
+:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill="--ef-color-surface-secondary"]) {
+  --studio-paired-foreground: var(--ef-color-text-on-secondary-surface);
+}
+:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill="--ef-color-surface-inverse"]) {
+  --studio-paired-foreground: var(--ef-color-text-inverse);
 }
 :where(.studio) :where(.ef-diagram-connector) {
   --ef-diagram-connector-stroke: attr(data-connector-stroke type(<color>));
