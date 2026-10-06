@@ -20,7 +20,7 @@ echo "Installing SDE 1.3.0"
 npx --yes @echelon-foundry/sde@1.3.0 init
 
 echo "Installing Visual Engineering 1.0.0"
-npx --yes @echelon-foundry/visual-engineering@1.0.0 init
+npx --yes @echelon-foundry/visual-engineering@1.0.1 init
 
 echo "Installing Communication Engineering from pinned current source"
 run_ce init
@@ -35,7 +35,7 @@ npx --yes @echelon-foundry/limen@0.7.1 init
 echo "Verifying capability installations"
 npx --yes --package=@echelon-foundry/repository-operating-system@3.1.4 ros verify --strict
 npx --yes @echelon-foundry/sde@1.3.0 verify
-npx --yes @echelon-foundry/visual-engineering@1.0.0 verify --strict
+npx --yes @echelon-foundry/visual-engineering@1.0.1 verify --strict
 run_ce verify "--strict"
 npx --yes @echelon-foundry/limen@0.7.1 verify --strict
 
