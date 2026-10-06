@@ -1,10 +1,10 @@
 {
   "source": "https://github.com/kemiller2002/forma",
-  "commit": "052cb1db2fcc704274b3ccc7bffb2779d7c87543",
+  "commit": "7a9b2ffc5ceee8eb96bf4015f0e62501fb8f78d9",
   "releases": [
     {
       "name": "@echelon-foundry/design-system",
-      "version": "0.4.0"
+      "version": "0.4.1"
     },
     {
       "name": "@echelon-foundry/forma-workflow",
@@ -14,8 +14,8 @@
   "files": {
     "brands/echelon.css": "bae3b8327d1778bb6d695497e9ad83cef217053ba2ae2003a7de8efa7f95d254",
     "brands/example-harbor.css": "4434552aeff647f6c90b87b6f5c29b76c34d8a039e2939bf16852349e0c40af2",
-    "components.css": "b57aac45b1a8c7bbbb656d691eed56a022e9784e2c65b39a5d756dd21641c5fa",
-    "foundations.css": "357b4796f95ee29fd6ef3243c664477626c44dd15f3a776ce85f7607c5058e6c",
+    "components.css": "59406b43c327b03cbcb2b013ea78d116ec60d176d084a8c8795ae2a36426c706",
+    "foundations.css": "1a57361fabdd18006cfb5966c194741e862f801037d0d1648917787d293c5aee",
     "tokens.css": "3e8408c19356505a80902758ee274dafd91877c708906027aa4c5624bf09d8c0",
     "workflow/browser/forma-workflow.css": "50a20681951f94c0dcd1b0cb76fb6ef14e800cb084ec2c1b33927a67d00aca34",
     "workflow/browser/forma-workflow.js": "869b962eef1bf6a01f95168a0ef4fe2d5363a8567bbfdababbc44301aed3b306",

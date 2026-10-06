@@ -20,7 +20,7 @@ const sha = (file) => createHash("sha256").update(readFileSync(file)).digest("he
 const walk = (dir) => readdirSync(dir).flatMap((n) => (statSync(join(dir, n)).isDirectory() ? walk(join(dir, n)) : [join(dir, n)]));
 
 // The released packages, and where each vendored file sits inside their tarballs.
-const designSystem = { name: "@echelon-foundry/design-system", version: "0.4.0" };
+const designSystem = { name: "@echelon-foundry/design-system", version: "0.4.1" };
 const workflowPackage = { name: "@echelon-foundry/forma-workflow", version: "1.0.0" };
 const packaged = (vendorPath) =>
   vendorPath.startsWith("workflow/browser/")
