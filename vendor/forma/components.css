@@ -466,6 +466,9 @@
 
   /* Segmented control --------------------------------------------------- */
   .ef-segmented {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     max-inline-size: 100%;
     display: inline-flex;
     flex-wrap: wrap;
@@ -689,6 +692,9 @@
   }
 
   .ef-menu__list :where(button, a):hover {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     background: var(--ef-color-surface-secondary, #e3e0d7);
   }
 
@@ -1080,7 +1086,7 @@
   }
 
   .ef-component-kicker {
-    color: var(--ef-color-accent-secondary, #47756b);
+    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-secondary, #47756b));
     font-family: var(--ef-primitive-font-family-mono, ui-monospace, monospace);
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
@@ -1227,6 +1233,9 @@
   }
 
   .ef-data-grid th {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     background: var(--ef-color-surface-secondary, #e3e0d7);
     color: var(--ef-color-text-primary, #171a18);
     font-size: 0.75rem;
@@ -1316,6 +1325,9 @@
   }
 
   .ef-tabs__list [aria-selected="true"] {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     background: var(--ef-color-surface-secondary, #e3e0d7);
     translate: 0 0;
   }
@@ -1493,6 +1505,9 @@
 
   @starting-style {
     :where([data-ef-value-change]) {
+      --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+      --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+      --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
       background-color: var(--ef-color-surface-secondary, #e3e0d7);
     }
   }
@@ -1961,6 +1976,9 @@
   }
 
   .ef-file-upload__drop {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     padding: 1.5rem;
     border: 1px dashed var(--ef-color-border-functional, #3a403c);
     background: var(--ef-color-surface-secondary, #e3e0d7);
@@ -2013,7 +2031,7 @@
   }
   .ef-record-header__title h2 { margin: 0.15rem 0 0; }
   .ef-record-header__type {
-    color: var(--ef-color-accent-secondary, #47756b);
+    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-secondary, #47756b));
     font-family: var(--ef-primitive-font-family-mono, ui-monospace, monospace);
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
@@ -2064,6 +2082,9 @@
   }
 
   .ef-master-detail__master a[aria-current="page"] {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     border-inline-start: 0.35rem solid var(--ef-color-accent-primary, #905831);
     background: var(--ef-color-surface-secondary, #e3e0d7);
   }
@@ -2129,6 +2150,9 @@
     align-items: center;
   }
   .ef-preview-surface__canvas {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     padding: clamp(1rem, 4vw, 3rem);
     background: var(--ef-color-surface-secondary, #e3e0d7);
   }
@@ -2453,6 +2477,9 @@
   }
 
   .ef-turn[data-ef-speaker="assistant"] {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     background: var(--ef-color-surface-secondary, #e3e0d7);
   }
 
@@ -2662,6 +2689,9 @@
   }
 
   .ef-fault--inline {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     grid-template-columns: auto minmax(0, 1fr) auto;
     padding: 0.75rem;
     background: var(--ef-color-surface-secondary, #e3e0d7);
@@ -2802,6 +2832,9 @@
   }
 
   .ef-diagnostic-status {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     display: inline-flex;
     align-items: center;
     gap: var(--ef-primitive-spacing-2, 0.5rem);
@@ -2955,7 +2988,7 @@
   .ef-security-posture__blockers,.ef-security-blockers { border-inline-start:.35rem solid currentColor; }
   .ef-security-posture__qualification { color:var(--ef-color-text-secondary,#686d68); font-size:.8125rem; }
   .ef-security-state-matrix__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(7rem,1fr)); gap:.5rem; margin:0; }
-  .ef-security-state-matrix__grid div { border-block-start:.25rem solid currentColor; padding:.75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
+  .ef-security-state-matrix__grid div { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); border-block-start:.25rem solid currentColor; padding:.75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
   .ef-security-state-matrix__grid dt { font-size:.75rem; font-weight:700; }
   .ef-security-state-matrix__grid dd { margin:0; font-size:clamp(1.4rem,4vw,2rem); font-weight:750; }
   .ef-security-blockers ul { display:grid; gap:.75rem; padding-inline-start:1.25rem; }
@@ -2973,7 +3006,7 @@
   .ef-invariant-result dl { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(10rem,100%),1fr)); gap:.75rem; }
   .ef-invariant-result dt { color:var(--ef-color-text-secondary,#686d68); font-size:.75rem; font-weight:700; } .ef-invariant-result dd { margin:0; overflow-wrap:anywhere; }
   :where(.ef-evidence-age,.ef-security-trend) ul { display:grid; gap:.5rem; margin:0; padding:0; list-style:none; }
-  :where(.ef-evidence-age,.ef-security-trend) li { display:grid; gap:.2rem; border-inline-start:.3rem solid currentColor; padding:.65rem .75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
+  :where(.ef-evidence-age,.ef-security-trend) li { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); display:grid; gap:.2rem; border-inline-start:.3rem solid currentColor; padding:.65rem .75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
   :where(.ef-evidence-age,.ef-security-trend) li span { overflow-wrap:anywhere; }
 
   /* Composition primitives ---------------------------------------------- */
@@ -3120,6 +3153,9 @@
   }
 
   [data-ef-drop="rejected"] {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     outline: 2px dashed var(--ef-color-border-functional, #3a403c);
     outline-offset: 2px;
     background: var(--ef-color-surface-secondary, #e3e0d7);
@@ -4289,6 +4325,34 @@
   }
 
   @media (forced-colors: active) {
+    /*
+     * Forced-colors profile projection (FORMA-A11Y-002). Profiles set
+     * literal palette colors that the semantic token projection
+     * in foundations.css does not reach. Chromium forces color and
+     * background but paints text with -webkit-text-fill-color, which keeps
+     * the author color, so reference-profile text (#7aa7ff, #f2f2f2) was painted on a
+     * forced white Canvas at 1.1-2.4:1. Every grid role resolves to a system
+     * color instead; !important lets the user's forced-colors choice win over
+     * any consumer-defined profile, as in the foundations projection.
+     */
+    .ef-character-grid,
+    .ef-character-grid[data-ef-profile] {
+      --ef-grid-background: Canvas !important;
+      --ef-grid-foreground: CanvasText !important;
+      --ef-grid-protected: CanvasText !important;
+      --ef-grid-emphasis: CanvasText !important;
+      --ef-grid-muted: CanvasText !important;
+      --ef-grid-field: CanvasText !important;
+      --ef-grid-field-surface: Canvas !important;
+      --ef-grid-boundary: CanvasText !important;
+      --ef-grid-focus: Highlight !important;
+      --ef-grid-information: CanvasText !important;
+      --ef-grid-success: CanvasText !important;
+      --ef-grid-warning: CanvasText !important;
+      --ef-grid-validation: CanvasText !important;
+      --ef-grid-error: CanvasText !important;
+    }
+
     .ef-character-grid__viewport {
       border-color: CanvasText;
     }

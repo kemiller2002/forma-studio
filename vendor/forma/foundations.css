@@ -37,8 +37,12 @@
     max-inline-size: 72ch;
   }
 
+  /*
+   * --ef-surface-accent-text-color is set by secondary-surface rules (see
+   * "Secondary-surface pairing" below); elsewhere accent text uses the accent.
+   */
   :where(a) {
-    color: var(--ef-color-accent-primary, #905831);
+    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #905831));
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
   }
@@ -76,6 +80,9 @@
   }
 
   :where(button, .ef-button):where(:not(:disabled)):hover {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     background: var(--ef-color-surface-secondary, #e3e0d7);
   }
 
@@ -111,7 +118,7 @@
   .ef-actions { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-3, 0.75rem); align-items: center; }
   .ef-grid { display: grid; gap: var(--ef-grid-gap, var(--ef-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-grid-min, 16rem)), 1fr)); }
   .ef-section { padding-block: var(--ef-section-space, var(--ef-primitive-spacing-7, 3rem)); }
-  .ef-surface { min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }
+  .ef-surface { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }
   .ef-surface :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
 
   :where(h1, h2, h3, h4, h5, h6, p, a, label, legend, td, th) {
