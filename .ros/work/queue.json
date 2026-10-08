@@ -196,6 +196,27 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "GH-27",
+      "title": "Integrate Forma icon registry into Forma Studio",
+      "description": null,
+      "tags": [],
+      "priority": "high",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-10-08T06:48:46.579Z",
+      "updatedAt": "2026-10-08T06:48:46.579Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "automation",
+        "id": "github/github-actions",
+        "provider": "github",
+        "model": "unknown",
+        "runtime": "github-actions"
+      },
+      "source": "github-issue",
+      "sourceReference": "https://github.com/kemiller2002/forma-studio/issues/27"
     }
   ]
 }
