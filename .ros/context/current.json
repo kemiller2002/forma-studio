@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-08T11:39:46.000Z",
+  "updatedAt": "2026-10-08T12:12:48.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -724,10 +724,27 @@
     {
       "id": "GH-27",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-08T11:39:46.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/IconCatalog.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/Interaction.Icons.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/IconTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/icons.spec.mjs"
+        }
+      ],
+      "updatedAt": "2026-10-08T12:12:48.000Z",
       "telemetryExecutionIds": [
         "EXE-20261008T113946522Z-c39ea305"
       ],
@@ -750,7 +767,9 @@
           "status": "verified",
           "mechanism": "git-remote-observation"
         }
-      }
+      },
+      "completedAt": "2026-10-08T12:12:48.000Z",
+      "conclusion": "Typed icon names, verified pinned catalog, Limen picker and portable HTML export delivered in draft PR #31; Forma 0.5.0 publication and pin swap remain"
     }
   ]
 }
