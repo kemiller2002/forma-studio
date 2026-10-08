@@ -1,0 +1,42 @@
+name: Reconcile Studio semantic icon IDs
+on:
+  push:
+    branches: [feature/studio-semantic-icon-property]
+    paths: [.github/workflows/reconcile-studio-icons.yml]
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    if: github.repository == 'kemiller2002/forma-studio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: true}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '10.0.x'}
+      - name: Test typed F# engine and attribute actual Git commits to Studio #27
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --no-tags
+          chmod +x ./praxis
+          dotnet run --project tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj -c Release
+          ./praxis registry check
+          if ! ./praxis work show GH-27 >/dev/null 2>&1; then
+            ./praxis add "Typed Forma icon IDs for Studio layout model" --id GH-27 --source github-issue --source-reference "https://github.com/kemiller2002/forma-studio/issues/27" --priority high
+          fi
+          base="$(git merge-base HEAD origin/main)"
+          now="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+          reason="GitHub connector authored typed icon model without executable Praxis context; post-hoc attribution from Git history"
+          ./praxis work reconcile --id GH-27 --reason "$reason" --range "$base..HEAD" --occurred-at "$now" --dry-run
+          ./praxis work reconcile --id GH-27 --reason "$reason" --range "$base..HEAD" --occurred-at "$now"
+          ./praxis registry build
+          ./praxis validate
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .ros/work .ros/events .ros/telemetry registries
+          if ! git diff --cached --quiet; then
+            git commit -m "praxis: attribute Studio semantic icons GH-27"
+            git push origin HEAD:feature/studio-semantic-icon-property
+          fi
