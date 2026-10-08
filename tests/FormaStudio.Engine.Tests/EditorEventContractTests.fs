@@ -83,7 +83,8 @@ let private scriptNames () =
 
 let roundTrip =
     test "Event contract: every EditorEvent case round-trips to a unique kebab-case wire name" (fun () ->
-        equal 86 (List.length EditorEvent.all) "event count (86 wire names before the typed contract)"
+        // 86 wire names were characterized before the typed contract; GH-27 added the six icon-picker events.
+        equal (86 + 6) (List.length EditorEvent.all) "event count (86 wire names before the typed contract, plus 6 icon events)"
         equal (List.length names) (names |> List.distinct |> List.length) "wire names are unique"
         for e, wire in EditorEvent.catalog do
             expect (Regex.IsMatch(wire, "^[a-z]+(-[a-z]+)*$")) (sprintf "%s is kebab-case" wire)

@@ -85,6 +85,8 @@ type AppearanceCommand =
     | UpdateMapping of PresentationMapping
     | RemoveMapping of MappingId
     | MoveMapping of MappingId * index: int
+    /// Sets or removes the Forma icon name of a Layout component or diagram node.
+    | SetIcon of ObjectRef * IconName option
 
 /// One typed command surface for Layout, Flow, metadata and appearance. Pointer,
 /// keyboard, inspector, Structure view and agent input all produce these values
@@ -96,6 +98,4 @@ type Command =
     | AppearanceCmd of AppearanceCommand
     | Batch of label: string * Command list
 
-type Applied =
-    { Project: Project
-      Obligations: Obligation list }
+type Applied = { Project: Project; Obligations: Obligation list }

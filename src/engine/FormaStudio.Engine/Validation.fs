@@ -210,8 +210,24 @@ module Validation =
                     disclosure @ styles)
         objects @ mappings
 
+    /// Stored icon values that are not names, and icons on components with no
+    /// place for one. Both are kept as data; neither ever blocks (Forma ICON-014).
+    let private icons (project: Project) =
+        let note target icon placeable =
+            match icon with
+            | Some(MalformedIcon _) -> [ Finding.create "icon.malformed" Warning Integrity target "The stored icon is not a valid Forma icon name; it is kept as data and never shown." ]
+            | Some(NamedIcon _) when not placeable -> [ Finding.create "icon.unplaced" Advisory Integrity target "This component has no place for an icon; the icon is kept but not exported." ]
+            | _ -> []
+        let rec components page (nodes: ComponentNode list) =
+            nodes
+            |> List.collect (fun n ->
+                note (ObjectRef.describe (ComponentRef(page, n.Id))) n.Icon (Components.supportsIcon n.Component)
+                @ (n.Slots |> Map.toList |> List.collect (snd >> components page)))
+        (project.Pages |> List.collect (fun p -> components p.Id p.Nodes))
+        @ (project.Diagrams |> List.collect (fun d -> d.Nodes |> List.collect (fun n -> note (ObjectRef.describe (NodeRef(d.Id, n.Id))) n.Icon true)))
+
     /// All findings in deterministic order.
     let run (project: Project) =
-        integrity project @ profile project @ metadata project @ references project @ appearance project
+        integrity project @ profile project @ metadata project @ references project @ appearance project @ icons project
 
     let blockers project = run project |> List.filter Finding.isBlocker

@@ -80,7 +80,7 @@ let noStringMatchOnEventNames =
 
 let private areaModules =
     [ "CanvasInteraction"; "TemplateInteraction"; "HistoryInteraction"; "InspectorInteraction"; "DefinitionInteraction"
-      "LayoutInteraction"; "WorkflowInteraction"; "ExportInteraction"; "ReviewInteraction" ]
+      "LayoutInteraction"; "WorkflowInteraction"; "ExportInteraction"; "ReviewInteraction"; "IconInteraction" ]
 
 let private references (token: string) (file: string) =
     codeLines (engineFile file) |> List.exists (fun l -> Regex.IsMatch(l, @"(?<![\w.])" + Regex.Escape token + @"\b"))
@@ -93,18 +93,24 @@ let dependencyDirection =
             for m in areaModules do
                 expect (not (references (m + ".") file)) (sprintf "%s must not call %s; EditorApp composes the areas" file m)
         // Effects are requested only where the browser capability is the point.
-        let effectful = set [ "EditorApp.fs"; "Interaction.Review.fs"; "Interaction.Workflows.fs"; "Interaction.Export.fs"; "HostEffects.fs" ]
+        // Interaction.Icons.fs fetches the pinned icon collection and copies icon HTML (Limen Http and Clipboard).
+        let effectful = set [ "EditorApp.fs"; "Interaction.Review.fs"; "Interaction.Workflows.fs"; "Interaction.Export.fs"; "Interaction.Icons.fs"; "HostEffects.fs" ]
+        for file in filesIn engineDir "*.fs" |> List.map fileName do
+            if not (effectful.Contains file) then
+                for kind in [ "\"Http\""; "\"Clipboard\""; "\"Storage\"" ] do
+                    expect (not (codeLines (engineFile file) |> List.exists (fun l -> l.Contains("JString " + kind)))) (sprintf "%s must not build a %s effect" file kind)
         for file in filesIn engineDir "*.fs" |> List.map fileName do
             if not (effectful.Contains file) then
                 expect (not (references "HostEffects." file)) (sprintf "%s must not request host effects" file)
-        // The view is a pure projection: no command execution, no effects.
-        for token in [ "Editor.dispatch"; "Interaction.run"; "HostEffects."; "Commands.execute" ] do
-            expect (not (references token "EditorView.fs")) (sprintf "EditorView.fs must not use %s" token)
+        // The view (and each of its panel projections) is a pure projection: no command execution, no effects.
+        for view in filesIn engineDir "EditorView*.fs" |> List.map fileName do
+            for token in [ "Editor.dispatch"; "Interaction.run"; "HostEffects."; "Commands.execute"; "IconInteraction." ] do
+                expect (not (references token view)) (sprintf "%s must not use %s" view token)
         // Domain policy does not see editor view state or the browser vocabulary.
         for token in [ "EditorState"; "EditorEvent"; "Interaction"; "HostEffects" ] do
             expect (not (references token "EditorIntents.fs")) (sprintf "EditorIntents.fs must not depend on %s" token)
         // Command families stay behind the one execution authority.
-        for family in [ "LayoutCommands"; "FlowCommands"; "MetadataCommands"; "AppearanceCommands"; "CommandSupport" ] do
+        for family in [ "LayoutCommands"; "FlowCommands"; "MetadataCommands"; "AppearanceCommands"; "IconCommands"; "CommandSupport" ] do
             for file in filesIn engineDir "*.fs" |> List.map fileName |> List.filter (fun f -> not (f.StartsWith "Commands")) do
                 expect (not (references family file)) (sprintf "%s must use Commands.execute, not %s" file family))
 

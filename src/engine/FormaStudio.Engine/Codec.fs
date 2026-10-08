@@ -82,7 +82,11 @@ module Decode =
 module Codec =
     open Decode
 
-    let currentSchemaVersion = 2
+    /// The newest schema this build reads and writes. Version 3 adds optional icon
+    /// names on components and diagram nodes; a document is written as version 3
+    /// only when it holds an icon, so a version 2 Studio refuses it instead of
+    /// silently dropping the icons (DOCUMENT-MODEL "Migration").
+    let currentSchemaVersion = 3
 
     // -- shared vocabularies -------------------------------------------------
 
@@ -449,7 +453,11 @@ module Codec =
               omitEmpty "slots" (n.Slots |> Map.map (fun _ children -> children |> List.map encodeComponent |> JArray) |> encodeMap)
               omitEmpty "navigation" (JArray n.Navigation)
               omitEmpty "annotations" (n.Annotations |> List.map encodeAnnotation |> JArray)
-              omitEmpty "metadata" (encodeMetadata n.Metadata) ]
+              omitEmpty "metadata" (encodeMetadata n.Metadata)
+              "icon", n.Icon |> Option.map IconRef.toJson ]
+
+    /// Any stored icon value is kept: a well-formed name as a name, anything else verbatim.
+    let private decodeIcon json = optional "icon" (IconRef.ofJson >> Ok) json
 
     let private mapOf (json: JsonValue) = match json with JObject members -> Ok(Map.ofList members) | _ -> Error "expected an object"
 
@@ -464,9 +472,10 @@ module Codec =
             let! navigation = withDefault "navigation" [] (list Ok) json
             let! annotations = withDefault "annotations" [] (list decodeAnnotation) json
             let! metadata = withDefault "metadata" Map.empty decodeMetadata json
+            let! icon = decodeIcon json
             return
                 { Id = nid; Component = componentId; Properties = properties; TokenBindings = Map.ofList tokens; Content = content
-                  Slots = Map.ofList slots; Navigation = navigation; Annotations = annotations; Metadata = metadata }
+                  Slots = Map.ofList slots; Navigation = navigation; Annotations = annotations; Metadata = metadata; Icon = icon }
         }
 
     let private encodePage (p: Page) =
@@ -525,7 +534,8 @@ module Codec =
                  "locked", (if n.Locked then Some(JBool true) else None)
                  omitEmpty "metadata" (encodeMetadata n.Metadata)
                  "appearance", encodeObjectAppearance n.Appearance
-                 omitEmpty "references" (n.References |> List.map encodeReference |> JArray) ])
+                 omitEmpty "references" (n.References |> List.map encodeReference |> JArray)
+                 "icon", n.Icon |> Option.map IconRef.toJson ])
 
     let private decodeNode json =
         let decodePort p =
@@ -545,7 +555,8 @@ module Codec =
             let! metadata = withDefault "metadata" Map.empty decodeMetadata json
             let! appearance = withDefault "appearance" Appearance.none decodeObjectAppearance json
             let! references = withDefault "references" [] (list decodeReference) json
-            return { Id = nid; Kind = kind; Label = label; Box = b; Ports = ports; Locked = locked; Metadata = metadata; Appearance = appearance; References = references }
+            let! icon = decodeIcon json
+            return { Id = nid; Kind = kind; Label = label; Box = b; Ports = ports; Locked = locked; Metadata = metadata; Appearance = appearance; References = references; Icon = icon }
         }
 
     let private encodeRouting routing =
@@ -694,9 +705,16 @@ module Codec =
             return { Id = sid; Name = name; Revision = revision; Targets = targets; Appearance = appearance }
         }
 
+    let private hasIcon (p: Project) =
+        let rec inComponents (nodes: ComponentNode list) = nodes |> List.exists (fun n -> n.Icon.IsSome || n.Slots |> Map.exists (fun _ c -> inComponents c))
+        p.Pages |> List.exists (fun page -> inComponents page.Nodes) || p.Diagrams |> List.exists (fun d -> d.Nodes |> List.exists (fun n -> n.Icon.IsSome))
+
+    /// The schema version a project is written as: the oldest that holds all of it.
+    let schemaVersionOf (p: Project) = if hasIcon p then currentSchemaVersion else 2
+
     let toJson (p: Project) =
         Json.objOpt
-            [ "schemaVersion", Some(Json.ofInt currentSchemaVersion)
+            [ "schemaVersion", Some(Json.ofInt (schemaVersionOf p))
               "projectId", Some(JString(Id.value p.Id))
               "name", Some(JString p.Name)
               "description", p.Description |> Option.map JString
@@ -768,6 +786,7 @@ module Codec =
             match Json.field "schemaVersion" json with
             | Some(JNumber "1") -> decodeCommon 1 json |> Result.mapError InvalidDocument
             | Some(JNumber "2") -> decodeCommon 2 json |> Result.mapError InvalidDocument
+            | Some(JNumber "3") -> decodeCommon 3 json |> Result.mapError InvalidDocument
             | Some(JNumber n) ->
                 match System.Int32.TryParse n with
                 | true, v when v > currentSchemaVersion -> Error(NewerSchema(v, currentSchemaVersion))

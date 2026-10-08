@@ -68,7 +68,7 @@ module internal LayoutCommands =
                     |> Result.bind (fun () ->
                         let node =
                             { Id = id; Component = componentId; Properties = Map.empty; TokenBindings = Map.empty; Content = Map.empty
-                              Slots = Map.empty; Navigation = []; Annotations = []; Metadata = Map.empty }
+                              Slots = Map.empty; Navigation = []; Annotations = []; Metadata = Map.empty; Icon = None }
                         ProjectOps.updatePage pageId (fun p -> insertInto position index node p.Nodes |> Result.map (fun nodes -> { p with Nodes = nodes })) project
                         |> lift target)
                     |> Result.bind ok

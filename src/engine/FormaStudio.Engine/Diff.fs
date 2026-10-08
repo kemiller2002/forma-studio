@@ -55,6 +55,7 @@ module Diff =
               if b.Appearance.Overrides <> a.Appearance.Overrides then change "appearance.override-changed" Presentation t (sprintf "Changed the appearance set on '%s'." a.Label)
               if b.Appearance.Style <> a.Appearance.Style then change "appearance.style-reference-changed" Presentation t (sprintf "Changed the named style of '%s'." a.Label)
               if b.References <> a.References then change "references.changed" ReferenceChange t (sprintf "Changed references of '%s'." a.Label)
+              if b.Icon <> a.Icon then change "node.icon-changed" Presentation t (sprintf "Changed the icon of '%s'." a.Label)
               if b.Ports <> a.Ports || b.Locked <> a.Locked then change "node.structure-changed" Semantic t (sprintf "Changed ports or lock of '%s'." a.Label) ]
             @ metadataChanges t b.Metadata a.Metadata
         | None, None -> []

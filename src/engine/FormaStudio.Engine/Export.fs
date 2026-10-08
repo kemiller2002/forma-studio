@@ -163,6 +163,10 @@ module AgentExport =
                   "overrides", (if Appearance.isEmpty a.Overrides then None else Some(Codec.encodeAppearance a.Overrides))
                   "effective", Some(EffectiveJson.encode scope project effective) ]
 
+    /// An icon as agents see it: the name, or a marker for a stored value that is not a name.
+    let private icon (stored: IconRef option) =
+        stored |> Option.map (function NamedIcon n -> JString(IconName.value n) | MalformedIcon _ -> JObject [ "unrecognized", JBool true ])
+
     let private diagram (project: Project) (d: Diagram) =
         let profile = Profiles.tryFind d.Profile
         let lane nodeId = d.Groups |> List.tryFind (fun g -> g.Kind = Lane && List.contains nodeId g.Members) |> Option.map (fun g -> Id.value g.Id)
@@ -199,7 +203,8 @@ module AgentExport =
                         "locked", Some(JBool n.Locked)
                         "metadata", Some(metadata project (NodeRef(d.Id, n.Id)))
                         "references", Some(n.References |> List.map reference |> JArray)
-                        "appearance", Some(appearance project (NodeRef(d.Id, n.Id))) ])
+                        "appearance", Some(appearance project (NodeRef(d.Id, n.Id)))
+                        "icon", icon n.Icon ])
               |> JArray
               "edges",
               d.Edges
@@ -244,13 +249,14 @@ module AgentExport =
         let visibleFields = DisclosurePolicy.fields scope project |> List.map _.Key |> Set.ofList
         let pageTree (page: Page) =
             let rec node (n: ComponentNode) =
-                JObject
-                    [ "nodeId", JString(Id.value n.Id)
-                      "componentId", JString n.Component
-                      "properties", n.Properties |> Map.toList |> JObject
-                      "content", n.Content |> Map.toList |> JObject
-                      "slots", n.Slots |> Map.toList |> List.map (fun (slot, children) -> slot, children |> List.map node |> JArray) |> JObject
-                      "metadata", metadata project (ComponentRef(page.Id, n.Id)) ]
+                Json.objOpt
+                    [ "nodeId", Some(JString(Id.value n.Id))
+                      "componentId", Some(JString n.Component)
+                      "properties", Some(n.Properties |> Map.toList |> JObject)
+                      "content", Some(n.Content |> Map.toList |> JObject)
+                      "slots", Some(n.Slots |> Map.toList |> List.map (fun (slot, children) -> slot, children |> List.map node |> JArray) |> JObject)
+                      "metadata", Some(metadata project (ComponentRef(page.Id, n.Id)))
+                      "icon", icon n.Icon ]
             Json.objOpt
                 [ "pageId", Some(JString(Id.value page.Id))
                   "name", Some(JString page.Name)
@@ -281,7 +287,7 @@ module AgentExport =
               Json.objOpt
                   [ "projectId", Some(JString(Id.value project.Id))
                     "name", Some(JString project.Name)
-                    "schemaVersion", Some(Json.ofInt Codec.currentSchemaVersion)
+                    "schemaVersion", Some(Json.ofInt (Codec.schemaVersionOf project))
                     "formaVersion", Some(JString project.FormaVersion)
                     "revision", Some(JString(Codec.revision project))
                     "startPageId", project.StartPage |> Option.map (Id.value >> JString) ]

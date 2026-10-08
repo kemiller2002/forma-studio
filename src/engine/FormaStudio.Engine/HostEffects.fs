@@ -53,7 +53,7 @@ module HostEffects =
                     | Ok loaded ->
                         // Reopening restores the canonical project, not the undo stack (FDA-1051).
                         let diagram = loaded.Diagrams |> List.tryHead |> Option.map _.Id |> Option.defaultValue state.Diagram
-                        { EditorState.initial loaded diagram with Status = "Loaded the saved project. Undo history starts fresh." }
+                        { EditorState.initial loaded diagram with Status = "Loaded the saved project. Undo history starts fresh."; Icons = { state.Icons with Target = None; Query = "" } }
                     | Error error -> { state with Status = Codec.describeLoadError error }
                 | _ -> { state with Status = "Nothing has been saved yet." }
             | Some Correlation.Compare ->

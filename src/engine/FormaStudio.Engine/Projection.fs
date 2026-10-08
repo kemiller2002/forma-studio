@@ -385,7 +385,7 @@ module Projection =
                                     "diagramId", JString(Id.value diagram.Id)
                                     "diagramName", JString diagram.Name
                                     "revision", JString(Codec.diagramRevision project diagram)
-                                    "schemaVersion", Json.ofInt Codec.currentSchemaVersion
+                                    "schemaVersion", Json.ofInt (Codec.schemaVersionOf project)
                                     "profile", JObject [ "id", JString diagram.Profile.Id; "version", JString diagram.Profile.Version ] ]
                           )
                           "presentation",

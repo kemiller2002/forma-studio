@@ -251,7 +251,7 @@ let largeGraph =
             |> List.map (fun i ->
                 { Id = idOf (sprintf "n%d" i); Kind = "box"; Label = sprintf "Item %d" i
                   Box = okOr (Geometry.box (float (i % 50 * 220)) (float (i / 50 * 140)) 180.0 100.0) "box"
-                  Ports = []; Locked = false; Metadata = Map.empty; Appearance = Appearance.none; References = [] })
+                  Ports = []; Locked = false; Metadata = Map.empty; Appearance = Appearance.none; References = []; Icon = None })
         let edges =
             [ 0 .. edgeCount - 1 ]
             |> List.map (fun i ->

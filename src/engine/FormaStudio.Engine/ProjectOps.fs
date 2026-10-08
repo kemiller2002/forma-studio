@@ -48,6 +48,13 @@ module ProjectOps =
         | EdgeRef(d, e) -> (tryEdge d e project).IsSome
         | GroupRef(d, g) -> (tryGroup d g project).IsSome
 
+    /// The icon stored on a component or diagram node (None for objects that carry none).
+    let iconOf reference project : IconRef option =
+        match reference with
+        | ComponentRef(p, c) -> tryComponent p c project |> Option.bind _.Icon
+        | NodeRef(d, n) -> tryNode d n project |> Option.bind _.Icon
+        | _ -> None
+
     let updatePage (id: PageId) (f: Page -> Result<Page, string>) (project: Project) =
         match tryPage id project with
         | None -> missing (PageRef id)

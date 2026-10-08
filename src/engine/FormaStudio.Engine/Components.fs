@@ -91,3 +91,10 @@ module Components =
     let catalog = [ stack; heading; text; button; linkButton; textField; actions; surface; responsiveGrid; alert; metricCard; workflow ]
 
     let tryFind id = catalog |> List.tryFind (fun c -> c.Id = id)
+
+    /// Components with a place for a decorative Forma icon next to their text.
+    /// Containers, fields and workflows have none; an icon stored on one is kept
+    /// but never exported.
+    let iconCapable = set [ "heading"; "text"; "button"; "link-button"; "alert"; "metric-card" ]
+
+    let supportsIcon (componentId: string) = iconCapable.Contains componentId

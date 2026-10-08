@@ -7,7 +7,7 @@ open Interaction
 [<RequireQualifiedAccess>]
 module internal ExportInteraction =
     let private options (state: EditorState) =
-        { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand; InteractiveWorkflow = state.Export.InteractiveWorkflow }
+        { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand; InteractiveWorkflow = state.Export.InteractiveWorkflow; Icons = IconSession.catalog state.Icons }
 
     let private show (state: EditorState) (name: string) (result: HtmlExportResult) =
         let kind = match state.Export.Target with HtmlFragment -> "fragment" | HtmlDocument -> "document"
@@ -21,7 +21,7 @@ module internal ExportInteraction =
                     FileName = name + (if state.Export.Target = HtmlDocument then ".html" else ".fragment.html")
                     Omitted = result.Omitted
                     Summary = $"HTML {kind} for {name}. Needs: " + String.concat ", " deps + "." }
-            Status = (if result.Omitted.IsEmpty then $"Exported {name} as an HTML {kind}." else $"Exported {name}; {result.Omitted.Length} item(s) have no public Forma contract and were left out.") }
+            Status = (if result.Omitted.IsEmpty then $"Exported {name} as an HTML {kind}." else $"Exported {name}; {result.Omitted.Length} item(s) were left out (listed below).") }
 
     let update (event: ExportEvent) (args: EventArgs) (state: EditorState) : EditorState * JsonValue list =
         let key = args.Key

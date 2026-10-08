@@ -19,7 +19,10 @@ type HtmlExportOptions =
       /// element (read-only view) and declare its runtime. Off by default: static stays static.
       InteractiveWorkflow: bool
       /// Where the consuming project serves @echelon-foundry/forma-workflow's dist files.
-      WorkflowRuntimeBase: string }
+      WorkflowRuntimeBase: string
+      /// The pinned Forma release's verified icon collection, or None when that
+      /// release has none. Icons are inlined from it; nothing is fetched or invented.
+      Icons: IconCatalog option }
 
 type HtmlExportResult =
     { Html: string
@@ -43,7 +46,8 @@ module HtmlExport =
           Theme = None
           Language = "en"
           InteractiveWorkflow = false
-          WorkflowRuntimeBase = "node_modules/@echelon-foundry/forma-workflow/dist/" }
+          WorkflowRuntimeBase = "node_modules/@echelon-foundry/forma-workflow/dist/"
+          Icons = None }
 
     let private el = Markup.el
     let private text = Markup.text
@@ -59,28 +63,46 @@ module HtmlExport =
 
     let private nodeId (node: ComponentNode) = Id.value node.Id
 
-    let rec private exportNode (workflows: WorkflowLibrary) (node: ComponentNode) : Markup list * string list =
+    /// The icon to place in a component, as the release's own decorative inline
+    /// SVG (stamped with its Forma version), or why the stored icon was not exported.
+    /// The document keeps the icon in every case (Forma ICON-013, ICON-014).
+    let private iconOf (icons: IconCatalog option) (node: ComponentNode) : Markup list * string list =
+        let keep why = [], [ $"{nodeId node}: {why}; the document keeps it" ]
+        match node.Icon, icons with
+        | None, _ -> [], []
+        | Some(MalformedIcon _), _ -> keep "the stored icon is not a valid Forma icon name, so it was not exported"
+        | Some(NamedIcon _), _ when not (Components.supportsIcon node.Component) -> keep $"a {node.Component} has no place for an icon, so its icon was not exported"
+        | Some(NamedIcon name), None -> keep $"icon \"{IconName.value name}\" was not exported because the pinned Forma release has no icon collection"
+        | Some(NamedIcon name), Some catalog ->
+            match IconCatalog.artwork name catalog with
+            | Some markup -> [ markup ], []
+            | None -> keep $"icon \"{IconName.value name}\" is not in Forma {catalog.FormaVersion}'s icon collection, so it was not exported"
+
+    let rec private exportNode (icons: IconCatalog option) (workflows: WorkflowLibrary) (node: ComponentNode) : Markup list * string list =
         let kids () =
-            let parts = children node |> List.map (exportNode workflows)
+            let parts = children node |> List.map (exportNode icons workflows)
             parts |> List.collect fst, parts |> List.collect snd
-        let one m = [ m ], []
+        let icon, iconNotes = iconOf icons node
+        // The icon precedes the text it decorates; the text stays the accessible name.
+        let withIcon (content: Markup list) = icon @ content
+        let one m = [ m ], iconNotes
         match node.Component with
         | "stack" ->
             let markup, omitted = kids ()
             let density = match property "density" node with Some(JString d) -> [ "data-density", d ] | _ -> []
-            [ el "div" ([ "class", "ef-stack" ] @ density) markup ], omitted
+            [ el "div" ([ "class", "ef-stack" ] @ density) markup ], iconNotes @ omitted
         | "heading" ->
             let level = match property "level" node with Some(JNumber n) -> (match System.Int32.TryParse n with | true, v when v >= 1 && v <= 6 -> v | _ -> 2) | _ -> 2
-            one (el ("h" + string level) [] [ text (content "text" node |> Option.defaultValue "") ])
-        | "text" -> one (el "p" [] [ text (content "text" node |> Option.defaultValue "") ])
+            one (el ("h" + string level) [] (withIcon [ text (content "text" node |> Option.defaultValue "") ]))
+        | "text" -> one (el "p" [] (withIcon [ text (content "text" node |> Option.defaultValue "") ]))
         | "button" ->
             let kind = match property "type" node with Some(JString "submit") -> "submit" | _ -> "button"
-            one (el "button" [ "type", kind ] [ text (content "label" node |> Option.defaultValue "") ])
+            one (el "button" [ "type", kind ] (withIcon [ text (content "label" node |> Option.defaultValue "") ]))
         | "link-button" ->
             let label = content "label" node |> Option.defaultValue ""
             match content "href" node |> Option.filter Validation.isSafeUrl with
-            | Some href -> one (el "a" [ "class", "ef-button"; "href", href ] [ text label ])
-            | None -> [ el "span" [] [ text label ] ], [ $"{nodeId node}: link target is missing or not http, https, mailto or relative, so it was exported as text" ]
+            | Some href -> one (el "a" [ "class", "ef-button"; "href", href ] (withIcon [ text label ]))
+            | None -> [ el "span" [] (withIcon [ text label ]) ], iconNotes @ [ $"{nodeId node}: link target is missing or not http, https, mailto or relative, so it was exported as text" ]
         | "text-field" ->
             let id = "field-" + nodeId node
             let description = content "description" node
@@ -105,24 +127,24 @@ module HtmlExport =
             )
         | "actions" ->
             let markup, omitted = kids ()
-            [ el "div" [ "class", "ef-actions" ] markup ], omitted
+            [ el "div" [ "class", "ef-actions" ] markup ], iconNotes @ omitted
         | "surface" ->
             let markup, omitted = kids ()
             let titleId = "surface-" + nodeId node
             match content "title" node with
-            | Some title -> [ el "section" [ "class", "ef-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], omitted
-            | None -> [ el "div" [ "class", "ef-surface" ] markup ], omitted
+            | Some title -> [ el "section" [ "class", "ef-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], iconNotes @ omitted
+            | None -> [ el "div" [ "class", "ef-surface" ] markup ], iconNotes @ omitted
         | "responsive-grid" ->
             let markup, omitted = kids ()
             match content "label" node with
-            | Some label -> [ el "section" [ "class", "ef-responsive-grid"; "aria-label", label ] markup ], omitted
-            | None -> [ el "div" [ "class", "ef-responsive-grid" ] markup ], omitted
+            | Some label -> [ el "section" [ "class", "ef-responsive-grid"; "aria-label", label ] markup ], iconNotes @ omitted
+            | None -> [ el "div" [ "class", "ef-responsive-grid" ] markup ], iconNotes @ omitted
         | "alert" ->
             one (
                 el
                     "aside"
                     [ "class", "ef-alert"; "role", "status" ]
-                    [ el "div" [ "class", "ef-alert__icon"; "aria-hidden", "true" ] [ text "!" ]
+                    [ el "div" [ "class", "ef-alert__icon"; "aria-hidden", "true" ] (if List.isEmpty icon then [ text "!" ] else icon)
                       el
                           "div"
                           []
@@ -134,7 +156,7 @@ module HtmlExport =
                 el
                     "article"
                     [ "class", "ef-metric-card" ]
-                    [ yield el "div" [ "class", "ef-metric-card__label" ] [ text (content "label" node |> Option.defaultValue "") ]
+                    [ yield el "div" [ "class", "ef-metric-card__label" ] (withIcon [ text (content "label" node |> Option.defaultValue "") ])
                       yield el "div" [ "class", "ef-metric-card__value" ] [ text (content "value" node |> Option.defaultValue "") ]
                       match content "context" node with
                       | Some c -> yield el "div" [ "class", "ef-metric-card__context" ] [ text c ]
@@ -146,18 +168,29 @@ module HtmlExport =
             | Some w -> one (Render.figure RenderOptions.defaults w)
             | None ->
                 let missing = defaultArg id "(none)"
-                [], [ $"{nodeId node}: workflow \"{missing}\" is not open in this project" ]
-        | other -> [], [ $"{nodeId node}: \"{other}\" has no public Forma contract in Studio's catalog and was not exported" ]
+                [], iconNotes @ [ $"{nodeId node}: workflow \"{missing}\" is not open in this project" ]
+        | other -> [], iconNotes @ [ $"{nodeId node}: \"{other}\" has no public Forma contract in Studio's catalog and was not exported" ]
 
     let private brandOk (b: string option) = b |> Option.filter (fun v -> System.Text.RegularExpressions.Regex.IsMatch(v, "^[a-z][a-z0-9-]{0,63}$"))
     let private themeOk (t: string option) = t |> Option.filter (fun v -> v = "light" || v = "dark")
 
-    let private dependencies (opts: HtmlExportOptions) =
-        Render.staticDependencies
-        @ (brandOk opts.Brand |> Option.map (fun b -> Stylesheet(Render.formaPackage, Capabilities.formaVersion.ToString(), $"brands/{b}.css")) |> Option.toList)
+    /// The Forma release of any icon inlined in the markup (from its version stamp).
+    let rec private iconRelease (markup: Markup list) =
+        markup
+        |> List.tryPick (function
+            | Element("ef-icon", attributes, _) -> attributes |> List.tryFind (fst >> (=) "data-forma-version") |> Option.map snd
+            | Element(_, _, children) -> iconRelease children
+            | _ -> None)
+
+    /// Static designs declare Forma's stylesheets. A design with icons declares them
+    /// at the release the icons came from, whose components.css sizes and colors them.
+    let private dependencies (opts: HtmlExportOptions) (release: string option) =
+        let version = release |> Option.defaultValue (Capabilities.formaVersion.ToString())
+        (Render.staticDependencies |> List.map (function Stylesheet(pkg, _, path) when release.IsSome -> Stylesheet(pkg, version, path) | d -> d))
+        @ (brandOk opts.Brand |> Option.map (fun b -> Stylesheet(Render.formaPackage, version, $"brands/{b}.css")) |> Option.toList)
 
     let private wrap (opts: HtmlExportOptions) (title: string) (description: string option) (body: Markup list) (omitted: string list) =
-        let deps = dependencies opts
+        let deps = dependencies opts (iconRelease body)
         match opts.Target with
         | HtmlFragment ->
             { Html = Markup.renderAll (Render.dependencyComment deps :: body); Dependencies = deps; Omitted = omitted }
@@ -183,7 +216,7 @@ module HtmlExport =
 
     /// Exports one Layout page.
     let page (opts: HtmlExportOptions) (workflows: WorkflowLibrary) (page: Page) =
-        let parts = page.Nodes |> List.map (exportNode workflows)
+        let parts = page.Nodes |> List.map (exportNode opts.Icons workflows)
         wrap opts (page.Title |> Option.defaultValue page.Name) page.Description (parts |> List.collect fst) (parts |> List.collect snd)
 
     /// Exports one component and everything inside it (a component hierarchy).
@@ -192,7 +225,7 @@ module HtmlExport =
             nodes |> List.tryPick (fun n -> if n.Id = id then Some n else n.Slots |> Map.toList |> List.collect snd |> find)
         find page.Nodes
         |> Option.map (fun node ->
-            let markup, omitted = exportNode workflows node
+            let markup, omitted = exportNode opts.Icons workflows node
             wrap opts (page.Title |> Option.defaultValue page.Name) page.Description markup omitted)
 
     /// Exports one portable workflow (rendered by Forma). Interactive output is

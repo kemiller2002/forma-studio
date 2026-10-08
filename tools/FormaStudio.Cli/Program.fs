@@ -14,18 +14,40 @@ let private usage () =
     eprintfn "                                                            write projection.json and diagram.html for Folio"
     eprintfn "  forma-studio workflow-validate <file.forma-workflow.json>...  Forma validation report (JSON); exit 1 if any is invalid"
     eprintfn "  forma-studio designs <project.json> <workflow-id>         write the HTML export reference designs"
-    eprintfn "  forma-studio html <project.json> <page-id> <out.html> [--document] [--brand ID] [--forma-base URL] [--workflows DIR]"
+    eprintfn "  forma-studio html <project.json> <page-id> <out.html> [--document] [--brand ID] [--forma-base URL] [--workflows DIR] [--forma-icons DIR]"
+    eprintfn "  forma-studio icons [--forma-icons DIR]                    report the pinned Forma icon collection (exit 5 when unavailable)"
     eprintfn "  forma-studio workflow-html <file.forma-workflow.json> <out.html> [--document] [--brand ID] [--forma-base URL]"
     2
 
 let private flag (name: string) (args: string list) =
     args |> List.pairwise |> List.tryPick (fun (a, b) -> if a = name then Some b else None)
 
+/// The pinned Forma package's compiled icons: the installed dependency's
+/// dist/icons, unless --forma-icons names another copy of the same files.
+let private iconDirectory (args: string list) =
+    flag "--forma-icons" args |> Option.defaultValue (Path.Combine("node_modules", "@echelon-foundry", "design-system", "dist", "icons"))
+
+/// Reads and verifies the icon collection; every file read stays inside the directory.
+let private icons (args: string list) : IconAvailability =
+    let dir = Path.GetFullPath(iconDirectory args)
+    let registry = Path.Combine(dir, "registry.json")
+    if not (File.Exists registry) then IconsUnavailable IconCatalog.notInRelease
+    else
+        IconCatalog.fromFiles (File.ReadAllText registry) (fun relative ->
+            let file = Path.GetFullPath(Path.Combine(dir, relative))
+            if file.StartsWith(dir + string Path.DirectorySeparatorChar) && File.Exists file then Ok(File.ReadAllText file) else Error "it is not in the icon directory")
+
+let private catalogOf (availability: IconAvailability) =
+    match availability with
+    | IconsAvailable catalog -> Some catalog
+    | _ -> None
+
 let private exportOptions (args: string list) =
     { HtmlExport.defaults with
         Target = (if List.contains "--document" args then HtmlDocument else HtmlFragment)
         Brand = flag "--brand" args
-        FormaBase = flag "--forma-base" args |> Option.defaultValue HtmlExport.defaults.FormaBase }
+        FormaBase = flag "--forma-base" args |> Option.defaultValue HtmlExport.defaults.FormaBase
+        Icons = catalogOf (icons args) }
 
 /// Opens every .forma-workflow.json in a directory as Studio would.
 let private library (dir: string option) =
@@ -102,6 +124,14 @@ let main argv =
                 write out result.Html
                 for o in result.Omitted do eprintfn "omitted: %s" o
                 0
+    | "icons" :: rest ->
+        match icons rest with
+        | IconsAvailable catalog ->
+            printfn "Forma %s: %d verified icon(s)" catalog.FormaVersion catalog.Entries.Length
+            for name, why in catalog.Rejected do eprintfn "refused %s: %s" name why
+            if List.isEmpty catalog.Rejected then 0 else 3
+        | IconsUnavailable why -> eprintfn "%s" why; 5
+        | IconsNotLoaded -> 5
     | "workflow-html" :: file :: out :: rest ->
         match WorkflowLibrary.entryOf (File.ReadAllText file) with
         | Error message -> eprintfn "%s" message; 1

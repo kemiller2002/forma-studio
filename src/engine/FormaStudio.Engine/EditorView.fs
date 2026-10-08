@@ -126,7 +126,7 @@ module EditorView =
                            "label", str n.Label
                            "name", str (sprintf "%s: %s" (kindLabel n.Kind) n.Label)
                            "pressed", str (if isSelected r then "true" else "false") ]
-                         @ geometry n.Box @ colors e @ metaSlots p diagram r n.Kind))
+                         @ geometry n.Box @ colors e @ metaSlots p diagram r n.Kind @ IconView.canvasNode state n))
 
             let nodeById id = diagram.Nodes |> List.tryFind (fun n -> n.Id = id)
             let shift (bx: Box) = { bx with Position = { X = bx.Position.X + dx; Y = bx.Position.Y + dy } }
@@ -220,7 +220,7 @@ module EditorView =
                 selected |> Option.bind (fun r -> ProjectOps.appearanceOf r p) |> Option.bind _.Style |> Option.bind (fun s -> ProjectOps.tryStyle s p) |> Option.map _.Name |> Option.defaultValue "None"
             let blockers = Validation.run p |> List.filter (fun f -> f.Target.StartsWith(sprintf "diagram:%s" (Id.value diagram.Id)))
 
-            JObject
+            JObject(
                 [ "pages", p.Pages |> List.map (fun pg -> item [ "key", str (Id.value pg.Id); "label", str (sprintf "Layout: %s" pg.Name); "current", str (if state.Page = Some pg.Id then "page" else "false") ]) |> JArray
                   "flowLabel", str (sprintf "Flow: %s" diagram.Name)
                   "flowCurrent", str (if state.Page.IsNone then "page" else "false")
@@ -271,7 +271,7 @@ module EditorView =
                        let primary = Components.tryFind c.Component |> Option.bind (fun ct -> List.tryHead ct.Content) |> Option.defaultValue "text"
                        let text = c.Content |> Map.tryFind primary |> Option.map (function JString t -> t | _ -> "") |> Option.defaultValue ""
                        let label = if c.Component = "heading" then sprintf "Heading text for %s" (Id.value c.Id) else sprintf "%s %s for %s" c.Component primary (Id.value c.Id)
-                       item [ "key", str (Id.value c.Id + "|" + primary); "text", str text; "label", str label; "kind", str c.Component ]))
+                       item ([ "key", str (Id.value c.Id + "|" + primary); "text", str text; "label", str label; "kind", str c.Component ] @ IconView.layoutItem state c)))
                   |> JArray
                   "componentChoices",
                   Components.catalog |> List.filter (fun c -> c.Id <> "stack" && c.Id <> "heading") |> List.map (fun c -> item [ "key", str c.Id; "label", str ("Add " + c.Id) ]) |> JArray
@@ -331,13 +331,13 @@ module EditorView =
                    | None -> [])
                   |> JArray
                   "templates",
-                  EditorState.templates state
+                  EditorTemplates.templates state
                   |> List.map (fun (k, name, _, _) -> item [ "key", str k; "label", str name; "pressed", str (if state.Template = Some k then "true" else "false") ])
                   |> JArray
-                  "templateChosen", JBool (EditorState.chosenTemplate state |> Option.isSome)
-                  "templateDescription", str (EditorState.chosenTemplate state |> Option.map (fun (_, _, d, _) -> d) |> Option.defaultValue "")
+                  "templateChosen", JBool (EditorTemplates.chosenTemplate state |> Option.isSome)
+                  "templateDescription", str (EditorTemplates.chosenTemplate state |> Option.map (fun (_, _, d, _) -> d) |> Option.defaultValue "")
                   "templatePlan",
-                  (match EditorState.chosenTemplate state with
+                  (match EditorTemplates.chosenTemplate state with
                    | Some(_, _, _, fragment) ->
                        match Fragment.plan fragment p RemapConflicting with
                        | Ok [] -> [ item [ "key", str "none"; "text", str "No fields, colors or rules to bring along." ] ]
@@ -421,4 +421,4 @@ module EditorView =
                       item [ "key", str (Id.value g.Id); "label", str g.Label; "pressed", str (if inLane then "true" else "false") ])
                   |> JArray
                   "findingCount", Json.ofInt blockers.Length
-                  "findings", blockers |> List.mapi (fun i f -> item [ "key", str (sprintf "f%d" i); "text", str f.Message ]) |> JArray ]
+                  "findings", blockers |> List.mapi (fun i f -> item [ "key", str (sprintf "f%d" i); "text", str f.Message ]) |> JArray ] @ IconView.fields state)

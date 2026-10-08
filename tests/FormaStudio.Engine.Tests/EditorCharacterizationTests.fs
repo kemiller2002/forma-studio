@@ -107,6 +107,13 @@ let snapshot (state: EditorState) (response: JsonValue) =
           state.Export.Target (opt id state.Export.Brand) state.Export.InteractiveWorkflow state.Export.FileName (sha state.Export.Text) state.Export.Omitted.Length state.Export.Summary
       sprintf "review: baseline=%s saving=%s incoming=%s takeSaved=%s"
           (sha (Codec.serialize state.Baseline)) (opt (Codec.serialize >> sha) state.Saving) (opt (Codec.serialize >> sha) state.Incoming) (state.TakeSaved |> Set.toList |> String.concat ",")
+      sprintf "icons: availability=%s loading=%s target=%s query=%s"
+          (match state.Icons.Availability with
+           | IconsNotLoaded -> "not-loaded"
+           | IconsUnavailable why -> "unavailable " + sha why
+           | IconsAvailable c -> sprintf "forma %s, %d verified, %d refused" c.FormaVersion c.Entries.Length c.Rejected.Length)
+          (opt (fun (l: IconLoad) -> sprintf "%d/%d" l.Received.Count (2 * l.Registry.Entries.Length)) state.Icons.Loading)
+          (opt ObjectRef.describe state.Icons.Target) state.Icons.Query
       "project: " + sha (Codec.serialize state.Session.Project)
       "view: " + sha (Json.serialize view)
       "effects: " + Json.serialize (compact effects) ]
@@ -126,6 +133,28 @@ let private startText () = Codec.serialize (EditorApp.start ()).Session.Project
 /// The saved copy as another tab would leave it (mirrors the browser merge test).
 let private savedByOtherTab () =
     startText().Replace("Revise request", "Revise and resubmit").Replace("Issue purchase order", "Raise purchase order")
+
+/// Limen messages that load the committed test-fixture icon collection
+/// (tests/fixtures/forma-icons-test-fixture; synthetic, not Forma artwork).
+let private initialize = RawMessage(Json.obj [ "kind", JString "Initialize" ])
+
+let private http correlation (status: int) (body: string) =
+    RawMessage(
+        Json.obj
+            [ "kind", JString "EffectResult"
+              "result",
+              Json.obj
+                  [ "kind", JString "HttpResult"
+                    "correlationId", JString correlation
+                    "outcome", Json.obj [ "kind", JString "Success"; "status", Json.ofInt status; "body", JString body ] ] ]
+    )
+
+let private iconFixture (relative: string) = File.ReadAllText(Path.Combine(repo, "tests", "fixtures", "forma-icons-test-fixture", relative))
+
+let private iconsLoaded =
+    [ initialize; http "icon-registry" 200 (iconFixture "registry.json") ]
+    @ ([ "test-line"; "test-box"; "test-dot" ]
+       |> List.collect (fun n -> [ http ("icon-svg:" + n) 200 (iconFixture (n + ".svg")); http ("icon-html:" + n) 200 (iconFixture ("html/" + n + ".html")) ]))
 
 let private sel = evk "select" "node:prepare"
 let private selEdge = evk "select" "edge:e-yes"
@@ -404,6 +433,34 @@ let scenarios () : Scenario list =
       // Pinned quirk: with nothing exported, copy-export falls through to the
       // unrecognized-action branch of the original handler.
       scenario "copy-export with nothing exported" [] (ev "copy-export")
+      // Forma icons (GH-27): the pinned collection loads through Limen; the picker sets one canonical command
+      scenario "initialize requests the pinned icon registry" [] initialize
+      scenario "effect icon registry missing (pinned Forma 0.4.1)" [ initialize ] (http "icon-registry" 404 "Not found")
+      scenario "effect icon registry refused" [ initialize ] (http "icon-registry" 200 "{\"schemaVersion\": 1, \"grid\": 16}")
+      scenario "effect icon assets complete" (List.take (iconsLoaded.Length - 1) iconsLoaded) (List.last iconsLoaded)
+      scenario "effect icon asset with a tampered digest" (List.take (iconsLoaded.Length - 1) iconsLoaded) (http "icon-html:test-dot" 200 "<ef-icon></ef-icon>")
+      scenario "icon-pick selected node" (iconsLoaded @ [ sel ]) (ev "icon-pick")
+      scenario "icon-pick without selection" [] (ev "icon-pick")
+      scenario "icon-pick layout item" withHeading (evk "icon-pick" "page-1-heading|text")
+      scenario "icon-pick unknown layout item" withHeading (evk "icon-pick" "page-1-nothing|text")
+      scenario "icon-pick icons unavailable" [ initialize; http "icon-registry" 404 "Not found"; sel ] (ev "icon-pick")
+      scenario "icon-search" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evv "icon-search" "SQUARE")
+      scenario "icon-choose" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "test-dot")
+      scenario "icon-choose layout heading" (iconsLoaded @ withHeading @ [ evk "icon-pick" "page-1-heading|text" ]) (evk "icon-choose" "test-line")
+      scenario "icon-choose not in the release" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "future-glyph")
+      scenario "icon-choose injected key" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "<script>alert(1)</script>")
+      scenario "icon-choose icons unavailable" [ initialize; http "icon-registry" 404 "Not found"; sel; ev "icon-pick" ] (evk "icon-choose" "test-dot")
+      scenario "icon-choose without picker" iconsLoaded (evk "icon-choose" "test-dot")
+      scenario "icon-clear" (iconsLoaded @ [ sel; ev "icon-pick"; evk "icon-choose" "test-dot" ]) (ev "icon-clear")
+      scenario "icon-clear without picker" [] (ev "icon-clear")
+      scenario "icon-copy" (iconsLoaded @ [ sel; ev "icon-pick"; evk "icon-choose" "test-dot" ]) (ev "icon-copy")
+      scenario "icon-copy without icon" (iconsLoaded @ [ sel; ev "icon-pick" ]) (ev "icon-copy")
+      scenario "effect icon-clipboard"
+          []
+          (RawMessage(Json.obj [ "kind", JString "EffectResult"; "result", Json.obj [ "kind", JString "ClipboardResult"; "correlationId", JString "icon-clipboard"; "outcome", Json.obj [ "kind", JString "Success" ] ] ]))
+      scenario "icon-close" (iconsLoaded @ [ sel; ev "icon-pick" ]) (ev "icon-close")
+      scenario "undo icon-choose" (iconsLoaded @ [ sel; ev "icon-pick"; evk "icon-choose" "test-dot" ]) (ev "undo")
+      scenario "export-page with an icon" (iconsLoaded @ withHeading @ [ evk "icon-pick" "page-1-heading|text"; evk "icon-choose" "test-line" ]) (ev "export-page")
       // transport edges
       scenario "unknown event name" [] (ev "bogus-name")
       scenario "empty event name" [] (ev "")

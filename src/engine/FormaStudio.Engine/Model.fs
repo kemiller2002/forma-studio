@@ -250,7 +250,9 @@ type ComponentNode =
       Slots: Map<string, ComponentNode list>
       Navigation: JsonValue list
       Annotations: Annotation list
-      Metadata: Metadata }
+      Metadata: Metadata
+      /// Optional Forma icon, by name only (supported components: see `Components`).
+      Icon: IconRef option }
 
 type Page =
     { Id: PageId
@@ -294,7 +296,9 @@ type DiagramNode =
       Locked: bool
       Metadata: Metadata
       Appearance: ObjectAppearance
-      References: TypedReference list }
+      References: TypedReference list
+      /// Optional Forma icon, by name only; shown and exported only when the pinned release has it.
+      Icon: IconRef option }
 
 type DiagramEdge =
     { Id: EdgeId

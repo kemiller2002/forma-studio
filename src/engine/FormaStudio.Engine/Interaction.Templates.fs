@@ -7,7 +7,7 @@ open Interaction
 [<RequireQualifiedAccess>]
 module internal TemplateInteraction =
     let private insertTemplate (state: EditorState) =
-        match EditorState.chosenTemplate state with
+        match EditorTemplates.chosenTemplate state with
         | Some(_, name, _, fragment) ->
             let dx, dy = EditorIntents.insertionOffset (EditorState.diagram state) fragment
             match Fragment.applyCommand fragment (EditorState.project state) state.Diagram dx dy RemapConflicting with
