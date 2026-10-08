@@ -96,3 +96,12 @@ body { margin: 0; }
 .studio-file { display: inline-flex; align-items: center; gap: 0.5rem; min-block-size: 2.75rem; }
 .studio-file input { max-inline-size: 14rem; }
 #export-text { inline-size: 100%; font-family: monospace; }
+
+/* Read-only Forma icon browser, independent of F# state changes. */
+.studio-icon-browser > summary { font-weight: 700; cursor: pointer; }
+.studio-icon-browser[open] { padding: 0.75rem; border: 1px solid var(--ef-color-border-functional, #3a403c); }
+.studio-icon-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.studio-icon-results > li { display: flex; gap: .5rem; align-items: center; min-inline-size: 0; padding: .35rem; border: 1px solid var(--ef-color-border-subtle, #666); }
+.studio-icon-results > li > img { flex: 0 0 1.5rem; }
+.studio-icon-results > li > span { min-inline-size: 0; flex: 1; overflow-wrap: anywhere; }
+.studio-icon-results button { min-block-size: 2.75rem; }
