@@ -2,7 +2,7 @@
 
 | ID | Work | Status | Tags | Priority |
 |---|---|---|---|---|
-| GH-27 | Integrate Forma icon registry into Forma Studio | captured |  | high |
+| GH-27 | Integrate Forma icon registry into Forma Studio | ready |  | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | STUDIO-GH-10 | STUDIO-GH-10 | complete |  |  |
 | STUDIO-GH-11 | STUDIO-GH-11 | complete |  |  |
