@@ -40,6 +40,15 @@
     <button type="button" data-event="open-workflows" data-bind-aria-current="workflowsCurrent">Workflows (<span data-text="workflowCount"></span>)</button>
   </nav>
 
+  <details id="studio-icon-library" class="studio-panel studio-icon-browser">
+    <summary>Forma icon library</summary>
+    <p>Browse the icons in the pinned Forma release. Copy static HTML for use in a design. Assigning icons to Studio objects will follow the governed F# document contract.</p>
+    <label class="ef-field__label" for="studio-icon-search">Search icon names and categories</label>
+    <input id="studio-icon-search" type="search" autocomplete="off" placeholder="Search icons" aria-controls="studio-icon-results">
+    <p role="status" aria-live="polite">Loading Forma icons…</p>
+    <ul id="studio-icon-results" class="studio-icon-results" aria-label="Available Forma icons"></ul>
+  </details>
+
   <section class="studio-panel" aria-labelledby="layout-heading" data-bind-hidden="layoutHidden">
     <h2 id="layout-heading">Layout: <span data-text="pageName"></span></h2>
     <p>Layout is semantic composition: items stack in order and spacing comes from the Forma stack's density, never from x/y positions.</p>
