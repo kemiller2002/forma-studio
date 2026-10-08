@@ -93,8 +93,10 @@ let semanticIconPropertyRoundTrips =
             (ProjectOps.tryComponent page control project |> Option.get).Properties |> Map.tryFind "icon"
         equal (Some(JString "email")) (property withIcon.Project) "semantic icon ID stored as data"
         equal withIcon.Project (reload withIcon.Project) "pinned-icon property serializes losslessly"
-        equal None (property (Editor.undo withIcon).Project) "icon property is undoable"
-        equal (Some(JString "email")) (property (Editor.redo (Editor.undo withIcon)).Project) "icon redo"
+        let undone = Editor.undo withIcon
+        equal None (property undone.Project) "icon property is undoable"
+        let redone = Editor.redo undone
+        equal (Some(JString "email")) (property redone.Project) "icon redo"
         let future =
             withIcon
             |> runAll [ Layout(SetComponentProperty(page, control, "icon", Some(JString "future-email-variant"))) ]
