@@ -3,6 +3,7 @@ import { BrowserKernel } from "./limen/index.js";
 import { createStudioTransport, studioExports } from "./transport.js";
 import { installGestures } from "./gestures.js";
 import { installWorkflows } from "./workflows.js";
+import { installIconBrowser } from "./icon-browser.js";
 
 // Bridge mechanism diagnostics only (never domain meaning).
 const diagnostics = {
@@ -17,4 +18,5 @@ const diagnostics = {
 installGestures(document);
 await new BrowserKernel(createStudioTransport(), document, diagnostics).start();
 await installWorkflows(document, studioExports());
+await installIconBrowser(document);
 document.documentElement.dataset.studioReady = "true";
