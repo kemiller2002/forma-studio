@@ -55,12 +55,20 @@ module Components =
     /// A paragraph styled by Forma foundations.
     let text = { Id = "text"; Source = "html:p with forma foundations"; Slots = []; Properties = []; Content = [ "text" ] }
 
+    /// A semantic icon identifier is document data, not arbitrary SVG markup.
+    /// Unknown future Forma IDs remain valid inert data through persistence and
+    /// are resolved against the application's pinned registry at render time.
+    let private iconIdProperty value =
+        match value with
+        | JString id when id.Length <= 80 && System.Text.RegularExpressions.Regex.IsMatch(id, "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$") -> Ok()
+        | _ -> Error "icon must be a stable lowercase Forma identifier (not SVG markup or a URL)"
+
     /// Native button (forma:patterns/button.html).
     let button =
-        { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty [ "button"; "submit" ] ]; Content = [ "label" ] }
+        { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty [ "button"; "submit" ]; "icon", iconIdProperty ]; Content = [ "label" ] }
 
     /// A link that looks like a button (`a.ef-button`, forma:patterns/button.html).
-    let linkButton = { Id = "link-button"; Source = "forma:patterns/button.html"; Slots = []; Properties = []; Content = [ "label"; "href" ] }
+    let linkButton = { Id = "link-button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "label"; "href" ] }
 
     /// Labelled native input (forma:patterns/text-field.html).
     let textField =
@@ -80,13 +88,13 @@ module Components =
     let responsiveGrid = { Id = "responsive-grid"; Source = "forma:patterns/responsive-grid.html"; Slots = [ "children" ]; Properties = []; Content = [ "label" ] }
 
     /// Status alert (forma:patterns/alert.html).
-    let alert = { Id = "alert"; Source = "forma:patterns/alert.html"; Slots = []; Properties = []; Content = [ "title"; "text" ] }
+    let alert = { Id = "alert"; Source = "forma:patterns/alert.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "title"; "text" ] }
 
     /// Metric with label and context (forma:patterns/metric-card.html).
-    let metricCard = { Id = "metric-card"; Source = "forma:patterns/metric-card.html"; Slots = []; Properties = []; Content = [ "label"; "value"; "context" ] }
+    let metricCard = { Id = "metric-card"; Source = "forma:patterns/metric-card.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "label"; "value"; "context" ] }
 
     /// A portable workflow rendered by Forma (forma:workflow, .ef-diagram contract 2.1.0).
-    let workflow = { Id = "workflow"; Source = "forma:workflow"; Slots = []; Properties = [ "workflow", idProperty ]; Content = [] }
+    let workflow = { Id = "workflow"; Source = "forma:workflow"; Slots = []; Properties = [ "workflow", idProperty; "icon", iconIdProperty ]; Content = [] }
 
     let catalog = [ stack; heading; text; button; linkButton; textField; actions; surface; responsiveGrid; alert; metricCard; workflow ]
 

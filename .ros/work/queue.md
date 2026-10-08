@@ -2,6 +2,7 @@
 
 | ID | Work | Status | Tags | Priority |
 |---|---|---|---|---|
+| GH-27 | Typed Forma icon IDs for Studio layout model | captured |  | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | STUDIO-GH-10 | STUDIO-GH-10 | complete |  |  |
 | STUDIO-GH-11 | STUDIO-GH-11 | complete |  |  |
