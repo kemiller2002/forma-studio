@@ -5,7 +5,9 @@
 ///
 /// Positive cases use the committed test fixture under
 /// tests/fixtures/forma-icons-test-fixture (synthetic shapes, not Forma artwork).
-/// The "no icons" cases are the current pin, Forma 0.4.1, whose package has none.
+/// The "no icons" cases use an icon-less release (no registry, as Forma 0.4.1 and
+/// earlier) or no catalog at all; the pinned package (Forma 0.5.0) is verified
+/// in full by "pinnedPackage".
 module IconTests
 
 open System
@@ -51,6 +53,7 @@ let private refusedNames (availability: IconAvailability) =
 let private page: PageId = idOf "home"
 let private stack: ComponentNodeId = idOf "stack-1"
 let private heading: ComponentNodeId = idOf "heading-1"
+let private metric: ComponentNodeId = idOf "metric-1"
 let private button: ComponentNodeId = idOf "button-1"
 let private field: ComponentNodeId = idOf "field-1"
 let private d: DiagramId = idOf "d1"
@@ -65,15 +68,17 @@ let private layoutSession () =
           Layout(AddComponent(page, None, 0, stack, "stack"))
           Layout(AddComponent(page, slot, 0, heading, "heading"))
           Layout(SetComponentContent(page, heading, "text", "Crew schedule"))
-          Layout(AddComponent(page, slot, 1, button, "button"))
+          Layout(AddComponent(page, slot, 1, metric, "metric-card"))
+          Layout(SetComponentContent(page, metric, "label", "Open requests"))
+          Layout(AddComponent(page, slot, 2, button, "button"))
           Layout(SetComponentContent(page, button, "label", "Search crews"))
-          Layout(AddComponent(page, slot, 2, field, "text-field"))
+          Layout(AddComponent(page, slot, 3, field, "text-field"))
           Layout(SetComponentContent(page, field, "label", "Name"))
           Flow(AddDiagram(d, "Flow", general))
           Flow(AddNode(d, nodeA, "box", "Alpha", 0.0, 0.0, 120.0, 60.0)) ]
 
 let private setIcon target raw = AppearanceCmd(SetIcon(target, Some(name raw)))
-let private headingRef = ComponentRef(page, heading)
+let private metricRef = ComponentRef(page, metric)
 let private buttonRef = ComponentRef(page, button)
 let private nodeRef = NodeRef(d, nodeA)
 
@@ -90,10 +95,10 @@ let private withRawIcons (raw: string) (project: Project) =
 
 let names =
     test "Icon names follow the registry grammar; everything else is not a name" (fun () ->
-        for ok in [ "search"; "arrow-left"; "more-horizontal"; "a"; "a1"; "chevron-2-up"; String('a', 64) ] do
+        for ok in [ "search"; "arrow-left"; "more-horizontal"; "a"; "a1"; "chevron-2-up"; String('a', 80) ] do
             expect (IconName.parse ok |> Result.isOk) (sprintf "%s is a name" ok)
         for bad in
-            [ ""; "Search"; "search icon"; "../evil"; "a--b"; "-a"; "a-"; "1abc"; "search\n"; "search\r\n"; String('a', 65); "<script>alert(1)</script>"
+            [ ""; "Search"; "search icon"; "../evil"; "a--b"; "-a"; "a-"; "1abc"; "search\n"; "search\r\n"; String('a', 81); "<script>alert(1)</script>"
               "javascript:alert(1)"; "a_b"; "séarch"; "ｓearch"; "icons/search.svg"; "search.svg"; " search"; "search "; "\u0000search" ] do
             expect (IconName.parse bad |> Result.isError) (sprintf "%A is not a name" bad))
 
@@ -110,17 +115,21 @@ let storedValues =
 // -- persistence ----------------------------------------------------------------
 
 let persistence =
-    test "Icons round-trip through save and reload; documents with icons are written as schema 3, others stay schema 2" (fun () ->
+    test "Icons round-trip through save and reload; node icons are schema 3, Layout icons the schema 2 icon property" (fun () ->
         let plain = (layoutSession ()).Project
         expect ((Codec.serialize plain).Contains "\"schemaVersion\": 2") "no icon: still schema 2, byte-compatible with older Studio builds"
-        let withIcons = layoutSession () |> runAll [ setIcon headingRef "test-line"; setIcon nodeRef "future-glyph" ]
+        let layoutOnly = (layoutSession () |> runAll [ setIcon metricRef "test-line" ]).Project
+        expect ((Codec.serialize layoutOnly).Contains "\"schemaVersion\": 2") "a Layout icon is the component's icon property (#33), which schema 2 readers keep"
+        equal (Some(JString "test-line")) ((ProjectOps.tryComponent page metric layoutOnly |> Option.get).Properties |> Map.tryFind "icon") "stored as properties.icon"
+        equal layoutOnly (reload layoutOnly) "and round-trips"
+        let withIcons = layoutSession () |> runAll [ setIcon metricRef "test-line"; setIcon nodeRef "future-glyph" ]
         let text = Codec.serialize withIcons.Project
-        expect (text.Contains "\"schemaVersion\": 3") "icons: schema 3, so a schema 2 reader refuses instead of dropping them"
+        expect (text.Contains "\"schemaVersion\": 3") "node icons: schema 3, so a schema 2 reader refuses instead of dropping them"
         let loaded = reload withIcons.Project
         equal withIcons.Project loaded "the reloaded document is identical, including an icon no release has yet"
         equal text (Codec.serialize loaded) "serialization is idempotent"
         equal (Some(NamedIcon(name "future-glyph"))) (ProjectOps.iconOf nodeRef loaded) "unknown names are kept"
-        let cleared = Editor.start loaded |> runAll [ AppearanceCmd(SetIcon(headingRef, None)); AppearanceCmd(SetIcon(nodeRef, None)) ]
+        let cleared = Editor.start loaded |> runAll [ AppearanceCmd(SetIcon(metricRef, None)); AppearanceCmd(SetIcon(nodeRef, None)) ]
         expect ((Codec.serialize cleared.Project).Contains "\"schemaVersion\": 2") "removing every icon returns to schema 2"
         // A schema 2 file that already names icons (hand-edited, or from another tool) is read, not dropped.
         let v2 = text.Replace("\"schemaVersion\": 3", "\"schemaVersion\": 2")
@@ -128,15 +137,15 @@ let persistence =
 
 let malformedPreserved =
     test "Malformed and injected icon values are kept as inert data: never rejected, dropped, rewritten or blocking" (fun () ->
-        let named = (layoutSession () |> runAll [ setIcon headingRef "test-line"; setIcon nodeRef "test-dot" ]).Project
+        let named = (layoutSession () |> runAll [ setIcon metricRef "test-line"; setIcon nodeRef "test-dot" ]).Project
         for raw in [ "\"<script>alert(1)</script>\""; "\"javascript:alert(1)\""; "\"Search\""; "42"; "{\"href\": \"https://evil.example/x.svg\"}"; "[\"search\"]"; "\"search\\n\"" ] do
             let text = withRawIcons raw named
             let loaded = okOr (Codec.load text |> Result.mapError Codec.describeLoadError) raw
-            match ProjectOps.iconOf headingRef loaded, ProjectOps.iconOf nodeRef loaded with
+            match ProjectOps.iconOf metricRef loaded, ProjectOps.iconOf nodeRef loaded with
             | Some(MalformedIcon _), Some(MalformedIcon _) -> ()
             | other -> fail (sprintf "%s should load as malformed, got %A" raw other)
             let expected = okOr (Json.parse raw) raw
-            equal (Some expected) (ProjectOps.iconOf headingRef loaded |> Option.map IconRef.toJson) (sprintf "%s is kept as the same JSON value" raw)
+            equal (Some expected) (ProjectOps.iconOf metricRef loaded |> Option.map IconRef.toJson) (sprintf "%s is kept as the same JSON value" raw)
             let once = Codec.serialize loaded
             equal once (Codec.serialize (reload loaded)) (sprintf "%s is written back unchanged on every save" raw)
             let findings = Validation.run loaded |> List.filter (fun f -> f.Code = "icon.malformed")
@@ -144,20 +153,21 @@ let malformedPreserved =
             expect (findings |> List.forall (fun f -> f.Severity = Warning)) "a malformed icon warns; it never blocks"
             expect (findings |> List.forall (fun f -> not (f.Message.Contains "script") && not (f.Message.Contains "evil"))) "findings never echo the value"
             // Other edits still work on a document that holds them.
-            let edited = okOr (Commands.execute (Layout(SetComponentContent(page, heading, "text", "Edited"))) loaded) "edit beside a malformed icon"
-            equal (ProjectOps.iconOf headingRef loaded) (ProjectOps.iconOf headingRef edited.Project) (sprintf "%s survives an unrelated edit" raw))
+            let edited = okOr (Commands.execute (Layout(SetComponentContent(page, metric, "label", "Edited"))) loaded) "edit beside a malformed icon"
+            equal (ProjectOps.iconOf metricRef loaded) (ProjectOps.iconOf metricRef edited.Project) (sprintf "%s survives an unrelated edit" raw))
 
 // -- commands -----------------------------------------------------------------------
 
 let commands =
     test "SetIcon is one undoable command on supported components and nodes, and refused elsewhere" (fun () ->
         let s = layoutSession ()
-        let set = s |> runAll [ setIcon headingRef "test-line" ]
-        equal (Some(NamedIcon(name "test-line"))) (ProjectOps.iconOf headingRef set.Project) "set"
+        let set = s |> runAll [ setIcon metricRef "test-line" ]
+        equal (Some(NamedIcon(name "test-line"))) (ProjectOps.iconOf metricRef set.Project) "set"
         equal s.Project (Editor.undo set).Project "undo restores the document"
         equal set.Project (Editor.redo (Editor.undo set)).Project "redo"
         for target, why in
             [ ComponentRef(page, stack), "a stack has no place for an icon"
+              ComponentRef(page, heading), "a heading's Forma contract has no icon property"
               ComponentRef(page, field), "a text field has no place for an icon"
               ComponentRef(page, idOf "missing"), "a missing component"
               NodeRef(d, idOf "missing"), "a missing node"
@@ -165,6 +175,9 @@ let commands =
               PageRef page, "a page" ] do
             let rejected = errorOf (Editor.dispatch (setIcon target "test-line") s) why
             expect (not (List.isEmpty rejected) && rejected |> List.forall Finding.isBlocker) why
+        // SetIcon and #33's SetComponentProperty "icon" are the same document data.
+        let viaProperty = s |> runAll [ Layout(SetComponentProperty(page, metric, "icon", Some(JString "test-line"))) ]
+        equal set.Project viaProperty.Project "one representation for Layout icons"
         let unknown = s |> runAll [ setIcon nodeRef "future-glyph" ]
         equal (Some(NamedIcon(name "future-glyph"))) (ProjectOps.iconOf nodeRef unknown.Project) "the command does not consult a release: a newer name is allowed"
         let cleared = okOr (Editor.dispatch (AppearanceCmd(SetIcon(ComponentRef(page, stack), None))) s) "clearing is always allowed"
@@ -177,7 +190,7 @@ let review =
         let theirs = (Editor.start before |> runAll [ setIcon nodeRef "test-box" ]).Project
         expect (Diff.between before ours |> List.exists (fun c -> c.Code = "node.icon-changed")) "the diff names the icon change"
         expect (Diff.between before ours |> List.exists (fun c -> c.Code = "page.changed") |> not) "a node icon is not a page change"
-        let headed = (Editor.start before |> runAll [ setIcon headingRef "test-line" ]).Project
+        let headed = (Editor.start before |> runAll [ setIcon metricRef "test-line" ]).Project
         expect (Diff.between before headed |> List.exists (fun c -> c.Code = "page.changed")) "a Layout icon is a page change"
         let merged = Merge.three before ours theirs
         expect (merged.Conflicts |> List.exists (fun c -> c.Code = "merge.both-changed" && c.Target.EndsWith "/node:a")) "different icons on both sides conflict"
@@ -257,8 +270,8 @@ let pinnedPackage =
         if not (Directory.Exists packageDir) then
             printfn "       pinned package: node_modules/@echelon-foundry/design-system is not installed here (npm install); CI installs it before these tests"
         elif not (File.Exists registry) then
-            // Forma 0.4.1, the current pin, ships no icons: Studio must say so and fabricate nothing.
-            printfn "       pinned package: no dist/icons (icons unavailable), as expected for Forma 0.4.1"
+            // A release without icons (Forma 0.4.1 and earlier): Studio must say so and fabricate nothing.
+            printfn "       pinned package: no dist/icons (icons unavailable)"
             expect (not (File.Exists(Path.Combine(packageDir, "dist", "icons", "search.svg")))) "no stray icon files"
         else
             let dir = Path.Combine(packageDir, "dist", "icons")
@@ -284,7 +297,7 @@ let private export catalog (project: Project) =
 let exportInlinesPinnedIcons =
     test "HTML export inlines the release's own decorative SVG, stamped with its Forma version, and round-trips the names" (fun () ->
         let c = fixtureCatalog ()
-        let project = (layoutSession () |> runAll [ setIcon headingRef "test-line"; setIcon buttonRef "test-dot" ]).Project
+        let project = (layoutSession () |> runAll [ setIcon metricRef "test-line"; setIcon buttonRef "test-dot" ]).Project
         let result = export (Some c) project
         equal [ "test-line", "0.0.0-test-fixture"; "test-dot", "0.0.0-test-fixture" ] (iconsIn result.Html) "exported icons read back as the document's names and the release"
         equal [] result.Omitted "nothing left out"
@@ -299,9 +312,9 @@ let exportInlinesPinnedIcons =
         equal (iconsIn result.Html) (iconsIn doc.Html) "fragment and document carry the same icons")
 
 let exportWithoutIcons =
-    test "With the icon-less pin (Forma 0.4.1) the export fabricates no SVG, keeps the static output and says why" (fun () ->
+    test "Without an icon collection (an icon-less release) the export fabricates no SVG, keeps the static output and says why" (fun () ->
         let plain = (layoutSession ()).Project
-        let named = (Editor.start plain |> runAll [ setIcon headingRef "test-line" ]).Project
+        let named = (Editor.start plain |> runAll [ setIcon metricRef "test-line" ]).Project
         let result = export None named
         equal (export None plain).Html result.Html "byte-identical to the same design without an icon"
         expect (not (result.Html.Contains "<svg") && not (result.Html.Contains "ef-icon")) "no SVG and no icon markup"
@@ -311,16 +324,16 @@ let exportWithoutIcons =
 let exportUnknownAndMalformed =
     test "Unknown, malformed and misplaced icons are never exported as markup, and their values are never echoed" (fun () ->
         let c = fixtureCatalog ()
-        let unknown = (layoutSession () |> runAll [ setIcon headingRef "future-glyph" ]).Project
+        let unknown = (layoutSession () |> runAll [ setIcon metricRef "future-glyph" ]).Project
         let r1 = export (Some c) unknown
         expect (not (r1.Html.Contains "<svg")) "an icon the release lacks is not drawn"
         expect (r1.Omitted |> List.exists (fun o -> o.Contains "future-glyph" && o.Contains "0.0.0-test-fixture")) "and the note names the release"
         let injected =
-            okOr (Codec.load (withRawIcons "\"<script>alert(1)</script>\"" (layoutSession () |> runAll [ setIcon headingRef "test-line" ]).Project) |> Result.mapError Codec.describeLoadError) "load"
+            okOr (Codec.load (withRawIcons "\"<script>alert(1)</script>\"" (layoutSession () |> runAll [ setIcon metricRef "test-line" ]).Project) |> Result.mapError Codec.describeLoadError) "load"
         let r2 = export (Some c) injected
         expect (not (r2.Html.Contains "<svg") && not (r2.Html.Contains "script")) "a malformed value is inert"
         expect (r2.Omitted |> List.forall (fun o -> not (o.Contains "script"))) "and is never echoed"
-        let misplaced = okOr (Codec.load ((Codec.serialize (layoutSession ()).Project).Replace("\"componentId\": \"text-field\",", "\"componentId\": \"text-field\",\n            \"icon\": \"test-line\",")) |> Result.mapError Codec.describeLoadError) "load misplaced"
+        let misplaced = okOr (Codec.load ((Codec.serialize (layoutSession ()).Project).Replace("\"componentId\": \"text-field\",", "\"componentId\": \"text-field\",\n            \"properties\": { \"icon\": \"test-line\" },")) |> Result.mapError Codec.describeLoadError) "load misplaced"
         let r3 = export (Some c) misplaced
         expect (not (r3.Html.Contains "<svg")) "a component with no place for an icon draws none"
         expect (r3.Omitted |> List.exists (fun o -> o.Contains "no place for an icon")) "and says so")
@@ -439,13 +452,13 @@ let editorLayoutAndSave =
     test "A Layout item's icon is chosen by keyboard-reachable buttons, saved through Limen storage and reopened" (fun () ->
         let state, effects = started ()
         let loaded = serve effects state
-        let s = apply [ event "add-page" None None; event "layout-add-heading" None None; event "icon-pick" (Some "page-1-heading|text") None; event "icon-choose" (Some "test-line") None ] loaded
-        let headingRef = ComponentRef(idOf "page-1", idOf "page-1-heading")
-        equal (Some(NamedIcon(name "test-line"))) (ProjectOps.iconOf headingRef s.Session.Project) "set on the heading"
+        let s = apply [ event "add-page" None None; event "layout-add-component" (Some "button") None; event "icon-pick" (Some "page-1-button|label") None; event "icon-choose" (Some "test-line") None ] loaded
+        let buttonRef = ComponentRef(idOf "page-1", idOf "page-1-button")
+        equal (Some(NamedIcon(name "test-line"))) (ProjectOps.iconOf buttonRef s.Session.Project) "set on the button"
         equal (JBool true) (viewField "iconPickerLayout" s) "picker beside the Layout list"
         match viewField "layoutItems" s with
         | JArray [ item ] ->
-            equal (Some(JString "Choose icon for heading page-1-heading")) (Json.field "iconPickLabel" item) "a specific button name"
+            equal (Some(JString "Choose icon for button page-1-button")) (Json.field "iconPickLabel" item) "a specific button name"
             equal (Some(JString "./forma/icons/test-line.svg")) (Json.field "iconSrc" item) "the preview uses the pinned static SVG"
             equal (Some(JBool true)) (Json.field "iconShown" item) "and is shown"
         | other -> fail (sprintf "layout items: %A" other)
@@ -454,7 +467,7 @@ let editorLayoutAndSave =
             match effectsOf response with
             | [ effect ] -> (match Json.field "value" effect with Some(JString text) -> text | _ -> fail "no saved text")
             | other -> fail (sprintf "expected one storage effect, got %A" other)
-        expect (saved.Contains "\"icon\": \"test-line\"" && saved.Contains "\"schemaVersion\": 3") "the saved document holds the icon"
+        expect (saved.Contains "\"icon\": \"test-line\"" && saved.Contains "\"schemaVersion\": 2") "the saved document holds the icon property"
         let reopened = apply [ Json.obj [ "kind", JString "EffectResult"; "result", Json.obj [ "kind", JString "StorageResult"; "correlationId", JString "load"; "outcome", Json.obj [ "kind", JString "Success"; "value", JString saved ] ] ] ] saving
         equal s.Session.Project reopened.Session.Project "reopened identically"
         let exported = apply [ event "open-page" (Some "page-1") None; event "export-page" None None ] reopened

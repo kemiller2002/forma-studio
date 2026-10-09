@@ -16,7 +16,9 @@ Examples of portable data:
 
 The button's text is the accessible name. An icon is not a command, permission, consequence or state machine. The existing Codec preserves typed property values through source-to-document round trips, undo and redo.
 
-**Remaining work before release:**
+**Status (forma-studio#31):** the renderer, picker and pin described below are delivered on top of this property; see [`ICONS.md`](ICONS.md). Studio pins Forma 0.5.0, and `SetIcon` and `SetComponentProperty "icon"` write the same property.
+
+**Remaining work at the time of #33 (since addressed in #31 except where ICONS.md says otherwise):**
 
 - Upgrade the actual Forma dependency, vendor package and lock only after 0.6.0 is published and its artifacts/digests have been verified.
 - Link searchable picker selections to F# `SetComponentProperty` commands, with mobile/keyboard controls and semantic Playwright selectors.

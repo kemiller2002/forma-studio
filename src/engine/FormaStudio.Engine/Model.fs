@@ -250,9 +250,7 @@ type ComponentNode =
       Slots: Map<string, ComponentNode list>
       Navigation: JsonValue list
       Annotations: Annotation list
-      Metadata: Metadata
-      /// Optional Forma icon, by name only (supported components: see `Components`).
-      Icon: IconRef option }
+      Metadata: Metadata }
 
 type Page =
     { Id: PageId

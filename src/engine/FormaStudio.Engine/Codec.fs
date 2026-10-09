@@ -83,9 +83,9 @@ module Codec =
     open Decode
 
     /// The newest schema this build reads and writes. Version 3 adds optional icon
-    /// names on components and diagram nodes; a document is written as version 3
-    /// only when it holds an icon, so a version 2 Studio refuses it instead of
-    /// silently dropping the icons (DOCUMENT-MODEL "Migration").
+    /// names on diagram nodes; a document is written as version 3 only when a
+    /// node holds an icon, so a version 2 Studio refuses it instead of silently
+    /// dropping the icons (DOCUMENT-MODEL "Migration").
     let currentSchemaVersion = 3
 
     // -- shared vocabularies -------------------------------------------------
@@ -453,8 +453,7 @@ module Codec =
               omitEmpty "slots" (n.Slots |> Map.map (fun _ children -> children |> List.map encodeComponent |> JArray) |> encodeMap)
               omitEmpty "navigation" (JArray n.Navigation)
               omitEmpty "annotations" (n.Annotations |> List.map encodeAnnotation |> JArray)
-              omitEmpty "metadata" (encodeMetadata n.Metadata)
-              "icon", n.Icon |> Option.map IconRef.toJson ]
+              omitEmpty "metadata" (encodeMetadata n.Metadata) ]
 
     /// Any stored icon value is kept: a well-formed name as a name, anything else verbatim.
     let private decodeIcon json = optional "icon" (IconRef.ofJson >> Ok) json
@@ -472,10 +471,9 @@ module Codec =
             let! navigation = withDefault "navigation" [] (list Ok) json
             let! annotations = withDefault "annotations" [] (list decodeAnnotation) json
             let! metadata = withDefault "metadata" Map.empty decodeMetadata json
-            let! icon = decodeIcon json
             return
                 { Id = nid; Component = componentId; Properties = properties; TokenBindings = Map.ofList tokens; Content = content
-                  Slots = Map.ofList slots; Navigation = navigation; Annotations = annotations; Metadata = metadata; Icon = icon }
+                  Slots = Map.ofList slots; Navigation = navigation; Annotations = annotations; Metadata = metadata }
         }
 
     let private encodePage (p: Page) =
@@ -705,9 +703,10 @@ module Codec =
             return { Id = sid; Name = name; Revision = revision; Targets = targets; Appearance = appearance }
         }
 
+    /// Diagram-node icons are a schema 3 member. Layout icons are the `icon`
+    /// component property, which schema 2 readers already preserve.
     let private hasIcon (p: Project) =
-        let rec inComponents (nodes: ComponentNode list) = nodes |> List.exists (fun n -> n.Icon.IsSome || n.Slots |> Map.exists (fun _ c -> inComponents c))
-        p.Pages |> List.exists (fun page -> inComponents page.Nodes) || p.Diagrams |> List.exists (fun d -> d.Nodes |> List.exists (fun n -> n.Icon.IsSome))
+        p.Diagrams |> List.exists (fun d -> d.Nodes |> List.exists (fun n -> n.Icon.IsSome))
 
     /// The schema version a project is written as: the oldest that holds all of it.
     let schemaVersionOf (p: Project) = if hasIcon p then currentSchemaVersion else 2

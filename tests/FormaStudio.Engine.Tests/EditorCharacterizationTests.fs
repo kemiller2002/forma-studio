@@ -160,6 +160,7 @@ let private sel = evk "select" "node:prepare"
 let private selEdge = evk "select" "edge:e-yes"
 let private page1 = [ ev "add-page" ]
 let private withHeading = page1 @ [ ev "layout-add-heading" ]
+let private withButton = page1 @ [ evk "layout-add-component" "button" ]
 
 /// Every wire name the engine handled before the event contract was made typed
 /// (86 names in 81 match arms of the original string `onEvent`). Frozen: the
@@ -435,18 +436,19 @@ let scenarios () : Scenario list =
       scenario "copy-export with nothing exported" [] (ev "copy-export")
       // Forma icons (GH-27): the pinned collection loads through Limen; the picker sets one canonical command
       scenario "initialize requests the pinned icon registry" [] initialize
-      scenario "effect icon registry missing (pinned Forma 0.4.1)" [ initialize ] (http "icon-registry" 404 "Not found")
+      scenario "effect icon registry missing (an icon-less release)" [ initialize ] (http "icon-registry" 404 "Not found")
       scenario "effect icon registry refused" [ initialize ] (http "icon-registry" 200 "{\"schemaVersion\": 1, \"grid\": 16}")
       scenario "effect icon assets complete" (List.take (iconsLoaded.Length - 1) iconsLoaded) (List.last iconsLoaded)
       scenario "effect icon asset with a tampered digest" (List.take (iconsLoaded.Length - 1) iconsLoaded) (http "icon-html:test-dot" 200 "<ef-icon></ef-icon>")
       scenario "icon-pick selected node" (iconsLoaded @ [ sel ]) (ev "icon-pick")
       scenario "icon-pick without selection" [] (ev "icon-pick")
-      scenario "icon-pick layout item" withHeading (evk "icon-pick" "page-1-heading|text")
-      scenario "icon-pick unknown layout item" withHeading (evk "icon-pick" "page-1-nothing|text")
+      scenario "icon-pick layout item" withButton (evk "icon-pick" "page-1-button|label")
+      scenario "icon-pick layout item without an icon property" withHeading (evk "icon-pick" "page-1-heading|text")
+      scenario "icon-pick unknown layout item" withButton (evk "icon-pick" "page-1-nothing|label")
       scenario "icon-pick icons unavailable" [ initialize; http "icon-registry" 404 "Not found"; sel ] (ev "icon-pick")
       scenario "icon-search" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evv "icon-search" "SQUARE")
       scenario "icon-choose" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "test-dot")
-      scenario "icon-choose layout heading" (iconsLoaded @ withHeading @ [ evk "icon-pick" "page-1-heading|text" ]) (evk "icon-choose" "test-line")
+      scenario "icon-choose layout button" (iconsLoaded @ withButton @ [ evk "icon-pick" "page-1-button|label" ]) (evk "icon-choose" "test-line")
       scenario "icon-choose not in the release" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "future-glyph")
       scenario "icon-choose injected key" (iconsLoaded @ [ sel; ev "icon-pick" ]) (evk "icon-choose" "<script>alert(1)</script>")
       scenario "icon-choose icons unavailable" [ initialize; http "icon-registry" 404 "Not found"; sel; ev "icon-pick" ] (evk "icon-choose" "test-dot")
@@ -460,7 +462,7 @@ let scenarios () : Scenario list =
           (RawMessage(Json.obj [ "kind", JString "EffectResult"; "result", Json.obj [ "kind", JString "ClipboardResult"; "correlationId", JString "icon-clipboard"; "outcome", Json.obj [ "kind", JString "Success" ] ] ]))
       scenario "icon-close" (iconsLoaded @ [ sel; ev "icon-pick" ]) (ev "icon-close")
       scenario "undo icon-choose" (iconsLoaded @ [ sel; ev "icon-pick"; evk "icon-choose" "test-dot" ]) (ev "undo")
-      scenario "export-page with an icon" (iconsLoaded @ withHeading @ [ evk "icon-pick" "page-1-heading|text"; evk "icon-choose" "test-line" ]) (ev "export-page")
+      scenario "export-page with an icon" (iconsLoaded @ withButton @ [ evk "icon-pick" "page-1-button|label"; evk "icon-choose" "test-line" ]) (ev "export-page")
       // transport edges
       scenario "unknown event name" [] (ev "bogus-name")
       scenario "empty event name" [] (ev "")

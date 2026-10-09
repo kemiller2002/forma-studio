@@ -2303,7 +2303,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: c680ed553ecaa6cd
+view: bf0ccdf0572cd473
 effects: []\n
 
 ## layout-add-heading twice
@@ -2319,7 +2319,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: be3c2518fd5b31f9
-view: 27d0709c0d83e7c2
+view: b169b92ccf5cd1b1
 effects: []\n
 
 ## layout-add-heading without page
@@ -2351,7 +2351,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6c385bae45a5a6db
-view: 30cc5ad9666aa3d0
+view: 8088a3ecb691abf1
 effects: []\n
 
 ## layout-set-text content key
@@ -2367,7 +2367,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 80bb474cafa652e1
-view: db1e165119ad3721
+view: 3f250038bfb3602c
 effects: []\n
 
 ## layout-set-text without page
@@ -2463,7 +2463,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 4706a60c4ae2cce6
+view: 38efa5ea78449907
 effects: []\n
 
 ## layout-add-component text
@@ -2479,7 +2479,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: f6f2c691fb3214ac
+view: 6b0700a0405fd9e5
 effects: []\n
 
 ## layout-add-component button
@@ -2623,7 +2623,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b81146c4b1373279
-view: 4163a722dc1b3cc4
+view: 46560a100081af27
 effects: []\n
 
 ## layout-add-component workflow with a current workflow
@@ -2639,7 +2639,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 8d25e71e937b93ff
-view: 335fd6f5da9c0d86
+view: 8c8d8f581de0e3d3
 effects: []\n
 
 ## layout-add-component unknown
@@ -2703,7 +2703,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: 0a51e1cae644fa7c
+view: 0858b4b205948e14
 effects: []\n
 
 ## layout-move-up
@@ -2719,7 +2719,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 54e6b77912aa1b99
+view: 8b77be77ed554ebe
 effects: []\n
 
 ## layout-move-up at top
@@ -2735,7 +2735,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 0d4fef8c1b879504
+view: 366a6446e15d4ab8
 effects: []\n
 
 ## layout-move-down
@@ -2751,7 +2751,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 54e6b77912aa1b99
+view: 8b77be77ed554ebe
 effects: []\n
 
 ## layout-move-down unknown
@@ -2767,7 +2767,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: d8599d71e23f48b0
+view: 7e9f477403f26cbd
 effects: []\n
 
 ## layout-density
@@ -3519,7 +3519,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: bfc5c9731f81f30b
+view: 235547f3a819f494
 effects: []\n
 
 ## export-page document with brand
@@ -3535,7 +3535,7 @@ export: target=HtmlDocument brand=echelon interactive=false file=page-1.html tex
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: d078b21227ae26bd
+view: a58d376ec2ae34da
 effects: []\n
 
 ## export-page falls back to first page
@@ -3583,7 +3583,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1-heading.fragme
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 646f475ab9677a6c
+view: 2cd86953d3013bad
 effects: []\n
 
 ## export-component gone
@@ -3599,7 +3599,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: c900371dac14f9dd
+view: 39f4cee5c4afc39d
 effects: []\n
 
 ## export-component without page
@@ -3679,7 +3679,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 78214d277f9d24b8
+view: 7f62fad2a577bc04
 effects: [\n  {\n    "kind": "Clipboard",\n    "correlationId": "copy-export",\n    "operation": "writeText",\n    "text": "<sha:1beb7ff62202d7e9 len:226>"\n  }\n]\n
 
 ## copy-export with nothing exported
@@ -3714,7 +3714,7 @@ project: a0f6b76111ca88ef
 view: 5a4832b2db121b1b
 effects: [\n  {\n    "kind": "Http",\n    "correlationId": "icon-registry",\n    "method": "GET",\n    "url": "./forma/icons/registry.json",\n    "timeoutMs": 15000,\n    "response": "text"\n  }\n]\n
 
-## effect icon registry missing (pinned Forma 0.4.1)
+## effect icon registry missing (an icon-less release)
 status: Ready.
 history: undo=0 redo=0
 selection: 
@@ -3821,9 +3821,25 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
-icons: availability=not-loaded loading=- target=page:page-1/component:page-1-heading query=
+icons: availability=not-loaded loading=- target=page:page-1/component:page-1-button query=
+project: 54296da711b5a662
+view: da40242a8964980b
+effects: []\n
+
+## icon-pick layout item without an icon property
+status: Select a diagram item, or choose a Layout item, to give it an icon.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: b49b2e5713a02380
+view: 9f767540c616a22d
 effects: []\n
 
 ## icon-pick unknown layout item
@@ -3838,8 +3854,8 @@ workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
-project: 9b0bbe7e1cc3d8aa
-view: fec8d5d2701c5e8a
+project: 54296da711b5a662
+view: a282db8361ac2526
 effects: []\n
 
 ## icon-pick icons unavailable
@@ -3890,7 +3906,7 @@ project: 598dbf38254e7f75
 view: b0105ed27b9d4f31
 effects: []\n
 
-## icon-choose layout heading
+## icon-choose layout button
 status: Icon set to Test line.
 history: undo=3 redo=0
 selection: 
@@ -3901,9 +3917,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
-icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-heading query=
-project: 75e135c69c2e5471
-view: ad7e17671eea10df
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
+project: 5f117e63b47ecce2
+view: 35da195aef111fc7
 effects: []\n
 
 ## icon-choose not in the release
@@ -4091,11 +4107,11 @@ surface: page=page-1 workflows=false layoutTarget=-
 canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
 drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
 workflows: count=0 current=- revision=0 unsaved=
-export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=d38ae2895125706c omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.0.0-test-fixture/tokens.css, @echelon-foundry/design-system@0.0.0-test-fixture/foundations.css, @echelon-foundry/design-system@0.0.0-test-fixture/components.css.
+export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=962f0d7bfead2b96 omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.0.0-test-fixture/tokens.css, @echelon-foundry/design-system@0.0.0-test-fixture/foundations.css, @echelon-foundry/design-system@0.0.0-test-fixture/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
-icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-heading query=
-project: 75e135c69c2e5471
-view: c84f91dfffbbd55b
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
+project: 5f117e63b47ecce2
+view: eebb40e737fe4c5a
 effects: []\n
 
 ## unknown event name

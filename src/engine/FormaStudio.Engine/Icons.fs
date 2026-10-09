@@ -21,15 +21,15 @@ type IconRef =
 
 [<RequireQualifiedAccess>]
 module IconName =
-    /// Registry names are short; anything longer is not a name.
-    let maxLength = 64
+    /// Registry names are short; anything longer is not a name (the bound #33 set for the `icon` property).
+    let maxLength = 80
 
     // \z, not $: in .NET `$` also matches before a trailing newline.
     let private pattern = Regex(@"\A[a-z][a-z0-9]*(?:-[a-z0-9]+)*\z", RegexOptions.CultureInvariant)
 
     let parse (raw: string) : Result<IconName, string> =
         if raw.Length <= maxLength && pattern.IsMatch raw then Ok(IconName raw)
-        else Error "an icon name is lowercase letters and digits joined by single hyphens, starting with a letter, at most 64 characters"
+        else Error "an icon name is lowercase letters and digits joined by single hyphens, starting with a letter, at most 80 characters"
 
     let value (IconName name) = name
 

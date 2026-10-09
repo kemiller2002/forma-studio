@@ -42,9 +42,9 @@ A fragment starts like this:
 
 ## Icons
 
-A Layout component with an icon (heading, text, button, link-button, alert, metric-card) exports the pinned Forma release's own decorative inline snippet for that icon (`<ef-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<ef-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.ef-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
+A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<ef-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<ef-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.ef-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
 
-An icon is left out, and listed with the reason, when the pinned release has no icon collection (Forma 0.4.1), when the release does not have that name, when the stored value is not a valid name, or when the component has no place for an icon. The document keeps the icon in every case.
+An icon is left out, and listed with the reason, when the pinned release has no icon collection (Forma 0.4.1 and earlier), when the release does not have that name, when the stored value is not a valid name, or when the component has no place for an inline icon (including the workflow figure). The document keeps the icon in every case.
 
 ```bash
 dotnet run --project tools/FormaStudio.Cli -c Release -- icons                     # report the pinned collection (exit 5 when unavailable)

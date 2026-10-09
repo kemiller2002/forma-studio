@@ -249,14 +249,13 @@ module AgentExport =
         let visibleFields = DisclosurePolicy.fields scope project |> List.map _.Key |> Set.ofList
         let pageTree (page: Page) =
             let rec node (n: ComponentNode) =
-                Json.objOpt
-                    [ "nodeId", Some(JString(Id.value n.Id))
-                      "componentId", Some(JString n.Component)
-                      "properties", Some(n.Properties |> Map.toList |> JObject)
-                      "content", Some(n.Content |> Map.toList |> JObject)
-                      "slots", Some(n.Slots |> Map.toList |> List.map (fun (slot, children) -> slot, children |> List.map node |> JArray) |> JObject)
-                      "metadata", Some(metadata project (ComponentRef(page.Id, n.Id)))
-                      "icon", icon n.Icon ]
+                JObject
+                    [ "nodeId", JString(Id.value n.Id)
+                      "componentId", JString n.Component
+                      "properties", n.Properties |> Map.toList |> JObject
+                      "content", n.Content |> Map.toList |> JObject
+                      "slots", n.Slots |> Map.toList |> List.map (fun (slot, children) -> slot, children |> List.map node |> JArray) |> JObject
+                      "metadata", metadata project (ComponentRef(page.Id, n.Id)) ]
             Json.objOpt
                 [ "pageId", Some(JString(Id.value page.Id))
                   "name", Some(JString page.Name)

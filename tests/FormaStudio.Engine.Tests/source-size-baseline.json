@@ -4,7 +4,7 @@
   "limits": {
     "Commands.Appearance.fs": 263,
     "Commands.Flow.fs": 279,
-    "Commands.Icons.fs": 23,
+    "Commands.Icons.fs": 25,
     "Commands.Layout.fs": 115,
     "Commands.Metadata.fs": 140,
     "Commands.Support.fs": 27,
@@ -18,7 +18,7 @@
     "EditorIntents.fs": 301,
     "EditorState.Templates.fs": 20,
     "EditorState.fs": 122,
-    "EditorView.Icons.fs": 83,
+    "EditorView.Icons.fs": 84,
     "EditorView.fs": 424,
     "HostEffects.fs": 79,
     "Interaction.Canvas.fs": 145,

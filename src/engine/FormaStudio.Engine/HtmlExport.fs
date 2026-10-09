@@ -63,15 +63,16 @@ module HtmlExport =
 
     let private nodeId (node: ComponentNode) = Id.value node.Id
 
-    /// The icon to place in a component, as the release's own decorative inline
+    /// The icon to place in a component (its `icon` property), as the release's own decorative inline
     /// SVG (stamped with its Forma version), or why the stored icon was not exported.
     /// The document keeps the icon in every case (Forma ICON-013, ICON-014).
     let private iconOf (icons: IconCatalog option) (node: ComponentNode) : Markup list * string list =
         let keep why = [], [ $"{nodeId node}: {why}; the document keeps it" ]
-        match node.Icon, icons with
+        match ProjectOps.componentIcon node, icons with
         | None, _ -> [], []
         | Some(MalformedIcon _), _ -> keep "the stored icon is not a valid Forma icon name, so it was not exported"
         | Some(NamedIcon _), _ when not (Components.supportsIcon node.Component) -> keep $"a {node.Component} has no place for an icon, so its icon was not exported"
+        | Some(NamedIcon _), _ when node.Component = "workflow" -> keep "Forma's workflow figure has no place for an inline icon, so its icon was not exported"
         | Some(NamedIcon name), None -> keep $"icon \"{IconName.value name}\" was not exported because the pinned Forma release has no icon collection"
         | Some(NamedIcon name), Some catalog ->
             match IconCatalog.artwork name catalog with
@@ -93,8 +94,8 @@ module HtmlExport =
             [ el "div" ([ "class", "ef-stack" ] @ density) markup ], iconNotes @ omitted
         | "heading" ->
             let level = match property "level" node with Some(JNumber n) -> (match System.Int32.TryParse n with | true, v when v >= 1 && v <= 6 -> v | _ -> 2) | _ -> 2
-            one (el ("h" + string level) [] (withIcon [ text (content "text" node |> Option.defaultValue "") ]))
-        | "text" -> one (el "p" [] (withIcon [ text (content "text" node |> Option.defaultValue "") ]))
+            one (el ("h" + string level) [] [ text (content "text" node |> Option.defaultValue "") ])
+        | "text" -> one (el "p" [] [ text (content "text" node |> Option.defaultValue "") ])
         | "button" ->
             let kind = match property "type" node with Some(JString "submit") -> "submit" | _ -> "button"
             one (el "button" [ "type", kind ] (withIcon [ text (content "label" node |> Option.defaultValue "") ]))

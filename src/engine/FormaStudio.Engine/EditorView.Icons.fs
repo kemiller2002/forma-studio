@@ -25,12 +25,13 @@ module IconView =
     /// a specific name for its "Choose icon" button.
     let layoutItem (state: EditorState) (node: ComponentNode) =
         let label = sprintf "%s %s" node.Component (Id.value node.Id)
-        preview state.Icons node.Icon
-        @ [ "iconText", str (sprintf "Icon: %s" (describe state.Icons node.Icon))
+        let icon = ProjectOps.componentIcon node
+        preview state.Icons icon
+        @ [ "iconText", str (sprintf "Icon: %s" (describe state.Icons icon))
             "iconPickLabel", str (sprintf "Choose icon for %s" label)
             "iconPickHidden", JBool(not (Components.supportsIcon node.Component))
             // A component with no place for an icon shows the line only to explain a kept icon.
-            "iconLineHidden", JBool(not (Components.supportsIcon node.Component) && node.Icon.IsNone) ]
+            "iconLineHidden", JBool(not (Components.supportsIcon node.Component) && icon.IsNone) ]
 
     /// Fields for one canvas node: its icon preview.
     let canvasNode (state: EditorState) (node: DiagramNode) = preview state.Icons node.Icon

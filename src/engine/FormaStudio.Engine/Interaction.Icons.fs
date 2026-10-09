@@ -74,7 +74,7 @@ module internal IconInteraction =
         if key = "" then EditorState.selectedRef state |> Option.filter (function NodeRef _ -> true | _ -> false)
         else
             match state.Page, Id.create<ComponentKind> (key.Split('|').[0]) with
-            | Some page, Ok id when (ProjectOps.tryComponent page id (EditorState.project state)).IsSome -> Some(ComponentRef(page, id))
+            | Some page, Ok id when ProjectOps.tryComponent page id (EditorState.project state) |> Option.exists (fun c -> Components.supportsIcon c.Component) -> Some(ComponentRef(page, id))
             | _ -> None
 
     let private unavailable (state: EditorState) =

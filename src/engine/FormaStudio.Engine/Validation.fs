@@ -221,7 +221,7 @@ module Validation =
         let rec components page (nodes: ComponentNode list) =
             nodes
             |> List.collect (fun n ->
-                note (ObjectRef.describe (ComponentRef(page, n.Id))) n.Icon (Components.supportsIcon n.Component)
+                note (ObjectRef.describe (ComponentRef(page, n.Id))) (ProjectOps.componentIcon n) (Components.supportsIcon n.Component)
                 @ (n.Slots |> Map.toList |> List.collect (snd >> components page)))
         (project.Pages |> List.collect (fun p -> components p.Id p.Nodes))
         @ (project.Diagrams |> List.collect (fun d -> d.Nodes |> List.collect (fun n -> note (ObjectRef.describe (NodeRef(d.Id, n.Id))) n.Icon true)))
