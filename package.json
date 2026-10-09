@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@echelon-foundry/design-system": "https://github.com/kemiller2002/forma/releases/download/v0.5.0/echelon-foundry-design-system-0.5.0.tgz",
-    "@echelon-foundry/limen": "0.7.1"
+    "@echelon-foundry/limen": "0.9.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
