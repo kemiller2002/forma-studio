@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-09T00:27:29.000Z",
+  "updatedAt": "2026-10-09T00:45:09.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -836,13 +836,56 @@
     {
       "id": "GH-27-FORMA-050",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-09T00:25:38.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "package.json"
+        },
+        {
+          "type": "implementation",
+          "path": ".conditor/lock.json"
+        },
+        {
+          "type": "implementation",
+          "path": "vendor/forma/MANIFEST.json"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/icons.spec.mjs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/IconTests.fs"
+        }
+      ],
+      "updatedAt": "2026-10-09T00:45:09.000Z",
       "telemetryExecutionIds": [
         "EXE-20261009T002538688Z-5dd59348"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "89bd9237f32a3ce2f334a57b",
+        "recordedAt": "2026-10-09T00:45:08.000Z",
+        "executionId": "EXE-20261009T002538688Z-5dd59348",
+        "repository": "forma-studio",
+        "branch": "claude/forma-icon-system-handoff-6xlsyn",
+        "commit": "9ba6e5ea0d52a9c3f37155041616b6de85c76608",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio"
+        },
+        "remoteBranch": "claude/forma-icon-system-handoff-6xlsyn",
+        "remoteCommit": "9ba6e5ea0d52a9c3f37155041616b6de85c76608",
+        "summary": "Forma 0.5.0 pinned (package, lock, vendor, Conditor echelon-current 1.13.0), Layout icons unified on #33 icon property, main (Limen 0.9.0) merged, 101 engine and 59 browser tests pass",
+        "nextAction": "Complete GH-27-FORMA-050, push Praxis state, confirm CI",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-09T00:45:09.000Z",
+      "conclusion": "Studio pins Forma 0.5.0 and ships its 40 verified icons; Conditor authority echelon-current 1.13.0"
     }
   ]
 }
