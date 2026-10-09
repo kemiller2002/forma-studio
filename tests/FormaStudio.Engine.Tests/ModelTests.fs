@@ -76,6 +76,36 @@ let layoutRejectsInventedProperties =
         errorOf (Editor.dispatch (Layout(AddComponent(page, Some { Parent = idOf "h"; Slot = "children" }, 0, idOf "c", "heading"))) s) "heading has no slot" |> ignore
         errorOf (Editor.dispatch (Layout(AddComponent(page, None, 0, idOf "z", "freeform-div"))) s) "unknown component" |> ignore)
 
+let semanticIconPropertyRoundTrips =
+    test "Layout icon IDs are typed, undoable, forward-compatible and survive save/reload" (fun () ->
+        let page: PageId = idOf "home"
+        let control: ComponentNodeId = idOf "send-mail"
+        let original =
+            Editor.start (empty ())
+            |> runAll
+                [ Layout(AddPage(page, "Home", None))
+                  Layout(AddComponent(page, None, 0, control, "button"))
+                  Layout(SetComponentContent(page, control, "label", "Send email")) ]
+        let withIcon =
+            original
+            |> runAll [ Layout(SetComponentProperty(page, control, "icon", Some(JString "email"))) ]
+        let property project =
+            (ProjectOps.tryComponent page control project |> Option.get).Properties |> Map.tryFind "icon"
+        equal (Some(JString "email")) (property withIcon.Project) "semantic icon ID stored as data"
+        equal withIcon.Project (reload withIcon.Project) "pinned-icon property serializes losslessly"
+        let undone = Editor.undo withIcon
+        equal None (property undone.Project) "icon property is undoable"
+        let redone = Editor.redo undone
+        equal (Some(JString "email")) (property redone.Project) "icon redo"
+        let future =
+            withIcon
+            |> runAll [ Layout(SetComponentProperty(page, control, "icon", Some(JString "future-email-variant"))) ]
+        equal (Some(JString "future-email-variant")) (property (reload future.Project)) "unknown future icon IDs remain inert data"
+        errorOf (Editor.dispatch (Layout(SetComponentProperty(page, control, "icon", Some(JString "../malicious.svg")))) withIcon) "reject SVG path" |> ignore
+        errorOf (Editor.dispatch (Layout(SetComponentProperty(page, control, "icon", Some(JString "<svg onload=evil>")))) withIcon) "reject executable markup" |> ignore
+        errorOf (Editor.dispatch (Layout(SetComponentProperty(page, control, "icon", Some(Json.ofInt 5)))) withIcon) "reject non-string icon" |> ignore
+        equal (Some(JString "email")) (property withIcon.Project) "rejected edits never change original project")
+
 let flowProof =
     test "Flow proof: nodes, connect, move, label, metadata, color, undo, redo, save, reload" (fun () ->
         let session =
@@ -428,7 +458,7 @@ let pinnedFormaContract =
         equal (Some(JString "2.0.0")) (Json.field "contractVersion" contract) "contract version")
 
 let all =
-    [ layoutProof; layoutRejectsInventedProperties; flowProof; sharedInfrastructure; rejectedCommandsDoNotMutate; geometryNormalization
+    [ layoutProof; layoutRejectsInventedProperties; semanticIconPropertyRoundTrips; flowProof; sharedInfrastructure; rejectedCommandsDoNotMutate; geometryNormalization
       deleteNodeSurfacesEdges; workflowRules; metadataStates; metadataFieldLifecycle; metadataValueNormalization; appearanceCascade
       styleAndPaletteLifecycle; colorIsNotSemantics; disclosureControl; colorSyntax; typedReferences; v1Migration; diagramOnly
       newerSchemaFailsSafely; deterministicSerialization; unknownDataPreserved; sampleWorkflow; pinnedFormaContract ]
