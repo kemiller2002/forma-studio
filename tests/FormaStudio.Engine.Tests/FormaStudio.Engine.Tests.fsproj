@@ -17,6 +17,7 @@
     <Compile Include="EditorConformanceTests.fs" />
     <Compile Include="CollaborationTests.fs" />
     <Compile Include="WorkflowStudioTests.fs" />
+    <Compile Include="IconTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

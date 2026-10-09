@@ -48,6 +48,16 @@ module ProjectOps =
         | EdgeRef(d, e) -> (tryEdge d e project).IsSome
         | GroupRef(d, g) -> (tryGroup d g project).IsSome
 
+    /// A Layout component's icon: its `icon` property (#33), read without rejection.
+    let componentIcon (node: ComponentNode) = node.Properties |> Map.tryFind "icon" |> Option.map IconRef.ofJson
+
+    /// The icon stored on a component or diagram node (None for objects that carry none).
+    let iconOf reference project : IconRef option =
+        match reference with
+        | ComponentRef(p, c) -> tryComponent p c project |> Option.bind componentIcon
+        | NodeRef(d, n) -> tryNode d n project |> Option.bind _.Icon
+        | _ -> None
+
     let updatePage (id: PageId) (f: Page -> Result<Page, string>) (project: Project) =
         match tryPage id project with
         | None -> missing (PageRef id)

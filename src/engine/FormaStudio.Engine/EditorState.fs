@@ -60,7 +60,9 @@ type EditorState =
       /// HTML export settings and the last result (view state, never in the project).
       Export: ExportView
       /// Where new Layout components go: a container on the open page, or its root stack.
-      LayoutTarget: string option }
+      LayoutTarget: string option
+      /// The pinned Forma icon collection and the icon picker (view state, never in the project).
+      Icons: IconSession }
 
 /// The HTML export panel: what was exported last and how.
 and ExportView =
@@ -99,7 +101,8 @@ module EditorState =
           Workflows = WorkflowLibrary.empty
           WorkflowVisible = false
           Export = { Target = HtmlFragment; Brand = None; InteractiveWorkflow = false; Text = ""; FileName = "export.html"; Omitted = []; Summary = "Nothing exported yet." }
-          LayoutTarget = None }
+          LayoutTarget = None
+          Icons = IconSession.initial }
 
     let project (state: EditorState) = state.Session.Project
     let diagram (state: EditorState) = ProjectOps.tryDiagram state.Diagram (project state)
@@ -117,18 +120,3 @@ module EditorState =
         |> List.choose (function NodeRef(_, n) -> ProjectOps.tryNode state.Diagram n (project state) | _ -> None)
 
     let openPage (state: EditorState) = state.Page |> Option.bind (fun id -> ProjectOps.tryPage id (project state))
-
-    /// Built-in templates for the diagram's profile, after copied items if any:
-    /// (key, name, description, fragment).
-    let templates (state: EditorState) =
-        let builtIn =
-            diagram state |> Option.map (fun d -> Templates.forProfile d.Profile) |> Option.defaultValue []
-            |> List.map (fun t -> t.Key, t.Name, t.Description, t.Fragment)
-        let copied =
-            state.Clipboard
-            |> Option.map (fun f -> "clipboard", "Copied items", sprintf "%d item(s) and %d connector(s) copied from this project." f.Nodes.Length f.Edges.Length, f)
-            |> Option.toList
-        copied @ builtIn
-
-    let chosenTemplate (state: EditorState) =
-        state.Template |> Option.bind (fun key -> templates state |> List.tryFind (fun (k, _, _, _) -> k = key))

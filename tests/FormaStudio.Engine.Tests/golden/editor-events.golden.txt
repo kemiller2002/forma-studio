@@ -13,8 +13,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 850424f02cebdfd0
+view: 7da139c23f0a4961
 effects: []\n
 
 ## select edge
@@ -28,8 +29,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 9507829ced098c0b
+view: a25d77b4379c1ba3
 effects: []\n
 
 ## select group
@@ -43,8 +45,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0f1484f3c19dfce8
+view: aa406459b216b6c2
 effects: []\n
 
 ## select unreadable key
@@ -58,8 +61,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5b15ab4234684e1c
+view: f1120992f9dc30a3
 effects: []\n
 
 ## select completes a connection
@@ -73,8 +77,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: edc87af6adbd4806
-view: cb984f676b54c97a
+view: bcbf66e56b6ce143
 effects: []\n
 
 ## select refuses an illegal connection
@@ -88,8 +93,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bf2c8bdb71340590
+view: cc82779bfe2e4f8f
 effects: []\n
 
 ## select completes a reconnect
@@ -103,8 +109,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: de1228790dd42b94
-view: 2dc026577abf3e52
+view: bad767624eef2c57
 effects: []\n
 
 ## clear-selection
@@ -118,8 +125,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4becaf28e400cf35
+view: 0ff1b7247bc9b7ca
 effects: []\n
 
 ## toggle-select adds
@@ -133,8 +141,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b1e49236b701cd62
+view: 1626fe17388c34ba
 effects: []\n
 
 ## toggle-select removes
@@ -148,8 +157,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6523e9f56e323474
+view: b280cbf28d9af379
 effects: []\n
 
 ## toggle-select unreadable key
@@ -163,8 +173,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 850424f02cebdfd0
+view: 7da139c23f0a4961
 effects: []\n
 
 ## connect-start
@@ -178,8 +189,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e2952d3c3c74c955
+view: afbcd7c25086c288
 effects: []\n
 
 ## connect-start without selection
@@ -193,8 +205,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 071141a02f4624e7
+view: 34cb5961334a5bde
 effects: []\n
 
 ## cancel
@@ -208,8 +221,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 344db94a55fdd151
+view: 9c81a874d5da003a
 effects: []\n
 
 ## choose-kind
@@ -223,8 +237,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 54f1bcee670c99e4
+view: 278bd1a0ccbeb4af
 effects: []\n
 
 ## add-node
@@ -238,8 +253,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: fbb0a7e8c5d953a4
-view: 54653f6162630676
+view: a0157c8a59977f16
 effects: []\n
 
 ## add-node of chosen kind
@@ -253,8 +269,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 2b902302c67485eb
-view: 4d4a882fcd52a9a7
+view: eae9a8a8978ae6b3
 effects: []\n
 
 ## add-node of unknown kind
@@ -268,8 +285,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5afa84f1ceabdc68
+view: ac3fc0081ff6f47f
 effects: []\n
 
 ## add-node twice
@@ -283,8 +301,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 980be18fc2a4e409
-view: b4643b282d1391f6
+view: 32a4fb4afe3923fc
 effects: []\n
 
 ## set-label node
@@ -298,8 +317,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: 3a1f74c219d58682
+view: 4ef55179518708fe
 effects: []\n
 
 ## set-label edge
@@ -313,8 +333,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e1a6c08c4305b6ad
-view: 442ee1bc009cb2d5
+view: 256ec6cef1f50cab
 effects: []\n
 
 ## set-label without selection
@@ -328,8 +349,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 23c7b5c166e8eb78
+view: 8cad2c7e4825b0b2
 effects: []\n
 
 ## delete node
@@ -343,8 +365,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: cee8e22aa0cdea2c
-view: 90690ec2f83503e0
+view: b820f24b67d376bd
 effects: []\n
 
 ## delete edge
@@ -358,8 +381,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: aa8fd7b86b28956d
-view: 81720e3365e190c0
+view: d85fffc4cfbadec6
 effects: []\n
 
 ## delete group
@@ -373,8 +397,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6b3990e8da747dbe
+view: 79b79e78ce64e9a5
 effects: []\n
 
 ## delete without selection
@@ -388,8 +413,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f480f17637b75404
+view: 65e639cdac82a699
 effects: []\n
 
 ## move-left
@@ -403,8 +429,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 739a65381f2904c4
-view: a03ce70057ce43ff
+view: 6604596bfd8a9e70
 effects: []\n
 
 ## move-right
@@ -418,8 +445,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 50250a731978c1db
-view: 0a0e5d89e6fe0d86
+view: ba43779b8fe27c24
 effects: []\n
 
 ## move-up
@@ -433,8 +461,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: d59090b7f5a5353b
-view: 3e064780a7c01074
+view: d27487d87091f206
 effects: []\n
 
 ## move-down
@@ -448,8 +477,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 4e3ded8adeb965d3
-view: a5b97dd76007cbe8
+view: 8c5099422d4e5d86
 effects: []\n
 
 ## move-left without selection
@@ -463,8 +493,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 21bda32b6caff126
+view: 6a2667d1ad5fba6d
 effects: []\n
 
 ## gesture-move
@@ -478,8 +509,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: efc45333d7b41813
-view: f6959c916ed807e7
+view: f194160b82e63f0b
 effects: []\n
 
 ## gesture-move snapped
@@ -493,8 +525,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a872019629519a05
-view: 9c58e5d57aae2d0a
+view: 2004399d0177abfb
 effects: []\n
 
 ## gesture-move unreadable
@@ -508,8 +541,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 96071adbb77fd339
+view: 4ff2110b01f41ba2
 effects: []\n
 
 ## gesture-move unknown node
@@ -523,8 +557,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b1fd032318485505
+view: 45284ebe2d8b3942
 effects: []\n
 
 ## gesture-resize
@@ -538,8 +573,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f55487377ba5e61a
-view: 7f4ed03ffd026dc5
+view: b1680df9c9e17184
 effects: []\n
 
 ## gesture-resize snapped
@@ -553,8 +589,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 6aec10bb408da138
-view: eacba5a040e042bc
+view: 2d3271f9b1137e01
 effects: []\n
 
 ## gesture-resize unreadable
@@ -568,8 +605,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b59dd0cb77058840
+view: a0b3e7c8ccfed762
 effects: []\n
 
 ## gesture-resize unknown node
@@ -583,8 +621,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6a3c3ecb6d82a31a
+view: bd3e18490e671150
 effects: []\n
 
 ## set-width
@@ -598,8 +637,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 11aa5093b0c45335
-view: 5c597d715907d62f
+view: 78c878ce48297269
 effects: []\n
 
 ## set-width not a number
@@ -613,8 +653,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: cd104cfcce55a9e2
+view: 186e5d392e1b07fd
 effects: []\n
 
 ## set-width without selection
@@ -628,8 +669,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6a3c3ecb6d82a31a
+view: bd3e18490e671150
 effects: []\n
 
 ## set-height
@@ -643,8 +685,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 5e0e2b0721731d4c
-view: 9f72ed751a9539fd
+view: 30575b41b1669b3a
 effects: []\n
 
 ## reconnect-end source
@@ -658,8 +701,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 732c1ce794cd21c0
+view: 22d3b4a7be9418a7
 effects: []\n
 
 ## reconnect-end on a node
@@ -673,8 +717,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7d81c92135fb5dec
+view: 399a5d71f2a07abe
 effects: []\n
 
 ## reconnect-end unreadable end
@@ -688,8 +733,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a6ef16c7f49ba94b
+view: 7790df82dfac6fde
 effects: []\n
 
 ## gesture-reconnect
@@ -703,8 +749,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: de1228790dd42b94
-view: 2dc026577abf3e52
+view: bad767624eef2c57
 effects: []\n
 
 ## gesture-reconnect illegal
@@ -718,8 +765,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 01f1656407c0c65d
+view: f060ca7ddd6d062a
 effects: []\n
 
 ## gesture-reconnect unreadable
@@ -733,8 +781,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a6ef16c7f49ba94b
+view: 7790df82dfac6fde
 effects: []\n
 
 ## gesture-reconnect unreadable end
@@ -748,8 +797,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2af1c22d7351a595
+view: 9c55422388087f53
 effects: []\n
 
 ## gesture-reconnect without connector
@@ -763,8 +813,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 34e44fa103c07086
+view: 61b6819bfb26f491
 effects: []\n
 
 ## zoom-in
@@ -778,8 +829,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f37dfff9a0610b4d
+view: ee016c6200b76d0a
 effects: []\n
 
 ## zoom-in at maximum
@@ -793,8 +845,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a8e656b274bd5931
+view: f7fd0fb79f583123
 effects: []\n
 
 ## zoom-out
@@ -808,8 +861,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: cf3821f88e76eeb9
+view: 39d2f2c13e2744c4
 effects: []\n
 
 ## zoom-out at minimum
@@ -823,8 +877,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2331797083658aa7
+view: 6a50f3d58e93bc18
 effects: []\n
 
 ## zoom-reset
@@ -838,8 +893,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4fb2ff6880fe3aa2
+view: 820b491542702ca7
 effects: []\n
 
 ## toggle-snap on
@@ -853,8 +909,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7846fdfcae9b2c26
+view: 61361bb150321bd5
 effects: []\n
 
 ## toggle-snap off
@@ -868,8 +925,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5851a30244b7f8d5
+view: b20a82ce8e5e7b5e
 effects: []\n
 
 ## align-left
@@ -883,8 +941,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 03b7fc635f02bf00
-view: f4f9ceff14163538
+view: 86d56bf4941b6a88
 effects: []\n
 
 ## align-left already arranged
@@ -898,8 +957,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 58a0543f39377fce
+view: eb5dd9e4eb3e4898
 effects: []\n
 
 ## align-left needs two
@@ -913,8 +973,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d50363f391d3bae9
+view: 693d7ecec0ce1d82
 effects: []\n
 
 ## align-top
@@ -928,8 +989,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f3763e19060e98d5
-view: 40ee2e473a767a27
+view: 9041b60a7c9ad50e
 effects: []\n
 
 ## distribute-horizontally
@@ -943,8 +1005,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: c866bd209146ab79
-view: 4db1f92c15968a43
+view: 6ee194cabc526953
 effects: []\n
 
 ## distribute-horizontally needs three
@@ -958,8 +1021,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4ac80a174a11f01b
+view: e4f0e48873461599
 effects: []\n
 
 ## copy-selection
@@ -973,8 +1037,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4b129ed15f862017
+view: bac69263df1c6f0f
 effects: []\n
 
 ## copy-selection without nodes
@@ -988,8 +1053,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 955374053bdf53cd
+view: a08adf7d48201721
 effects: []\n
 
 ## choose-template
@@ -1003,8 +1069,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1e954df6dc6464b7
+view: 78607f0219db6f47
 effects: []\n
 
 ## insert-template
@@ -1018,8 +1085,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 8c2318988761c7ec
-view: e29fceb907e0c10b
+view: 53e1197e565a2137
 effects: []\n
 
 ## insert-template unknown
@@ -1033,8 +1101,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e97a09cc9f0e382d
+view: 2eec565902868b4f
 effects: []\n
 
 ## insert-template without choice
@@ -1048,8 +1117,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e97a09cc9f0e382d
+view: 2eec565902868b4f
 effects: []\n
 
 ## insert-template from clipboard
@@ -1063,8 +1133,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 564973901553c200
-view: f05c40293f8e99d2
+view: b415449f05e82789
 effects: []\n
 
 ## undo
@@ -1078,8 +1149,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e3896fa7102cfecf
+view: 1d99ff77347c3c55
 effects: []\n
 
 ## undo with empty history
@@ -1093,8 +1165,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a6e717d97bcf99a0
+view: b061668e94cc9e2c
 effects: []\n
 
 ## redo
@@ -1108,8 +1181,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: f32797ce820f65f2
+view: be3946ecf1ebd7fe
 effects: []\n
 
 ## redo with nothing undone
@@ -1123,8 +1197,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 63a43552042d27ee
+view: 496ce56f0591ea06
 effects: []\n
 
 ## choose-field
@@ -1138,8 +1213,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## choose-field unreadable
@@ -1153,8 +1229,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## set-field-value enum by label
@@ -1168,8 +1245,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 4367f534175b7a8f
-view: 3c2cf72ea20cc938
+view: 7e7b3663407ee8c3
 effects: []\n
 
 ## set-field-value enum invalid
@@ -1183,8 +1261,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 053b074c4920f3ca
+view: 925d1dae03bfe527
 effects: []\n
 
 ## set-field-value url
@@ -1198,8 +1277,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 872b97ec012d8077
-view: 85f24b39d1c06695
+view: 06b9e7e9467a632e
 effects: []\n
 
 ## set-field-value text
@@ -1213,8 +1293,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: ef8bf89bdbfdee5b
-view: d3be721a21d9ba81
+view: c75a76e8e1655383
 effects: []\n
 
 ## set-field-value tags
@@ -1228,8 +1309,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a3d55c4a1888ed66
-view: b37003d078e3b51d
+view: ca396e51cd4a2db3
 effects: []\n
 
 ## set-field-value number
@@ -1243,8 +1325,9 @@ drafts: name= type=number options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a93851f9fcb1b162
-view: bf5f1b513862f11f
+view: e04865852b44a10c
 effects: []\n
 
 ## set-field-value number invalid
@@ -1258,8 +1341,9 @@ drafts: name= type=number options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f51be3a94165bba7
-view: cbe14369b0b51628
+view: 77dd8500fdffd0f4
 effects: []\n
 
 ## set-field-value boolean
@@ -1273,8 +1357,9 @@ drafts: name= type=boolean options= scope=PrintedAndExported slot= color= mapVal
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 5eed80dd5bdc20bb
-view: ea41bb93bbcaf829
+view: 82640bc2c830cf01
 effects: []\n
 
 ## set-field-value boolean invalid
@@ -1288,8 +1373,9 @@ drafts: name= type=boolean options= scope=PrintedAndExported slot= color= mapVal
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 7b96b0344e50f565
-view: 9e73086f31b18c04
+view: b8a8328613550310
 effects: []\n
 
 ## set-field-value date
@@ -1303,8 +1389,9 @@ drafts: name= type=date options= scope=PrintedAndExported slot= color= mapValue=
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e18e56937fd2bda4
-view: 19342803c047ed2b
+view: 6391a7623e093d5c
 effects: []\n
 
 ## set-field-value multi-selection
@@ -1318,8 +1405,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b092838c1545b3b6
-view: f55a298c0af8a350
+view: 237867f90504ebf9
 effects: []\n
 
 ## set-field-value without selection
@@ -1333,8 +1421,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 86848db66e33baa7
+view: c133a1850159d00b
 effects: []\n
 
 ## set-field-value without field
@@ -1348,8 +1437,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 027fab6d06731c13
+view: 113ff416b265903a
 effects: []\n
 
 ## set-field-option
@@ -1363,8 +1453,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 4367f534175b7a8f
-view: 3c2cf72ea20cc938
+view: 7e7b3663407ee8c3
 effects: []\n
 
 ## set-field-unknown
@@ -1378,8 +1469,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 1f943768436e4b1e
-view: 0db7c08843bddd4a
+view: d4f27d62c4301fa3
 effects: []\n
 
 ## clear-field
@@ -1393,8 +1485,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 6ffe8b5a637e93f4
-view: 36baca0dbc1e857a
+view: 1fb495e5ff1295f1
 effects: []\n
 
 ## set-fill
@@ -1408,8 +1501,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: ad0bab40608492e9
-view: f4ff17eca9dce15d
+view: d7bbcc8f7a7e17c0
 effects: []\n
 
 ## set-fill invalid
@@ -1423,8 +1517,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7814058ab20fe65e
+view: b735620902c91120
 effects: []\n
 
 ## set-fill without selection
@@ -1438,8 +1533,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 86848db66e33baa7
+view: c133a1850159d00b
 effects: []\n
 
 ## choose-fill-palette
@@ -1453,8 +1549,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 50c35b646cec1ab6
-view: f21c4e322aad004d
+view: f40daaddfb058cdc
 effects: []\n
 
 ## choose-fill-palette without selection
@@ -1468,8 +1565,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 827706ade5785e3e
+view: ad1d324a84eeb8a8
 effects: []\n
 
 ## reset-fill
@@ -1483,8 +1581,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: bfd7c46ee40b2697
-view: 3eb1918749063eca
+view: 72dba814864d3c89
 effects: []\n
 
 ## reset-fill without selection
@@ -1498,8 +1597,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 86848db66e33baa7
+view: c133a1850159d00b
 effects: []\n
 
 ## choose-style
@@ -1513,8 +1613,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 810aa7833292182b
-view: ecdc26244e9dd1ef
+view: 1a1540bc8f8a699e
 effects: []\n
 
 ## choose-style none
@@ -1528,8 +1629,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: fb528d63762d6b2a
-view: c0ae48bdc666ae19
+view: 1f977f6e2096c2c9
 effects: []\n
 
 ## choose-style without selection
@@ -1543,8 +1645,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 86848db66e33baa7
+view: c133a1850159d00b
 effects: []\n
 
 ## draft-field-name
@@ -1558,8 +1661,9 @@ drafts: name=Risk type=choice options= scope=PrintedAndExported slot= color= map
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 8a0fbc00e4092d0f
+view: 16605aa660355a3d
 effects: []\n
 
 ## draft-field-type
@@ -1573,8 +1677,9 @@ drafts: name= type=number options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: aa59aa5e69d5209e
+view: 75cd59f716b9e3ab
 effects: []\n
 
 ## draft-field-options
@@ -1588,8 +1693,9 @@ drafts: name= type=choice options=Low, High scope=PrintedAndExported slot= color
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1782a04806dc9997
+view: 6d276316bc22daef
 effects: []\n
 
 ## draft-field-scope
@@ -1603,8 +1709,9 @@ drafts: name= type=choice options= scope=ExportedOnly slot= color= mapValue=- ma
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 129487470e26b488
+view: 49a064a63baeff12
 effects: []\n
 
 ## draft-field-scope unknown
@@ -1618,8 +1725,9 @@ drafts: name= type=choice options= scope=EditorOnly slot= color= mapValue=- mapS
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a3d40a37777f8056
+view: 89542a3c0b1fa5c5
 effects: []\n
 
 ## create-field choice
@@ -1633,8 +1741,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b05ea07a50506839
-view: 6b6ee81ee856bb93
+view: f4a7cf634455b737
 effects: []\n
 
 ## create-field choice without options
@@ -1648,8 +1757,9 @@ drafts: name=Risk type=choice options= scope=PrintedAndExported slot= color= map
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a615434735542479
+view: f87b8cf78e45460e
 effects: []\n
 
 ## create-field without name
@@ -1663,8 +1773,9 @@ drafts: name=   type=choice options= scope=PrintedAndExported slot= color= mapVa
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 05302c9ca25f6f64
+view: 08524ea9a07d4466
 effects: []\n
 
 ## create-field text editor-only
@@ -1678,8 +1789,9 @@ drafts: name= type=text options= scope=EditorOnly slot= color= mapValue=- mapSlo
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 226407f4690a7034
-view: 35d108d0beb80f07
+view: 1907b2f5206f1215
 effects: []\n
 
 ## create-field export-only clashing key
@@ -1693,8 +1805,9 @@ drafts: name= type=text options= scope=ExportedOnly slot= color= mapValue=- mapS
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: fb2b0e93edece011
-view: f6800b18748c1f09
+view: 6a2ac7536e91ebb9
 effects: []\n
 
 ## create-field url
@@ -1708,8 +1821,9 @@ drafts: name= type=url options= scope=PrintedAndExported slot= color= mapValue=-
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b7914a8ae5cd8c6f
-view: 1a10b626b73fd3b7
+view: b31912e6d5f93570
 effects: []\n
 
 ## create-field tags
@@ -1723,8 +1837,9 @@ drafts: name= type=tags options= scope=PrintedAndExported slot= color= mapValue=
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: ef58eebd4dc90764
-view: 187ab0afa47c89a1
+view: cb27c4ef65d7831f
 effects: []\n
 
 ## create-field unknown type is text
@@ -1738,8 +1853,9 @@ drafts: name= type=bogus options= scope=PrintedAndExported slot= color= mapValue
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: ef8ec710810dd55b
-view: 5034e2481704684b
+view: 0954300f4aa809e1
 effects: []\n
 
 ## draft-slot-name
@@ -1753,8 +1869,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot=Accent color= m
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4a7a63a727bdcd9e
+view: 740a6a392970e6a3
 effects: []\n
 
 ## draft-slot-color
@@ -1768,8 +1885,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color=#123456 
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ea2353db5ea3bbde
+view: 879747c5c1279d3f
 effects: []\n
 
 ## create-slot
@@ -1783,8 +1901,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 2f27d8c78f33a029
-view: fc65d11b6d737e7f
+view: ef3ac68e9b48efde
 effects: []\n
 
 ## create-slot clashing key
@@ -1798,8 +1917,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 312d6a2c6bf256a6
-view: 44af38dfdcaabcf1
+view: 0f5552c31de74b0c
 effects: []\n
 
 ## create-slot without name
@@ -1813,8 +1933,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color=#123456 
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a8debd8443b4736e
+view: 35350a36b5c0b091
 effects: []\n
 
 ## create-slot invalid color
@@ -1828,8 +1949,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot=Accent color=bl
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e0ac7bd75a01731c
+view: 809e894a3a794e4a
 effects: []\n
 
 ## delete-slot in use
@@ -1843,8 +1965,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5e59255f75033e02
+view: bdb34f88d2315317
 effects: []\n
 
 ## delete-slot unused
@@ -1858,8 +1981,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5f6e73594bd23d38
+view: e87b51db9d046aeb
 effects: []\n
 
 ## delete-slot unreadable
@@ -1873,8 +1997,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## materialize-slot
@@ -1888,8 +2013,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 72d44b798cb650e6
-view: 6862ef83e0a8bd36
+view: 5321100ae8a10b0e
 effects: []\n
 
 ## materialize-slot unreadable
@@ -1903,8 +2029,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## mapping-value
@@ -1918,8 +2045,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## mapping-slot
@@ -1933,8 +2061,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2b7d5c5cdcd8886b
+view: 90f43629c3bf9104
 effects: []\n
 
 ## create-mapping-rule defines
@@ -1948,8 +2077,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: c9df05cd6974657d
-view: eaf8ec4a152812d0
+view: 94331f449cdf7fa7
 effects: []\n
 
 ## create-mapping-rule updates
@@ -1963,8 +2093,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 753be3492e584402
-view: bf5ea38473fa89b7
+view: 4e027a22ec6d398e
 effects: []\n
 
 ## create-mapping-rule unknown value
@@ -1978,8 +2109,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d0f6c2889cd414b9
+view: 6d2efc3b8ad8466d
 effects: []\n
 
 ## create-mapping-rule incomplete
@@ -1993,8 +2125,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 3b7f8ca1acd2d8f4
+view: 43ea3986295b3dea
 effects: []\n
 
 ## create-mapping-rule non-choice field
@@ -2008,8 +2141,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b122d7493d19a366
+view: 39b31ab3a233b6ce
 effects: []\n
 
 ## create-mapping-rule without field
@@ -2023,8 +2157,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: aceaca4f728cca6c
+view: e9b46ba34af7587a
 effects: []\n
 
 ## assign-lane
@@ -2038,8 +2173,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 5ad7a6586cc731ee
-view: 469714a23e981bab
+view: 55018f722769ea16
 effects: []\n
 
 ## assign-lane none
@@ -2053,8 +2189,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 6b4436e8ec709324
-view: f6effd08a9542191
+view: 142db46990fe7f7a
 effects: []\n
 
 ## assign-lane without selection
@@ -2068,8 +2205,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 50287f1950abb296
+view: ae452e45de2d0a5d
 effects: []\n
 
 ## add-page
@@ -2083,8 +2221,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: c68f6d2c3fca914c
+view: d167988c0b769f04
 effects: []\n
 
 ## add-page twice
@@ -2098,8 +2237,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: c10c474f0a5c97b2
-view: f2bd075a837ed286
+view: 13203525477f4167
 effects: []\n
 
 ## open-page
@@ -2113,8 +2253,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: 42332b5735671845
+view: a32a39df92bc91a7
 effects: []\n
 
 ## open-page unreadable
@@ -2128,8 +2269,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f5b6d63a5e727d0b
+view: df1412a161c9b242
 effects: []\n
 
 ## open-diagram
@@ -2143,8 +2285,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: bfcc020ca949803c
+view: b37bd2712f69c358
 effects: []\n
 
 ## layout-add-heading
@@ -2158,8 +2301,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 3c0ea6e71cf52b25
+view: bf0ccdf0572cd473
 effects: []\n
 
 ## layout-add-heading twice
@@ -2173,8 +2317,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: be3c2518fd5b31f9
-view: c9060f76e581f719
+view: b169b92ccf5cd1b1
 effects: []\n
 
 ## layout-add-heading without page
@@ -2188,8 +2333,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 956ec30a8fb6b708
+view: b2be769124bb2314
 effects: []\n
 
 ## layout-set-text heading
@@ -2203,8 +2349,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 6c385bae45a5a6db
-view: e49c1f4a9bc473d4
+view: 8088a3ecb691abf1
 effects: []\n
 
 ## layout-set-text content key
@@ -2218,8 +2365,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 80bb474cafa652e1
-view: aa91c9c97cd4f87e
+view: 3f250038bfb3602c
 effects: []\n
 
 ## layout-set-text without page
@@ -2233,8 +2381,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## layout-target container
@@ -2248,8 +2397,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: 99f5cb65b09a322c
+view: 89f31faa930cd004
 effects: []\n
 
 ## layout-target root
@@ -2263,8 +2413,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## layout-target empty
@@ -2278,8 +2429,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## layout-add-component stack
@@ -2293,8 +2445,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 78b057780aa4a873
-view: 5acb92fde242519c
+view: c457551e60aff83e
 effects: []\n
 
 ## layout-add-component heading
@@ -2308,8 +2461,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: c48162a22ad39b79
+view: 38efa5ea78449907
 effects: []\n
 
 ## layout-add-component text
@@ -2323,8 +2477,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: cd2a2a007fc9c306
+view: 6b0700a0405fd9e5
 effects: []\n
 
 ## layout-add-component button
@@ -2338,8 +2493,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 54296da711b5a662
-view: 563c60e9522a0ca3
+view: f5ebe9bf18e9f21a
 effects: []\n
 
 ## layout-add-component link-button
@@ -2353,8 +2509,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 348fefc40e510042
-view: 5528afa3d7dd907c
+view: c29740393bed268f
 effects: []\n
 
 ## layout-add-component text-field
@@ -2368,8 +2525,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 98248855b28795f7
-view: d80908a39049363b
+view: 8684ae8fac9773a3
 effects: []\n
 
 ## layout-add-component actions
@@ -2383,8 +2541,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 965242a22860dc4d
-view: 98ceec5782ba4382
+view: c78378ece1cb778a
 effects: []\n
 
 ## layout-add-component surface
@@ -2398,8 +2557,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 137fb53e718c336e
-view: a00d7adc383d7d05
+view: 3af6f89b8108d109
 effects: []\n
 
 ## layout-add-component responsive-grid
@@ -2413,8 +2573,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: bb2c4c97637c90d9
-view: 557365f3aff5f509
+view: 9d6d5df35b17c58e
 effects: []\n
 
 ## layout-add-component alert
@@ -2428,8 +2589,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: abe09bce9c70d723
-view: ba3f400b62b56f92
+view: 6d27c05f2de7a80a
 effects: []\n
 
 ## layout-add-component metric-card
@@ -2443,8 +2605,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 1e2270b3597f072a
-view: 9cdf5061212ca5e3
+view: 095246e895d84e38
 effects: []\n
 
 ## layout-add-component workflow
@@ -2458,8 +2621,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b81146c4b1373279
-view: 6e6b2d9711e708b7
+view: 46560a100081af27
 effects: []\n
 
 ## layout-add-component workflow with a current workflow
@@ -2473,8 +2637,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 8d25e71e937b93ff
-view: 6b1a3aebd2e995aa
+view: 8c8d8f581de0e3d3
 effects: []\n
 
 ## layout-add-component unknown
@@ -2488,8 +2653,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: 333539814640d465
+view: c4321561cdf591c8
 effects: []\n
 
 ## layout-add-component without page
@@ -2503,8 +2669,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 956ec30a8fb6b708
+view: b2be769124bb2314
 effects: []\n
 
 ## layout-add-component into a container
@@ -2518,8 +2685,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 6efec29cd11498e2
-view: d4ae3651f7c491ed
+view: 76aab7c61616e39d
 effects: []\n
 
 ## layout-add-component missing target falls back to root
@@ -2533,8 +2701,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: 30f6583483b150d4
+view: 0858b4b205948e14
 effects: []\n
 
 ## layout-move-up
@@ -2548,8 +2717,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 122bd60dcc038fb3
+view: 8b77be77ed554ebe
 effects: []\n
 
 ## layout-move-up at top
@@ -2563,8 +2733,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 634f7d334eb8f386
+view: 366a6446e15d4ab8
 effects: []\n
 
 ## layout-move-down
@@ -2578,8 +2749,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 122bd60dcc038fb3
+view: 8b77be77ed554ebe
 effects: []\n
 
 ## layout-move-down unknown
@@ -2593,8 +2765,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: a88aff8cb3470e25
+view: 7e9f477403f26cbd
 effects: []\n
 
 ## layout-density
@@ -2608,8 +2781,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e8bea9b3850aa450
-view: b6905da3a656e848
+view: fc5f59169d779881
 effects: []\n
 
 ## layout-density without page
@@ -2623,8 +2797,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 956ec30a8fb6b708
+view: b2be769124bb2314
 effects: []\n
 
 ## save
@@ -2638,8 +2813,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=e774e2504aa1048b incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: 4683cfb5c8523b66
+view: 8f9b03d087ecab6c
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "save",\n    "operation": "set",\n    "key": "forma-studio.project",\n    "value": "<sha:e774e2504aa1048b len:14334>"\n  }\n]\n
 
 ## load
@@ -2653,8 +2829,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fc22f87f7ab8ee4f
+view: e5745264a8ce1983
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "load",\n    "operation": "get",\n    "key": "forma-studio.project"\n  }\n]\n
 
 ## check-saved
@@ -2668,8 +2845,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c427eb08e031efad
+view: aefd3a2ed6068332
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "compare",\n    "operation": "get",\n    "key": "forma-studio.project"\n  }\n]\n
 
 ## effect save success
@@ -2683,8 +2861,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=e774e2504aa1048b saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: ec1162a543f79b42
+view: fa7a999ea66fa762
 effects: []\n
 
 ## effect save failure
@@ -2698,8 +2877,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 3546b17c77bc1f41
+view: b089f877698351e0
 effects: []\n
 
 ## effect load success
@@ -2713,8 +2893,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d8827623b5e9b132
+view: 5e5e1b985fe4f73a
 effects: []\n
 
 ## effect load nothing saved
@@ -2728,8 +2909,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5f0cbd5ab9d6fced
+view: 95cc5e7fee647a9a
 effects: []\n
 
 ## effect load unreadable
@@ -2743,8 +2925,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fad186bc0dd9b6f9
+view: 04bc06ecaac1730d
 effects: []\n
 
 ## effect compare unchanged
@@ -2758,8 +2941,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 19b7463d573afc52
+view: 4d10ec2cbc335c3b
 effects: []\n
 
 ## effect compare changed
@@ -2773,8 +2957,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 33f3ac27a49709f2
+view: 0c9dc99221a44334
 effects: []\n
 
 ## effect compare nothing saved
@@ -2788,8 +2973,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5f0cbd5ab9d6fced
+view: 95cc5e7fee647a9a
 effects: []\n
 
 ## effect compare unreadable
@@ -2803,8 +2989,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fad186bc0dd9b6f9
+view: 04bc06ecaac1730d
 effects: []\n
 
 ## effect unknown correlation
@@ -2818,8 +3005,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## effect copy-export
@@ -2833,8 +3021,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 67e7f4a4c10e373a
+view: 0bc5e4d61adc2d4a
 effects: []\n
 
 ## merge-take-saved
@@ -2848,8 +3037,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=node:order
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 33f3ac27a49709f2
+view: 0c9dc99221a44334
 effects: []\n
 
 ## merge-keep-mine
@@ -2863,8 +3053,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 33f3ac27a49709f2
+view: 0c9dc99221a44334
 effects: []\n
 
 ## merge-cancel
@@ -2878,8 +3069,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 48ce2b6ed3cbfa32
+view: 119d50c3257223f4
 effects: []\n
 
 ## merge-apply
@@ -2893,8 +3085,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 2d94c43c72fc0ecc
-view: dd3149af5323ca29
+view: a14f93d7c4757d0e
 effects: []\n
 
 ## merge-apply with a conflict taken from saved
@@ -2908,8 +3101,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: d269391889badad3
-view: 84d604cbad75b6da
+view: f634739615fcb5d4
 effects: []\n
 
 ## merge-apply keeping mine
@@ -2923,8 +3117,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: d269391889badad3
-view: 84d604cbad75b6da
+view: f634739615fcb5d4
 effects: []\n
 
 ## merge-apply without incoming
@@ -2938,8 +3133,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 3089cf6375c786b2
+view: be87c4dfcf03f266
 effects: []\n
 
 ## open-workflows
@@ -2953,8 +3149,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e0abb4e354faa167
+view: 99cf4e2bf097a634
 effects: []\n
 
 ## workflow-new
@@ -2968,8 +3165,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 174731f2c8dc929b
+view: cd7e4a7e4b53d29a
 effects: []\n
 
 ## workflow-new twice
@@ -2983,8 +3181,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=2 current=workflow-2 revision=2 unsaved=workflow-1,workflow-2
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d4f20e41ef8cff0d
+view: 743b43048b925c7a
 effects: []\n
 
 ## workflow-opened
@@ -2998,8 +3197,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=branching revision=1 unsaved=branching
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 12079e024cecc5c7
+view: c366abac6328f82f
 effects: []\n
 
 ## workflow-opened unreadable
@@ -3013,8 +3213,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 8504c9744c4d3cbf
+view: fef6291be363a80e
 effects: []\n
 
 ## workflow-changed
@@ -3028,8 +3229,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=2 current=branching revision=1 unsaved=branching,minimal
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1d2f59972bdd62d2
+view: 111cb2bd545ea4dd
 effects: []\n
 
 ## workflow-changed unreadable
@@ -3043,8 +3245,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ca94dda507318c65
+view: 965df78aea5851bb
 effects: []\n
 
 ## workflow-select
@@ -3058,8 +3261,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=2 current=workflow-1 revision=3 unsaved=workflow-1,workflow-2
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 76f9c32db2bcddca
+view: bf649dfe5a011431
 effects: []\n
 
 ## workflow-select unknown
@@ -3073,8 +3277,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ac4909248a1cbda2
+view: af73738463f90870
 effects: []\n
 
 ## workflow-close
@@ -3088,8 +3293,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=3 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ab27cabd7cf91e3e
+view: 8fade03e8cfd95cf
 effects: []\n
 
 ## workflow-save
@@ -3103,8 +3309,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fc5204c09b39c8de
+view: 2aef1e15c20bd68a
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "workflows-save",\n    "operation": "set",\n    "key": "forma-studio.workflows",\n    "value": "<sha:9f8927f6c3cb3671 len:544>"\n  }\n]\n
 
 ## workflow-load
@@ -3118,8 +3325,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6687d48c23421653
+view: 5429d6698fdd9f84
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "workflows-load",\n    "operation": "get",\n    "key": "forma-studio.workflows"\n  }\n]\n
 
 ## effect workflows-save
@@ -3133,8 +3341,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bbffebf81965f569
+view: 1538b9be92214803
 effects: []\n
 
 ## effect workflows-load
@@ -3148,8 +3357,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ac9f0f65723889a0
+view: 38cc299e696f2575
 effects: []\n
 
 ## effect workflows-load nothing saved
@@ -3163,8 +3373,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 450d9967c6e6087e
+view: fbbde701de038f8e
 effects: []\n
 
 ## effect workflows-load unreadable
@@ -3178,8 +3389,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ec80ee8dffe919bc
+view: bbadfde4097e2e73
 effects: []\n
 
 ## export-target document
@@ -3193,8 +3405,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlDocument brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 482bbbc6a8569f14
+view: c72ee86111e298d2
 effects: []\n
 
 ## export-target other
@@ -3208,8 +3421,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## export-interactive on
@@ -3223,8 +3437,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=true file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d0ebf2007491e8bc
+view: e4574f1a0d2be658
 effects: []\n
 
 ## export-interactive off
@@ -3238,8 +3453,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c1d19ee9e5fd25b5
+view: c25c17427a1fd539
 effects: []\n
 
 ## export-brand
@@ -3253,8 +3469,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=echelon interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 68fb494a986bc282
+view: 7ae5ec8e4ae2c23e
 effects: []\n
 
 ## export-brand none
@@ -3268,8 +3485,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## export-brand empty
@@ -3283,8 +3501,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## export-page
@@ -3298,8 +3517,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=1beb7ff62202d7e9 omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 9f23ca9b7a79eddc
+view: 235547f3a819f494
 effects: []\n
 
 ## export-page document with brand
@@ -3313,8 +3533,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlDocument brand=echelon interactive=false file=page-1.html text=289e4dbed2066db0 omitted=0 summary=HTML document for page-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css, @echelon-foundry/design-system@0.4.0/brands/echelon.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 810c132e3c3b87b8
+view: a58d376ec2ae34da
 effects: []\n
 
 ## export-page falls back to first page
@@ -3328,8 +3549,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=1beb7ff62202d7e9 omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 7f3f8ad804d1308c
+view: 688ed3d2513f04ac
 effects: []\n
 
 ## export-page without pages
@@ -3343,8 +3565,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 93c0ca06b645aba9
+view: 84487642f24aed8e
 effects: []\n
 
 ## export-component
@@ -3358,8 +3581,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=page-1-heading.fragment.html text=a0b98ac2e5da1871 omitted=0 summary=HTML fragment for page-1-heading. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: ee0bb6c6ac371d5a
+view: 2cd86953d3013bad
 effects: []\n
 
 ## export-component gone
@@ -3373,8 +3597,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: be75b39b460084d8
+view: 39f4cee5c4afc39d
 effects: []\n
 
 ## export-component without page
@@ -3388,8 +3613,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 8443578d54f8b2e8
+view: 6e307b166478d1cc
 effects: []\n
 
 ## export-workflow
@@ -3403,8 +3629,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=false file=workflow-1.fragment.html text=dd3920aa14780459 omitted=0 summary=HTML fragment for workflow-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f70992348847d85d
+view: 465004508d7ad3d0
 effects: []\n
 
 ## export-workflow interactive
@@ -3418,8 +3645,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=1 current=workflow-1 revision=1 unsaved=workflow-1
 export: target=HtmlFragment brand=- interactive=true file=workflow-1.fragment.html text=5ead13235e7eae7a omitted=0 summary=HTML fragment for workflow-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css, @echelon-foundry/forma-workflow@1.0.0/forma-workflow.css, @echelon-foundry/forma-workflow@1.0.0/forma-workflow.js.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e8358efffddfbf50
+view: a29d60397bdcef2d
 effects: []\n
 
 ## export-workflow without workflow
@@ -3433,8 +3661,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 3a90aa51cd3194e6
+view: e8f13f223d51cedf
 effects: []\n
 
 ## copy-export
@@ -3448,8 +3677,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=1beb7ff62202d7e9 omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 5e43d215f459641a
+view: 7f62fad2a577bc04
 effects: [\n  {\n    "kind": "Clipboard",\n    "correlationId": "copy-export",\n    "operation": "writeText",\n    "text": "<sha:1beb7ff62202d7e9 len:226>"\n  }\n]\n
 
 ## copy-export with nothing exported
@@ -3463,8 +3693,425 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 293f70cf4fd66a43
+view: b342e0df661d443f
+effects: []\n
+
+## initialize requests the pinned icon registry
+status: Ready.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 5a4832b2db121b1b
+effects: [\n  {\n    "kind": "Http",\n    "correlationId": "icon-registry",\n    "method": "GET",\n    "url": "./forma/icons/registry.json",\n    "timeoutMs": 15000,\n    "response": "text"\n  }\n]\n
+
+## effect icon registry missing (an icon-less release)
+status: Ready.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=unavailable 3616a6ff250d3019 loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 887f03772a7fb9d2
+effects: []\n
+
+## effect icon registry refused
+status: Ready.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=unavailable 0cb830fe7eb4c1aa loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 95677eb815581e58
+effects: []\n
+
+## effect icon assets complete
+status: Ready.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
+project: a0f6b76111ca88ef
+view: c79e5260568e8606
+effects: []\n
+
+## effect icon asset with a tampered digest
+status: Ready.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 2 verified, 1 refused loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 134086abe0705ff7
+effects: []\n
+
+## icon-pick selected node
+status: Icon picker opened. Choose an icon below.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: 04a8a24af4733831
+effects: []\n
+
+## icon-pick without selection
+status: Select a diagram item, or choose a Layout item, to give it an icon.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 83635698f5e8d378
+effects: []\n
+
+## icon-pick layout item
+status: Icon picker opened. The pinned Forma icons are still loading.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=page:page-1/component:page-1-button query=
+project: 54296da711b5a662
+view: da40242a8964980b
+effects: []\n
+
+## icon-pick layout item without an icon property
+status: Select a diagram item, or choose a Layout item, to give it an icon.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 9b0bbe7e1cc3d8aa
+view: 9f767540c616a22d
+effects: []\n
+
+## icon-pick unknown layout item
+status: Select a diagram item, or choose a Layout item, to give it an icon.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 54296da711b5a662
+view: a282db8361ac2526
+effects: []\n
+
+## icon-pick icons unavailable
+status: Icon picker opened. The pinned Forma release does not include the icon collection, so icons are unavailable. Icon names already in documents are kept and not shown.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=unavailable 3616a6ff250d3019 loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: a120a984367a256b
+effects: []\n
+
+## icon-search
+status: Icon picker opened. Choose an icon below.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=SQUARE
+project: a0f6b76111ca88ef
+view: 692f1559e172db6f
+effects: []\n
+
+## icon-choose
+status: Icon set to Test dot.
+history: undo=1 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: 598dbf38254e7f75
+view: b0105ed27b9d4f31
+effects: []\n
+
+## icon-choose layout button
+status: Icon set to Test line.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
+project: 5f117e63b47ecce2
+view: 35da195aef111fc7
+effects: []\n
+
+## icon-choose not in the release
+status: That icon is not in the pinned Forma release.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: c9e0bb884a71d5d6
+effects: []\n
+
+## icon-choose injected key
+status: That is not a Forma icon name.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: f674ae62f3b1a8d9
+effects: []\n
+
+## icon-choose icons unavailable
+status: The pinned Forma release does not include the icon collection, so icons are unavailable. Icon names already in documents are kept and not shown.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=unavailable 3616a6ff250d3019 loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: 02b8eb9d1234c11a
+effects: []\n
+
+## icon-choose without picker
+status: Open the icon picker for an item first.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 99d2e8f99c4115be
+effects: []\n
+
+## icon-clear
+status: Icon removed.
+history: undo=2 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: e7333b807cf928ac
+effects: []\n
+
+## icon-clear without picker
+status: Open the icon picker for an item first.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 9b340d79a7785de3
+effects: []\n
+
+## icon-copy
+status: Copying the icon's inline HTML…
+history: undo=1 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: 598dbf38254e7f75
+view: 1b7965baa6f42631
+effects: [\n  {\n    "kind": "Clipboard",\n    "correlationId": "icon-clipboard",\n    "operation": "writeText",\n    "text": "<sha:c8310cc622d2f724 len:393>"\n  }\n]\n
+
+## icon-copy without icon
+status: Choose an icon from the pinned Forma release first.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: 3e693e9f28f3ac48
+effects: []\n
+
+## effect icon-clipboard
+status: Copied the icon's inline HTML. It is decorative: give the control it decorates its own name.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: a0f6b76111ca88ef
+view: c48f67e274b908dc
+effects: []\n
+
+## icon-close
+status: Icon picker closed.
+history: undo=0 redo=0
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 222d8786de90c7f0
+effects: []\n
+
+## undo icon-choose
+status: Undone.
+history: undo=0 redo=1
+selection: node:prepare
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
+project: a0f6b76111ca88ef
+view: eeb48a58ef3a7652
+effects: []\n
+
+## export-page with an icon
+status: Exported page-1 as an HTML fragment.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html text=962f0d7bfead2b96 omitted=0 summary=HTML fragment for page-1. Needs: @echelon-foundry/design-system@0.0.0-test-fixture/tokens.css, @echelon-foundry/design-system@0.0.0-test-fixture/foundations.css, @echelon-foundry/design-system@0.0.0-test-fixture/components.css.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
+project: 5f117e63b47ecce2
+view: eebb40e737fe4c5a
 effects: []\n
 
 ## unknown event name
@@ -3478,8 +4125,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 969135dca74b979a
+view: 80f942931880995a
 effects: []\n
 
 ## empty event name
@@ -3493,8 +4141,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 3a78c82c413cf849
+view: d4eb27081d27e903
 effects: []\n
 
 ## event message without event
@@ -3508,8 +4157,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n
 
 ## unknown message kind
@@ -3523,8 +4173,9 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 850424f02cebdfd0
+view: 7da139c23f0a4961
 effects: []\n
 
 ## effect message without result
@@ -3538,6 +4189,7 @@ drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValu
 workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 873461c40f6ccd08
+view: 5a4832b2db121b1b
 effects: []\n

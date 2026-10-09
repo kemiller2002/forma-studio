@@ -1,0 +1,47 @@
+# One-time audited recovery for already committed icon work.
+# Only changes .ros work/event records and generated registries, via Praxis itself.
+name: Reconcile Forma icon attribution
+on:
+  push:
+    branches: [feature/studio-forma-icon-browser]
+    paths: [.github/workflows/reconcile-forma-icons.yml]
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    if: github.repository == 'kemiller2002/forma-studio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Reconcile real Git commits against recorded GitHub issue
+        shell: bash
+        env:
+          WORK_ID: GH-27
+          WORK_TITLE: "Integrate Forma icon registry into Forma Studio"
+          WORK_URL: "https://github.com/kemiller2002/forma-studio/issues/27"
+          BASE_COMMIT: f12a393f5ede294eb9643321ef770a9a2587f961
+        run: |
+          set -euo pipefail
+          git fetch origin main --no-tags
+          chmod +x ./praxis
+          ./praxis registry check
+          if ! ./praxis work show "$WORK_ID" >/dev/null 2>&1; then
+            ./praxis add "$WORK_TITLE" --id "$WORK_ID" --source github-issue --source-reference "$WORK_URL" --priority high
+          fi
+          timestamp="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+          echo "Previewing Git-evidenced post-hoc attribution for $WORK_ID"
+          ./praxis work reconcile --id "$WORK_ID" --reason "Icon work was committed before a Praxis work context was begun; recovering attribution against Git history" --range "$BASE_COMMIT..HEAD" --occurred-at "$timestamp" --dry-run
+          ./praxis work reconcile --id "$WORK_ID" --reason "Icon work was committed before a Praxis work context was begun; recovering attribution against Git history" --range "$BASE_COMMIT..HEAD" --occurred-at "$timestamp"
+          ./praxis registry build
+          ./praxis validate
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .ros/work .ros/events .ros/telemetry registries
+          if ! git diff --cached --quiet; then
+            git commit -m "praxis: reconcile icon work to GH-27 using Git evidence"
+            git push origin "HEAD:feature/studio-forma-icon-browser"
+          fi

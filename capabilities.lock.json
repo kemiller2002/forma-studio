@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-06",
+  "updated": "2026-10-09",
   "capabilities": {
     "sde": {
       "package": "@echelon-foundry/sde",
@@ -29,8 +29,8 @@
     },
     "forma": {
       "package": "@echelon-foundry/design-system",
-      "version": "0.4.1",
-      "source": "https://github.com/kemiller2002/forma/releases/download/v0.4.1/echelon-foundry-design-system-0.4.1.tgz",
+      "version": "0.5.0",
+      "source": "https://github.com/kemiller2002/forma/releases/download/v0.5.0/echelon-foundry-design-system-0.5.0.tgz",
       "mode": "runtime-presentation"
     },
     "aegis": {

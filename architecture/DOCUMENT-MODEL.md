@@ -87,6 +87,7 @@ A DiagramNode contains:
 - optional profile-specific semantic properties
 - optional group/lane membership
 - optional annotations and requirement references
+- optional Forma icon name (see "Icons")
 
 Typed profile semantics are explicit. Geometry or appearance alone never changes semantic node type.
 
@@ -137,8 +138,21 @@ A component node contains:
 - optional typed resource references
 - optional annotations
 - optional scenario overrides
+- optional Forma icon name as the `icon` property, on components whose contract takes one (button, link-button, alert, metric-card, workflow; see "Icons")
 
 Studio must not invent component properties that are absent from the canonical contract.
+
+## Icons
+
+An icon is stored as the `icon` property of a component node (`properties.icon`) or as `"icon": "<name>"` on a diagram node: the name of a Forma icon in the registry grammar (lowercase letters and digits joined by single hyphens, at most 64 characters). The document stores the name only, never geometry, labels or status (Forma ICON-006, ICON-014).
+
+- A name that the pinned Forma release does not have is kept and round-trips unchanged; it is not shown and not exported, and Studio says why. A newer Forma release may provide it.
+- A stored value that is not a well-formed name (any other string, number, object or array) is kept verbatim as inert data: never rendered, never exported as markup, never rejected, never rewritten. Validation reports it as a warning (`icon.malformed`), never a blocker.
+- An icon on a component with no place for one is kept and reported (`icon.unplaced`, advisory).
+- Setting or removing an icon is the `SetIcon` appearance command: one history entry, reviewed and merged like other presentation edits. The command checks the name's form, not the pinned release, so agents may author names from a newer release.
+- What the release has, and the artwork, come from the pinned Forma package's compiled `dist/icons` (registry, static SVG, decorative inline snippet), verified against each icon's `svgSha256` (see `docs/ICONS.md`).
+
+A document is written as schema version 3 when a diagram node holds an icon and as schema version 2 otherwise, so a Studio build that reads only version 2 refuses a document with node icons instead of silently dropping them. Layout icons are component properties, which every schema version preserves. Version 1 and 2 documents that already contain node `icon` members are read without loss.
 
 ## Object metadata
 
@@ -317,3 +331,5 @@ Every persisted document has a schemaVersion.
 Migrations are ordered, deterministic, testable, and never silently discard unsupported data.
 
 A document from a newer schema version must fail safely and explain the incompatibility.
+
+Schema versions: 1 (page-only, migrated in memory), 2 (diagrams, metadata, appearance), 3 (2 plus optional diagram-node icon names; written only when a node holds an icon).

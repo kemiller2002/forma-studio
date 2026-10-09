@@ -399,9 +399,9 @@ let diagramOnly =
 
 let newerSchemaFailsSafely =
     test "A newer schema version is refused with an explanation, not partially read" (fun () ->
-        let text = (Codec.serialize (twoNodes ()).Project).Replace("\"schemaVersion\": 2", "\"schemaVersion\": 3")
+        let text = (Codec.serialize (twoNodes ()).Project).Replace("\"schemaVersion\": 2", sprintf "\"schemaVersion\": %d" (Codec.currentSchemaVersion + 1))
         match Codec.load text with
-        | Error(Codec.NewerSchema(3, 2)) -> ()
+        | Error(Codec.NewerSchema(found, supported)) when found = Codec.currentSchemaVersion + 1 && supported = Codec.currentSchemaVersion -> ()
         | other -> fail (sprintf "expected NewerSchema, got %A" other)
         expect (Codec.load "{\"schemaVersion\": 2, \"projectId\": \"x\"," |> Result.isError) "invalid JSON rejected"
         expect (Codec.load "{\"schemaVersion\": 2, \"projectId\": \"x\", \"projectId\": \"y\"}" |> Result.isError) "duplicate keys rejected")

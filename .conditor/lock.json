@@ -1,14 +1,14 @@
 {
   "schemaVersion": 4,
   "project": "forma-studio",
-  "manifestSha256": "b8f270df2e32ccb9b42f87815ae2fe486c8fe5a20981d0eeba81e90fc6c0e663",
+  "manifestSha256": "24ae4e28a421652bcf42f068faaebabcaf415fa2caa604f528bc6663e580e32e",
   "manifest": {
     "schemaVersion": 1,
     "name": "forma-studio",
     "registryAuthority": {
       "kind": "resolved-release-set",
       "path": ".conditor/authority/resolved-release-set.json",
-      "sha256": "ea1b39a003d3f2f41c4fb6e979694ec82fd03964854e5dd268e38df51cd22931"
+      "sha256": "85a54366126ea1e6ff19570d8eb36838637e639215cf22169276d7381712c169"
     },
     "components": [
       {
@@ -66,13 +66,6 @@
     {
       "component": "ordo",
       "code": "SDE-STRUCT-001",
-      "band": "conformance-concern",
-      "path": "app-dist/_framework/dotnet.native.h2qo70sr0l.js",
-      "lineCount": 6687
-    },
-    {
-      "component": "ordo",
-      "code": "SDE-STRUCT-001",
       "band": "strong-review",
       "path": "src/wasm/FormaStudio.Wasm/bin/Release/net10.0/wwwroot/_framework/dotnet.js",
       "lineCount": 1241
@@ -96,7 +89,7 @@
       "code": "SDE-STRUCT-001",
       "band": "review",
       "path": "src/engine/FormaStudio.Engine/Codec.fs",
-      "lineCount": 796
+      "lineCount": 815
     },
     {
       "component": "ordo",
@@ -131,7 +124,7 @@
       "code": "SDE-STRUCT-001",
       "band": "review",
       "path": "src/engine/FormaStudio.Engine/Model.fs",
-      "lineCount": 544
+      "lineCount": 548
     },
     {
       "component": "ordo",
@@ -139,6 +132,13 @@
       "band": "review",
       "path": "app-dist/limen/capabilities/store/generated/store.codec.js",
       "lineCount": 540
+    },
+    {
+      "component": "ordo",
+      "code": "SDE-STRUCT-001",
+      "band": "review",
+      "path": "tests/FormaStudio.Engine.Tests/EditorCharacterizationTests.fs",
+      "lineCount": 533
     },
     {
       "component": "ordo",

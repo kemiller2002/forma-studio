@@ -20,19 +20,22 @@
   <ItemGroup>
     <Compile Include="Identity.fs" />
     <Compile Include="Json.fs" />
+    <Compile Include="Icons.fs" />
+    <Compile Include="IconCatalog.fs" />
     <Compile Include="Geometry.fs" />
     <Compile Include="Model.fs" />
     <Compile Include="MetadataRules.fs" />
     <Compile Include="Profiles.fs" />
     <Compile Include="ProjectOps.fs" />
     <Compile Include="AppearanceResolution.fs" />
-    <Compile Include="Validation.fs" />
     <Compile Include="Components.fs" />
+    <Compile Include="Validation.fs" />
     <Compile Include="Commands.Types.fs" />
     <Compile Include="Commands.Support.fs" />
     <Compile Include="Commands.Layout.fs" />
     <Compile Include="Commands.Flow.fs" />
     <Compile Include="Commands.Metadata.fs" />
+    <Compile Include="Commands.Icons.fs" />
     <Compile Include="Commands.Appearance.fs" />
     <Compile Include="Commands.fs" />
     <Compile Include="Editor.fs" />
@@ -47,7 +50,11 @@
     <Compile Include="HtmlExport.fs" />
     <Compile Include="Designs.fs" />
     <Compile Include="EditorIntents.fs" />
+    <Compile Include="IconSession.fs" />
     <Compile Include="EditorState.fs" />
+    <Compile Include="EditorState.Templates.fs" />
+    <Compile Include="EditorEvent.Wire.fs" />
+    <Compile Include="EditorEvent.Icons.fs" />
     <Compile Include="EditorEvent.fs" />
     <Compile Include="Interaction.fs" />
     <Compile Include="HostEffects.fs" />
@@ -60,6 +67,8 @@
     <Compile Include="Interaction.Workflows.fs" />
     <Compile Include="Interaction.Export.fs" />
     <Compile Include="Interaction.Review.fs" />
+    <Compile Include="Interaction.Icons.fs" />
+    <Compile Include="EditorView.Icons.fs" />
     <Compile Include="EditorView.fs" />
     <Compile Include="EditorApp.fs" />
   </ItemGroup>

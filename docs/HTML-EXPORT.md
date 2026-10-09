@@ -40,6 +40,17 @@ A fragment starts like this:
 - **Interactive workflows** are opt-in. Use the "Interactive workflow" toggle. The static figure is wrapped in the public `<forma-workflow mode="view">` element, plus one module script from `@echelon-foundry/forma-workflow`, which the output declares. Studio never emits its own JavaScript, classes, ids or assets.
 - The full Forma stylesheet is never copied into a fragment.
 
+## Icons
+
+A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<ef-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<ef-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.ef-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
+
+An icon is left out, and listed with the reason, when the pinned release has no icon collection (Forma 0.4.1 and earlier), when the release does not have that name, when the stored value is not a valid name, or when the component has no place for an inline icon (including the workflow figure). The document keeps the icon in every case.
+
+```bash
+dotnet run --project tools/FormaStudio.Cli -c Release -- icons                     # report the pinned collection (exit 5 when unavailable)
+dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json home out.html --forma-icons node_modules/@echelon-foundry/design-system/dist/icons
+```
+
 ## What is guaranteed
 
 Each guarantee is tested in `tests/FormaStudio.Engine.Tests/WorkflowStudioTests.fs` and `tests/browser/html-consumer.spec.mjs`.

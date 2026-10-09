@@ -60,7 +60,7 @@ module Components =
     /// are resolved against the application's pinned registry at render time.
     let private iconIdProperty value =
         match value with
-        | JString id when id.Length <= 80 && System.Text.RegularExpressions.Regex.IsMatch(id, "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$") -> Ok()
+        | JString id when IconName.parse id |> Result.isOk -> Ok()
         | _ -> Error "icon must be a stable lowercase Forma identifier (not SVG markup or a URL)"
 
     /// Native button (forma:patterns/button.html).
@@ -99,3 +99,8 @@ module Components =
     let catalog = [ stack; heading; text; button; linkButton; textField; actions; surface; responsiveGrid; alert; metricCard; workflow ]
 
     let tryFind id = catalog |> List.tryFind (fun c -> c.Id = id)
+
+    /// Components whose Forma contract takes an `icon` property (#33). An icon
+    /// stored on any other component is kept but never exported.
+    let supportsIcon (componentId: string) =
+        tryFind componentId |> Option.exists (fun c -> c.Properties |> List.exists (fst >> (=) "icon"))

@@ -6,10 +6,7 @@ namespace FormaStudio.Engine
 module internal AppearanceCommands =
     open CommandSupport
 
-    let private colorUsesPalette (id: PaletteSlotId) color =
-        match color with
-        | Some(PaletteColor p) when p = id -> true
-        | _ -> false
+    let private colorUsesPalette (id: PaletteSlotId) color = (color = Some(PaletteColor id))
 
     let private mapPaletteColor (id: PaletteSlotId) (replacement: ColorRef) (appearance: Appearance) =
         let swap color = if colorUsesPalette id color then Some replacement else color
@@ -259,6 +256,7 @@ module internal AppearanceCommands =
             match ProjectOps.tryMapping id project with
             | None -> reject "mapping.missing" (sprintf "mapping:%s" (Id.value id)) "The mapping does not exist."
             | Some _ -> ok { project with Mappings = project.Mappings |> List.filter (fun m -> m.Id <> id) }
+        | SetIcon(target, name) -> IconCommands.setIcon target name project
         | MoveMapping(id, index) ->
             match ProjectOps.tryMapping id project with
             | None -> reject "mapping.missing" (sprintf "mapping:%s" (Id.value id)) "The mapping does not exist."

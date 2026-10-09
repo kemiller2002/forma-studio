@@ -96,3 +96,20 @@ body { margin: 0; }
 .studio-file { display: inline-flex; align-items: center; gap: 0.5rem; min-block-size: 2.75rem; }
 .studio-file input { max-inline-size: 14rem; }
 #export-text { inline-size: 100%; font-family: monospace; }
+
+/* Icon picker and previews. Previews are the pinned release's static SVG files,
+   decorative (alt=""); every control is named by its text. */
+.studio-icon-line { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ef-primitive-spacing-2, 0.5rem); margin: 0; }
+.studio-icon-preview, .studio-icon-choice img { flex: none; inline-size: 1.5rem; block-size: 1.5rem; }
+.studio-icon-picker { padding: var(--ef-primitive-spacing-3, 0.75rem); border: 1px solid var(--ef-color-border-functional, #3a403c); }
+.studio-icon-picker p { margin: 0; overflow-wrap: anywhere; }
+.studio-icon-choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); gap: var(--ef-primitive-spacing-1, 0.25rem); }
+.studio-icon-choice { display: flex; align-items: center; gap: var(--ef-primitive-spacing-2, 0.5rem); min-block-size: 2.75rem; min-inline-size: 0; text-align: start; }
+.studio-icon-choice span { min-inline-size: 0; overflow-wrap: anywhere; }
+.studio-icon-choice[aria-pressed="true"] { outline: 3px solid var(--ef-color-focus-ring, #1f5fbf); outline-offset: -3px; }
+.studio .ef-diagram-node .studio-node-icon { display: block; inline-size: 1.5rem; block-size: 1.5rem; }
+@media (forced-colors: active) {
+  .studio-icon-choice[aria-pressed="true"] { outline-color: Highlight; }
+  /* Static SVG drawn with currentColor renders black in an <img>; keep it visible on any system background. */
+  .studio-icon-preview, .studio-icon-choice img, .studio .ef-diagram-node .studio-node-icon { forced-color-adjust: none; background: Canvas; }
+}

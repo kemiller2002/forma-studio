@@ -63,13 +63,36 @@
       <template data-each="layoutItems" data-key="key">
         <li class="studio-panel">
           <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
-          <span class="studio-choices"><button type="button" data-event="layout-move-up">Move earlier</button><button type="button" data-event="layout-move-down">Move later</button><button type="button" data-event="export-component">Export as HTML</button></span>
+          <p class="studio-icon-line" data-bind-hidden="iconLineHidden"><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="iconText"></span></p>
+          <span class="studio-choices"><button type="button" data-event="layout-move-up">Move earlier</button><button type="button" data-event="layout-move-down">Move later</button><button type="button" data-event="export-component">Export as HTML</button><button type="button" data-event="icon-pick" data-bind-aria-label="iconPickLabel" data-bind-hidden="iconPickHidden">Choose icon</button></span>
         </li>
       </template>
     </ol>
+    <template data-if="iconPickerLayout">
+      <section class="studio-panel studio-icon-picker" aria-labelledby="icon-picker-layout-heading">
+        <h3 id="icon-picker-layout-heading">Icon for <span data-text="iconTargetLabel"></span></h3>
+        <p>Current icon: <span data-text="iconCurrent"></span></p>
+        <p id="icon-picker-layout-count" aria-live="polite" data-text="iconAvailability"></p>
+        <div class="ef-field">
+          <label class="ef-field__label" for="icon-search-layout">Search icons</label>
+          <span class="ef-field__description" id="icon-search-layout-help">Names, categories and keywords. Press Enter to search.</span>
+          <input id="icon-search-layout" type="search" autocomplete="off" aria-describedby="icon-search-layout-help icon-picker-layout-count" data-event="icon-search" data-bind-disabled="iconSearchDisabled">
+        </div>
+        <div class="studio-icon-choices" role="group" data-bind-aria-label="iconChoicesLabel">
+          <template data-each="iconChoices" data-key="key">
+            <button type="button" class="studio-icon-choice" data-event="icon-choose" data-bind-aria-pressed="pressed"><img alt="" width="24" height="24" data-bind-src="src"><span data-text="label"></span></button>
+          </template>
+        </div>
+        <div class="studio-choices">
+          <button type="button" data-event="icon-clear" data-bind-disabled="iconClearDisabled">Remove icon</button>
+          <button type="button" data-event="icon-copy" data-bind-disabled="iconCopyDisabled">Copy icon HTML</button>
+          <button type="button" data-event="icon-close">Done</button>
+        </div>
+      </section>
+    </template>
     <h3>Preview</h3>
     <section class="ef-stack" aria-label="Page preview" data-bind-data-density="density">
-      <template data-each="layoutItems" data-key="key"><h2 data-text="text"></h2></template>
+      <template data-each="layoutItems" data-key="key"><h2><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="text"></span></h2></template>
     </section>
   </section>
 
@@ -136,6 +159,7 @@
             </template>
             <template data-each="nodes" data-key="key">
               <div tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
+                <template data-if="iconShown"><img class="studio-node-icon" alt="" width="24" height="24" data-bind-src="iconSrc"></template>
                 <p class="ef-diagram-node__kind" data-text="kind"></p>
                 <h3 class="ef-diagram-node__label" data-text="label"></h3>
                 <dl class="ef-diagram-node__meta">
@@ -251,6 +275,34 @@
                 <div class="ef-field"><label class="ef-field__label">Width<input type="number" min="1" step="1" data-event="set-width" data-bind-value="widthValue"></label></div>
                 <div class="ef-field"><label class="ef-field__label">Height<input type="number" min="1" step="1" data-event="set-height" data-bind-value="heightValue"></label></div>
               </div>
+            </template>
+            <template data-if="selectionIsNode">
+              <div class="studio-icon-line">
+                <span data-text="nodeIconText"></span>
+                <button type="button" data-event="icon-pick">Choose icon</button>
+              </div>
+            </template>
+            <template data-if="iconPickerNode">
+              <section class="studio-panel studio-icon-picker" aria-labelledby="icon-picker-node-heading">
+                <h3 id="icon-picker-node-heading">Icon for <span data-text="iconTargetLabel"></span></h3>
+                <p>Current icon: <span data-text="iconCurrent"></span></p>
+                <p id="icon-picker-node-count" aria-live="polite" data-text="iconAvailability"></p>
+                <div class="ef-field">
+                  <label class="ef-field__label" for="icon-search-node">Search icons</label>
+                  <span class="ef-field__description" id="icon-search-node-help">Names, categories and keywords. Press Enter to search.</span>
+                  <input id="icon-search-node" type="search" autocomplete="off" aria-describedby="icon-search-node-help icon-picker-node-count" data-event="icon-search" data-bind-disabled="iconSearchDisabled">
+                </div>
+                <div class="studio-icon-choices" role="group" data-bind-aria-label="iconChoicesLabel">
+                  <template data-each="iconChoices" data-key="key">
+                    <button type="button" class="studio-icon-choice" data-event="icon-choose" data-bind-aria-pressed="pressed"><img alt="" width="24" height="24" data-bind-src="src"><span data-text="label"></span></button>
+                  </template>
+                </div>
+                <div class="studio-choices">
+                  <button type="button" data-event="icon-clear" data-bind-disabled="iconClearDisabled">Remove icon</button>
+                  <button type="button" data-event="icon-copy" data-bind-disabled="iconCopyDisabled">Copy icon HTML</button>
+                  <button type="button" data-event="icon-close">Done</button>
+                </div>
+              </section>
             </template>
             <template data-if="selectionIsNode">
               <div class="studio-choices" role="group" aria-label="Lane (responsibility)">

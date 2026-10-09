@@ -294,7 +294,9 @@ type DiagramNode =
       Locked: bool
       Metadata: Metadata
       Appearance: ObjectAppearance
-      References: TypedReference list }
+      References: TypedReference list
+      /// Optional Forma icon, by name only; shown and exported only when the pinned release has it.
+      Icon: IconRef option }
 
 type DiagramEdge =
     { Id: EdgeId

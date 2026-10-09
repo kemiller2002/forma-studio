@@ -89,4 +89,10 @@ export const editorEvents = Object.freeze({
   mergeKeepMine: "merge-keep-mine", // Review
   mergeCancel: "merge-cancel", // Review
   mergeApply: "merge-apply", // Review
+  iconPick: "icon-pick", // Icons
+  iconSearch: "icon-search", // Icons
+  iconChoose: "icon-choose", // Icons
+  iconClear: "icon-clear", // Icons
+  iconCopy: "icon-copy", // Icons
+  iconClose: "icon-close", // Icons
 });

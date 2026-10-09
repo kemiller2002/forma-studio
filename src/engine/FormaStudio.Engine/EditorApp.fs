@@ -9,11 +9,6 @@ namespace FormaStudio.Engine
 /// goes through Editor.dispatch (FDA-069, FDA-221).
 [<RequireQualifiedAccess>]
 module EditorApp =
-    let storageKey = HostEffects.storageKey
-    let workflowStorageKey = HostEffects.workflowStorageKey
-    let initial (project: Project) (diagram: DiagramId) = EditorState.initial project diagram
-    let fieldTypes = EditorIntents.fieldTypes
-    let slug (text: string) = EditorIntents.slug text
     let view (state: EditorState) : JsonValue = EditorView.view state
 
     let private noEffects (state: EditorState) = state, ([]: JsonValue list)
@@ -30,6 +25,7 @@ module EditorApp =
         | EditorEvent.Workflows e -> WorkflowInteraction.update e args state
         | EditorEvent.Export e -> ExportInteraction.update e args state
         | EditorEvent.Review e -> ReviewInteraction.update e args state
+        | EditorEvent.Icons e -> IconInteraction.update e args state
 
     /// The event payload of a Limen `Event` message: wire name and arguments.
     let private eventOf (message: JsonValue) =
@@ -50,9 +46,10 @@ module EditorApp =
                     | Some event -> update event args state
                     | None -> noEffects (Interaction.unrecognized name state)
                 | None -> noEffects state
+            | Some(JString "Initialize") -> IconInteraction.initialize state
             | Some(JString "EffectResult") ->
                 match Json.field "result" message with
-                | Some result -> noEffects (HostEffects.onResult result state)
+                | Some result -> IconInteraction.onResult result state |> Option.defaultWith (fun () -> noEffects (HostEffects.onResult result state))
                 | None -> noEffects state
             | _ -> noEffects state
         next, JObject [ "view", view next; "effects", JArray effects; "cancellations", JArray [] ]
@@ -60,8 +57,8 @@ module EditorApp =
     /// Initial state for the hosted editor: the canonical Workflow sample.
     let start () =
         match Samples.purchaseWorkflow () with
-        | Ok project -> initial project Samples.diagramId
-        | Error findings -> { initial (Samples.emptyProject "empty" "Empty project") Samples.diagramId with Status = Interaction.describeFindings findings }
+        | Ok project -> EditorState.initial project Samples.diagramId
+        | Error findings -> { EditorState.initial (Samples.emptyProject "empty" "Empty project") Samples.diagramId with Status = Interaction.describeFindings findings }
 
     /// Text entry point for the WebAssembly glue: JSON message in, JSON response out.
     /// Malformed input leaves the state unchanged and reports it in the view.

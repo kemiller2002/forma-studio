@@ -63,7 +63,7 @@ module internal FlowCommands =
                 else
                     box target x y w h
                     |> Result.bind (fun b ->
-                        let node = { Id = id; Kind = kind; Label = label; Box = b; Ports = []; Locked = false; Metadata = Map.empty; Appearance = Appearance.none; References = [] }
+                        let node = { Id = id; Kind = kind; Label = label; Box = b; Ports = []; Locked = false; Metadata = Map.empty; Appearance = Appearance.none; References = []; Icon = None }
                         ProjectOps.updateDiagram diagramId (fun d -> Ok { d with Nodes = d.Nodes @ [ node ] }) project |> lift target)
                     |> Result.bind ok)
         | MoveNodes(diagramId, moves) ->

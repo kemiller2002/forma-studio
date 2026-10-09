@@ -2,7 +2,8 @@
 
 | ID | Work | Status | Tags | Priority |
 |---|---|---|---|---|
-| GH-27 | Typed Forma icon IDs for Studio layout model | captured |  | high |
+| GH-27 | Integrate Forma icon registry into Forma Studio | complete |  | high |
+| GH-27-FORMA-050 | Move Forma Studio to Forma 0.5.0 and ship the pinned icon collection (GH-27 follow-up) | complete |  | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | STUDIO-GH-10 | STUDIO-GH-10 | complete |  |  |
 | STUDIO-GH-11 | STUDIO-GH-11 | complete |  |  |

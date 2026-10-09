@@ -25,7 +25,7 @@ Pinned capability versions are recorded in capabilities.lock.json:
 - Visual Engineering 1.0.0
 - Communication Engineering current 1.0.0 source pinned by commit
 - Limen 0.9.0 (`@echelon-foundry/limen`)
-- Forma 0.4.1 (`vendor/forma` for the app; the release tarball for the marketing site)
+- Forma 0.5.0 (`vendor/forma` for the app, plus the pinned package's `dist/icons`; the release tarball for the marketing site)
 - Aegis Core 1.0.0
 
 Lifecycle-managed capability state is committed in the repository. `scripts/bootstrap-capabilities.sh` and the manual-only bootstrap workflow provide reproducible repair/reinstallation; normal changes use the installed lifecycle verification workflows.
@@ -95,7 +95,7 @@ npm run html:check       # export determinism
 npm run app:build && npm run app:test   # editor, workflows, round trip, HTML consumer (Chromium)
 npm run proof:external   # records docs/evidence/external-workflow-roundtrip.md
 npm run vendor:check     # vendored Forma matches its recorded commit
-npm run vendor:release   # ... and the published Forma 0.4.1 packages (network)
+npm run vendor:release   # ... and the published Forma 0.5.0 packages (network)
 ~~~
 
 ## Marketing site

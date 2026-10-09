@@ -1,0 +1,47 @@
+{
+  "testFixture": "TEST FIXTURE ONLY. Synthetic shapes in the shape of a compiled Forma icon registry (schema 1), for Forma Studio tests. Not Forma artwork, not a Forma release; Studio ships the pinned Forma package's own dist/icons.",
+  "schemaVersion": 1,
+  "formaVersion": "0.0.0-test-fixture",
+  "grid": 24,
+  "icons": [
+    {
+      "name": "test-line",
+      "category": "test",
+      "label": "Test line",
+      "keywords": [
+        "horizontal",
+        "rule"
+      ],
+      "origin": "original",
+      "svg": "icons/test-line.svg",
+      "html": "icons/html/test-line.html",
+      "svgSha256": "085cf4d11cb306b2514ec22f57fe510d5c33cc829d45f2dd95a0c6290aa27917"
+    },
+    {
+      "name": "test-box",
+      "category": "test",
+      "label": "Test box",
+      "keywords": [
+        "square",
+        "frame"
+      ],
+      "origin": "original",
+      "svg": "icons/test-box.svg",
+      "html": "icons/html/test-box.html",
+      "svgSha256": "0d6b4c4bde84ab3895743d6b1c10b31c16c228e1ca9d33328d7b35d821465221"
+    },
+    {
+      "name": "test-dot",
+      "category": "test",
+      "label": "Test dot",
+      "keywords": [
+        "point",
+        "circle"
+      ],
+      "origin": "original",
+      "svg": "icons/test-dot.svg",
+      "html": "icons/html/test-dot.html",
+      "svgSha256": "5fb26a30a71662b00033ce65d22e7ab1959c42b018ac67030472ef27bafc887c"
+    }
+  ]
+}
