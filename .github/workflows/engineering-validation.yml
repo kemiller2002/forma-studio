@@ -43,7 +43,7 @@ jobs:
           curl -fsSL "https://github.com/kemiller2002/communication-engineering/archive/${CE_SHA}.tar.gz" | tar -xz -C "$CE_TMP"
           node "$CE_TMP/communication-engineering-${CE_SHA}/bin/communication-engineering.mjs" verify --root "$PWD" --strict
           rm -rf "$CE_TMP"
-          npx --yes @echelon-foundry/limen@0.7.1 verify --strict
+          npx --yes @echelon-foundry/limen@0.9.0 verify --strict
 
       - name: Vendored Forma matches its release commit and the published Forma packages
         run: npm run vendor:release
