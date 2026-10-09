@@ -2,17 +2,17 @@
 
 Work item: https://github.com/kemiller2002/forma-studio/issues/27 (Praxis `GH-27`).
 
-Status: authoring, persistence, picker and portable HTML export are implemented and tested against an icon-capable test fixture and, locally, the unpublished Forma 0.5.0 package. Studio's pinned Forma release is still 0.4.1, which has no icons, so the shipped editor reports icons unavailable until the pin moves to a published release that has them (see "Pinning").
+Status: Studio pins Forma 0.5.0 and ships its 40 compiled icons. Authoring, persistence, picker and portable HTML export are tested against the pinned package, against an icon-less release (no registry) and against a small test fixture for edge cases.
 
 This replaces the read-only JavaScript icon browser of the earlier draft: the catalog, search and copy now live in the F# engine, and the page holds no icon state.
 
 ## What Studio stores
 
-A Layout component (heading, text, button, link-button, alert, metric-card) or a diagram node may carry `"icon": "<name>"`, a Forma icon name. Only the name is stored. The schema and its compatibility rules are in [`architecture/DOCUMENT-MODEL.md`](../architecture/DOCUMENT-MODEL.md) ("Icons"):
+A Layout component whose Forma contract takes an icon (button, link-button, alert, metric-card, workflow) stores it as its `icon` property (`"properties": { "icon": "<name>" }`, the representation #33 introduced). A diagram node stores `"icon": "<name>"`. Only the name is stored. The schema and its compatibility rules are in [`architecture/DOCUMENT-MODEL.md`](../architecture/DOCUMENT-MODEL.md) ("Icons"):
 
 - a name the pinned release lacks is kept, round-trips unchanged and is not shown or exported;
 - a value that is not a well-formed name is kept verbatim as inert data, warned about, never rendered;
-- a document with an icon is written as schema 3, so an older Studio refuses it instead of dropping icons.
+- a document with a diagram-node icon is written as schema 3, so an older Studio refuses it instead of dropping icons; Layout icons are component properties, which schema 2 readers already keep.
 
 ## Where the icons come from
 
@@ -28,7 +28,7 @@ Forma owns icon geometry, labels and packaging. Studio never copies icon geometr
 2. both files contain only the closed element and attribute vocabulary the Forma compiler emits (no script, event attribute, `foreignObject`, external reference, entity, comment or text);
 3. the snippet is wrapped for exactly that name, marked `aria-hidden="true"`, and its SVG is the verified SVG.
 
-An icon that fails is refused on its own and not offered; the collection is unavailable only if none verifies. A missing registry (Forma 0.4.1) or a malformed registry makes icons unavailable with the reason; nothing is substituted or fetched from anywhere else. The CLI reads the same files (`--forma-icons`, default `node_modules/@echelon-foundry/design-system/dist/icons`).
+An icon that fails is refused on its own and not offered; the collection is unavailable only if none verifies. A missing registry (Forma 0.4.1 and earlier) or a malformed registry makes icons unavailable with the reason; nothing is substituted or fetched from anywhere else. The CLI reads the same files (`--forma-icons`, default `node_modules/@echelon-foundry/design-system/dist/icons`).
 
 ## Authoring
 
@@ -47,14 +47,13 @@ See [`HTML-EXPORT.md`](HTML-EXPORT.md) ("Icons"). Exported icons are the release
 
 ## Pinning
 
-The pin is unchanged: `package.json`, `capabilities.lock.json`, `scripts/sync-forma.mjs` and `.conditor` still name Forma 0.4.1, because Forma 0.5.0 (kemiller2002/forma#114) is not published and CI must not point at a release that does not exist. When 0.5.0 is published:
+Forma 0.5.0 (kemiller2002/forma#114, tag v0.5.0, commit 8a5a599, tarball sha256 `c4ad3ae5…f558f`) is pinned in:
 
-1. move the `@echelon-foundry/design-system` dependency in `package.json` to the 0.5.0 release tarball;
-2. update the Forma entry in `capabilities.lock.json`, `designSystem.version` in `scripts/sync-forma.mjs`, and re-vendor `vendor/forma` from the release commit (`node scripts/sync-forma.mjs ../forma`, then `npm run vendor:release`);
-3. update the Forma pin through Conditor (`.conditor`, `conditor.json`) as that tool requires;
-4. run `dotnet run --project tools/FormaStudio.Cli -c Release -- icons` (expects every icon verified), the engine tests (the "pinned Forma package" test then verifies every packaged icon) and the browser tests.
+1. `package.json` (the v0.5.0 release tarball);
+2. `capabilities.lock.json`, `designSystem.version` in `scripts/sync-forma.mjs`, and `vendor/forma` re-vendored from the release commit (`node scripts/sync-forma.mjs <forma checkout>`; `npm run vendor:release` verifies every packaged file against the published 0.5.0 package);
+3. the Conditor authority (`.conditor`, `conditor.json`), moved with Conditor 0.8.1 `upgrade --current` to echelon-current 1.13.0, the channel version that selects Forma 0.5.0 without changing Studio's managed component versions.
 
-No code change is needed for the swap: the build copies whatever `dist/icons` the pinned package has.
+To move to a later Forma release, repeat these steps; `dotnet run --project tools/FormaStudio.Cli -c Release -- icons` must report every icon verified. The build copies whatever `dist/icons` the pinned package has, so no code change is needed.
 
 ## Not covered here
 
@@ -66,7 +65,7 @@ No code change is needed for the swap: the build copies whatever `dist/icons` th
 
 ```sh
 npm run engine:test                     # F# model, persistence, commands, catalog verification, export, editor events
-npm run app:build && npm run app:test   # Playwright: 0.4.1 unavailable path, keyboard picker at 320px, axe light/dark, save/reopen, tampered files
+npm run app:build && npm run app:test   # Playwright: the pinned 0.5.0 icons end to end, the icon-less path, keyboard picker at 320px, axe light/dark, save/reopen, tampered files
 ```
 
 The icon-capable cases use `tests/fixtures/forma-icons-test-fixture`, a committed TEST FIXTURE with synthetic shapes in the compiled registry layout. It is not Forma artwork and not a Forma release.

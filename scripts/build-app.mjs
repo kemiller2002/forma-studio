@@ -21,8 +21,8 @@ cpSync(resolve(published, "wwwroot/_framework"), resolve(out, "_framework"), { r
 cpSync(resolve(root, "node_modules/@echelon-foundry/limen/dist"), resolve(out, "limen"), { recursive: true });
 cpSync(resolve(root, "vendor/forma"), resolve(out, "forma"), { recursive: true });
 // The pinned Forma package's compiled icons (dist/icons), copied unchanged from the
-// installed dependency that package.json pins. A release without icons (Forma 0.4.1)
-// ships none, and the editor reports icons unavailable; nothing is substituted.
+// installed dependency that package.json pins. A release without icons (Forma 0.4.1 and
+// earlier) ships none, and the editor reports icons unavailable; nothing is substituted.
 const pinned = resolve(root, "node_modules/@echelon-foundry/design-system");
 const pinnedIcons = resolve(pinned, "dist/icons");
 if (existsSync(resolve(pinnedIcons, "registry.json"))) {

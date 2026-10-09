@@ -5284,3 +5284,30 @@
   :where(.ef-character-grid) [data-ef-gutter="4"] { --ef-gutter: 4; }
   /* END generated: character-grid coordinates */
 }
+
+/* Forma static icon presentation. SVG supplies geometry, CSS supplies sizing and color. */
+@layer echelon.components {
+  .ef-icon {
+    display: inline-flex;
+    inline-size: var(--ef-icon-size, 1.25em);
+    block-size: var(--ef-icon-size, 1.25em);
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    vertical-align: -0.17em;
+    color: inherit;
+  }
+
+  .ef-icon > .ef-icon__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    flex: none;
+  }
+
+  /* Icon geometry inherits currentColor, including forced-colors and print. */
+  @media (forced-colors: active) {
+    .ef-icon { color: CanvasText; }
+  }
+}
+

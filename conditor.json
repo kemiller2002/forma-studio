@@ -4,7 +4,7 @@
   "registryAuthority": {
     "kind": "resolved-release-set",
     "path": ".conditor/authority/resolved-release-set.json",
-    "sha256": "ea1b39a003d3f2f41c4fb6e979694ec82fd03964854e5dd268e38df51cd22931"
+    "sha256": "85a54366126ea1e6ff19570d8eb36838637e639215cf22169276d7381712c169"
   },
   "components": [
     {

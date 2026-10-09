@@ -2,8 +2,8 @@
   "schema": "echelon.resolved-release-set/v1",
   "profile": {
     "id": "echelon-current",
-    "version": "1.2.0",
-    "sha256": "703de3a300be873ff8a3eb09a290d46f1c1ebe336d45471d325927df4eae4891"
+    "version": "1.13.0",
+    "sha256": "dce22d77cfaa7af81a6bd83b7019e89cc102fa679f987edbe286a655798f8471"
   },
   "platform": "linux-x64",
   "resolver": {
@@ -11,7 +11,7 @@
     "version": "0.1.0"
   },
   "catalogSnapshot": {
-    "sha256": "bffd0e5a542400cebbee4a15f8d33c9d27db3088ef1c4d0e6676a834d1f50ed3"
+    "sha256": "0b9aed708585e365596f0d7fbad0091f5768d64c0484683a1e1ae842343a6d8a"
   },
   "components": [
     {
@@ -304,29 +304,29 @@
       "systemId": "limen",
       "role": "project-binding",
       "required": true,
-      "version": "0.7.1",
+      "version": "0.9.0",
       "repository": "kemiller2002/limen",
-      "tag": "v0.7.1",
-      "commit": "5cb87560c54b5514bbd94037ff56c6875a9eeb83",
+      "tag": "v0.9.0",
+      "commit": "96eb75fb5c5aeea41f59e7476d76e143dc35a759",
       "releaseStage": "stable",
       "lifecycleState": "active",
       "distributionClass": "web-package",
       "executable": null,
       "releaseManifest": {
         "schema": "echelon.release/v2",
-        "sha256": "8343bff92bb9387c8702fdbf73b5fe84c5155854541906af903f9fc2cf487c61"
+        "sha256": "5ffc580705cb612f9a5c99ee7ee0f81c7f18904947336a6e14a9be19393a74db"
       },
       "distribution": {
         "mechanism": "npm",
         "package": "@echelon-foundry/limen",
-        "url": "https://registry.npmjs.org/@echelon-foundry/limen/-/limen-0.7.1.tgz"
+        "url": "https://registry.npmjs.org/@echelon-foundry/limen/-/limen-0.9.0.tgz"
       },
       "artifacts": [
         {
-          "name": "echelon-foundry-limen-0.7.1.tgz",
+          "name": "echelon-foundry-limen-0.9.0.tgz",
           "purpose": "package",
           "platform": null,
-          "sha256": "1b03900faa3f1db8e79046548bc504170fa7cd97edc952143a31ba9661de57bb"
+          "sha256": "45b64d580548fc5ecd13bb391104bc3d1d135faf5fccab46900c1a7cc64685ec"
         }
       ]
     },
@@ -334,35 +334,35 @@
       "systemId": "forma",
       "role": "project-binding",
       "required": true,
-      "version": "0.4.1",
+      "version": "0.5.0",
       "repository": "kemiller2002/forma",
-      "tag": "v0.4.1",
-      "commit": "7a9b2ffc5ceee8eb96bf4015f0e62501fb8f78d9",
+      "tag": "v0.5.0",
+      "commit": "8a5a5993421fbfd808582f735dedcf2adea07010",
       "releaseStage": "stable",
       "lifecycleState": "active",
       "distributionClass": "web-package",
       "executable": null,
       "releaseManifest": {
         "schema": "echelon.release/v2",
-        "sha256": "a406c48bbff4576d363ab0f48888a9b1739466d63ec2471166988e85a3204c38"
+        "sha256": "489852fc9f6a6b992b948cee360a47ea1fdf7202ef680c52c7597fe67b46aad2"
       },
       "distribution": {
         "mechanism": "github-release",
         "package": "@echelon-foundry/design-system",
-        "url": "https://github.com/kemiller2002/forma/releases/tag/v0.4.1"
+        "url": "https://github.com/kemiller2002/forma/releases/tag/v0.5.0"
       },
       "artifacts": [
         {
-          "name": "echelon-foundry-design-system-0.4.1.tgz",
+          "name": "echelon-foundry-design-system-0.5.0.tgz",
           "purpose": "package",
           "platform": null,
-          "sha256": "32685421a759bdacf48943c8906ba2b2f57ae0218ea0a3c4f4de5d780a72ed76"
+          "sha256": "c4ad3ae525a85f55a9e9aec4f0e19c59b7f552cececb4224a0bbc3434f4f558f"
         },
         {
           "name": "forma-marketing.sha256",
           "purpose": "checksums",
           "platform": null,
-          "sha256": "0101d551cbcc53539fe5bf692d962c57a7bf64c5e0db80b0fac65c0c9a2fb79f"
+          "sha256": "c5e6007702a481e0ee89881241b93e4141d62742bc850d4ceacd3b79980ae469"
         }
       ]
     },
@@ -406,10 +406,10 @@
       "systemId": "strata",
       "role": "repository-lifecycle",
       "required": false,
-      "version": "0.1.0",
+      "version": "0.1.1",
       "repository": "kemiller2002/strata",
-      "tag": "v0.1.0",
-      "commit": "10b25ec49191f1d379d7e53435a1a61d8462ca6b",
+      "tag": "v0.1.1",
+      "commit": "f650d91e2930dfcbe82a1d2c52d8c5245e0f9996",
       "releaseStage": "stable",
       "lifecycleState": "active",
       "distributionClass": "self-contained-native-cli",
@@ -420,25 +420,217 @@
       },
       "releaseManifest": {
         "schema": "echelon.release/v2",
-        "sha256": "e5e33a9738f1e3ca7855fdba4174e955ff03881b5e4c7738fd6b92080f277e96"
+        "sha256": "262bf735e8af934a5d104cad910e34d55e8ffcf310696f8604560bc73eb8ab04"
       },
       "distribution": {
         "mechanism": "github-release",
         "package": null,
-        "url": "https://github.com/kemiller2002/strata/releases/tag/v0.1.0"
+        "url": "https://github.com/kemiller2002/strata/releases/tag/v0.1.1"
       },
       "artifacts": [
         {
           "name": "strata-linux-x64.tar.gz",
           "purpose": "executable",
           "platform": "linux-x64",
-          "sha256": "399ae002c971fad5dd6f99552bbccf048c75e5b16426d40bcb6a0ac9f428db8f"
+          "sha256": "497ec245b60994e13b8a8923ec6a8fb994acdb8365d022e9e4fcf955605f2a1b"
         },
         {
           "name": "native-checksums.txt",
           "purpose": "checksums",
           "platform": null,
-          "sha256": "7de7088f59e185779e6dbf0693ed5f1c9035b1d4102767e6894022944346f922"
+          "sha256": "fc42113dfbeb48f361cd2b402c1a3a5dbdcd3c38c35034e2856544f7d618a1fe"
+        }
+      ]
+    },
+    {
+      "systemId": "arca",
+      "role": "project-binding",
+      "required": false,
+      "version": "0.3.0",
+      "repository": "kemiller2002/arca",
+      "tag": "v0.3.0",
+      "commit": "6f3acc7b18f7a3810a2a0c7d591842310e96514e",
+      "releaseStage": "stable",
+      "lifecycleState": "active",
+      "distributionClass": "nuget-library",
+      "executable": null,
+      "releaseManifest": {
+        "schema": "echelon.release/v2",
+        "sha256": "d3b73d5f4ca76b04f9b581e5fb7b138f724b4642f18361cbaf6f60b45a64f803"
+      },
+      "distribution": {
+        "mechanism": "github-release",
+        "package": null,
+        "url": "https://github.com/kemiller2002/arca/releases/tag/v0.3.0"
+      },
+      "artifacts": [
+        {
+          "name": "EchelonFoundry.Arca.Core.0.3.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "7c33d539219de08e404b6b83d148fc5398acdd502818b37eb0c6bc7a640c9601"
+        },
+        {
+          "name": "EchelonFoundry.Arca.GitHub.0.3.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "778290b4eb76dc33453003b0fc0995cce84fa57e6a6a66d1d2b2bdaee68bdba0"
+        },
+        {
+          "name": "EchelonFoundry.Arca.Limen.0.3.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "75d4610922999b0ddd94dc415631f7f5c8435edc6a1aa9993a8f9bb0575138f9"
+        },
+        {
+          "name": "checksums.txt",
+          "purpose": "checksums",
+          "platform": null,
+          "sha256": "c9cbda29cbf4f1a222b49e7ab031fffba89362e490c0845ee20c77807af418a5"
+        }
+      ]
+    },
+    {
+      "systemId": "fides",
+      "role": "project-binding",
+      "required": false,
+      "version": "0.2.0",
+      "repository": "kemiller2002/fides",
+      "tag": "v0.2.0",
+      "commit": "dea13cef62b0bd34e2d4295659b4965da87f2698",
+      "releaseStage": "stable",
+      "lifecycleState": "active",
+      "distributionClass": "nuget-library",
+      "executable": null,
+      "releaseManifest": {
+        "schema": "echelon.release/v2",
+        "sha256": "0ef2204d8ec298e6d930ce11d66629794486a5e31367959d7f9dbd39468b6a2a"
+      },
+      "distribution": {
+        "mechanism": "github-release",
+        "package": null,
+        "url": "https://github.com/kemiller2002/fides/releases/tag/v0.2.0"
+      },
+      "artifacts": [
+        {
+          "name": "EchelonFoundry.Fides.0.2.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "ee557e9285894d898f6a727b8ced968fc08c6f73bc8b3cc86bc5f5c669a31863"
+        },
+        {
+          "name": "EchelonFoundry.Fides.Arca.0.2.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "c7c8df26a47d49f0385d39f1614d03837671e7b6c071baa399cab910bb42b84b"
+        },
+        {
+          "name": "EchelonFoundry.Fides.Client.0.2.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "b65efb1357cd10fcf2d9a2e2080e24cb2f488c470ba8802e6d4a578628936e95"
+        },
+        {
+          "name": "EchelonFoundry.Fides.Hosting.0.2.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "53f8126e8b74002d71bd2ae539640951c5a103bcf2c6e17d33a527d75128f944"
+        },
+        {
+          "name": "checksums.txt",
+          "purpose": "checksums",
+          "platform": null,
+          "sha256": "a32e49303d650afa60cd51f860732216afb633c103f0c4ce0cbf76c93592378d"
+        }
+      ]
+    },
+    {
+      "systemId": "summa-contracts",
+      "role": "project-binding",
+      "required": false,
+      "version": "0.1.0",
+      "repository": "kemiller2002/summa",
+      "tag": "contracts-v0.1.0",
+      "commit": "e888cfb102be7001db7129121a5769a02c44a968",
+      "releaseStage": "stable",
+      "lifecycleState": "active",
+      "distributionClass": "nuget-library",
+      "executable": null,
+      "releaseManifest": {
+        "schema": "echelon.release/v2",
+        "sha256": "b952e4c667bc83aae23092397e8de3bcd75ecd2a6d59ef7d1047f2f5d094bcfe"
+      },
+      "distribution": {
+        "mechanism": "github-release",
+        "package": null,
+        "url": "https://github.com/kemiller2002/summa/releases/tag/contracts-v0.1.0"
+      },
+      "artifacts": [
+        {
+          "name": "EchelonFoundry.Summa.Contracts.0.1.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "8ef0e595f9749edac7fc3c46c1d400ba1a4d44f10090c3ed27291855845d15f1"
+        },
+        {
+          "name": "checksums.txt",
+          "purpose": "checksums",
+          "platform": null,
+          "sha256": "526dc765ac6736de9043a0cc08b4f9932b4b79518c4bff0b049d5366df7f6776"
+        }
+      ]
+    },
+    {
+      "systemId": "limen-fsharp",
+      "role": "project-binding",
+      "required": false,
+      "version": "0.9.0",
+      "repository": "kemiller2002/limen",
+      "tag": "v0.9.0",
+      "commit": "96eb75fb5c5aeea41f59e7476d76e143dc35a759",
+      "releaseStage": "stable",
+      "lifecycleState": "active",
+      "distributionClass": "nuget-library",
+      "executable": null,
+      "releaseManifest": {
+        "schema": "echelon.release/v2",
+        "sha256": "d8aec120fdaff6bb2a9dcd6e4d79b8a92d69f8cc0227de1c6b7166c6c3b8ce3a"
+      },
+      "distribution": {
+        "mechanism": "github-release",
+        "package": null,
+        "url": "https://github.com/kemiller2002/limen/releases/tag/v0.9.0"
+      },
+      "artifacts": [
+        {
+          "name": "EchelonFoundry.Limen.Contract.0.9.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "1db1ec2c19f45331b31fc0d13a876259e12efa4de7509f6ee4939567984c2817"
+        },
+        {
+          "name": "EchelonFoundry.Limen.Guest.0.9.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "8d626c5c63d4695b866bcddc7893c7661fc495f307519d597f0e7199196be388"
+        },
+        {
+          "name": "EchelonFoundry.Limen.Routing.0.9.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "278e3f221cd98aaec3bf0b3069bc222a1554eababaf66931e8baa6c2fb7561a0"
+        },
+        {
+          "name": "EchelonFoundry.Limen.Store.0.9.0.nupkg",
+          "purpose": "package",
+          "platform": null,
+          "sha256": "ce71b5bbdc38704615c212b4a5955467598ed97c8d9982a9b8bac0b6b4b7bc8d"
+        },
+        {
+          "name": "checksums.txt",
+          "purpose": "checksums",
+          "platform": null,
+          "sha256": "91983b9587c4fdafc0aef079db8690ae0f31d9cde025fff0483b1c4515f44e35"
         }
       ]
     }
