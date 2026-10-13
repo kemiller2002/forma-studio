@@ -83,20 +83,6 @@ type DefinitionEvent =
     | DeleteSlot
     | MaterializeSlot
 
-/// Layout pages and surface navigation.
-[<RequireQualifiedAccess>]
-type LayoutEvent =
-    | AddPage
-    | OpenPage
-    | OpenDiagram
-    | LayoutAddHeading
-    | LayoutSetText
-    | LayoutTarget
-    | LayoutAddComponent
-    | LayoutMoveUp
-    | LayoutMoveDown
-    | LayoutDensity
-
 /// Portable Forma workflows.
 [<RequireQualifiedAccess>]
 type WorkflowEvent =

@@ -79,6 +79,28 @@ module HtmlExport =
             | Some markup -> [ markup ], []
             | None -> keep $"icon \"{IconName.value name}\" is not in Forma {catalog.FormaVersion}'s icon collection, so it was not exported"
 
+    /// The element a declared alignment group measures for one child: a field's
+    /// control (not its label), otherwise the child's own root element.
+    let rec private peerMark (group: string) (markup: Markup) =
+        let add attrs = attrs @ [ "data-uli-align-peer", group ]
+        match markup with
+        | Element(name, attrs, children) when attrs |> List.contains ("class", "ef-field") ->
+            let control = children |> List.tryFindIndex (function Element("input", _, _) -> true | _ -> false)
+            match control with
+            | Some i -> Element(name, attrs, children |> List.mapi (fun j c -> match c with Element(n, a, k) when i = j -> Element(n, add a, k) | other -> other))
+            | None -> Element(name, add attrs, children)
+        | Element(name, attrs, children) -> Element(name, add attrs, children)
+        | other -> other
+
+    /// A container's declared alignment (ULI-L01, ULI-L10): the group and edge on the
+    /// container, and a peer mark on each direct child's measured element.
+    let private declareAlignment (node: ComponentNode) (markup: Markup list) =
+        match Components.alignmentOf node with
+        | Some edge ->
+            let group = Id.value node.Id
+            [ "data-uli-align-group", group; "data-uli-align-edge", edge ], markup |> List.map (peerMark group)
+        | None -> [], markup
+
     let rec private exportNode (icons: IconCatalog option) (workflows: WorkflowLibrary) (node: ComponentNode) : Markup list * string list =
         let kids () =
             let parts = children node |> List.map (exportNode icons workflows)
@@ -128,7 +150,8 @@ module HtmlExport =
             )
         | "actions" ->
             let markup, omitted = kids ()
-            [ el "div" [ "class", "ef-actions" ] markup ], iconNotes @ omitted
+            let declared, markup = declareAlignment node markup
+            [ el "div" ([ "class", "ef-actions" ] @ declared) markup ], iconNotes @ omitted
         | "surface" ->
             let markup, omitted = kids ()
             let titleId = "surface-" + nodeId node
@@ -137,9 +160,10 @@ module HtmlExport =
             | None -> [ el "div" [ "class", "ef-surface" ] markup ], iconNotes @ omitted
         | "responsive-grid" ->
             let markup, omitted = kids ()
+            let declared, markup = declareAlignment node markup
             match content "label" node with
-            | Some label -> [ el "section" [ "class", "ef-responsive-grid"; "aria-label", label ] markup ], iconNotes @ omitted
-            | None -> [ el "div" [ "class", "ef-responsive-grid" ] markup ], iconNotes @ omitted
+            | Some label -> [ el "section" ([ "class", "ef-responsive-grid"; "aria-label", label ] @ declared) markup ], iconNotes @ omitted
+            | None -> [ el "div" ([ "class", "ef-responsive-grid" ] @ declared) markup ], iconNotes @ omitted
         | "alert" ->
             one (
                 el

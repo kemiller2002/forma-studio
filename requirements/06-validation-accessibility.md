@@ -149,3 +149,21 @@ VA-141 Expensive browser/accessibility validations MAY run on demand or debounce
 VA-142 CI MUST support headless validation of exported project files.
 
 VA-143 Validation rules MUST have unit tests and representative positive/negative fixtures.
+
+## Universal UI layout and interaction conformance
+
+These requirements adopt Visual Engineering `UI-LAYOUT-INTERACTION@1.0.0`, pinned at visual-engineering commit `8da8fbc` (`framework/standards/UI-LAYOUT-INTERACTION.md`), (rule IDs `ULI-L01`..`ULI-L13`, `ULI-A01`..`ULI-A10`) for Studio and for the HTML it exports. They reference that contract; they do not restate or fork it (forma-studio#35).
+
+VA-160 The Layout model MUST let an author declare an alignment group on a composition container (`responsive-grid`, `actions`) with an edge of `top`, `bottom` or `center`; the declaration MUST serialize, load, edit, undo and clear through the ordinary command path (ULI-L01, ULI-L10).
+
+VA-161 HTML export MUST carry each declared group as `data-uli-align-group` and `data-uli-align-edge` on the container and `data-uli-align-peer` on each direct child's measured element (a field's control, otherwise the child's root), so browser verification measures declared peers rather than guessed ones.
+
+VA-162 Before export, Studio MUST show the open page's avoidable layout and interaction findings, each prefixed with its contract rule ID: placeholder or unsafe link destinations and unowned static buttons (ULI-A01), missing accessible names (ULI-A06), unbroken text that can overflow at 320 CSS px (ULI-L05), and declared groups whose peers cannot share the declared edge (ULI-L01, ULI-L02). These findings MUST NOT block export.
+
+VA-163 Every component on a Layout page, at any depth, MUST be reachable for editing every content value, every choosable contract property, order among its siblings, and removal without pointer-only interaction.
+
+VA-164 New components MUST NOT be created with placeholder actions (for example a link to `#`).
+
+VA-165 Every enabled, visible editor control MUST appear in the declared action inventory (`tests/browser/ui-action-inventory.mjs`) with its owner, observable outcome and evidence; an action that cannot act in the current state MUST either be disabled with a visible explanation or explain in the status why nothing changed (ULI-A01, ULI-A04, ULI-A10).
+
+VA-166 `npm run ui:conformance` MUST run the `@uli` browser checks at 320, 390, 768 and 1280 CSS px, measuring declared groups with a 1 CSS px tolerance and recording `PASS`, `FAIL`, `NOT_APPLICABLE` or an approved, bounded `EXCEPTION`; CI MUST run it and keep its evidence.

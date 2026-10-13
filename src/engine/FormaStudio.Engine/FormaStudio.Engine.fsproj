@@ -48,6 +48,7 @@
     <Compile Include="Templates.fs" />
     <Compile Include="WorkflowLibrary.fs" />
     <Compile Include="HtmlExport.fs" />
+    <Compile Include="LayoutChecks.fs" />
     <Compile Include="Designs.fs" />
     <Compile Include="EditorIntents.fs" />
     <Compile Include="IconSession.fs" />
@@ -55,6 +56,7 @@
     <Compile Include="EditorState.Templates.fs" />
     <Compile Include="EditorEvent.Wire.fs" />
     <Compile Include="EditorEvent.Icons.fs" />
+    <Compile Include="EditorEvent.Layout.fs" />
     <Compile Include="EditorEvent.fs" />
     <Compile Include="Interaction.fs" />
     <Compile Include="HostEffects.fs" />
@@ -63,12 +65,14 @@
     <Compile Include="Interaction.History.fs" />
     <Compile Include="Interaction.Inspector.fs" />
     <Compile Include="Interaction.Definitions.fs" />
+    <Compile Include="Interaction.Layout.Components.fs" />
     <Compile Include="Interaction.Layout.fs" />
     <Compile Include="Interaction.Workflows.fs" />
     <Compile Include="Interaction.Export.fs" />
     <Compile Include="Interaction.Review.fs" />
     <Compile Include="Interaction.Icons.fs" />
     <Compile Include="EditorView.Icons.fs" />
+    <Compile Include="EditorView.Layout.fs" />
     <Compile Include="EditorView.fs" />
     <Compile Include="EditorApp.fs" />
   </ItemGroup>

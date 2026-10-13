@@ -62,12 +62,30 @@
     <ol class="studio-list" aria-label="Page structure">
       <template data-each="layoutItems" data-key="key">
         <li class="studio-panel">
+          <p class="studio-item-title"><strong data-text="title"></strong> <span data-text="place"></span></p>
           <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+          <template data-each="contentFields" data-key="key">
+            <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+          </template>
           <p class="studio-icon-line" data-bind-hidden="iconLineHidden"><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="iconText"></span></p>
-          <span class="studio-choices"><button type="button" data-event="layout-move-up">Move earlier</button><button type="button" data-event="layout-move-down">Move later</button><button type="button" data-event="export-component">Export as HTML</button><button type="button" data-event="icon-pick" data-bind-aria-label="iconPickLabel" data-bind-hidden="iconPickHidden">Choose icon</button></span>
+          <template data-if="hasChoices">
+            <div class="studio-choices" role="group" data-bind-aria-label="choicesLabel">
+              <template data-each="propertyChoices" data-key="key">
+                <button type="button" data-event="layout-set-property" data-bind-aria-pressed="pressed" data-text="label"></button>
+              </template>
+            </div>
+          </template>
+          <span class="studio-choices"><button type="button" data-event="layout-move-up" data-bind-aria-label="moveEarlierLabel">Move earlier</button><button type="button" data-event="layout-move-down" data-bind-aria-label="moveLaterLabel">Move later</button><button type="button" data-event="export-component" data-bind-aria-label="exportLabel">Export as HTML</button><button type="button" data-event="icon-pick" data-bind-aria-label="iconPickLabel" data-bind-hidden="iconPickHidden">Choose icon</button><button type="button" data-event="layout-remove" data-bind-aria-label="removeLabel">Remove</button></span>
         </li>
       </template>
     </ol>
+    <section aria-labelledby="layout-checks-heading">
+      <h3 id="layout-checks-heading">Checks before export</h3>
+      <p data-text="layoutCheckSummary"></p>
+      <ul class="studio-list" aria-label="Checks before export">
+        <template data-each="layoutChecks" data-key="key"><li data-text="text"></li></template>
+      </ul>
+    </section>
     <template data-if="iconPickerLayout">
       <section class="studio-panel studio-icon-picker" aria-labelledby="icon-picker-layout-heading">
         <h3 id="icon-picker-layout-heading">Icon for <span data-text="iconTargetLabel"></span></h3>
@@ -92,7 +110,7 @@
     </template>
     <h3>Preview</h3>
     <section class="ef-stack" aria-label="Page preview" data-bind-data-density="density">
-      <template data-each="layoutItems" data-key="key"><h2><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="text"></span></h2></template>
+      <template data-each="layoutItems" data-key="key"><div><template data-if="isHeading"><h2><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="text"></span></h2></template><template data-if="notHeading"><p><span data-text="kind"></span>: <span data-text="text"></span></p></template></div></template>
     </section>
   </section>
 
@@ -102,7 +120,7 @@
     <div class="studio-toolbar" role="toolbar" aria-label="Workflow files">
       <button type="button" data-event="workflow-new">New workflow</button>
       <label class="studio-file">Open .forma-workflow.json <input type="file" id="workflow-file" accept=".json,application/json"></label>
-      <button type="button" id="workflow-download">Download file</button>
+      <button type="button" id="workflow-download" data-bind-disabled="workflowDownloadDisabled">Download file</button>
       <button type="button" data-event="workflow-save">Save workflows in browser</button>
       <button type="button" data-event="workflow-load">Open saved workflows</button>
     </div>
@@ -464,6 +482,10 @@
       <button type="button" id="export-download" data-bind-disabled="exportEmpty">Download HTML</button>
     </div>
     <p data-text="exportSummary"></p>
+    <p data-text="exportCheckSummary"></p>
+    <ul class="studio-list" aria-label="Checks for the exported page">
+      <template data-each="exportChecks" data-key="key"><li data-text="text"></li></template>
+    </ul>
     <ul aria-label="Left out of the export">
       <template data-each="exportOmitted" data-key="key"><li data-text="text"></li></template>
     </ul>

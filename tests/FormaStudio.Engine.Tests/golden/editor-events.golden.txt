@@ -15,7 +15,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7da139c23f0a4961
+view: 1ae78b836ce11429
 effects: []\n
 
 ## select edge
@@ -31,7 +31,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a25d77b4379c1ba3
+view: 2cc103b31533cf1f
 effects: []\n
 
 ## select group
@@ -47,7 +47,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: aa406459b216b6c2
+view: bf1d1da68ce5e702
 effects: []\n
 
 ## select unreadable key
@@ -63,7 +63,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f1120992f9dc30a3
+view: 2eb65762fe3e93da
 effects: []\n
 
 ## select completes a connection
@@ -79,7 +79,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: edc87af6adbd4806
-view: bcbf66e56b6ce143
+view: fdc076bbddbbcd04
 effects: []\n
 
 ## select refuses an illegal connection
@@ -95,7 +95,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: cc82779bfe2e4f8f
+view: 2c0bf286ea3972a7
 effects: []\n
 
 ## select completes a reconnect
@@ -111,7 +111,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: de1228790dd42b94
-view: bad767624eef2c57
+view: acd11ae8f4296311
 effects: []\n
 
 ## clear-selection
@@ -127,7 +127,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0ff1b7247bc9b7ca
+view: 03263510ef78f117
 effects: []\n
 
 ## toggle-select adds
@@ -143,7 +143,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1626fe17388c34ba
+view: 66b4ca4d98c01dde
 effects: []\n
 
 ## toggle-select removes
@@ -159,7 +159,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b280cbf28d9af379
+view: 4276db30a11a927a
 effects: []\n
 
 ## toggle-select unreadable key
@@ -175,7 +175,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7da139c23f0a4961
+view: 1ae78b836ce11429
 effects: []\n
 
 ## connect-start
@@ -191,7 +191,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: afbcd7c25086c288
+view: d13084608dba3d22
 effects: []\n
 
 ## connect-start without selection
@@ -207,7 +207,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 34cb5961334a5bde
+view: 9786f7b38fc679f9
 effects: []\n
 
 ## cancel
@@ -223,7 +223,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 9c81a874d5da003a
+view: 48d1e9ab3a75fee9
 effects: []\n
 
 ## choose-kind
@@ -239,7 +239,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 278bd1a0ccbeb4af
+view: 570eb74174eb9d0f
 effects: []\n
 
 ## add-node
@@ -255,7 +255,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: fbb0a7e8c5d953a4
-view: a0157c8a59977f16
+view: a18c8cb31dc75753
 effects: []\n
 
 ## add-node of chosen kind
@@ -271,7 +271,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 2b902302c67485eb
-view: eae9a8a8978ae6b3
+view: cfa6fa1058a32056
 effects: []\n
 
 ## add-node of unknown kind
@@ -287,7 +287,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ac3fc0081ff6f47f
+view: 05d7e1ced0eb3791
 effects: []\n
 
 ## add-node twice
@@ -303,7 +303,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 980be18fc2a4e409
-view: 32a4fb4afe3923fc
+view: dc817876cfd7befb
 effects: []\n
 
 ## set-label node
@@ -319,7 +319,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: 4ef55179518708fe
+view: 813653692e588671
 effects: []\n
 
 ## set-label edge
@@ -335,7 +335,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e1a6c08c4305b6ad
-view: 256ec6cef1f50cab
+view: b3477ec2bdbc4f59
 effects: []\n
 
 ## set-label without selection
@@ -351,7 +351,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 8cad2c7e4825b0b2
+view: 69629f30be75026a
 effects: []\n
 
 ## delete node
@@ -367,7 +367,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: cee8e22aa0cdea2c
-view: b820f24b67d376bd
+view: 7d774b08b148f3d2
 effects: []\n
 
 ## delete edge
@@ -383,7 +383,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: aa8fd7b86b28956d
-view: d85fffc4cfbadec6
+view: acc6bfc6ebc1c10c
 effects: []\n
 
 ## delete group
@@ -399,7 +399,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 79b79e78ce64e9a5
+view: 18383d81c5adb870
 effects: []\n
 
 ## delete without selection
@@ -415,7 +415,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 65e639cdac82a699
+view: b747a520d81a8b8d
 effects: []\n
 
 ## move-left
@@ -431,7 +431,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 739a65381f2904c4
-view: 6604596bfd8a9e70
+view: fb49e20093213765
 effects: []\n
 
 ## move-right
@@ -447,7 +447,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 50250a731978c1db
-view: ba43779b8fe27c24
+view: bddc6736fc2f2a91
 effects: []\n
 
 ## move-up
@@ -463,7 +463,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: d59090b7f5a5353b
-view: d27487d87091f206
+view: 883ec49a5c7c5a44
 effects: []\n
 
 ## move-down
@@ -479,7 +479,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 4e3ded8adeb965d3
-view: 8c5099422d4e5d86
+view: bcab99fdd2541cc8
 effects: []\n
 
 ## move-left without selection
@@ -495,7 +495,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6a2667d1ad5fba6d
+view: a601c147d36457b0
 effects: []\n
 
 ## gesture-move
@@ -511,7 +511,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: efc45333d7b41813
-view: f194160b82e63f0b
+view: ef3c03a4099dd93e
 effects: []\n
 
 ## gesture-move snapped
@@ -527,7 +527,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a872019629519a05
-view: 2004399d0177abfb
+view: c9f7e53ce633ced9
 effects: []\n
 
 ## gesture-move unreadable
@@ -543,7 +543,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4ff2110b01f41ba2
+view: 162013bf03d3e667
 effects: []\n
 
 ## gesture-move unknown node
@@ -559,7 +559,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 45284ebe2d8b3942
+view: 2a91c13cb0ec81ca
 effects: []\n
 
 ## gesture-resize
@@ -575,7 +575,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f55487377ba5e61a
-view: b1680df9c9e17184
+view: 831384de92142391
 effects: []\n
 
 ## gesture-resize snapped
@@ -591,7 +591,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6aec10bb408da138
-view: 2d3271f9b1137e01
+view: e0b62ad56c0433b8
 effects: []\n
 
 ## gesture-resize unreadable
@@ -607,7 +607,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a0b3e7c8ccfed762
+view: 7458913f1888b3ee
 effects: []\n
 
 ## gesture-resize unknown node
@@ -623,7 +623,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bd3e18490e671150
+view: 5f67e74a437eaece
 effects: []\n
 
 ## set-width
@@ -639,7 +639,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 11aa5093b0c45335
-view: 78c878ce48297269
+view: 9b094077eb684d9b
 effects: []\n
 
 ## set-width not a number
@@ -655,7 +655,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 186e5d392e1b07fd
+view: 5cdc3319e76f8107
 effects: []\n
 
 ## set-width without selection
@@ -671,7 +671,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bd3e18490e671150
+view: 5f67e74a437eaece
 effects: []\n
 
 ## set-height
@@ -687,7 +687,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 5e0e2b0721731d4c
-view: 30575b41b1669b3a
+view: ff1928db0b8a807e
 effects: []\n
 
 ## reconnect-end source
@@ -703,7 +703,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 22d3b4a7be9418a7
+view: 74a3e116e6a982ff
 effects: []\n
 
 ## reconnect-end on a node
@@ -719,7 +719,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 399a5d71f2a07abe
+view: ad061a6fd42bd761
 effects: []\n
 
 ## reconnect-end unreadable end
@@ -735,7 +735,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7790df82dfac6fde
+view: 168b4bcf4eee1957
 effects: []\n
 
 ## gesture-reconnect
@@ -751,7 +751,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: de1228790dd42b94
-view: bad767624eef2c57
+view: acd11ae8f4296311
 effects: []\n
 
 ## gesture-reconnect illegal
@@ -767,7 +767,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f060ca7ddd6d062a
+view: 7ddff8ca51a5ed97
 effects: []\n
 
 ## gesture-reconnect unreadable
@@ -783,7 +783,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7790df82dfac6fde
+view: 168b4bcf4eee1957
 effects: []\n
 
 ## gesture-reconnect unreadable end
@@ -799,7 +799,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 9c55422388087f53
+view: f745db1d1f916df5
 effects: []\n
 
 ## gesture-reconnect without connector
@@ -815,7 +815,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 61b6819bfb26f491
+view: 7759dec619bd347f
 effects: []\n
 
 ## zoom-in
@@ -831,7 +831,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ee016c6200b76d0a
+view: 89ee3b77ba4ffb1e
 effects: []\n
 
 ## zoom-in at maximum
@@ -847,7 +847,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f7fd0fb79f583123
+view: f335f8adc3300e9a
 effects: []\n
 
 ## zoom-out
@@ -863,7 +863,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 39d2f2c13e2744c4
+view: 124411845946144e
 effects: []\n
 
 ## zoom-out at minimum
@@ -879,7 +879,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6a50f3d58e93bc18
+view: 321cfa8f6c151666
 effects: []\n
 
 ## zoom-reset
@@ -895,7 +895,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 820b491542702ca7
+view: bc8a6a92aab5cc14
 effects: []\n
 
 ## toggle-snap on
@@ -911,7 +911,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 61361bb150321bd5
+view: 65843083010cce1b
 effects: []\n
 
 ## toggle-snap off
@@ -927,7 +927,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b20a82ce8e5e7b5e
+view: 70fba3fdaeed5c27
 effects: []\n
 
 ## align-left
@@ -943,7 +943,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 03b7fc635f02bf00
-view: 86d56bf4941b6a88
+view: a6e3a3f18c826c6c
 effects: []\n
 
 ## align-left already arranged
@@ -959,7 +959,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: eb5dd9e4eb3e4898
+view: 93fc1cc71589f998
 effects: []\n
 
 ## align-left needs two
@@ -975,7 +975,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 693d7ecec0ce1d82
+view: ed0bbecce57a6348
 effects: []\n
 
 ## align-top
@@ -991,7 +991,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f3763e19060e98d5
-view: 9041b60a7c9ad50e
+view: baf4ec1be5528a42
 effects: []\n
 
 ## distribute-horizontally
@@ -1007,7 +1007,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: c866bd209146ab79
-view: 6ee194cabc526953
+view: 9ca7ea7e3c925b88
 effects: []\n
 
 ## distribute-horizontally needs three
@@ -1023,7 +1023,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e4f0e48873461599
+view: a66effdab1955e9e
 effects: []\n
 
 ## copy-selection
@@ -1039,7 +1039,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bac69263df1c6f0f
+view: 2bd093f4de475fb8
 effects: []\n
 
 ## copy-selection without nodes
@@ -1055,7 +1055,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a08adf7d48201721
+view: 75f858d8732294ab
 effects: []\n
 
 ## choose-template
@@ -1071,7 +1071,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 78607f0219db6f47
+view: 5669282270e765f2
 effects: []\n
 
 ## insert-template
@@ -1087,7 +1087,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 8c2318988761c7ec
-view: 53e1197e565a2137
+view: 0615438fb0c13ab9
 effects: []\n
 
 ## insert-template unknown
@@ -1103,7 +1103,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2eec565902868b4f
+view: 6ed18310ab03a34e
 effects: []\n
 
 ## insert-template without choice
@@ -1119,7 +1119,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2eec565902868b4f
+view: 6ed18310ab03a34e
 effects: []\n
 
 ## insert-template from clipboard
@@ -1135,7 +1135,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 564973901553c200
-view: b415449f05e82789
+view: 4820e62b3f36b6ca
 effects: []\n
 
 ## undo
@@ -1151,7 +1151,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1d99ff77347c3c55
+view: 649569bf0f40a938
 effects: []\n
 
 ## undo with empty history
@@ -1167,7 +1167,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b061668e94cc9e2c
+view: 0e2135841a2c8f72
 effects: []\n
 
 ## redo
@@ -1183,7 +1183,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: be3946ecf1ebd7fe
+view: 7391d19b0155bfc9
 effects: []\n
 
 ## redo with nothing undone
@@ -1199,7 +1199,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 496ce56f0591ea06
+view: 2f854094e007093e
 effects: []\n
 
 ## choose-field
@@ -1215,7 +1215,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## choose-field unreadable
@@ -1231,7 +1231,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## set-field-value enum by label
@@ -1247,7 +1247,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 4367f534175b7a8f
-view: 7e7b3663407ee8c3
+view: 2e3a8a7df12fef62
 effects: []\n
 
 ## set-field-value enum invalid
@@ -1263,7 +1263,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 925d1dae03bfe527
+view: 33fb4c169d66dc7d
 effects: []\n
 
 ## set-field-value url
@@ -1279,7 +1279,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 872b97ec012d8077
-view: 06b9e7e9467a632e
+view: b6accf2376ead2a3
 effects: []\n
 
 ## set-field-value text
@@ -1295,7 +1295,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: ef8bf89bdbfdee5b
-view: c75a76e8e1655383
+view: 7c7b24fe8ffef972
 effects: []\n
 
 ## set-field-value tags
@@ -1311,7 +1311,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a3d55c4a1888ed66
-view: ca396e51cd4a2db3
+view: f1cc33f9a2b12354
 effects: []\n
 
 ## set-field-value number
@@ -1327,7 +1327,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a93851f9fcb1b162
-view: e04865852b44a10c
+view: 7f5ec6a4495916be
 effects: []\n
 
 ## set-field-value number invalid
@@ -1343,7 +1343,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f51be3a94165bba7
-view: 77dd8500fdffd0f4
+view: 97ffab9bc8ae6289
 effects: []\n
 
 ## set-field-value boolean
@@ -1359,7 +1359,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 5eed80dd5bdc20bb
-view: 82640bc2c830cf01
+view: 78cdeddff0ac1890
 effects: []\n
 
 ## set-field-value boolean invalid
@@ -1375,7 +1375,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 7b96b0344e50f565
-view: b8a8328613550310
+view: 5ef8cff8c220bad4
 effects: []\n
 
 ## set-field-value date
@@ -1391,7 +1391,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e18e56937fd2bda4
-view: 6391a7623e093d5c
+view: 921073c643d32338
 effects: []\n
 
 ## set-field-value multi-selection
@@ -1407,7 +1407,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b092838c1545b3b6
-view: 237867f90504ebf9
+view: ec7f538f79a52c00
 effects: []\n
 
 ## set-field-value without selection
@@ -1423,7 +1423,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c133a1850159d00b
+view: 0f7c5ce390a7454a
 effects: []\n
 
 ## set-field-value without field
@@ -1439,7 +1439,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 113ff416b265903a
+view: cd0fb69f8518ce8e
 effects: []\n
 
 ## set-field-option
@@ -1455,7 +1455,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 4367f534175b7a8f
-view: 7e7b3663407ee8c3
+view: 2e3a8a7df12fef62
 effects: []\n
 
 ## set-field-unknown
@@ -1471,7 +1471,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 1f943768436e4b1e
-view: d4f27d62c4301fa3
+view: b27e859f9516e91c
 effects: []\n
 
 ## clear-field
@@ -1487,7 +1487,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6ffe8b5a637e93f4
-view: 1fb495e5ff1295f1
+view: 2cfd8bf31706d825
 effects: []\n
 
 ## set-fill
@@ -1503,7 +1503,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: ad0bab40608492e9
-view: d7bbcc8f7a7e17c0
+view: b4b387add26b4961
 effects: []\n
 
 ## set-fill invalid
@@ -1519,7 +1519,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b735620902c91120
+view: 19f4b164dd5fbc50
 effects: []\n
 
 ## set-fill without selection
@@ -1535,7 +1535,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c133a1850159d00b
+view: 0f7c5ce390a7454a
 effects: []\n
 
 ## choose-fill-palette
@@ -1551,7 +1551,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 50c35b646cec1ab6
-view: f40daaddfb058cdc
+view: cc469ee0463d23a3
 effects: []\n
 
 ## choose-fill-palette without selection
@@ -1567,7 +1567,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ad1d324a84eeb8a8
+view: 04f14f78fc1220e3
 effects: []\n
 
 ## reset-fill
@@ -1583,7 +1583,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: bfd7c46ee40b2697
-view: 72dba814864d3c89
+view: e5ec2f35c118260a
 effects: []\n
 
 ## reset-fill without selection
@@ -1599,7 +1599,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c133a1850159d00b
+view: 0f7c5ce390a7454a
 effects: []\n
 
 ## choose-style
@@ -1615,7 +1615,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 810aa7833292182b
-view: 1a1540bc8f8a699e
+view: be06a6c3ae1d52dc
 effects: []\n
 
 ## choose-style none
@@ -1631,7 +1631,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: fb528d63762d6b2a
-view: 1f977f6e2096c2c9
+view: 99c6c4437820a98c
 effects: []\n
 
 ## choose-style without selection
@@ -1647,7 +1647,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c133a1850159d00b
+view: 0f7c5ce390a7454a
 effects: []\n
 
 ## draft-field-name
@@ -1663,7 +1663,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 16605aa660355a3d
+view: 2a980834e2360588
 effects: []\n
 
 ## draft-field-type
@@ -1679,7 +1679,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 75cd59f716b9e3ab
+view: 53d259e246fe1104
 effects: []\n
 
 ## draft-field-options
@@ -1695,7 +1695,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6d276316bc22daef
+view: ceb62cde64199462
 effects: []\n
 
 ## draft-field-scope
@@ -1711,7 +1711,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 49a064a63baeff12
+view: 0c09b3c5d15a423e
 effects: []\n
 
 ## draft-field-scope unknown
@@ -1727,7 +1727,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 89542a3c0b1fa5c5
+view: 700a549a136c61e2
 effects: []\n
 
 ## create-field choice
@@ -1743,7 +1743,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b05ea07a50506839
-view: f4a7cf634455b737
+view: ead755e7a5371303
 effects: []\n
 
 ## create-field choice without options
@@ -1759,7 +1759,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: f87b8cf78e45460e
+view: cae9f3daa1031b88
 effects: []\n
 
 ## create-field without name
@@ -1775,7 +1775,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 08524ea9a07d4466
+view: 4b1d189a3a487428
 effects: []\n
 
 ## create-field text editor-only
@@ -1791,7 +1791,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 226407f4690a7034
-view: 1907b2f5206f1215
+view: e63930e25684bebc
 effects: []\n
 
 ## create-field export-only clashing key
@@ -1807,7 +1807,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: fb2b0e93edece011
-view: 6a2ac7536e91ebb9
+view: cbcfa21eb599ecdb
 effects: []\n
 
 ## create-field url
@@ -1823,7 +1823,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b7914a8ae5cd8c6f
-view: b31912e6d5f93570
+view: e0de8dffdace1109
 effects: []\n
 
 ## create-field tags
@@ -1839,7 +1839,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: ef58eebd4dc90764
-view: cb27c4ef65d7831f
+view: 2f14a45bd3520b1f
 effects: []\n
 
 ## create-field unknown type is text
@@ -1855,7 +1855,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: ef8ec710810dd55b
-view: 0954300f4aa809e1
+view: e72963fbbfa463d9
 effects: []\n
 
 ## draft-slot-name
@@ -1871,7 +1871,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 740a6a392970e6a3
+view: eb04a6573be70b6e
 effects: []\n
 
 ## draft-slot-color
@@ -1887,7 +1887,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 879747c5c1279d3f
+view: 298abbdf19f285be
 effects: []\n
 
 ## create-slot
@@ -1903,7 +1903,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 2f27d8c78f33a029
-view: ef3ac68e9b48efde
+view: 49c2d49ded73b279
 effects: []\n
 
 ## create-slot clashing key
@@ -1919,7 +1919,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 312d6a2c6bf256a6
-view: 0f5552c31de74b0c
+view: f47be1942de7c568
 effects: []\n
 
 ## create-slot without name
@@ -1935,7 +1935,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 35350a36b5c0b091
+view: 4f4629b4f98e92cc
 effects: []\n
 
 ## create-slot invalid color
@@ -1951,7 +1951,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 809e894a3a794e4a
+view: 4624d51121e58d49
 effects: []\n
 
 ## delete-slot in use
@@ -1967,7 +1967,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bdb34f88d2315317
+view: 2eb251ba4dbd12dc
 effects: []\n
 
 ## delete-slot unused
@@ -1983,7 +1983,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e87b51db9d046aeb
+view: 7ed736e4ac6bfb9f
 effects: []\n
 
 ## delete-slot unreadable
@@ -1999,7 +1999,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## materialize-slot
@@ -2015,7 +2015,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 72d44b798cb650e6
-view: 5321100ae8a10b0e
+view: cf74ebeeaeb5e5a8
 effects: []\n
 
 ## materialize-slot unreadable
@@ -2031,7 +2031,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## mapping-value
@@ -2047,7 +2047,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## mapping-slot
@@ -2063,7 +2063,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 90f43629c3bf9104
+view: bdf083a0de6c177d
 effects: []\n
 
 ## create-mapping-rule defines
@@ -2079,7 +2079,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: c9df05cd6974657d
-view: 94331f449cdf7fa7
+view: 9b26fa0847124121
 effects: []\n
 
 ## create-mapping-rule updates
@@ -2095,7 +2095,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 753be3492e584402
-view: 4e027a22ec6d398e
+view: bfee476e4f15b917
 effects: []\n
 
 ## create-mapping-rule unknown value
@@ -2111,7 +2111,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6d2efc3b8ad8466d
+view: 59ef21d587029ddd
 effects: []\n
 
 ## create-mapping-rule incomplete
@@ -2127,7 +2127,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 43ea3986295b3dea
+view: ea314e12fa3cca21
 effects: []\n
 
 ## create-mapping-rule non-choice field
@@ -2143,7 +2143,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 39b31ab3a233b6ce
+view: 05af34e90bc1a5a6
 effects: []\n
 
 ## create-mapping-rule without field
@@ -2159,7 +2159,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e9b46ba34af7587a
+view: ffed3bfc124c589e
 effects: []\n
 
 ## assign-lane
@@ -2175,7 +2175,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 5ad7a6586cc731ee
-view: 55018f722769ea16
+view: d8acfa418ae26710
 effects: []\n
 
 ## assign-lane none
@@ -2191,7 +2191,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6b4436e8ec709324
-view: 142db46990fe7f7a
+view: 1a99ac416f8d2405
 effects: []\n
 
 ## assign-lane without selection
@@ -2207,7 +2207,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: ae452e45de2d0a5d
+view: 0726a659623f3faa
 effects: []\n
 
 ## add-page
@@ -2223,7 +2223,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: d167988c0b769f04
+view: 22d29151e00df094
 effects: []\n
 
 ## add-page twice
@@ -2239,7 +2239,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: c10c474f0a5c97b2
-view: 13203525477f4167
+view: 3e13af142d293940
 effects: []\n
 
 ## open-page
@@ -2255,7 +2255,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: a32a39df92bc91a7
+view: c4e7d1c1fc839a1c
 effects: []\n
 
 ## open-page unreadable
@@ -2271,7 +2271,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: df1412a161c9b242
+view: 88a89631a0fabd98
 effects: []\n
 
 ## open-diagram
@@ -2287,7 +2287,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: b37bd2712f69c358
+view: fa8c845b130aad4f
 effects: []\n
 
 ## layout-add-heading
@@ -2303,7 +2303,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: bf0ccdf0572cd473
+view: 9028b9586ab41f80
 effects: []\n
 
 ## layout-add-heading twice
@@ -2319,7 +2319,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: be3c2518fd5b31f9
-view: b169b92ccf5cd1b1
+view: b49f9cd4f8bfcc53
 effects: []\n
 
 ## layout-add-heading without page
@@ -2335,7 +2335,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b2be769124bb2314
+view: 208c925873611944
 effects: []\n
 
 ## layout-set-text heading
@@ -2351,7 +2351,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6c385bae45a5a6db
-view: 8088a3ecb691abf1
+view: 20f86c6fce36e1ca
 effects: []\n
 
 ## layout-set-text content key
@@ -2367,11 +2367,11 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 80bb474cafa652e1
-view: 3f250038bfb3602c
+view: db4c70bc4caba7b3
 effects: []\n
 
 ## layout-set-text without page
-status: Ready.
+status: Open a Layout page first.
 history: undo=0 redo=0
 selection: 
 pending: none
@@ -2383,7 +2383,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 208c925873611944
 effects: []\n
 
 ## layout-target container
@@ -2399,7 +2399,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: 89f31faa930cd004
+view: bc0342e128ba93dc
 effects: []\n
 
 ## layout-target root
@@ -2415,7 +2415,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## layout-target empty
@@ -2431,7 +2431,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## layout-add-component stack
@@ -2447,7 +2447,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 78b057780aa4a873
-view: c457551e60aff83e
+view: ed3f8506d13fedf5
 effects: []\n
 
 ## layout-add-component heading
@@ -2463,7 +2463,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 38efa5ea78449907
+view: e361cb7620105e75
 effects: []\n
 
 ## layout-add-component text
@@ -2479,7 +2479,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: 6b0700a0405fd9e5
+view: ec1582531537f0e1
 effects: []\n
 
 ## layout-add-component button
@@ -2495,7 +2495,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 54296da711b5a662
-view: f5ebe9bf18e9f21a
+view: 0e9e3f327d9efaf0
 effects: []\n
 
 ## layout-add-component link-button
@@ -2510,8 +2510,8 @@ workflows: count=0 current=- revision=0 unsaved=
 export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
-project: 348fefc40e510042
-view: c29740393bed268f
+project: 660abf6a25ad7f54
+view: 61ae158b89d0ae85
 effects: []\n
 
 ## layout-add-component text-field
@@ -2527,7 +2527,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 98248855b28795f7
-view: 8684ae8fac9773a3
+view: d55f19cd019f1bd3
 effects: []\n
 
 ## layout-add-component actions
@@ -2543,7 +2543,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 965242a22860dc4d
-view: c78378ece1cb778a
+view: 053d0ce001d7c26f
 effects: []\n
 
 ## layout-add-component surface
@@ -2559,7 +2559,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 137fb53e718c336e
-view: 3af6f89b8108d109
+view: 5a0acb7fcbce6f5e
 effects: []\n
 
 ## layout-add-component responsive-grid
@@ -2575,7 +2575,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: bb2c4c97637c90d9
-view: 9d6d5df35b17c58e
+view: 8e3d416f7e7cd06f
 effects: []\n
 
 ## layout-add-component alert
@@ -2591,7 +2591,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: abe09bce9c70d723
-view: 6d27c05f2de7a80a
+view: 45c4b9dce4766f00
 effects: []\n
 
 ## layout-add-component metric-card
@@ -2607,7 +2607,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 1e2270b3597f072a
-view: 095246e895d84e38
+view: a0856bc0c654fde4
 effects: []\n
 
 ## layout-add-component workflow
@@ -2623,7 +2623,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b81146c4b1373279
-view: 46560a100081af27
+view: c249056a29311b41
 effects: []\n
 
 ## layout-add-component workflow with a current workflow
@@ -2639,7 +2639,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 8d25e71e937b93ff
-view: 8c8d8f581de0e3d3
+view: 74b4600e387e508e
 effects: []\n
 
 ## layout-add-component unknown
@@ -2655,7 +2655,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: f8a978ba5b8fb71c
-view: c4321561cdf591c8
+view: cb4cf080208b6539
 effects: []\n
 
 ## layout-add-component without page
@@ -2671,7 +2671,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b2be769124bb2314
+view: 208c925873611944
 effects: []\n
 
 ## layout-add-component into a container
@@ -2687,7 +2687,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 6efec29cd11498e2
-view: 76aab7c61616e39d
+view: 23bfb6dfa0c4dc67
 effects: []\n
 
 ## layout-add-component missing target falls back to root
@@ -2703,7 +2703,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: b77a317afd7bf7e8
-view: 0858b4b205948e14
+view: fc6f47434821f36f
 effects: []\n
 
 ## layout-move-up
@@ -2719,7 +2719,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 8b77be77ed554ebe
+view: 8d5eb7b41c001982
 effects: []\n
 
 ## layout-move-up at top
@@ -2735,7 +2735,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 366a6446e15d4ab8
+view: 7c08c43ac361da5c
 effects: []\n
 
 ## layout-move-down
@@ -2751,11 +2751,11 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e2a61fa5740c3d88
-view: 8b77be77ed554ebe
+view: 8d5eb7b41c001982
 effects: []\n
 
 ## layout-move-down unknown
-status: Nothing to reorder.
+status: That component is no longer on the page.
 history: undo=2 redo=0
 selection: 
 pending: none
@@ -2767,7 +2767,199 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 7e9f477403f26cbd
+view: 1ba2d36ef54dd6b4
+effects: []\n
+
+## layout-move-up nested
+status: Reordered.
+history: undo=5 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=page-1-responsive-grid
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 5772554c0c17ad37
+view: 8af7e0bbe6c1c97f
+effects: []\n
+
+## layout-set-text description
+status: Text changed.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 86df437493358544
+view: 3dc2bb5de4833f57
+effects: []\n
+
+## layout-set-property alignment
+status: alignment set to top.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 8bae8149b033aaf4
+view: 7ed8344e3c5430d9
+effects: []\n
+
+## layout-set-property clear
+status: alignment cleared.
+history: undo=4 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: bb2c4c97637c90d9
+view: a104b40e5eff44d4
+effects: []\n
+
+## layout-set-property bool
+status: required set to true.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 8ea91b924c1d981e
+view: afeee196dcab2c1c
+effects: []\n
+
+## layout-set-property invalid
+status: Not changed: alignment must be one of top, bottom, center
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: bb2c4c97637c90d9
+view: 623c85293c46a997
+effects: []\n
+
+## layout-set-property malformed
+status: Choose a property value.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 9b0bbe7e1cc3d8aa
+view: 8122a97ef6f83a35
+effects: []\n
+
+## layout-set-property without page
+status: Open a Layout page first.
+history: undo=0 redo=0
+selection: 
+pending: none
+surface: page=- workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: a0f6b76111ca88ef
+view: 208c925873611944
+effects: []\n
+
+## layout-remove
+status: Removed page-1-button.
+history: undo=3 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: ad43345c173b48db
+view: 314d87b4d80c4379
+effects: []\n
+
+## layout-remove container clears target
+status: Removed page-1-surface.
+history: undo=4 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: ad43345c173b48db
+view: 879bb66d09758f77
+effects: []\n
+
+## layout-remove root
+status: The page's root stack cannot be removed.
+history: undo=1 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: f8a978ba5b8fb71c
+view: 8736eedb559a35c4
+effects: []\n
+
+## layout-remove unknown
+status: That component is no longer on the page.
+history: undo=2 redo=0
+selection: 
+pending: none
+surface: page=page-1 workflows=false layoutTarget=-
+canvas: zoom=100 snap=false addKind=activity field=- template=- clipboard=-
+drafts: name= type=choice options= scope=PrintedAndExported slot= color= mapValue=- mapSlot=-
+workflows: count=0 current=- revision=0 unsaved=
+export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0c44298fc1c14 omitted=0 summary=Nothing exported yet.
+review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
+icons: availability=not-loaded loading=- target=- query=
+project: 9b0bbe7e1cc3d8aa
+view: 1ba2d36ef54dd6b4
 effects: []\n
 
 ## layout-density
@@ -2783,7 +2975,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e8bea9b3850aa450
-view: fc5f59169d779881
+view: 25d565e9c58cdf20
 effects: []\n
 
 ## layout-density without page
@@ -2799,7 +2991,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b2be769124bb2314
+view: 208c925873611944
 effects: []\n
 
 ## save
@@ -2815,7 +3007,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=e774e2504aa1048b incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: 8f9b03d087ecab6c
+view: 4495b328700eb788
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "save",\n    "operation": "set",\n    "key": "forma-studio.project",\n    "value": "<sha:e774e2504aa1048b len:14334>"\n  }\n]\n
 
 ## load
@@ -2831,7 +3023,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e5745264a8ce1983
+view: 14b9c17838a0c365
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "load",\n    "operation": "get",\n    "key": "forma-studio.project"\n  }\n]\n
 
 ## check-saved
@@ -2847,7 +3039,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: aefd3a2ed6068332
+view: 85868328109a6c5a
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "compare",\n    "operation": "get",\n    "key": "forma-studio.project"\n  }\n]\n
 
 ## effect save success
@@ -2863,7 +3055,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=e774e2504aa1048b saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: e774e2504aa1048b
-view: fa7a999ea66fa762
+view: e7afa274e8499be1
 effects: []\n
 
 ## effect save failure
@@ -2879,7 +3071,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b089f877698351e0
+view: 0be087cbeeca9d4c
 effects: []\n
 
 ## effect load success
@@ -2895,7 +3087,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5e5e1b985fe4f73a
+view: 43d106f982d69aed
 effects: []\n
 
 ## effect load nothing saved
@@ -2911,7 +3103,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 95cc5e7fee647a9a
+view: 433586a045e14685
 effects: []\n
 
 ## effect load unreadable
@@ -2927,7 +3119,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 04bc06ecaac1730d
+view: e52f5e118c3d494e
 effects: []\n
 
 ## effect compare unchanged
@@ -2943,7 +3135,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 4d10ec2cbc335c3b
+view: 48e8cf0ded93762e
 effects: []\n
 
 ## effect compare changed
@@ -2959,7 +3151,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0c9dc99221a44334
+view: e0d27ad5b903b7b5
 effects: []\n
 
 ## effect compare nothing saved
@@ -2975,7 +3167,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 95cc5e7fee647a9a
+view: 433586a045e14685
 effects: []\n
 
 ## effect compare unreadable
@@ -2991,7 +3183,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 04bc06ecaac1730d
+view: e52f5e118c3d494e
 effects: []\n
 
 ## effect unknown correlation
@@ -3007,7 +3199,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## effect copy-export
@@ -3023,7 +3215,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0bc5e4d61adc2d4a
+view: e69b6fc733a455c9
 effects: []\n
 
 ## merge-take-saved
@@ -3039,7 +3231,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=node:order
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0c9dc99221a44334
+view: e0d27ad5b903b7b5
 effects: []\n
 
 ## merge-keep-mine
@@ -3055,7 +3247,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=2d94c43c72fc0ecc takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 0c9dc99221a44334
+view: e0d27ad5b903b7b5
 effects: []\n
 
 ## merge-cancel
@@ -3071,7 +3263,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 119d50c3257223f4
+view: 0777f13fd84d17df
 effects: []\n
 
 ## merge-apply
@@ -3087,7 +3279,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 2d94c43c72fc0ecc
-view: a14f93d7c4757d0e
+view: 5fee1906ab7c7eea
 effects: []\n
 
 ## merge-apply with a conflict taken from saved
@@ -3103,7 +3295,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: d269391889badad3
-view: f634739615fcb5d4
+view: 9ec6a79b379e7d02
 effects: []\n
 
 ## merge-apply keeping mine
@@ -3119,7 +3311,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=2d94c43c72fc0ecc saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: d269391889badad3
-view: f634739615fcb5d4
+view: 9ec6a79b379e7d02
 effects: []\n
 
 ## merge-apply without incoming
@@ -3135,7 +3327,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: be87c4dfcf03f266
+view: ad226423928cdd4d
 effects: []\n
 
 ## open-workflows
@@ -3151,7 +3343,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 99cf4e2bf097a634
+view: 89f12a2181218443
 effects: []\n
 
 ## workflow-new
@@ -3167,7 +3359,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: cd7e4a7e4b53d29a
+view: 0064b27219b40053
 effects: []\n
 
 ## workflow-new twice
@@ -3183,7 +3375,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 743b43048b925c7a
+view: 514793957aeed796
 effects: []\n
 
 ## workflow-opened
@@ -3199,7 +3391,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c366abac6328f82f
+view: e14049b79bf0b901
 effects: []\n
 
 ## workflow-opened unreadable
@@ -3215,7 +3407,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fef6291be363a80e
+view: 68419d0986dc72f4
 effects: []\n
 
 ## workflow-changed
@@ -3231,7 +3423,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 111cb2bd545ea4dd
+view: fd5de37b35b6b07c
 effects: []\n
 
 ## workflow-changed unreadable
@@ -3247,7 +3439,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 965df78aea5851bb
+view: 52b3e387c2356adc
 effects: []\n
 
 ## workflow-select
@@ -3263,7 +3455,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bf649dfe5a011431
+view: 3c4ebf13501300f5
 effects: []\n
 
 ## workflow-select unknown
@@ -3279,7 +3471,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: af73738463f90870
+view: dba21315864f5689
 effects: []\n
 
 ## workflow-close
@@ -3295,7 +3487,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 8fade03e8cfd95cf
+view: 17c806c83861f7d3
 effects: []\n
 
 ## workflow-save
@@ -3311,7 +3503,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 2aef1e15c20bd68a
+view: 7bc68d8e5f4a2a41
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "workflows-save",\n    "operation": "set",\n    "key": "forma-studio.workflows",\n    "value": "<sha:9f8927f6c3cb3671 len:544>"\n  }\n]\n
 
 ## workflow-load
@@ -3327,7 +3519,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5429d6698fdd9f84
+view: c423cdbcf40b2645
 effects: [\n  {\n    "kind": "Storage",\n    "correlationId": "workflows-load",\n    "operation": "get",\n    "key": "forma-studio.workflows"\n  }\n]\n
 
 ## effect workflows-save
@@ -3343,7 +3535,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 1538b9be92214803
+view: bbe3d5d9926cf94c
 effects: []\n
 
 ## effect workflows-load
@@ -3359,7 +3551,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 38cc299e696f2575
+view: f2d9cef4688dc7fa
 effects: []\n
 
 ## effect workflows-load nothing saved
@@ -3375,7 +3567,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: fbbde701de038f8e
+view: 994b0c3c40254334
 effects: []\n
 
 ## effect workflows-load unreadable
@@ -3391,7 +3583,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: bbadfde4097e2e73
+view: b9c901f957bb58ca
 effects: []\n
 
 ## export-target document
@@ -3407,7 +3599,7 @@ export: target=HtmlDocument brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c72ee86111e298d2
+view: 90c1e413e623df4d
 effects: []\n
 
 ## export-target other
@@ -3423,7 +3615,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## export-interactive on
@@ -3439,7 +3631,7 @@ export: target=HtmlFragment brand=- interactive=true file=export.html text=e3b0c
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e4574f1a0d2be658
+view: 178ef31ec68cdef3
 effects: []\n
 
 ## export-interactive off
@@ -3455,7 +3647,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c25c17427a1fd539
+view: cdcce008a8683530
 effects: []\n
 
 ## export-brand
@@ -3471,7 +3663,7 @@ export: target=HtmlFragment brand=echelon interactive=false file=export.html tex
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7ae5ec8e4ae2c23e
+view: 122078186d941ed5
 effects: []\n
 
 ## export-brand none
@@ -3487,7 +3679,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## export-brand empty
@@ -3503,7 +3695,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## export-page
@@ -3519,7 +3711,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 235547f3a819f494
+view: 79c812af455c5805
 effects: []\n
 
 ## export-page document with brand
@@ -3535,7 +3727,7 @@ export: target=HtmlDocument brand=echelon interactive=false file=page-1.html tex
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: a58d376ec2ae34da
+view: d41857bfb76c3f7c
 effects: []\n
 
 ## export-page falls back to first page
@@ -3551,7 +3743,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 688ed3d2513f04ac
+view: 673d29229aa6f019
 effects: []\n
 
 ## export-page without pages
@@ -3567,7 +3759,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 84487642f24aed8e
+view: 039eeac28123d152
 effects: []\n
 
 ## export-component
@@ -3583,7 +3775,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1-heading.fragme
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 2cd86953d3013bad
+view: 2320040c981c399a
 effects: []\n
 
 ## export-component gone
@@ -3599,7 +3791,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 39f4cee5c4afc39d
+view: 1ba2d36ef54dd6b4
 effects: []\n
 
 ## export-component without page
@@ -3615,7 +3807,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 6e307b166478d1cc
+view: b7aad071cdebe54d
 effects: []\n
 
 ## export-workflow
@@ -3631,7 +3823,7 @@ export: target=HtmlFragment brand=- interactive=false file=workflow-1.fragment.h
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 465004508d7ad3d0
+view: 619c7eaed1d47c30
 effects: []\n
 
 ## export-workflow interactive
@@ -3647,7 +3839,7 @@ export: target=HtmlFragment brand=- interactive=true file=workflow-1.fragment.ht
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: a29d60397bdcef2d
+view: 6fccd99afc934f68
 effects: []\n
 
 ## export-workflow without workflow
@@ -3663,7 +3855,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: e8f13f223d51cedf
+view: 62f198f30e72312c
 effects: []\n
 
 ## copy-export
@@ -3679,7 +3871,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 7f62fad2a577bc04
+view: ac393ffe42512846
 effects: [\n  {\n    "kind": "Clipboard",\n    "correlationId": "copy-export",\n    "operation": "writeText",\n    "text": "<sha:1beb7ff62202d7e9 len:226>"\n  }\n]\n
 
 ## copy-export with nothing exported
@@ -3695,7 +3887,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: b342e0df661d443f
+view: 995684eb13631a2a
 effects: []\n
 
 ## initialize requests the pinned icon registry
@@ -3711,7 +3903,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: [\n  {\n    "kind": "Http",\n    "correlationId": "icon-registry",\n    "method": "GET",\n    "url": "./forma/icons/registry.json",\n    "timeoutMs": 15000,\n    "response": "text"\n  }\n]\n
 
 ## effect icon registry missing (an icon-less release)
@@ -3727,7 +3919,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=unavailable 3616a6ff250d3019 loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 887f03772a7fb9d2
+view: b479891fc9f5f35d
 effects: []\n
 
 ## effect icon registry refused
@@ -3743,7 +3935,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=unavailable 0cb830fe7eb4c1aa loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 95677eb815581e58
+view: a236c8928a33f190
 effects: []\n
 
 ## effect icon assets complete
@@ -3759,7 +3951,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c79e5260568e8606
+view: c373cf24e0444f6f
 effects: []\n
 
 ## effect icon asset with a tampered digest
@@ -3775,7 +3967,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 2 verified, 1 refused loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 134086abe0705ff7
+view: ea0d37a2b20baacf
 effects: []\n
 
 ## icon-pick selected node
@@ -3791,7 +3983,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: 04a8a24af4733831
+view: 79646728fa0d93b9
 effects: []\n
 
 ## icon-pick without selection
@@ -3807,7 +3999,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 83635698f5e8d378
+view: 92b88de870caf0c4
 effects: []\n
 
 ## icon-pick layout item
@@ -3823,7 +4015,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=page:page-1/component:page-1-button query=
 project: 54296da711b5a662
-view: da40242a8964980b
+view: da38c35a47fb12ff
 effects: []\n
 
 ## icon-pick layout item without an icon property
@@ -3839,7 +4031,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 9b0bbe7e1cc3d8aa
-view: 9f767540c616a22d
+view: 3060bd1002090061
 effects: []\n
 
 ## icon-pick unknown layout item
@@ -3855,7 +4047,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: 54296da711b5a662
-view: a282db8361ac2526
+view: e8e61b0f036c097f
 effects: []\n
 
 ## icon-pick icons unavailable
@@ -3871,7 +4063,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=unavailable 3616a6ff250d3019 loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: a120a984367a256b
+view: e0db46aa6b5c5dcf
 effects: []\n
 
 ## icon-search
@@ -3887,7 +4079,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=SQUARE
 project: a0f6b76111ca88ef
-view: 692f1559e172db6f
+view: 35f1cd519831d7f3
 effects: []\n
 
 ## icon-choose
@@ -3903,7 +4095,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: 598dbf38254e7f75
-view: b0105ed27b9d4f31
+view: d4119f03bf6f9647
 effects: []\n
 
 ## icon-choose layout button
@@ -3919,7 +4111,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
 project: 5f117e63b47ecce2
-view: 35da195aef111fc7
+view: c051a6c8b618e8dd
 effects: []\n
 
 ## icon-choose not in the release
@@ -3935,7 +4127,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: c9e0bb884a71d5d6
+view: 2e7496e11fd1c5f4
 effects: []\n
 
 ## icon-choose injected key
@@ -3951,7 +4143,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: f674ae62f3b1a8d9
+view: d8ff05d013322a42
 effects: []\n
 
 ## icon-choose icons unavailable
@@ -3967,7 +4159,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=unavailable 3616a6ff250d3019 loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: 02b8eb9d1234c11a
+view: e03cfc2b0ca27ca0
 effects: []\n
 
 ## icon-choose without picker
@@ -3983,7 +4175,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 99d2e8f99c4115be
+view: acecc592966c4a80
 effects: []\n
 
 ## icon-clear
@@ -3999,7 +4191,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: e7333b807cf928ac
+view: 55126812914d01a1
 effects: []\n
 
 ## icon-clear without picker
@@ -4015,7 +4207,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 9b340d79a7785de3
+view: c9498613198ae95d
 effects: []\n
 
 ## icon-copy
@@ -4031,7 +4223,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: 598dbf38254e7f75
-view: 1b7965baa6f42631
+view: 8680bd8b97b6ce6b
 effects: [\n  {\n    "kind": "Clipboard",\n    "correlationId": "icon-clipboard",\n    "operation": "writeText",\n    "text": "<sha:c8310cc622d2f724 len:393>"\n  }\n]\n
 
 ## icon-copy without icon
@@ -4047,7 +4239,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: 3e693e9f28f3ac48
+view: ed48ede16906efa5
 effects: []\n
 
 ## effect icon-clipboard
@@ -4063,7 +4255,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: c48f67e274b908dc
+view: 46651358c7aaf503
 effects: []\n
 
 ## icon-close
@@ -4079,7 +4271,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 222d8786de90c7f0
+view: bc30fcf38d32031d
 effects: []\n
 
 ## undo icon-choose
@@ -4095,7 +4287,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=diagram:purchase-request/node:prepare query=
 project: a0f6b76111ca88ef
-view: eeb48a58ef3a7652
+view: c0eacc2dd8a077c2
 effects: []\n
 
 ## export-page with an icon
@@ -4111,7 +4303,7 @@ export: target=HtmlFragment brand=- interactive=false file=page-1.fragment.html 
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=forma 0.0.0-test-fixture, 3 verified, 0 refused loading=- target=page:page-1/component:page-1-button query=
 project: 5f117e63b47ecce2
-view: eebb40e737fe4c5a
+view: 3633bf5b3e1878f4
 effects: []\n
 
 ## unknown event name
@@ -4127,7 +4319,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 80f942931880995a
+view: 89763fdb271ef1a3
 effects: []\n
 
 ## empty event name
@@ -4143,7 +4335,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: d4eb27081d27e903
+view: afec307b554c1352
 effects: []\n
 
 ## event message without event
@@ -4159,7 +4351,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n
 
 ## unknown message kind
@@ -4175,7 +4367,7 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 7da139c23f0a4961
+view: 1ae78b836ce11429
 effects: []\n
 
 ## effect message without result
@@ -4191,5 +4383,5 @@ export: target=HtmlFragment brand=- interactive=false file=export.html text=e3b0
 review: baseline=a0f6b76111ca88ef saving=- incoming=- takeSaved=
 icons: availability=not-loaded loading=- target=- query=
 project: a0f6b76111ca88ef
-view: 5a4832b2db121b1b
+view: 09a895881141392c
 effects: []\n

@@ -67,6 +67,19 @@ jobs:
           npx playwright install --with-deps chromium
           npm run app:test
 
+      - name: Universal UI layout and interaction conformance (ULI, visual-engineering UI-LAYOUT-INTERACTION@1.0.0)
+        run: npm run ui:conformance
+
+      - name: Keep the UI conformance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-conformance-evidence
+          path: |
+            playwright-evidence/results.json
+            test-results/
+          if-no-files-found: warn
+
       - name: Validate requirements and project schema
         run: |
           npm run requirements:validate

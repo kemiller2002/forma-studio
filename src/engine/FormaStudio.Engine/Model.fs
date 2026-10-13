@@ -386,6 +386,8 @@ type FindingCategory =
     | DisclosureRule
     | ReferenceRule
     | CommandRule
+    /// Pre-export Layout checks against the universal UI layout and interaction contract.
+    | LayoutRule
 
 /// A validation finding tied to a stable object address (FDA-160..163, FDA-878).
 type Finding =

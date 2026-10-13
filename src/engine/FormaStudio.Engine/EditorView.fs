@@ -244,7 +244,7 @@ module EditorView =
                   "workflowDocument", str (WorkflowLibrary.current state.Workflows |> Option.map _.Text |> Option.defaultValue "")
                   "workflowRevision", str (string state.Workflows.Revision)
                   "workflowFile", str (WorkflowLibrary.current state.Workflows |> Option.map WorkflowLibrary.fileName |> Option.defaultValue "workflow.forma-workflow.json")
-                  "workflowNone", JBool((WorkflowLibrary.current state.Workflows).IsSome)
+                  "workflowNone", JBool((WorkflowLibrary.current state.Workflows).IsSome); "workflowDownloadDisabled", JBool((WorkflowLibrary.current state.Workflows).IsNone)
                   "exportTargets",
                   [ "fragment", "HTML fragment", HtmlFragment; "document", "Complete HTML document", HtmlDocument ]
                   |> List.map (fun (k, label, t) -> item [ "key", str k; "label", str label; "pressed", str (if state.Export.Target = t then "true" else "false") ])
@@ -259,34 +259,6 @@ module EditorView =
                   "exportOmitted", state.Export.Omitted |> List.mapi (fun i o -> item [ "key", str (string i); "text", str o ]) |> JArray
                   "exportEmpty", JBool(state.Export.Text = "")
                   "exportInteractive", str (if state.Export.InteractiveWorkflow then "true" else "false")
-                  "pageName", str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.map _.Name |> Option.defaultValue "")
-                  "density",
-                  str (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))
-                       |> Option.bind (fun root -> Map.tryFind "density" root.Properties) |> Option.map (function JString d -> d | _ -> "standard") |> Option.defaultValue "standard")
-                  "layoutItems",
-                  (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p) |> Option.bind (fun pg -> pg.Nodes |> List.tryFind (fun n -> n.Component = "stack"))
-                   |> Option.map (fun root -> root.Slots |> Map.tryFind "children" |> Option.defaultValue [])
-                   |> Option.defaultValue []
-                   |> List.map (fun c ->
-                       let primary = Components.tryFind c.Component |> Option.bind (fun ct -> List.tryHead ct.Content) |> Option.defaultValue "text"
-                       let text = c.Content |> Map.tryFind primary |> Option.map (function JString t -> t | _ -> "") |> Option.defaultValue ""
-                       let label = if c.Component = "heading" then sprintf "Heading text for %s" (Id.value c.Id) else sprintf "%s %s for %s" c.Component primary (Id.value c.Id)
-                       item ([ "key", str (Id.value c.Id + "|" + primary); "text", str text; "label", str label; "kind", str c.Component ] @ IconView.layoutItem state c)))
-                  |> JArray
-                  "componentChoices",
-                  Components.catalog |> List.filter (fun c -> c.Id <> "stack" && c.Id <> "heading") |> List.map (fun c -> item [ "key", str c.Id; "label", str ("Add " + c.Id) ]) |> JArray
-                  "layoutTargets",
-                  (state.Page |> Option.bind (fun id -> ProjectOps.tryPage id p)
-                   |> Option.map (fun pg ->
-                       let rec containers (nodes: ComponentNode list) =
-                           nodes |> List.collect (fun n -> (if n.Component <> "stack" && not (List.isEmpty (Components.tryFind n.Component |> Option.map _.Slots |> Option.defaultValue [])) then [ n ] else []) @ (n.Slots |> Map.toList |> List.collect snd |> containers))
-                       containers pg.Nodes)
-                   |> Option.defaultValue []
-                   |> List.map (fun n -> n.Id, n.Component)
-                   |> fun cs -> ("root", "page") :: (cs |> List.map (fun (id, kind) -> Id.value id, kind + " " + Id.value id))
-                   |> List.map (fun (k, label) -> item [ "key", str k; "label", str ("Add into " + label); "pressed", str (if (state.LayoutTarget |> Option.defaultValue "root") = k then "true" else "false") ]))
-                  |> JArray
-                  "densities", [ "relaxed"; "standard"; "compact"; "analytical" ] |> List.map (fun d -> item [ "key", str d; "label", str d ]) |> JArray
                   "diagramName", str diagram.Name
                   "profileName", str (profile |> Option.map (fun pr -> sprintf "%s profile %s" pr.Name pr.Version) |> Option.defaultValue "Unavailable profile")
                   "status", str state.Status
@@ -421,4 +393,4 @@ module EditorView =
                       item [ "key", str (Id.value g.Id); "label", str g.Label; "pressed", str (if inLane then "true" else "false") ])
                   |> JArray
                   "findingCount", Json.ofInt blockers.Length
-                  "findings", blockers |> List.mapi (fun i f -> item [ "key", str (sprintf "f%d" i); "text", str f.Message ]) |> JArray ] @ IconView.fields state)
+                  "findings", blockers |> List.mapi (fun i f -> item [ "key", str (sprintf "f%d" i); "text", str f.Message ]) |> JArray ] @ IconView.fields state @ LayoutView.fields state)
