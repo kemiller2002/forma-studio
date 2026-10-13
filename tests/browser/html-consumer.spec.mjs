@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { VIEWPORTS, alignmentVerdict, measureDeclaredGroups } from "./ui-conformance-helpers.mjs";
 
 // Forma Studio -> design -> HTML export -> ordinary web project -> render.
 // The site (examples/html-consumer) knows Forma and nothing about Studio.
@@ -60,3 +61,22 @@ test("form semantics survive export", async ({ page }) => {
   await expect(page.getByLabel("Work email")).toHaveAccessibleDescription("We send the confirmation here.");
   await expect(page.getByRole("button", { name: "Request session" })).toHaveAttribute("type", "submit");
 });
+
+// ULI-L01 (visual-engineering UI-LAYOUT-INTERACTION@1.0.0): the exported markup carries
+// Studio's declared alignment groups, so the consumer page is measured against the
+// declaration, never against guessed peers. Reflowed (stacked) widths are NOT_APPLICABLE.
+for (const file of ["application.html", "branded.html", "application.embedded.html"]) {
+  test(`@uli ${file}: every declared alignment group shares its edge within 1 CSS px (or a recorded, bounded exception) at 320/390/768/1280`, async ({ page }) => {
+    const verdicts = [];
+    for (const width of VIEWPORTS) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(site + file);
+      const groups = await measureDeclaredGroups(page);
+      expect(groups.length, "the export declares its form row").toBeGreaterThan(0);
+      for (const group of groups) verdicts.push({ width, ...alignmentVerdict(group) });
+    }
+    expect(verdicts.filter((v) => v.status === "FAIL"), JSON.stringify(verdicts)).toEqual([]);
+    expect(verdicts.some((v) => v.status === "PASS" || v.status === "EXCEPTION"), "the row is side by side at some supported width").toBe(true);
+    test.info().annotations.push({ type: "ULI-L01 evidence", description: JSON.stringify(verdicts.map(({ peers, ...rest }) => rest)) });
+  });
+}

@@ -79,27 +79,42 @@
                 "slots": {
                   "children": [
                     {
-                      "nodeId": "app-email",
-                      "componentId": "text-field",
+                      "nodeId": "app-row",
+                      "componentId": "responsive-grid",
                       "properties": {
-                        "inputType": "email",
-                        "required": true
+                        "alignment": "top"
                       },
                       "content": {
-                        "description": "We send the confirmation here.",
-                        "label": "Work email",
-                        "name": "email"
-                      }
-                    },
-                    {
-                      "nodeId": "app-date",
-                      "componentId": "text-field",
-                      "properties": {
-                        "inputType": "date"
+                        "label": "Session details"
                       },
-                      "content": {
-                        "label": "Preferred date",
-                        "name": "date"
+                      "slots": {
+                        "children": [
+                          {
+                            "nodeId": "app-email",
+                            "componentId": "text-field",
+                            "properties": {
+                              "inputType": "email",
+                              "required": true
+                            },
+                            "content": {
+                              "description": "We send the confirmation here.",
+                              "label": "Work email",
+                              "name": "email"
+                            }
+                          },
+                          {
+                            "nodeId": "app-date",
+                            "componentId": "text-field",
+                            "properties": {
+                              "inputType": "date"
+                            },
+                            "content": {
+                              "description": "Sessions start at 09:00.",
+                              "label": "Preferred date",
+                              "name": "date"
+                            }
+                          }
+                        ]
                       }
                     },
                     {

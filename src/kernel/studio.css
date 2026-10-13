@@ -113,3 +113,9 @@ body { margin: 0; }
   /* Static SVG drawn with currentColor renders black in an <img>; keep it visible on any system background. */
   .studio-icon-preview, .studio-icon-choice img, .studio .ef-diagram-node .studio-node-icon { forced-color-adjust: none; background: Canvas; }
 }
+
+/* Layout component rows: choices wrap as a row of ordinary buttons instead of
+   stretching to the list width, so a component's properties stay one compact group
+   at 320 CSS px (ULI-L09, ULI-L10). */
+.studio-list .studio-choices button { inline-size: auto; }
+.studio-item-title { margin: 0; overflow-wrap: anywhere; }

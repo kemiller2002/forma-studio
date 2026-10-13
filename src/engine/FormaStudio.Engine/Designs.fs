@@ -37,9 +37,11 @@ module Designs =
               fun p -> add p "app-window" 0 "app-window-text" "text" [ "text", "Neutral buoyancy sessions run Monday to Thursday." ] []
               fun p -> add p "app-window" 1 "app-window-metric" "metric-card" [ "label", "Open seats"; "value", "6"; "context", "of 24 this week" ] []
               fun p -> add p root 4 "app-form" "surface" [ "title", "Request a session" ] []
-              fun p -> add p "app-form" 0 "app-email" "text-field" [ "label", "Work email"; "description", "We send the confirmation here."; "name", "email" ] [ "inputType", JString "email"; "required", JBool true ]
-              fun p -> add p "app-form" 1 "app-date" "text-field" [ "label", "Preferred date"; "name", "date" ] [ "inputType", JString "date" ]
-              fun p -> add p "app-form" 2 "app-actions" "actions" [] []
+              // A declared form row (ULI-L01): the two inputs share a top edge wherever they sit side by side.
+              fun p -> add p "app-form" 0 "app-row" "responsive-grid" [ "label", "Session details" ] [ "alignment", JString "top" ]
+              fun p -> add p "app-row" 0 "app-email" "text-field" [ "label", "Work email"; "description", "We send the confirmation here."; "name", "email" ] [ "inputType", JString "email"; "required", JBool true ]
+              fun p -> add p "app-row" 1 "app-date" "text-field" [ "label", "Preferred date"; "description", "Sessions start at 09:00."; "name", "date" ] [ "inputType", JString "date" ]
+              fun p -> add p "app-form" 1 "app-actions" "actions" [] []
               fun p -> add p "app-actions" 0 "app-submit" "button" [ "label", "Request session" ] [ "type", JString "submit" ]
               fun p -> add p "app-actions" 1 "app-help" "link-button" [ "label", "Read the training policy"; "href", "https://example.org/policy" ] [] ]
 

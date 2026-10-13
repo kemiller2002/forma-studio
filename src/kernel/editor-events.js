@@ -67,6 +67,8 @@ export const editorEvents = Object.freeze({
   layoutMoveUp: "layout-move-up", // Layout
   layoutMoveDown: "layout-move-down", // Layout
   layoutDensity: "layout-density", // Layout
+  layoutSetProperty: "layout-set-property", // Layout
+  layoutRemove: "layout-remove", // Layout
   openWorkflows: "open-workflows", // Workflows
   workflowNew: "workflow-new", // Workflows
   workflowOpened: "workflow-opened", // Workflows

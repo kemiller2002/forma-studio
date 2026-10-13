@@ -255,7 +255,7 @@ module EditorIntents =
         match contractId with
         | "heading" -> [ "text", "New heading" ]
         | "text" -> [ "text", "New paragraph." ]
-        | "button" | "link-button" -> [ "label", "Continue" ] @ (if contractId = "link-button" then [ "href", "#" ] else [])
+        | "button" | "link-button" -> [ "label", "Continue" ] // No placeholder href (ULI-A01): the author gives the destination.
         | "text-field" -> [ "label", "New field" ]
         | "surface" -> [ "title", "New section" ]
         | "responsive-grid" -> [ "label", "Summary" ]
@@ -290,12 +290,12 @@ module EditorIntents =
     /// editor reports it through the same command path.
     let nothing = Batch("nothing", [])
 
-    /// Moves a root-stack child one place earlier or later (clamped), or None
-    /// when the component is not a direct child of the root stack.
-    let reorder (page: Page) (root: ComponentNode) (componentKey: string) (earlier: bool) =
-        let children = root.Slots |> Map.tryFind "children" |> Option.defaultValue []
-        children
-        |> List.tryFindIndex (fun c -> Id.value c.Id = componentKey)
-        |> Option.map (fun index ->
-            let target = if earlier then max 0 (index - 1) else min (children.Length - 1) (index + 1)
-            Layout(MoveComponent(page.Id, children.[index].Id, Some { Parent = root.Id; Slot = "children" }, target)))
+    /// Moves a component one place among its siblings in any container (clamped); None when no container holds it.
+    let reorder (page: Page) (componentKey: string) (earlier: bool) =
+        let kids (n: ComponentNode) = n.Slots |> Map.tryFind "children" |> Option.defaultValue []
+        let rec parentOf (nodes: ComponentNode list) = nodes |> List.tryPick (fun n -> if kids n |> List.exists (fun c -> Id.value c.Id = componentKey) then Some n else n.Slots |> Map.toList |> List.collect snd |> parentOf)
+        parentOf page.Nodes
+        |> Option.map (fun parent ->
+            let children = kids parent
+            let index = children |> List.findIndex (fun c -> Id.value c.Id = componentKey)
+            Layout(MoveComponent(page.Id, children.[index].Id, Some { Parent = parent.Id; Slot = "children" }, (if earlier then max 0 (index - 1) else min (children.Length - 1) (index + 1)))))

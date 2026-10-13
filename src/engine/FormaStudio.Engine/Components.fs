@@ -25,13 +25,17 @@ module Components =
             | _ -> Error(sprintf "must be a whole number from %d to %d" lo hi)
         | _ -> Error(sprintf "must be a whole number from %d to %d" lo hi)
 
+    let densities = [ "relaxed"; "standard"; "compact"; "analytical" ]
+    let buttonTypes = [ "button"; "submit" ]
+    let inputTypes = [ "text"; "email"; "number"; "date"; "tel"; "url"; "search" ]
+
     /// Forma `ef-stack`: vertical composition. `density` is the public spacing hook
     /// (relaxed, standard, compact, analytical); Layout never stores x/y.
     let stack =
         { Id = "stack"
           Source = "forma:patterns/stack.html"
           Slots = [ "children" ]
-          Properties = [ "density", enumProperty [ "relaxed"; "standard"; "compact"; "analytical" ] ]
+          Properties = [ "density", enumProperty densities ]
           Content = [] }
 
     /// A native HTML heading styled by Forma foundations.
@@ -65,7 +69,7 @@ module Components =
 
     /// Native button (forma:patterns/button.html).
     let button =
-        { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty [ "button"; "submit" ]; "icon", iconIdProperty ]; Content = [ "label" ] }
+        { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty buttonTypes; "icon", iconIdProperty ]; Content = [ "label" ] }
 
     /// A link that looks like a button (`a.ef-button`, forma:patterns/button.html).
     let linkButton = { Id = "link-button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "label"; "href" ] }
@@ -75,17 +79,25 @@ module Components =
         { Id = "text-field"
           Source = "forma:patterns/text-field.html"
           Slots = []
-          Properties = [ "inputType", enumProperty [ "text"; "email"; "number"; "date"; "tel"; "url"; "search" ]; "required", boolProperty ]
+          Properties = [ "inputType", enumProperty inputTypes; "required", boolProperty ]
           Content = [ "label"; "description"; "name" ] }
 
+    /// The edges a container may declare its direct children share (Visual Engineering
+    /// UI-LAYOUT-INTERACTION@1.0.0 ULI-L01/ULI-L10). A declaration, not a layout
+    /// capability: geometry stays Forma's, and the export carries the declaration
+    /// (`data-uli-align-*`) so a browser check can measure it instead of guessing peers.
+    let alignmentEdges = [ "top"; "bottom"; "center" ]
+
     /// Row of actions (`.ef-actions`, forma:patterns/button.html).
-    let actions = { Id = "actions"; Source = "forma:patterns/button.html"; Slots = [ "children" ]; Properties = []; Content = [] }
+    let actions = { Id = "actions"; Source = "forma:patterns/button.html"; Slots = [ "children" ]; Properties = [ "alignment", enumProperty alignmentEdges ]; Content = [] }
 
     /// Titled surface section (forma:patterns/surface.html).
     let surface = { Id = "surface"; Source = "forma:patterns/surface.html"; Slots = [ "children" ]; Properties = []; Content = [ "title" ] }
 
     /// Responsive grid that reflows to one column (forma:patterns/responsive-grid.html).
-    let responsiveGrid = { Id = "responsive-grid"; Source = "forma:patterns/responsive-grid.html"; Slots = [ "children" ]; Properties = []; Content = [ "label" ] }
+    /// With `alignment` it is a declared form row: its direct children are peers.
+    let responsiveGrid =
+        { Id = "responsive-grid"; Source = "forma:patterns/responsive-grid.html"; Slots = [ "children" ]; Properties = [ "alignment", enumProperty alignmentEdges ]; Content = [ "label" ] }
 
     /// Status alert (forma:patterns/alert.html).
     let alert = { Id = "alert"; Source = "forma:patterns/alert.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "title"; "text" ] }
@@ -102,5 +114,23 @@ module Components =
 
     /// Components whose Forma contract takes an `icon` property (#33). An icon
     /// stored on any other component is kept but never exported.
+    /// The edge a container declares its children share, if it declares one.
+    let alignmentOf (node: ComponentNode) =
+        match node.Properties |> Map.tryFind "alignment" with
+        | Some(JString edge) when List.contains edge alignmentEdges && (tryFind node.Component |> Option.exists (fun c -> c.Properties |> List.exists (fst >> (=) "alignment"))) -> Some edge
+        | _ -> None
+
+    /// The values an author can choose for a property, by name (free-form and
+    /// picker-owned properties such as `icon` and `workflow` have none here).
+    let propertyChoices (property: string) =
+        match property with
+        | "density" -> densities
+        | "type" -> buttonTypes
+        | "inputType" -> inputTypes
+        | "required" -> [ "true"; "false" ]
+        | "level" -> [ "1"; "2"; "3"; "4"; "5"; "6" ]
+        | "alignment" -> alignmentEdges
+        | _ -> []
+
     let supportsIcon (componentId: string) =
         tryFind componentId |> Option.exists (fun c -> c.Properties |> List.exists (fst >> (=) "icon"))

@@ -54,3 +54,4 @@ package-lock.json
 vendor/forma/workflow/src/bin/
 vendor/forma/workflow/src/obj/
 examples/html-consumer/site/assets/
+playwright-evidence/
