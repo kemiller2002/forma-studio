@@ -152,7 +152,7 @@ VA-143 Validation rules MUST have unit tests and representative positive/negativ
 
 ## Universal UI layout and interaction conformance
 
-These requirements adopt Visual Engineering `UI-LAYOUT-INTERACTION@1.0.0` (rule IDs `ULI-L01`..`ULI-L13`, `ULI-A01`..`ULI-A10`) for Studio and for the HTML it exports. They reference that contract; they do not restate or fork it (forma-studio#35).
+These requirements adopt Visual Engineering `UI-LAYOUT-INTERACTION@1.0.0`, pinned at visual-engineering commit `8da8fbc` (`framework/standards/UI-LAYOUT-INTERACTION.md`), (rule IDs `ULI-L01`..`ULI-L13`, `ULI-A01`..`ULI-A10`) for Studio and for the HTML it exports. They reference that contract; they do not restate or fork it (forma-studio#35).
 
 VA-160 The Layout model MUST let an author declare an alignment group on a composition container (`responsive-grid`, `actions`) with an edge of `top`, `bottom` or `center`; the declaration MUST serialize, load, edit, undo and clear through the ordinary command path (ULI-L01, ULI-L10).
 

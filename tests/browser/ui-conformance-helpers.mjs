@@ -4,7 +4,8 @@ import { expect } from "@playwright/test";
 import { exceptionFor } from "./ui-conformance-exceptions.mjs";
 
 // Browser helpers for the universal UI layout and interaction contract
-// (Visual Engineering UI-LAYOUT-INTERACTION@1.0.0). They follow the API of
+// (Visual Engineering UI-LAYOUT-INTERACTION@1.0.0, pinned at visual-engineering 8da8fbc).
+// They follow the API of
 // Forma's reusable helpers (kemiller2002/forma PR #155: expectPeerAlignment,
 // expectActionOutcome); replace these with an import once Forma publishes them.
 // Nothing here guesses intent: peers come from an explicit declaration
