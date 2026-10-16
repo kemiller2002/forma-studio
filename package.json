@@ -31,5 +31,6 @@
     "html:consumer": "node examples/html-consumer/build.mjs vendor/forma",
     "proof:external": "node scripts/proof-external.mjs",
     "ui:conformance": "npm run html:consumer && playwright test --grep @uli"
-  }
+  },
+  "license": "PolyForm-Noncommercial-1.0.0"
 }
