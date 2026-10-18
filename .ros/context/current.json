@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-18T13:01:41.256Z",
+  "updatedAt": "2026-10-18T13:03:46.706Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1027,13 +1027,35 @@
     {
       "id": "PRAXIS-EXECUTIONS-COMPAT-20261018",
       "type": "mechanical",
-      "state": "active",
-      "semanticState": "active",
+      "state": "complete",
+      "semanticState": "complete",
       "evidence": [],
-      "updatedAt": "2026-10-18T13:01:41.256Z",
+      "updatedAt": "2026-10-18T13:03:46.706Z",
       "telemetryExecutionIds": [
         "EXE-20261018T130141704Z-25fc7427"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "a369a9faa17e442d3401f1b2",
+        "recordedAt": "2026-10-18T13:03:27.681Z",
+        "executionId": "EXE-20261018T130141704Z-25fc7427",
+        "repository": "forma-studio",
+        "branch": "codex/ingest-outstanding-requirements-20261018",
+        "commit": "68488596fc519a3528b5c1180f7a7b5b3981d845",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio.git"
+        },
+        "remoteBranch": "codex/ingest-outstanding-requirements-20261018",
+        "remoteCommit": "68488596fc519a3528b5c1180f7a7b5b3981d845",
+        "summary": "Aligned attribution policy with Praxis-managed execution state and verified pinned/current validators",
+        "nextAction": "Complete compatibility work and verify PR checks",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-18T13:03:46.706Z",
+      "conclusion": "Praxis-managed .ros/executions state is excluded from product attribution; pinned and current validator behavior was checked."
     }
   ]
 }
