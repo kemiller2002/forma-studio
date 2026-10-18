@@ -7,7 +7,7 @@
 | GH-27-FORMA-050 | Move Forma Studio to Forma 0.5.0 and ship the pinned icon collection (GH-27 follow-up) | complete |  | high |
 | GH-35-UI-CONFORMANCE | GH-35-UI-CONFORMANCE | complete |  |  |
 | GH-35-UI-CONFORMANCE-CI | GH-35-UI-CONFORMANCE-CI | complete |  |  |
-| INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | active | requirements, ingestion | high |
+| INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | complete | requirements, ingestion | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | STUDIO-GH-10 | STUDIO-GH-10 | complete |  |  |
 | STUDIO-GH-11 | STUDIO-GH-11 | complete |  |  |
