@@ -2,8 +2,13 @@
 
 | ID | Work | Status | Tags | Priority |
 |---|---|---|---|---|
+| FST-DBC-001 | Implement contract-constrained design authoring | captured | requirements, implementation | high |
 | GH-27 | Integrate Forma icon registry into Forma Studio | complete |  | high |
 | GH-27-FORMA-050 | Move Forma Studio to Forma 0.5.0 and ship the pinned icon collection (GH-27 follow-up) | complete |  | high |
+| GH-35-UI-CONFORMANCE | GH-35-UI-CONFORMANCE | complete |  |  |
+| GH-35-UI-CONFORMANCE-CI | GH-35-UI-CONFORMANCE-CI | complete |  |  |
+| INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | complete | requirements, ingestion | high |
+| PRAXIS-EXECUTIONS-COMPAT-20261018 | Exclude Praxis-managed execution state from attribution | complete | governance, compatibility | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | STUDIO-GH-10 | STUDIO-GH-10 | complete |  |  |
 | STUDIO-GH-11 | STUDIO-GH-11 | complete |  |  |

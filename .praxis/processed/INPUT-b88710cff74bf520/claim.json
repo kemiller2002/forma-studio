@@ -1,0 +1,42 @@
+{
+  "schema": "praxis.inbox-claim/1",
+  "claimId": "INPUT-b88710cff74bf520",
+  "state": "completed",
+  "source": {
+    "path": ".praxis/inbox/documents/design-by-construction-2026-10-15.md",
+    "fileName": "design-by-construction-2026-10-15.md",
+    "sha256": "32bcf2482e009daa81fc528b5d187501c99469ac95556e5aee971e00b03ac1c9",
+    "size": 5234
+  },
+  "claimedAt": "2026-10-18T12:49:02.467Z",
+  "claimant": {
+    "kind": "agent",
+    "id": "openai/codex",
+    "provider": "openai",
+    "model": "unknown",
+    "runtime": "codex"
+  },
+  "executionId": "EXE-20261018T124842408Z-153b4e6e",
+  "derivations": [
+    {
+      "kind": "requirement",
+      "targetKind": "path",
+      "target": "requirements/17-design-by-construction.md",
+      "summary": "Contract-constrained design authoring requirements",
+      "locator": "requirements/17-design-by-construction.md",
+      "recordedAt": "2026-10-18T12:53:10.176Z",
+      "actor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "executionId": "EXE-20261018T124842408Z-153b4e6e"
+    }
+  ],
+  "noDerivationReason": null,
+  "closedAt": "2026-10-18T12:55:51.232Z",
+  "releaseReason": null,
+  "rejectionReason": null
+}
