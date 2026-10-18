@@ -280,6 +280,54 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "INGEST-REQS-20261018",
+      "title": "Ingest outstanding Praxis requirement sources",
+      "description": "Claim and derive canonical requirements from Forma Studio Design by Construction source; preserve provenance and keep implementation work separate.",
+      "tags": [
+        "requirements",
+        "ingestion"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-18T12:48:41.469Z",
+      "updatedAt": "2026-10-18T12:48:41.828Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": "user",
+      "sourceReference": "2026-10-18 ingestion request"
+    },
+    {
+      "id": "FST-DBC-001",
+      "title": "Implement contract-constrained design authoring",
+      "description": "Implement RQ-FORMA-STUDIO-DBC-001 in validated slices after Forma contract agreement.",
+      "tags": [
+        "requirements",
+        "implementation"
+      ],
+      "priority": "high",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-10-18T12:53:20.121Z",
+      "updatedAt": "2026-10-18T12:53:20.121Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": "Praxis inbox",
+      "sourceReference": "INPUT-b88710cff74bf520"
     }
   ]
 }
