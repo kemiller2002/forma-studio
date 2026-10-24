@@ -167,6 +167,27 @@ Opening a design against a newer Forma release MUST NOT silently rewrite it. Stu
 
 Migration operations MUST be explicit, reviewable, and testable. Removed or renamed Forma capabilities MUST produce actionable migration findings rather than silently degrading the design.
 
+## Design provenance
+
+Status: **Required**
+
+Requirement IDs: this section introduces the repository's first numbered requirements, using the prefix `FS-PROV-NNN`. Earlier sections remain unnumbered until they are refined; new normative requirements SHOULD take an `FS-<AREA>-NNN` ID in the same style.
+
+The identity and provenance shapes are owned by Praxis and are referenced, not restated: actor `RQ-ROS-2026-A001`, execution identity `RQ-ROS-2026-A002`, provenance interchange record `praxis.provenance-record` `RQ-ROS-2026-A013`, execution propagation `RQ-ROS-2026-A014`, and no silent stripping `RQ-ROS-2026-A015`. Forma Studio MUST NOT depend on Praxis code or availability to open, edit, validate, or export a design; it re-implements the record's structural rules locally.
+
+- **FS-PROV-001 Separate metadata envelope.** A persisted Studio design MUST keep provenance in a metadata envelope that is separate from the presentation (design) tree. Presentation nodes MUST NOT carry actor or execution fields.
+- **FS-PROV-002 Interchange record.** The envelope MUST hold the design's provenance as a Praxis provenance interchange record (`contract`, `version`, `subject`, `contributions`, `derivedFrom`, `sources`), with `subject` a namespaced reference such as `forma-studio:design/<id>`.
+- **FS-PROV-003 Contributions keyed by execution.** Each contribution MUST be keyed by the execution that produced it: the propagated Praxis execution (`ROS_EXECUTION_ID`) when present, otherwise Studio's own run as `EXE-forma-studio.<run>`, or `CTB-...` for a human outside any run. An agent contribution MUST be keyed `EXE-...`. Studio MUST NOT mint a Praxis-shaped `EXE-<timestamp>-<random>` key. The history is append-only: at most one `created`, nothing before it, no re-attribution.
+- **FS-PROV-004 Lineage is not authorship.** A design instantiated from a cataloged layout or specimen MUST list it in `derivedFrom` (for example `forma:layout/<id>`) and MAY carry that source's provenance verbatim in `sources`. The source's contributors MUST NOT be copied into the design's `contributions`; the actor who instantiated the layout is the design's creator.
+- **FS-PROV-005 Unknown is not guessed.** Actor attributes that are not known MUST be recorded as the literal `unknown`. Studio MUST NOT infer an actor from Git authorship, the signed-in user of another tool, or prose. A legacy design with no provenance stays unattributed.
+- **FS-PROV-006 Preserve on import/export.** Import, export, save, and migration MUST preserve unknown fields in the envelope, the record, each contribution, and each actor. A record in an unsupported major version MUST be carried verbatim and not extended. Converting the representation MUST append a `migrated` contribution; changing design content MUST append `modified` (or an `x-...` operation). Malformed provenance MUST be reported, not silently dropped.
+- **FS-PROV-007 Deterministic output is provenance-free.** Generated markup, CSS, and configuration MUST NOT embed actor, execution, or provenance data. Generating output from the same design with or without its provenance envelope MUST produce byte-identical output.
+- **FS-PROV-008 Human review.** A human review or approval of a design MUST be recorded as a `reviewed` or `approved` contribution by that human. Review MUST NOT replace, re-key, or re-attribute the agent or human contribution that created or modified the design.
+- **FS-PROV-009 Identity is not authorization.** Provenance is self-reported. It MUST NOT be treated as authentication, authorization, or validation evidence, and MUST NOT carry credentials or other secrets.
+- **FS-PROV-010 Conformance.** When the Studio persistence format is implemented, its codec MUST pass the Praxis conformance fixtures (`schemas/conformance/provenance-record/` in Praxis, vendored with a pinned commit and SHA-256 digests) and a test proving FS-PROV-007 byte-identical output.
+
+Implementation status: the repository is not yet bootstrapped (GitHub issue #1), so these requirements have no code, schema, or tests yet. FS-PROV-010 is the acceptance gate for the first persistence implementation.
+
 ## Folio
 
 Folio is **not a mandatory runtime dependency for the initial Forma-only composition scope**. It becomes mandatory when Forma Studio adds printable/PDF/paginated document composition, print preview, or Folio component authoring/testing. At that point, it MUST consume a pinned Folio release and use its public primitives rather than creating a parallel print system.
