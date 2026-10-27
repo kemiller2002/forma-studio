@@ -96,7 +96,14 @@
     transition-duration: var(--ef-motion-direct-duration, 0ms);
   }
 
+  :where(button, .ef-button):disabled {
+    border-style: dashed;
+    cursor: not-allowed;
+    opacity: 0.62;
+  }
+
   :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select) {
+    box-sizing: border-box;
     min-block-size: 2.75rem;
     inline-size: 100%;
     padding: 0.7rem 0.8rem;
@@ -104,6 +111,72 @@
     border-radius: var(--ef-primitive-radius-none, 0);
     background: var(--ef-color-surface-primary, #f2efe7);
     color: var(--ef-color-text-primary, #171a18);
+    font: inherit;
+    line-height: var(--ef-field-line-height, 1.6);
+  }
+
+  /*
+   * Equivalent single-line controls share one intrinsic block size
+   * (UI-LAYOUT-INTERACTION ULI-L02, L13): one line of field text plus the
+   * field padding and border. Native date/time and select boxes otherwise
+   * differ by several pixels from text inputs (Chromium: 51.97 vs 49.97 vs
+   * 46.38 px), which staggers peers in a row. Em-based, so it grows with
+   * the user's text size.
+   */
+  :where(
+    input:not([type]),
+    input:is([type="text"], [type="email"], [type="password"], [type="search"], [type="tel"], [type="url"], [type="number"],
+      [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]),
+    select:not([multiple], [size])
+  ) {
+    block-size: var(--ef-field-control-block-size, calc(var(--ef-field-line-height, 1.6) * 1em + 1.4rem + 2px));
+  }
+
+  :where(input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"], input[type="week"])::-webkit-datetime-edit {
+    padding-block: 0;
+  }
+
+  /* A fieldset's default min-inline-size is min-content, which lets a long
+     legend or option widen a form past a narrow viewport (ULI-L05). */
+  :where(fieldset) {
+    min-inline-size: 0;
+  }
+
+  /* iOS temporal controls otherwise retain a native intrinsic width despite
+     the author's width limit. Keep the native picker, not its native box. */
+  :where(input[type="date"], input[type="time"], input[type="datetime-local"]) {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  :where(input[type="date"], input[type="time"], input[type="datetime-local"])::-webkit-date-and-time-value {
+    min-inline-size: 0;
+    text-align: start;
+  }
+
+  :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select):disabled {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
+    border-style: dashed;
+    background: var(--ef-color-surface-secondary, #e3e0d7);
+    cursor: not-allowed;
+    opacity: 0.62;
+  }
+
+  :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea):read-only:not(:disabled) {
+    border-style: dashed;
+    background: color-mix(in srgb, var(--ef-color-surface-secondary, #e3e0d7) 55%, transparent);
+  }
+
+  /* Invalid state keeps native semantics and adds a shape cue. The associated
+     recovery message remains the non-colour explanation of what to fix. */
+  :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select):where([aria-invalid="true"], :user-invalid) {
+    border-inline-start-width: 0.3rem;
+    border-inline-start-color: var(--ef-color-status-danger, #a13a2c);
   }
 
   :where(:focus-visible) {
@@ -115,14 +188,27 @@
   .ef-stack { display: flex; flex-direction: column; gap: var(--ef-stack-gap, var(--ef-primitive-spacing-4, 1rem)); }
   .ef-cluster { display: flex; flex-wrap: wrap; gap: var(--ef-cluster-gap, var(--ef-primitive-spacing-3, 0.75rem)); align-items: center; }
   /* .ef-actions (catalog: button) is an application-layer row of related actions; it was styled only in marketing.css (forma#93 gap). */
-  .ef-actions { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-3, 0.75rem); align-items: center; }
+  /* min-inline-size: 0 lets an action row shrink inside a flex or grid parent
+     instead of being held at its widest button's word (ULI-L05). */
+  .ef-actions { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-3, 0.75rem); align-items: center; min-inline-size: 0; }
   .ef-grid { display: grid; gap: var(--ef-grid-gap, var(--ef-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-grid-min, 16rem)), 1fr)); }
   .ef-section { padding-block: var(--ef-section-space, var(--ef-primitive-spacing-7, 3rem)); }
   .ef-surface { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }
   .ef-surface :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
 
-  :where(h1, h2, h3, h4, h5, h6, p, a, label, legend, td, th) {
+  :where(h1, h2, h3, h4, h5, h6, p, a, label, legend, td, th, dt, dd, caption, figcaption) {
     overflow-wrap: anywhere;
+  }
+
+  /* Action labels never split mid-word because their container allows it
+     (a link button inherits the rule above; a button inherits it from a
+     table cell). A single word wider than its container may still break
+     rather than overflow. Must follow the rule above (ULI-L06, L07). The
+     inline-size cap also clamps a flex item's automatic minimum, so a
+     button never pushes its row past its container (ULI-L05). */
+  :where(button, .ef-button) {
+    overflow-wrap: break-word;
+    max-inline-size: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {

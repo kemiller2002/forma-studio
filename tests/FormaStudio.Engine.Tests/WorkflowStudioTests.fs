@@ -145,7 +145,30 @@ let private publicClasses =
 let private pageOf (p: Project) id = p.Pages |> List.find (fun pg -> Id.value pg.Id = id)
 
 let exportTests =
-    [ test "HTML export is deterministic for the same design and options" (fun () ->
+    [ test "Workflow export runs Forma's layout check: authored geometry that cannot hold its text is reported, fixtures are clean" (fun () ->
+          let cramped =
+              (fixture "minimal")
+              |> parse
+              |> function
+                  | Forma.Workflow.Json.Object fields ->
+                      let label = String.replicate 4 "Counter interrupts from the rendezvous radar stole computer capacity. "
+                      let squeeze =
+                          function
+                          | Forma.Workflow.Json.Object node -> Forma.Workflow.Json.Object((node |> List.filter (fun (k, _) -> k <> "label" && k <> "layout")) @ [ "label", str label; "layout", Forma.Workflow.Json.Object [ "width", Forma.Workflow.Json.number 120.0; "height", Forma.Workflow.Json.number 48.0 ] ])
+                          | other -> other
+                      fields |> List.map (fun (k, v) -> match k, v with "nodes", Forma.Workflow.Json.Array ns -> k, Forma.Workflow.Json.Array(List.map squeeze ns) | _ -> k, v) |> Forma.Workflow.Json.Object
+                  | other -> other
+              |> Forma.Workflow.Json.serialize
+          let _, entry = match WorkflowLibrary.openText cramped WorkflowLibrary.empty with Ok x -> x | Error e -> fail e
+          let issues = HtmlExport.layoutIssues entry
+          expect (issues |> List.exists (fun i -> i.EndsWith "(layout.node.too-small)")) (sprintf "too-small reported: %A" issues)
+          expect (HtmlExport.layoutNote issues |> List.exactlyOne |> fun note -> note.StartsWith $"Forma's layout check found {issues.Length} issue(s): ") "the export summary names the issues"
+          equal [] (HtmlExport.layoutNote []) "a clean layout adds no note"
+          for name in [ "minimal"; "multi-step"; "branching" ] do
+              let _, clean = match WorkflowLibrary.openText (fixture name) WorkflowLibrary.empty with Ok x -> x | Error e -> fail e
+              expect (HtmlExport.layoutIssues clean).IsEmpty (sprintf "%s: %A" name (HtmlExport.layoutIssues clean)))
+
+      test "HTML export is deterministic for the same design and options" (fun () ->
           let p, lib = designs (), workflowLibrary ()
           for id in [ "application"; "responsive"; "workflow" ] do
               for opts in [ HtmlExport.defaults; { HtmlExport.defaults with Target = HtmlDocument; Brand = Some "example-harbor" } ] do

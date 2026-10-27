@@ -29,8 +29,8 @@
     },
     "forma": {
       "package": "@echelon-foundry/design-system",
-      "version": "0.5.0",
-      "source": "https://github.com/kemiller2002/forma/releases/download/v0.5.0/echelon-foundry-design-system-0.5.0.tgz",
+      "version": "0.10.0",
+      "source": "https://github.com/kemiller2002/forma/releases/download/v0.10.0/echelon-foundry-design-system-0.10.0.tgz",
       "mode": "runtime-presentation"
     },
     "aegis": {

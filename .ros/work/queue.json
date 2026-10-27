@@ -352,6 +352,29 @@
       },
       "source": "CI validation",
       "sourceReference": "percepta/actions/runs/39129621742"
+    },
+    {
+      "id": "WI-0014",
+      "title": "Adopt Forma 0.10.0 and forma-workflow 1.1.0 (LCE-001) and run Forma's LayoutCheck on workflow export",
+      "description": "Studio pinned Forma 0.5.0 and silently accepted workflow edits whose layout cannot hold its content (LCE-001 evidence). Re-vendor 0.10.0/1.1.0 and report Forma's static layout issues on every workflow export.",
+      "tags": [
+        "forma"
+      ],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-27T20:13:17Z",
+      "updatedAt": "2026-10-27T20:13:17Z",
+      "createdBy": "anthropic/claude-code",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

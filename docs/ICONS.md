@@ -2,7 +2,7 @@
 
 Work item: https://github.com/kemiller2002/forma-studio/issues/27 (Praxis `GH-27`).
 
-Status: Studio pins Forma 0.5.0 and ships its 40 compiled icons. Authoring, persistence, picker and portable HTML export are tested against the pinned package, against an icon-less release (no registry) and against a small test fixture for edge cases.
+Status: Studio pins Forma 0.10.0 and ships its 80 compiled icons. Authoring, persistence, picker and portable HTML export are tested against the pinned package, against an icon-less release (no registry) and against a small test fixture for edge cases.
 
 This replaces the read-only JavaScript icon browser of the earlier draft: the catalog, search and copy now live in the F# engine, and the page holds no icon state.
 
@@ -47,11 +47,11 @@ See [`HTML-EXPORT.md`](HTML-EXPORT.md) ("Icons"). Exported icons are the release
 
 ## Pinning
 
-Forma 0.5.0 (kemiller2002/forma#114, tag v0.5.0, commit 8a5a599, tarball sha256 `c4ad3ae5…f558f`) is pinned in:
+Forma 0.10.0 (kemiller2002/forma#169 and #170, tag v0.10.0, commit e0b088d, tarball sha256 `2358d28e…7e5af`) is pinned in:
 
-1. `package.json` (the v0.5.0 release tarball);
-2. `capabilities.lock.json`, `designSystem.version` in `scripts/sync-forma.mjs`, and `vendor/forma` re-vendored from the release commit (`node scripts/sync-forma.mjs <forma checkout>`; `npm run vendor:release` verifies every packaged file against the published 0.5.0 package);
-3. the Conditor authority (`.conditor`, `conditor.json`), moved with Conditor 0.8.1 `upgrade --current` to echelon-current 1.13.0, the channel version that selects Forma 0.5.0 without changing Studio's managed component versions.
+1. `package.json` (the v0.10.0 release tarball);
+2. `capabilities.lock.json`, `designSystem.version` in `scripts/sync-forma.mjs`, and `vendor/forma` re-vendored from the release commit (`node scripts/sync-forma.mjs <forma checkout>`; `npm run vendor:release` verifies every packaged file against the published 0.10.0 and forma-workflow 1.1.0 packages);
+3. the Conditor authority (`.conditor`, `conditor.json`), moved with Conditor 0.8.1 `upgrade --current` to echelon-current 1.13.0, the channel version that selects Forma 0.5.0 without changing Studio's managed component versions. It still records 1.13.0: it moves with `conditor upgrade --current` once an echelon-current set that selects Forma 0.10.0 (proposed: 1.30.0, echelon-registry#101) is approved and a released Conditor qualifies it (conditor#115).
 
 To move to a later Forma release, repeat these steps; `dotnet run --project tools/FormaStudio.Cli -c Release -- icons` must report every icon verified. The build copies whatever `dist/icons` the pinned package has, so no code change is needed.
 
@@ -65,7 +65,7 @@ To move to a later Forma release, repeat these steps; `dotnet run --project tool
 
 ```sh
 npm run engine:test                     # F# model, persistence, commands, catalog verification, export, editor events
-npm run app:build && npm run app:test   # Playwright: the pinned 0.5.0 icons end to end, the icon-less path, keyboard picker at 320px, axe light/dark, save/reopen, tampered files
+npm run app:build && npm run app:test   # Playwright: the pinned 0.10.0 icons end to end, the icon-less path, keyboard picker at 320px, axe light/dark, save/reopen, tampered files
 ```
 
 The icon-capable cases use `tests/fixtures/forma-icons-test-fixture`, a committed TEST FIXTURE with synthetic shapes in the compiled registry layout. It is not Forma artwork and not a Forma release.

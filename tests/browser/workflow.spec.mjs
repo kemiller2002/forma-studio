@@ -108,7 +108,7 @@ test("Studio exports the current workflow as Forma HTML with no script", async (
   expect(interactive).toContain('<script type="module" src="node_modules/@echelon-foundry/forma-workflow/dist/forma-workflow.js"></script>');
   // The document may name its producer in provenance; no Studio class, asset or path may appear.
   expect(interactive).not.toMatch(/studio-|studio\.css|forma-studio\//i);
-  await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.0.0/forma-workflow.js" })).toBeVisible();
+  await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.1.0/forma-workflow.js" })).toBeVisible();
 });
 
 test("the workflow surface is keyboard operable and passes automated accessibility checks", async ({ page }) => {

@@ -9,7 +9,7 @@ open System
 module Render =
     let formaPackage = "@echelon-foundry/design-system"
     let workflowPackage = "@echelon-foundry/forma-workflow"
-    let workflowPackageVersion = "1.0.0"
+    let workflowPackageVersion = "1.1.0"
 
     let private el = Markup.el
     let private text = Markup.text
@@ -186,8 +186,8 @@ module Render =
               yield
                   "style",
                   Markup.style (
-                      [ "--ef-diagram-x", Markup.px rect.X; "--ef-diagram-y", Markup.px rect.Y; "--ef-diagram-w", Markup.px rect.W
-                        "--ef-diagram-h", Markup.px rect.H ]
+                      [ "--ef-diagram-x", Markup.rem rect.X; "--ef-diagram-y", Markup.rem rect.Y; "--ef-diagram-w", Markup.rem rect.W
+                        "--ef-diagram-h", Markup.rem rect.H ]
                       @ colorProps n.Color
                   ) ]
         el
@@ -226,8 +226,8 @@ module Render =
                   yield
                       "style",
                       Markup.style (
-                          [ "--ef-diagram-x", Markup.px rect.X; "--ef-diagram-y", Markup.px rect.Y; "--ef-diagram-w", Markup.px rect.W
-                            "--ef-diagram-h", Markup.px rect.H ]
+                          [ "--ef-diagram-x", Markup.rem rect.X; "--ef-diagram-y", Markup.rem rect.Y; "--ef-diagram-w", Markup.rem rect.W
+                            "--ef-diagram-h", Markup.rem rect.H ]
                           @ colorProps g.Color
                       ) ]
                 [ el
@@ -271,7 +271,7 @@ module Render =
                 el
                     "span"
                     [ "class", "ef-diagram-connector__label"; "aria-hidden", "true"
-                      "style", Markup.style [ "--ef-diagram-x", Markup.px route.LabelAt.X; "--ef-diagram-y", Markup.px route.LabelAt.Y ] ]
+                      "style", Markup.style [ "--ef-diagram-x", Markup.rem route.LabelAt.X; "--ef-diagram-y", Markup.rem route.LabelAt.Y ] ]
                     [ text label ]
             )
         | _ -> None
@@ -374,7 +374,7 @@ module Render =
                       [ "class", "ef-diagram__viewport"; "tabindex", "0"; "role", "group"; "aria-label", opts.Phrases.CanvasLabel w.Title ]
                       [ el
                             "div"
-                            [ "class", "ef-diagram__canvas"; "style", Markup.style [ "--ef-diagram-canvas-w", Markup.px canvasW; "--ef-diagram-canvas-h", Markup.px canvasH ] ]
+                            [ "class", "ef-diagram__canvas"; "style", Markup.style [ "--ef-diagram-canvas-w", Markup.rem canvasW; "--ef-diagram-canvas-h", Markup.rem canvasH ] ]
                             [ yield! w.Groups |> List.choose (groupMarkup opts prefix layout)
                               yield
                                   el

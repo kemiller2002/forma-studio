@@ -151,6 +151,12 @@ module Markup =
         let r = Math.Round(v, 1)
         r.ToString("0.#", Globalization.CultureInfo.InvariantCulture) + "px"
 
+    /// Formats canvas px as rem (1rem = 16 canvas px), so diagram geometry
+    /// scales with the text it holds when the reader enlarges text (LCE-001).
+    let rem (v: float) =
+        let r = Math.Round(v / 16.0, 4)
+        r.ToString("0.####", Globalization.CultureInfo.InvariantCulture) + "rem"
+
     let number (v: float) =
         Math.Round(v, 1).ToString("0.#", Globalization.CultureInfo.InvariantCulture)
 
