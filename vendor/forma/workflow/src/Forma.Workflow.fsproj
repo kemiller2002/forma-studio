@@ -11,7 +11,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <IsTrimmable>true</IsTrimmable>
     <PackageId>EchelonFoundry.Forma.Workflow</PackageId>
-    <Version>1.0.0</Version>
+    <PackageLicenseExpression>PolyForm-Noncommercial-1.0.0</PackageLicenseExpression>
+    <Version>1.1.0</Version>
     <Description>Forma portable workflow format: model, validation, layout, HTML rendering and the embeddable editor engine.</Description>
     <NoWarn>$(NoWarn);FS3370</NoWarn>
   </PropertyGroup>
@@ -34,7 +35,12 @@
     <Compile Include="ValidationRules.fs" />
     <Compile Include="Validation.fs" />
     <Compile Include="LayoutTypes.fs" />
+    <Compile Include="LayoutGeometry.fs" />
+    <Compile Include="LayoutText.fs" />
+    <Compile Include="LayoutSizing.fs" />
+    <Compile Include="LayoutRouting.fs" />
     <Compile Include="Layout.fs" />
+    <Compile Include="LayoutCheck.fs" />
     <Compile Include="Markup.fs" />
     <Compile Include="RenderOptions.fs" />
     <Compile Include="Render.fs" />

@@ -25,6 +25,10 @@
   --ef-color-control-track: #686d68;
   --ef-color-control-thumb: #f2efe7;
   --ef-color-control-active: #905831;
+  --ef-color-status-success: #2e6a45;
+  --ef-color-status-warning: #86560f;
+  --ef-color-status-danger: #a13a2c;
+  --ef-color-status-info: #2d5f86;
 }
   [data-ef-theme="light"] [data-ef-brand="echelon"], [data-ef-brand="echelon"][data-ef-theme="light"] {
   --ef-color-text-primary: #171a18;
@@ -45,6 +49,10 @@
   --ef-color-control-track: #686d68;
   --ef-color-control-thumb: #f2efe7;
   --ef-color-control-active: #905831;
+  --ef-color-status-success: #2e6a45;
+  --ef-color-status-warning: #86560f;
+  --ef-color-status-danger: #a13a2c;
+  --ef-color-status-info: #2d5f86;
 }
   [data-ef-theme="dark"] [data-ef-brand="echelon"], [data-ef-brand="echelon"][data-ef-theme="dark"] {
   --ef-color-text-primary: #f2efe7;
@@ -65,6 +73,10 @@
   --ef-color-control-track: #686d68;
   --ef-color-control-thumb: #f2efe7;
   --ef-color-control-active: #a87e5e;
+  --ef-color-status-success: #8cc49f;
+  --ef-color-status-warning: #ddb266;
+  --ef-color-status-danger: #ef9a8b;
+  --ef-color-status-info: #90b9dc;
 }
   @media (prefers-color-scheme: dark) {
     :root:not([data-ef-theme]) [data-ef-brand="echelon"]:not([data-ef-theme]), :root[data-ef-brand="echelon"]:not([data-ef-theme]) {
@@ -86,6 +98,10 @@
   --ef-color-control-track: #686d68;
   --ef-color-control-thumb: #f2efe7;
   --ef-color-control-active: #a87e5e;
+  --ef-color-status-success: #8cc49f;
+  --ef-color-status-warning: #ddb266;
+  --ef-color-status-danger: #ef9a8b;
+  --ef-color-status-info: #90b9dc;
 }
   }
 }

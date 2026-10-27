@@ -271,5 +271,23 @@ module HtmlExport =
             Ok(wrap { opts with Language = w.Language |> Option.defaultValue opts.Language } w.Title w.Description [ figure ] [])
         | None -> Error "The workflow could not be read."
 
+    /// Forma's static layout check of a workflow (LayoutCheck, LCE-001) as
+    /// "subject: message (code)" lines: authored geometry too small for its
+    /// text, overlapping nodes, connectors through nodes, colliding labels. Like
+    /// LayoutChecks for pages, it never blocks an export and does not replace a
+    /// browser measuring the exported markup.
+    let layoutIssues (entry: WorkflowEntry) : string list =
+        match (Validation.load entry.Text).Workflow with
+        | Some w -> LayoutCheck.check w |> List.map (fun issue -> $"{issue.Subject}: {issue.Message} ({issue.Code})")
+        | None -> []
+
+    /// The export summary note for those issues: none when the layout is clean.
+    let layoutNote (issues: string list) : string list =
+        match issues with
+        | [] -> []
+        | _ ->
+            let more = if issues.Length > 3 then $" ({issues.Length - 3} more.)" else ""
+            [ $"Forma's layout check found {issues.Length} issue(s): " + String.concat " " (List.truncate 3 issues) + more ]
+
     /// A machine-readable dependency list for the export.
     let dependencyText (result: HtmlExportResult) = Forma.Workflow.Json.serialize (WorkflowDocument.dependencyJson result.Dependencies)

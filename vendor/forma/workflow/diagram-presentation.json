@@ -81,6 +81,7 @@
     "canvasHeight": "--ef-diagram-canvas-h",
     "portOffset": "--ef-diagram-port-offset",
     "unit": "px",
+    "unitNote": "Any CSS length is accepted. Forma.Workflow emits rem (1rem = 16 canvas px), so diagram geometry scales with enlarged text (LCE-001).",
     "axes": "physical (does not mirror in right-to-left documents)"
   },
   "color": {

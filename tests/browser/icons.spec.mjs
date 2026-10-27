@@ -8,7 +8,7 @@ import { join } from "node:path";
 // change; the page only binds native controls.
 //
 // Three situations are tested:
-//  - the real pin as built (Forma 0.5.0): nothing is routed; its 40 compiled icons
+//  - the real pin as built (Forma 0.10.0): nothing is routed; its 80 compiled icons
 //    are verified, offered, set and exported;
 //  - an icon-less release (no registry, as Forma 0.4.1 and earlier): the registry is
 //    answered 404, and the editor must say icons are unavailable and fabricate nothing;
@@ -66,8 +66,8 @@ test("the pinned Forma release's own icons are verified, offered, set and export
   await structureItem(page, "Activity: Prepare request").click();
   await page.getByRole("button", { name: "Choose icon", exact: true }).click();
   const picker = page.getByRole("region", { name: "Icon for Prepare request" });
-  await expect(picker).toContainText(`40 of 40 icons from Forma ${pinned} match.`);
-  await expect(picker.locator(".studio-icon-choice")).toHaveCount(40);
+  await expect(picker).toContainText(`80 of 80 icons from Forma ${pinned} match.`);
+  await expect(picker.locator(".studio-icon-choice")).toHaveCount(80);
   await picker.getByRole("searchbox", { name: "Search icons" }).fill("find");
   await picker.getByRole("searchbox", { name: "Search icons" }).press("Enter");
   await expect(picker.locator(".studio-icon-choice")).toHaveCount(1);

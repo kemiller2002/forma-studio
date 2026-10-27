@@ -1,25 +1,25 @@
 {
   "source": "https://github.com/kemiller2002/forma",
-  "commit": "8a5a5993421fbfd808582f735dedcf2adea07010",
+  "commit": "e0b088dbbe98b05221c4bc5b5e2224e9bf470827",
   "releases": [
     {
       "name": "@echelon-foundry/design-system",
-      "version": "0.5.0"
+      "version": "0.10.0"
     },
     {
       "name": "@echelon-foundry/forma-workflow",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ],
   "files": {
-    "brands/echelon.css": "bae3b8327d1778bb6d695497e9ad83cef217053ba2ae2003a7de8efa7f95d254",
-    "brands/example-harbor.css": "4434552aeff647f6c90b87b6f5c29b76c34d8a039e2939bf16852349e0c40af2",
-    "components.css": "cc07962d80fbda059bebd42d760b2f5605a74543a368d48eab4c00791af10bea",
-    "foundations.css": "1a57361fabdd18006cfb5966c194741e862f801037d0d1648917787d293c5aee",
-    "tokens.css": "3e8408c19356505a80902758ee274dafd91877c708906027aa4c5624bf09d8c0",
+    "brands/echelon.css": "e56dd7d97228168105b8c2a8114e46d1d6b06403c201a315d23db801ea9319e4",
+    "brands/example-harbor.css": "3fb573046bfb29bf35d4a75c2327d4206f8f7e4eec4793c2047838f146ece80d",
+    "components.css": "b14b442fcc2993090c58b248e0db6bfa3253922b3915a6b3d4e3600d66817961",
+    "foundations.css": "518a4b2f2d67e51848cc3e0f40441632e68102bad71f8715e7298d0764993b33",
+    "tokens.css": "d5e83650ee732bcde4371c7fb9270c1c90e820b3c93c200dbab44ba04c0c10bf",
     "workflow/browser/forma-workflow.css": "50a20681951f94c0dcd1b0cb76fb6ef14e800cb084ec2c1b33927a67d00aca34",
     "workflow/browser/forma-workflow.js": "869b962eef1bf6a01f95168a0ef4fe2d5363a8567bbfdababbc44301aed3b306",
-    "workflow/diagram-presentation.json": "6a6c2298df8105c1b5af93bd1763d1807afa95cccd28080d15bf82782f0d3769",
+    "workflow/diagram-presentation.json": "82e5d36904735e0bc0eed20f70b11f9248c4224928271557d3d11b3f2a9b6130",
     "workflow/external-producer/consume.mjs": "8b9195b0a5e4966b83bea8923361c206b1b05057429aed5231d6427b123e2d69",
     "workflow/external-producer/produce.mjs": "32b9827e944bde26e5a07c560f71c3e29a6e952cb1c9f5a6d4530956f918c5d8",
     "workflow/fixtures/accessible.forma-workflow.json": "3a5a1e25c2f09c303d800c1c69e068a5e118bc84b75bf0825d85a8305c23f90c",
@@ -51,15 +51,20 @@
     "workflow/src/EmbedProtocol.fs": "e40721aa7c62b857cda866a4a407e3e61c576f7bbf275c756c07d640224ca5c1",
     "workflow/src/EmbedTypes.fs": "8da83b9dcfe2266fdb3f4a96257b38eaad2c7e10cecf8a977ad3b336e9b3b7bc",
     "workflow/src/EmbedView.fs": "1737b96f77b05fa985a8386b5b39f9b0c2afe36408364ab8b41b79d78bda3bc4",
-    "workflow/src/Forma.Workflow.fsproj": "99c78fd379478da821d20fc6719b385e8600360892dfcf943b680197fd26fc51",
+    "workflow/src/Forma.Workflow.fsproj": "3bb30a8bb7641311733e4894c93db6dffb9b4af85d58a56b0d0dd34b9c1a1098",
     "workflow/src/Identifiers.fs": "b756877c0d7a24b96114be4efbed736a676bc822bb4928fd5cc929a5e1c70356",
     "workflow/src/Json.fs": "3ddfbf3e3f52c59584d37109ba929b6e10064ec392a2b5ba52172d2a26fad827",
     "workflow/src/JsonSchema.fs": "be585c306b12c9278e5df3168470564d00abdf6e31475cc5faef17e740d6f1e2",
-    "workflow/src/Layout.fs": "c3f22c22144e41f4381f6a4d30be78e83ee776770320e377381fea6b7fbcdb72",
+    "workflow/src/Layout.fs": "15d32af56549611ddcf5853de9b02ae40c69bea865a2e1ddde72247b30525988",
+    "workflow/src/LayoutCheck.fs": "93d54451ca62a791bb790693fbb67b6440ce638c0232475dcadd70ae72fea5ee",
+    "workflow/src/LayoutGeometry.fs": "f468c538154a38605210358beb6b1286dc07fc32cdfa902fa57783c6dec8b653",
+    "workflow/src/LayoutRouting.fs": "5d07d1eb8003c0ed39435d483409b4dffd9496ee775f5c2f2db0fe1415ceb69e",
+    "workflow/src/LayoutSizing.fs": "f0076a9c7d50d9e320c573c2983fea34a10b85c93697f9460d98596631d1b272",
+    "workflow/src/LayoutText.fs": "e4566c5b1e41cae731734dcbcca8338f7536c60b32db7488f7443ea526859746",
     "workflow/src/LayoutTypes.fs": "791c5deb2d5a5c801bcadc5cf92f9194c3340df42685045bca088d10e4688d7d",
-    "workflow/src/Markup.fs": "935623dec44d3a9b1e9aa2c11a2d37708719feba65ea1589038050fc65d153f3",
+    "workflow/src/Markup.fs": "6b7d53907c3d00b4e0dbfaa71bf09c424e9176c5fbf99e058dc4276e5e17fe37",
     "workflow/src/Model.fs": "e2305d7e523d5ed83c8f97f513e0b90e56fec1f3a65d43a5c6845efa6e4c6cae",
-    "workflow/src/Render.fs": "06a20b4f5042eb9d3dc896757a013a81277125161990a673f19a88bbdd9c02dd",
+    "workflow/src/Render.fs": "f68a28df588130f9fecbedfafbb938e2884ca45efb0fc420bc9591d5b5379d99",
     "workflow/src/RenderOptions.fs": "1acf382b8ae27a3fd3ba4c278adb6503f0a6c1e0ae2904d8dc76d2e622dfc33e",
     "workflow/src/Validation.fs": "47f00cf7ed2e056bd7e51c4e3b7de1db358b03eaf990960ecf4a0c3d3ec72c6c",
     "workflow/src/ValidationRules.fs": "9038887dc65a4d8ea61c1b6488d5999a68c4658aff75727502a679cc8e4a3ab7",

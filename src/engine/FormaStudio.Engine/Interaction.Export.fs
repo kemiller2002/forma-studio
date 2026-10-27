@@ -9,7 +9,7 @@ module internal ExportInteraction =
     let private options (state: EditorState) =
         { HtmlExport.defaults with Target = state.Export.Target; Brand = state.Export.Brand; InteractiveWorkflow = state.Export.InteractiveWorkflow; Icons = IconSession.catalog state.Icons }
 
-    let private show (state: EditorState) (name: string) (result: HtmlExportResult) =
+    let private show (state: EditorState) (name: string) (notes: string list) (result: HtmlExportResult) =
         let kind = match state.Export.Target with HtmlFragment -> "fragment" | HtmlDocument -> "document"
         let deps =
             result.Dependencies
@@ -20,8 +20,8 @@ module internal ExportInteraction =
                     Text = result.Html
                     FileName = name + (if state.Export.Target = HtmlDocument then ".html" else ".fragment.html")
                     Omitted = result.Omitted
-                    Summary = $"HTML {kind} for {name}. Needs: " + String.concat ", " deps + "." }
-            Status = (if result.Omitted.IsEmpty then $"Exported {name} as an HTML {kind}." else $"Exported {name}; {result.Omitted.Length} item(s) were left out (listed below).") }
+                    Summary = String.concat " " ($"HTML {kind} for {name}. Needs: " + String.concat ", " deps + "." :: notes) }
+            Status = (if result.Omitted.IsEmpty then $"Exported {name} as an HTML {kind}." else $"Exported {name}; {result.Omitted.Length} item(s) were left out (listed below).") + (if notes.IsEmpty then "" else " Forma's layout check found issues; see the export summary.") }
 
     let update (event: ExportEvent) (args: EventArgs) (state: EditorState) : EditorState * JsonValue list =
         let key = args.Key
@@ -35,21 +35,21 @@ module internal ExportInteraction =
         | ExportEvent.ExportBrand -> only { state with Export = { state.Export with Brand = (if key = "" || key = "none" then None else Some key) } }
         | ExportEvent.ExportPage ->
             match EditorState.openPage state |> Option.orElse (p.Pages |> List.tryHead) with
-            | Some page -> only (show state (Id.value page.Id) (HtmlExport.page (options state) state.Workflows page))
+            | Some page -> only (show state (Id.value page.Id) [] (HtmlExport.page (options state) state.Workflows page))
             | None -> only (status "Add a Layout page to export it." state)
         | ExportEvent.ExportComponent ->
             let componentKey = key.Split('|').[0]
             match EditorState.openPage state, Id.create<ComponentKind> componentKey with
             | Some page, Ok id ->
                 match HtmlExport.componentTree (options state) state.Workflows page id with
-                | Some result -> only (show state componentKey result)
+                | Some result -> only (show state componentKey [] result)
                 | None -> only (status "That component is no longer on the page." state)
             | _ -> only (status "Open a Layout page to export a component." state)
         | ExportEvent.ExportWorkflow ->
             match WorkflowLibrary.current state.Workflows with
             | Some entry ->
                 match HtmlExport.workflow (options state) entry with
-                | Ok result -> only (show state entry.Id result)
+                | Ok result -> only (show state entry.Id (HtmlExport.layoutNote (HtmlExport.layoutIssues entry)) result)
                 | Error message -> only (status message state)
             | None -> only (status "Open a workflow to export it." state)
         | ExportEvent.CopyExport when state.Export.Text <> "" -> status "Copying the exported HTML…" state, [ HostEffects.copyText state.Export.Text ]

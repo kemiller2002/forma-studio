@@ -19,8 +19,88 @@
   }
 
   .ef-field {
+    /* A native date/time picker can have a larger intrinsic minimum than its
+       form column in WebKit. Keep the field's track shrinkable instead of
+       letting it widen the containing card or example frame. */
     display: grid;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    /* A stretched field (a grid row taller than it) keeps its label and
+       control at the top instead of distributing the extra space between
+       rows, which would push the control below its peers (ULI-L01). */
+    align-content: start;
     gap: var(--ef-primitive-spacing-2, 0.5rem);
+  }
+
+  /*
+   * Form row (ULI-L01, L03, L13). Peer fields share one set of rows: label,
+   * description, control and validation message. Each field spans the four
+   * rows through subgrid and places its parts explicitly, so every control
+   * in a visual row starts at the same top edge however long the labels,
+   * descriptions or messages of its neighbours are. Fields wrap to new rows
+   * by available width. Without subgrid support each field keeps its own
+   * grid (the previous behavior).
+   */
+  .ef-form-row {
+    --ef-form-row-min: 14rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-form-row-min)), 1fr));
+    column-gap: var(--ef-form-row-gap, var(--ef-primitive-spacing-4, 1rem));
+    row-gap: 0;
+    align-items: start;
+    min-inline-size: 0;
+  }
+
+  .ef-form-row > .ef-field {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    margin-block-end: var(--ef-form-row-gap, var(--ef-primitive-spacing-4, 1rem));
+  }
+
+  .ef-form-row > .ef-field > .ef-field__label { grid-row: 1; }
+  .ef-form-row > .ef-field > .ef-field__description { grid-row: 2; margin-block-start: var(--ef-primitive-spacing-2, 0.5rem); }
+  .ef-form-row > .ef-field > :not(.ef-field__label, .ef-field__description, .ef-validation-message) { grid-row: 3; margin-block-start: var(--ef-primitive-spacing-2, 0.5rem); }
+  .ef-form-row > .ef-field > .ef-validation-message { grid-row: 4; margin-block-start: var(--ef-primitive-spacing-2, 0.5rem); }
+
+  /* Form contract ------------------------------------------------------- */
+  .ef-form {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ef-form-gap, var(--ef-primitive-spacing-5, 1.5rem));
+    min-inline-size: 0;
+    max-inline-size: var(--ef-form-max, 64rem);
+  }
+
+  .ef-form > :where(h1, h2, h3, p) { margin-block: 0; }
+
+  /* Native constraint validation owns validity. The recovery text is in the
+     DOM and programmatically associated from first render, but appears only
+     after the browser marks the control user-invalid. */
+  .ef-validation-message--when-invalid { display: none; }
+  .ef-field:has(> :user-invalid) > .ef-validation-message--when-invalid { display: flex; }
+
+  /* GET submission to the declared fragment is a real, script-free outcome.
+     The status remains absent from layout and the accessibility tree until it
+     is the URL target. */
+  .ef-form__outcome { display: none; }
+  .ef-form__outcome:target {
+    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
+    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
+    display: block;
+    padding: var(--ef-primitive-spacing-3, 0.75rem);
+    border-inline-start: 0.25rem solid var(--ef-color-status-success, #2e6a45);
+    background: var(--ef-color-surface-secondary, #e3e0d7);
+    color: var(--ef-color-text-on-secondary-surface, #3a403c);
+    font-weight: 650;
+  }
+
+  .ef-field > :is(input[type="date"], input[type="time"], input[type="datetime-local"]) {
+    min-inline-size: 0;
+    inline-size: 100%;
+    max-inline-size: 100%;
   }
 
   .ef-field__label {
@@ -55,6 +135,10 @@
     --ef-motion-perceptual-emphasis-duration: var(--ef-primitive-motion-duration-standard, 180ms);
     --ef-motion-perceptual-easing: var(--ef-primitive-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 
+    /* Brief surface fade: gentle ignition, fast middle, gentle settling.
+       Monotonic and symmetric: no opacity overshoot or delayed activation. */
+    --ef-motion-fade-easing: cubic-bezier(0.65, 0, 0.35, 1);
+
     /* Constant-velocity cadence: repeated activity is parameterized by a
        named period and constant velocity, never by spring settling (MOT-016). */
     --ef-motion-cadence-period: 1600ms;
@@ -84,7 +168,7 @@
     --ef-motion-gravity-duration: 255ms;
     --ef-motion-state-duration: 154ms;
     --ef-motion-press-duration: 107ms;
-    --ef-motion-exit-duration: 146ms;
+    --ef-motion-exit-duration: 214ms;
     --ef-motion-spring-easing: linear(0, 0.42 24%, 0.82 48%, 1.055 70%, 0.988 88%, 1);
     --ef-motion-damped-easing: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
@@ -158,11 +242,8 @@
         calc(var(--ef-motion-inertia-duration) * 0.5),
         160ms
       );
-      --ef-motion-exit-duration: clamp(
-        80ms,
-        calc(var(--ef-motion-inertia-duration) * 0.68),
-        220ms
-      );
+      /* Compatibility token: reciprocal motion has one response time. */
+      --ef-motion-exit-duration: var(--ef-motion-inertia-duration);
     }
   }
 
@@ -346,7 +427,9 @@
 
   /* Select -------------------------------------------------------------- */
   .ef-select-field {
+    min-inline-size: 0;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--ef-primitive-spacing-2, 0.5rem);
     max-inline-size: 100%;
   }
@@ -354,12 +437,19 @@
   .ef-select {
     --ef-motion-distance: 0.35;
     position: relative;
+    min-inline-size: 0;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     max-inline-size: 100%;
   }
 
   .ef-select__input {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-inline-size: 0;
+    max-inline-size: 100%;
     inline-size: 100%;
     min-block-size: 2.75rem;
     padding-inline-end: 2.75rem;
@@ -578,6 +668,10 @@
 
   .ef-disclosure > summary {
     min-inline-size: 0;
+    /* The open marker rotates 45deg; its rotated (empty) box corners would
+       otherwise add a few pixels of page overflow at narrow widths (ULI-L05).
+       Clipping does not affect the summary's own focus ring. */
+    overflow-x: clip;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -631,35 +725,19 @@
     overflow: auto;
     overscroll-behavior: contain;
     opacity: 0;
-    translate: 0 -0.35rem;
-    scale: 0.985;
-    transition:
-      opacity var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
-      translate var(--ef-motion-exit-duration) var(--ef-motion-damped-easing),
-      scale var(--ef-motion-exit-duration) var(--ef-motion-damped-easing),
-      display var(--ef-motion-exit-duration) allow-discrete,
-      overlay var(--ef-motion-exit-duration) allow-discrete;
+    /* Fade at the resting geometry. Never translate or scale a visible exit. */
+    transition: opacity var(--ef-motion-perceptual-duration) var(--ef-motion-fade-easing);
   }
 
   .ef-popover:popover-open,
   .ef-menu:popover-open {
     opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    transition-duration:
-      var(--ef-motion-perceptual-duration),
-      var(--ef-motion-inertia-duration),
-      var(--ef-motion-inertia-duration),
-      var(--ef-motion-inertia-duration),
-      var(--ef-motion-inertia-duration);
   }
 
   @starting-style {
     .ef-popover:popover-open,
     .ef-menu:popover-open {
       opacity: 0;
-      translate: 0 -0.35rem;
-      scale: 0.985;
     }
   }
 
@@ -711,9 +789,9 @@
    * the hint stays inside the viewport; otherwise the browser's centered
    * top-layer popover placement remains readable and in view.
    *
-   * Motion: light perceived weight. Opacity is perceptual interpolation and
-   * a tiny origin-related displacement is light inertial; exit uses the
-   * shorter derived exit duration. Reduced motion removes the displacement.
+   * Motion: reciprocal perceptual fades at unchanged resting geometry. The
+   * top layer is removed only after opacity reaches zero where supported.
+   * Reduced motion reaches the endpoint immediately.
    */
   .ef-tooltip {
     --ef-motion-distance: 0.2;
@@ -721,6 +799,11 @@
     vertical-align: middle;
   }
 
+  /*
+   * The trigger is a circle for a single glyph (the canonical "?"). LCE-001
+   * measured multi-character text ("1.5k") crossing the curve; that is outside
+   * this contract, not a supported variant.
+   */
   .ef-tooltip__trigger {
     min-inline-size: 2.75rem;
     min-block-size: 2.75rem;
@@ -732,7 +815,6 @@
   }
 
   .ef-tooltip__surface {
-    --ef-tooltip-offset: 0.25rem;
     inline-size: max-content;
     max-inline-size: min(20rem, calc(100vw - 2rem));
     margin: 0;
@@ -744,30 +826,30 @@
     line-height: 1.4;
     overflow-wrap: anywhere;
     opacity: 0;
-    translate: 0 var(--ef-tooltip-offset);
-    transition:
-      opacity var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
-      translate var(--ef-motion-exit-duration) var(--ef-motion-damped-easing),
-      display var(--ef-motion-exit-duration) allow-discrete,
-      overlay var(--ef-motion-exit-duration) allow-discrete;
+    transition: opacity var(--ef-motion-perceptual-duration) var(--ef-motion-fade-easing);
   }
 
   .ef-tooltip__surface:popover-open {
     opacity: 1;
-    translate: 0 0;
-    /* Entry settles over the light inertial duration; exit (above) uses the
-       shorter derived exit duration. Opacity stays perceptual both ways. */
-    transition-duration:
-      var(--ef-motion-perceptual-duration),
-      var(--ef-motion-inertia-duration),
-      var(--ef-motion-inertia-duration),
-      var(--ef-motion-inertia-duration);
   }
 
   @starting-style {
     .ef-tooltip__surface:popover-open {
       opacity: 0;
-      translate: 0 var(--ef-tooltip-offset);
+    }
+  }
+
+  /* Keep the top-layer placement and implicit anchor through the entire fade.
+     Display retention alone can expose a relocated, translucent surface in
+     engines without overlay retention. Those engines dismiss immediately. */
+  @supports (overlay: auto) {
+    .ef-popover,
+    .ef-menu,
+    .ef-tooltip__surface {
+      transition:
+        opacity var(--ef-motion-perceptual-duration) var(--ef-motion-fade-easing),
+        display var(--ef-motion-perceptual-duration) allow-discrete,
+        overlay var(--ef-motion-perceptual-duration) allow-discrete;
     }
   }
 
@@ -790,9 +872,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ef-tooltip__surface,
-    .ef-tooltip__surface:popover-open {
-      translate: 0 0;
+    .ef-tooltip__surface {
+      transition-duration: 0.01ms;
     }
   }
 
@@ -894,8 +975,8 @@
 
   /* Dialog and flyout ---------------------------------------------------- */
   :where(.ef-dialog, .ef-flyout) {
-    --ef-overlay-motion-duration: var(--ef-motion-exit-duration);
-    --ef-overlay-spatial-easing: var(--ef-motion-damped-easing);
+    --ef-overlay-motion-duration: var(--ef-motion-inertia-duration);
+    --ef-overlay-spatial-easing: var(--ef-motion-spring-easing);
     padding: 0;
     border: 1px solid var(--ef-color-border-functional, #3a403c);
     background: var(--ef-color-surface-primary, #f2efe7);
@@ -914,9 +995,7 @@
     /* Dimming is non-spatial: perceptual interpolation, without mass. */
     transition:
       background var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
-      backdrop-filter var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
-      display var(--ef-overlay-motion-duration) allow-discrete,
-      overlay var(--ef-overlay-motion-duration) allow-discrete;
+      backdrop-filter var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing);
   }
 
   :where(.ef-dialog, .ef-flyout)[open]::backdrop {
@@ -933,9 +1012,7 @@
     scale: 0.985;
     transition:
       translate var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
-      scale var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
-      display var(--ef-overlay-motion-duration) allow-discrete,
-      overlay var(--ef-overlay-motion-duration) allow-discrete;
+      scale var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing);
   }
 
   .ef-dialog[open] {
@@ -968,9 +1045,34 @@
     box-shadow: 0 0 3rem rgb(0 0 0 / 0.24);
     translate: var(--ef-flyout-closed-x) 0;
     transition:
-      translate var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
-      display var(--ef-overlay-motion-duration) allow-discrete,
-      overlay var(--ef-overlay-motion-duration) allow-discrete;
+      translate var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing);
+  }
+
+  /* Retain display only when overlay can retain viewport/top-layer geometry.
+     Otherwise a closed dialog can animate inside a containing ancestor. */
+  @supports (overlay: auto) {
+    :where(.ef-dialog, .ef-flyout)::backdrop {
+      transition:
+        background var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
+        backdrop-filter var(--ef-motion-perceptual-duration) var(--ef-motion-perceptual-easing),
+        display var(--ef-overlay-motion-duration) allow-discrete,
+        overlay var(--ef-overlay-motion-duration) allow-discrete;
+    }
+
+    .ef-dialog {
+      transition:
+        translate var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
+        scale var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
+        display var(--ef-overlay-motion-duration) allow-discrete,
+        overlay var(--ef-overlay-motion-duration) allow-discrete;
+    }
+
+    .ef-flyout {
+      transition:
+        translate var(--ef-overlay-motion-duration) var(--ef-overlay-spatial-easing),
+        display var(--ef-overlay-motion-duration) allow-discrete,
+        overlay var(--ef-overlay-motion-duration) allow-discrete;
+    }
   }
 
   .ef-flyout[data-ef-side="left"] {
@@ -992,9 +1094,11 @@
   .ef-flyout[open] { translate: 0 0; }
 
   .ef-flyout__surface {
+    min-inline-size: 0;
     min-block-size: 0;
     block-size: 100%;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr) auto;
   }
 
@@ -1024,6 +1128,7 @@
   }
 
   .ef-flyout__body {
+    min-inline-size: 0;
     min-block-size: 0;
     overflow: auto;
     overscroll-behavior: contain;
@@ -1117,7 +1222,9 @@
     font-family: var(--ef-primitive-font-family-mono, ui-monospace, monospace);
     font-size: 0.6875rem;
     line-height: 1.2;
-    white-space: nowrap;
+    /* Wraps inside its container rather than widening it (ULI-L05). */
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
   }
 
   .ef-status-lozenge::before {
@@ -1126,6 +1233,10 @@
     line-height: 0;
   }
 
+  .ef-status-lozenge[data-state="ok"] { color: var(--ef-color-status-success, #2e6a45); border-inline-start-width: 0.25rem; }
+  .ef-status-lozenge[data-state="attention"] { color: var(--ef-color-status-warning, #86560f); border-inline-start-width: 0.25rem; }
+  .ef-status-lozenge[data-state="unknown"] { color: var(--ef-color-status-info, #2d5f86); border-inline-start-width: 0.25rem; }
+  .ef-status-lozenge[data-state="blocked"] { color: var(--ef-color-status-danger, #a13a2c); border-inline-start-width: 0.25rem; }
   .ef-status-lozenge[data-state="ok"]::before { content: "✓"; }
   .ef-status-lozenge[data-state="attention"]::before { content: "!"; }
   .ef-status-lozenge[data-state="unknown"]::before { content: "?"; }
@@ -1175,7 +1286,7 @@
 
   .ef-collection-toolbar__controls label,
   .ef-collection-toolbar__filters {
-    min-inline-size: 9rem;
+    min-inline-size: min(9rem, 100%);
     font-size: 0.75rem;
     font-weight: 650;
   }
@@ -1469,8 +1580,10 @@
   /* Metrics and dashboards --------------------------------------------- */
   .ef-metric-card {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.5rem;
     min-inline-size: 0;
+    overflow-wrap: anywhere;
     padding: 1.25rem;
     border: 1px solid var(--ef-color-border-functional, #3a403c);
     background: var(--ef-color-surface-primary, #f2efe7);
@@ -1813,6 +1926,8 @@
   }
 
   .ef-wizard__steps li {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -1820,13 +1935,16 @@
     font-size: 0.8125rem;
   }
 
+  /* A circle for one or two digits; longer step text widens it into a pill (LCE-001). */
   .ef-wizard__steps li > span {
     display: grid;
     place-items: center;
-    inline-size: 1.75rem;
+    min-inline-size: 1.75rem;
     block-size: 1.75rem;
+    padding-inline: 0.375rem;
     border: 1px solid var(--ef-color-border-functional, #3a403c);
-    border-radius: 50%;
+    border-radius: 999px;
+    white-space: nowrap;
   }
 
   .ef-wizard__steps [data-state="complete"] > span::after { content: "✓"; position: absolute; }
@@ -1839,6 +1957,7 @@
   .ef-readiness-checklist > header h3 { margin: 0.5rem 0 0; }
   .ef-readiness-checklist__items { margin: 0; padding: 0; list-style: none; }
   .ef-readiness-checklist__items li {
+    overflow-wrap: anywhere;
     display: grid;
     grid-template-columns: 2rem minmax(0, 1fr) auto;
     gap: 0.75rem;
@@ -1906,6 +2025,7 @@
   .ef-command-palette__group button {
     inline-size: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 1rem;
     text-align: start;
@@ -2022,12 +2142,37 @@
   }
 
   .ef-record-header__main nav { font-size: 0.75rem; }
+  /*
+   * The status sits beside the record title and is centred on the title's
+   * row, not on the type label and title together (ULI-L01, L07). The
+   * identity block spans two subgrid rows (type, title); the status occupies
+   * the title row. Narrow containers stack the status below.
+   */
+  .ef-record-header__main { container-type: inline-size; min-inline-size: 0; }
   .ef-record-header__title {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, auto) auto;
+    grid-template-rows: auto auto;
+    justify-content: start;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
     align-items: center;
     margin-block: 0.75rem 0;
+  }
+  .ef-record-header__title > :first-child {
+    display: grid;
+    grid-row: 1 / span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    min-inline-size: 0;
+  }
+  .ef-record-header__title > :first-child > .ef-record-header__type { grid-row: 1; align-self: end; }
+  .ef-record-header__title > :first-child > :is(h1, h2, h3, h4) { grid-row: 2; }
+  .ef-record-header__title > :not(:first-child) { grid-row: 2; }
+  @container (max-width: 24em) {
+    .ef-record-header__title { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+    .ef-record-header__title > :first-child { grid-row: auto; }
+    .ef-record-header__title > :not(:first-child) { grid-row: auto; justify-self: start; }
   }
   .ef-record-header__title h2 { margin: 0.15rem 0 0; }
   .ef-record-header__type {
@@ -2112,7 +2257,9 @@
   .ef-provenance-trail li {
     position: relative;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.2rem;
+    overflow-wrap: anywhere;
     padding: 0.75rem 0 0.75rem 2rem;
   }
   .ef-provenance-trail li::before {
@@ -2172,6 +2319,7 @@
   /* Mobile action bar --------------------------------------------------- */
   .ef-mobile-action-bar {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     padding: 0.75rem;
     padding-block-end: max(0.75rem, env(safe-area-inset-bottom));
@@ -2180,7 +2328,7 @@
     backdrop-filter: blur(10px);
   }
 
-  .ef-mobile-action-bar > * { flex: 1 1 0; }
+  .ef-mobile-action-bar > * { flex: 1 1 min(100%, 8rem); }
   .ef-mobile-action-bar__primary {
     background: var(--ef-color-surface-inverse, #202421);
     color: var(--ef-color-text-inverse, #f2efe7);
@@ -2213,7 +2361,9 @@
     .ef-operation-status,
     .ef-record-header,
     .ef-file-upload__queue li {
-      grid-template-columns: 1fr;
+      /* minmax(0, …): a long word or wide font never holds the track wider
+         than the screen (ULI-L05). */
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .ef-work-queue__item button,
@@ -2292,6 +2442,7 @@
       margin-block-end: 0.75rem;
       border: 1px solid var(--ef-color-border-functional, #3a403c);
     }
+    .ef-data-grid tr { container-type: inline-size; }
     .ef-data-grid td {
       display: grid;
       grid-template-columns: minmax(6.5rem, 0.4fr) minmax(0, 1fr);
@@ -2305,13 +2456,19 @@
       font-weight: 650;
     }
     .ef-data-grid td[data-label="Actions"] > * { inline-size: 100%; }
+    /* When enlarged text leaves no room for a label beside its value, the
+       label stacks above the value instead of squeezing it to a few
+       characters per line (ULI-L05). 16em is two readable columns. */
+    @container (max-width: 16em) {
+      .ef-data-grid td { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
+    }
 
     .ef-search__control { grid-template-columns: 1fr; }
     .ef-search__control input { border-inline-end: 1px solid var(--ef-color-border-functional, #3a403c); border-block-end: 0; }
 
     .ef-work-queue__header { display: grid; }
     .ef-diff-row,
-    .ef-key-value-list > div { grid-template-columns: 1fr; gap: 0.25rem; }
+    .ef-key-value-list > div { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
 
     .ef-status-lozenge-set { align-items: stretch; }
     .ef-status-lozenge-set .ef-status-lozenge { flex: 1 1 100%; justify-content: center; }
@@ -2553,7 +2710,7 @@
     .ef-composer__actions button { min-block-size: 2.75rem; }
     .ef-composer__submit { inline-size: 100%; }
 
-    .ef-turn { grid-template-columns: 1fr; }
+    .ef-turn { grid-template-columns: minmax(0, 1fr); }
     .ef-turn__actions { grid-column: 1; }
     .ef-turn__actions button { inline-size: 100%; }
 
@@ -2836,6 +2993,7 @@
     --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
     --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
     display: inline-flex;
+    max-inline-size: 100%;
     align-items: center;
     gap: var(--ef-primitive-spacing-2, 0.5rem);
     padding: 0.55rem 0.75rem;
@@ -2854,6 +3012,8 @@
   .ef-diagnostic-status__body {
     display: grid;
     gap: 0.1rem;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
   }
 
   .ef-diagnostic-status__body > span {
@@ -2992,7 +3152,7 @@
   .ef-security-state-matrix__grid dt { font-size:.75rem; font-weight:700; }
   .ef-security-state-matrix__grid dd { margin:0; font-size:clamp(1.4rem,4vw,2rem); font-weight:750; }
   .ef-security-blockers ul { display:grid; gap:.75rem; padding-inline-start:1.25rem; }
-  .ef-security-blockers li { padding-inline-start:.25rem; }
+  .ef-security-blockers li { padding-inline-start:.25rem; min-inline-size:0; overflow-wrap:anywhere; }
   .ef-security-blockers li span { display:block; }
   .ef-security-evidence-chain ol { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr)); gap:.5rem; padding:0; list-style:none; }
   .ef-security-evidence-chain li { padding:.75rem; border:1px solid var(--ef-color-border-functional,#3a403c); overflow-wrap:anywhere; }
@@ -3006,7 +3166,7 @@
   .ef-invariant-result dl { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(10rem,100%),1fr)); gap:.75rem; }
   .ef-invariant-result dt { color:var(--ef-color-text-secondary,#686d68); font-size:.75rem; font-weight:700; } .ef-invariant-result dd { margin:0; overflow-wrap:anywhere; }
   :where(.ef-evidence-age,.ef-security-trend) ul { display:grid; gap:.5rem; margin:0; padding:0; list-style:none; }
-  :where(.ef-evidence-age,.ef-security-trend) li { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); display:grid; gap:.2rem; border-inline-start:.3rem solid currentColor; padding:.65rem .75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
+  :where(.ef-evidence-age,.ef-security-trend) li { grid-template-columns:minmax(0,1fr); min-inline-size:0; overflow-wrap:anywhere; --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); display:grid; gap:.2rem; border-inline-start:.3rem solid currentColor; padding:.65rem .75rem; background:var(--ef-color-surface-secondary,#e3e0d7); }
   :where(.ef-evidence-age,.ef-security-trend) li span { overflow-wrap:anywhere; }
 
   /* Composition primitives ---------------------------------------------- */
@@ -3216,7 +3376,10 @@
   }
 
   @media (max-width: 48rem) {
-    .ef-split-pane[data-ef-resizable] { grid-template-columns: minmax(0, 1fr); }
+    /* Includes the collapsed state, whose track list would otherwise keep
+       three columns on a phone and squeeze the secondary pane (ULI-L05). */
+    .ef-split-pane[data-ef-resizable],
+    .ef-split-pane[data-ef-resizable][data-ef-collapsed] { grid-template-columns: minmax(0, 1fr); }
     .ef-split-pane__separator { display: none; }
   }
 
@@ -4411,7 +4574,25 @@
    * Non-color cues: the visible node kind text, data-ef-shape, data-ef-line and
    * the textual relationship list. Focus never reads authored color.
    */
-  .ef-diagram { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ef-primitive-spacing-4, 1rem); min-inline-size: 0; margin: 0; }
+  /*
+   * The diagram pins its own type context: node geometry is computed for these
+   * metrics, so a host's font, line height or spacing must not change them
+   * (LCE-001: a diagram inside a marketing card inherited its typography and
+   * outgrew its layout). User text-spacing overrides still apply.
+   */
+  .ef-diagram {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ef-primitive-spacing-4, 1rem);
+    min-inline-size: 0;
+    margin: 0;
+    font-family: var(--ef-primitive-font-family-sans, system-ui, sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
   .ef-diagram > figcaption { font-weight: 700; }
   .ef-diagram__viewport {
     max-inline-size: 100%;
@@ -4451,7 +4632,18 @@
     overflow-wrap: anywhere;
   }
   .ef-diagram-node[data-ef-shape="rounded"] { border-radius: var(--ef-primitive-spacing-3, 0.75rem); }
-  .ef-diagram-node[data-ef-shape="pill"] { border-radius: 999px; padding-inline: var(--ef-primitive-spacing-5, 1.5rem); }
+  /*
+   * A pill is a stadium while it is short. A taller (multi-line) pill keeps
+   * the largest corner radius whose curve stays 4px clear of the content box
+   * (LCE-001), instead of letting the curve cut through the text: for inline
+   * padding pi, block padding pb (pb <= pi), border b and clearance c the
+   * bound is pi + pb·(1 + √2) - c·(1 + √2) + b, about 45px with Forma's
+   * spacing tokens. It follows the padding tokens, so it holds at any text size.
+   */
+  .ef-diagram-node[data-ef-shape="pill"] {
+    border-radius: min(999px, calc(var(--ef-primitive-spacing-5, 1.5rem) + var(--ef-primitive-spacing-3, 0.75rem) * 2.414 - 7.66px));
+    padding-inline: var(--ef-primitive-spacing-5, 1.5rem);
+  }
   /*
    * FMD-M2 (forma#88). Ellipse and diamond keep a real border (never a
    * background-only shape) so the boundary survives backgrounds-off print and
@@ -4462,7 +4654,8 @@
     border-radius: 50%;
     border-inline-start-width: 2px;
     border-block-end: 6px solid var(--ef-diagram-node-accent);
-    padding: var(--ef-primitive-spacing-4, 1rem) calc(var(--ef-diagram-w, 12rem) * 0.14);
+    /* The content's corners stay inside the ellipse: 14.65% is (1 - 1/√2) / 2 of the width, plus clearance (LCE-001). */
+    padding: var(--ef-primitive-spacing-4, 1rem) calc(var(--ef-diagram-w, 12rem) * 0.1465 + 0.25rem);
     place-content: center;
     text-align: center;
   }
@@ -4470,12 +4663,14 @@
   .ef-diagram-node[data-ef-shape="diamond"] .ef-diagram-node__meta { grid-template-columns: auto auto; justify-content: center; text-align: start; }
   /*
    * A square box whose ::before is the diamond; the content sits in the
-   * inscribed square. Padding is derived from --ef-diagram-w because percentage
+   * inscribed square, which is half the side, so the padding is a quarter of
+   * the width plus clearance (LCE-001; 0.2 put content corners outside the
+   * diamond). Padding is derived from --ef-diagram-w because percentage
    * padding would resolve against the canvas, not the node.
    */
   .ef-diagram-node[data-ef-shape="diamond"] {
     aspect-ratio: 1;
-    padding: calc(var(--ef-diagram-w, 12rem) * 0.2);
+    padding: calc(var(--ef-diagram-w, 12rem) * 0.25 + 0.25rem);
     border: 0;
     background: transparent;
     place-content: center;
@@ -4515,7 +4710,10 @@
     background: var(--ef-color-surface-primary, #f2efe7);
     color: var(--ef-color-text-primary, #171a18);
     font-size: 0.875rem;
-    white-space: nowrap;
+    /* One line up to 12rem, then wrapping: the layout reserves that box (LCE-001). */
+    inline-size: max-content;
+    max-inline-size: 12rem;
+    overflow-wrap: anywhere;
   }
 
   /* The text equivalent: every relationship in reading order. */
@@ -5310,4 +5508,3 @@
     .ef-icon { color: CanvasText; }
   }
 }
-

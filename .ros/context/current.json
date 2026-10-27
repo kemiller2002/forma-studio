@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-18T13:03:46.706Z",
+  "updatedAt": "2026-10-27T20:13:17Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1056,6 +1056,37 @@
       },
       "completedAt": "2026-10-18T13:03:46.706Z",
       "conclusion": "Praxis-managed .ros/executions state is excluded from product attribution; pinned and current validator behavior was checked."
+    },
+    {
+      "id": "WI-0014",
+      "type": "task",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-10-27T20:13:17Z",
+      "telemetryExecutionIds": [
+        "EXE-20261027T201319001Z-3ea651c6"
+      ],
+      "latestCheckpoint": {
+        "id": "efaee91c150d348acaccf0b8",
+        "recordedAt": "2026-10-27T20:13:40Z",
+        "executionId": "EXE-20261027T201319001Z-3ea651c6",
+        "repository": "forma-studio",
+        "branch": "claude/adopt-forma-0.10.0",
+        "commit": "6684420ad1e01019268575f1d10743ac2861b883",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio.git"
+        },
+        "remoteBranch": "claude/adopt-forma-0.10.0",
+        "remoteCommit": "6684420ad1e01019268575f1d10743ac2861b883",
+        "summary": "Forma 0.10.0 / forma-workflow 1.1.0 vendored; LayoutCheck surfaced on workflow export; all local checks pass.",
+        "nextAction": "Review and merge the draft PR; move .conditor with conditor upgrade --current once echelon-current 1.30.0 is approved.",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }
