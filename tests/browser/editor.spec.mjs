@@ -7,17 +7,17 @@ const open = async (page, width = 1400) => {
   await page.setViewportSize({ width, height: 1000 });
   await page.goto("/");
   await page.waitForFunction(() => document.documentElement.dataset.studioReady === "true");
-  await expect(page.locator(".ef-diagram__canvas .ef-diagram-node")).toHaveCount(7);
+  await expect(page.locator(".forma-diagram__canvas .forma-diagram-node")).toHaveCount(7);
 };
 const history = (page) => page.locator('[data-text="historyCount"]');
-const node = (page, label) => page.locator(".ef-diagram__canvas .ef-diagram-node", { has: page.locator(".ef-diagram-node__label", { hasText: label }) });
+const node = (page, label) => page.locator(".forma-diagram__canvas .forma-diagram-node", { has: page.locator(".forma-diagram-node__label", { hasText: label }) });
 const structure = (page) => page.getByRole("navigation", { name: "Structure" });
 const outlineItem = (page, text) => structure(page).locator("button[data-event=select]").filter({ hasText: text });
 const status = (page) => page.getByRole("status");
 // Geometry and colors arrive as data-* values that studio-projection.css maps onto
 // Forma's custom properties (Limen 0.7.0 refuses inline style): read what CSS computed.
 const computed = (locator, name) => locator.evaluate((el, property) => getComputedStyle(el).getPropertyValue(property).trim(), name);
-const position = async (locator) => ({ x: parseInt(await computed(locator, "--ef-diagram-x")), y: parseInt(await computed(locator, "--ef-diagram-y")) });
+const position = async (locator) => ({ x: parseInt(await computed(locator, "--forma-diagram-x")), y: parseInt(await computed(locator, "--forma-diagram-y")) });
 
 test.beforeEach(async ({ page }) => {
   page.on("console", (message) => {
@@ -25,15 +25,27 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+test("the editor wears the Echelon theme over Forma 1.x, loaded after Forma in the theme's order", async ({ page }) => {
+  await open(page);
+  await expect(page.locator("html")).toHaveAttribute("data-forma-brand", "echelon");
+  const sheets = await page.evaluate(() =>
+    [...document.styleSheets].filter((sheet) => sheet.cssRules.length > 0).map((sheet) => new URL(sheet.href).pathname));
+  const order = ["/forma/components.css", "/echelon-theme/echelon.css", "/echelon-theme/echelon-fonts.css", "/echelon-theme/echelon-app.css"]
+    .map((path) => sheets.indexOf(path));
+  expect(order.every((at) => at >= 0), sheets.join(", ")).toBe(true);
+  expect([...order].sort((a, b) => a - b)).toEqual(order);
+  expect(await computed(page.locator("html"), "--echelon-surface-canvas")).not.toBe("");
+});
+
 test("the sample renders with Forma contracts and hides source-only metadata on the canvas", async ({ page }) => {
   await open(page);
-  await expect(page.locator("path.ef-diagram-connector")).toHaveCount(7);
+  await expect(page.locator("path.forma-diagram-connector")).toHaveCount(7);
   await expect(structure(page).locator("button[data-event=select]")).toHaveCount(14);
-  await expect(page.locator(".ef-diagram__canvas")).not.toContainText("CC-7731");
-  await expect(page.locator(".ef-diagram__canvas")).not.toContainText("Cost center");
-  await expect(node(page, "Within budget?")).toHaveAttribute("data-ef-shape", "diamond");
-  const adornerClasses = await page.locator(".ef-diagram__canvas [class*='studio-']").evaluateAll((els) => els.map((el) => el.getAttribute("class")));
-  expect(adornerClasses.every((c) => !/\bef-diagram-(?!node|connector)\S*studio/.test(c))).toBe(true);
+  await expect(page.locator(".forma-diagram__canvas")).not.toContainText("CC-7731");
+  await expect(page.locator(".forma-diagram__canvas")).not.toContainText("Cost center");
+  await expect(node(page, "Within budget?")).toHaveAttribute("data-forma-shape", "diamond");
+  const adornerClasses = await page.locator(".forma-diagram__canvas [class*='studio-']").evaluateAll((els) => els.map((el) => el.getAttribute("class")));
+  expect(adornerClasses.every((c) => !/\bforma-diagram-(?!node|connector)\S*studio/.test(c))).toBe(true);
 });
 
 test("the Structure list selects without the canvas and the inspector renames through a command", async ({ page }) => {
@@ -89,13 +101,13 @@ test("connecting needs no drag, and illegal connections are refused with a reaso
   await page.getByRole("button", { name: "Connect from selection" }).click();
   await expect(status(page)).toContainText("Choose the item that Request submitted connects to");
   await outlineItem(page, "Activity: Revise request").click();
-  await expect(page.locator("path.ef-diagram-connector")).toHaveCount(8);
+  await expect(page.locator("path.forma-diagram-connector")).toHaveCount(8);
   await expect(outlineItem(page, "Connector: Request submitted to Revise request")).toHaveCount(1);
   await outlineItem(page, "End: Order placed").click();
   await page.getByRole("button", { name: "Connect from selection" }).click();
   await outlineItem(page, "Activity: Prepare request").click();
   await expect(status(page)).toContainText("An end node cannot have outgoing flow");
-  await expect(page.locator("path.ef-diagram-connector")).toHaveCount(8);
+  await expect(page.locator("path.forma-diagram-connector")).toHaveCount(8);
 });
 
 test("metadata edits change the mapped color without touching other layers", async ({ page }) => {
@@ -108,7 +120,7 @@ test("metadata edits change the mapped color without touching other layers", asy
   await expect(page.locator("#inspector-fill-source")).toContainText("Forma default");
   await page.getByRole("button", { name: "Clear to default" }).click();
   await expect(node(page, "Approve spend")).toContainText("Not started");
-  await expect(node(page, "Approve spend").locator("[data-ef-value-state='default']")).toBeVisible();
+  await expect(node(page, "Approve spend").locator("[data-forma-value-state='default']")).toBeVisible();
 });
 
 test("fill color accepts text entry, records its source and resets to the next layer", async ({ page }) => {
@@ -118,14 +130,14 @@ test("fill color accepts text entry, records its source and resets to the next l
   await fill.fill("#FFE0B2");
   await fill.press("Tab");
   await expect(node(page, "Request submitted")).toHaveAttribute("data-fill", "#ffe0b2");
-  await expect.poll(() => computed(node(page, "Request submitted"), "--ef-diagram-fill")).toBe("rgb(255, 224, 178)");
+  await expect.poll(() => computed(node(page, "Request submitted"), "--forma-diagram-fill")).toBe("rgb(255, 224, 178)");
   await expect(page.locator("#inspector-fill-source")).toContainText("literal #ffe0b2 (set on this item)");
   await fill.fill("teal-ish");
   await fill.press("Tab");
   await expect(status(page)).toContainText("Not changed");
   await page.getByRole("button", { name: "Reset fill" }).click();
   await expect(node(page, "Request submitted")).toHaveAttribute("data-fill", "");
-  await expect.poll(() => computed(node(page, "Request submitted"), "--ef-diagram-fill")).toBe("");
+  await expect.poll(() => computed(node(page, "Request submitted"), "--forma-diagram-fill")).toBe("");
 });
 
 test("save and reopen restore the canonical project with a fresh history", async ({ page }) => {
@@ -184,7 +196,7 @@ test("an ordinary user defines a choice field, sets it and colors by it without 
   await expect(page.locator("#inspector-fill-source")).toContainText("set on this item");
   await page.getByRole("button", { name: "Reset fill" }).click();
   await expect(node(page, "Prepare request")).toHaveAttribute("data-fill", "#fbd3e9");
-  await expect.poll(() => computed(node(page, "Prepare request"), "--ef-diagram-fill")).toBe("rgb(251, 211, 233)");
+  await expect.poll(() => computed(node(page, "Prepare request"), "--forma-diagram-fill")).toBe("rgb(251, 211, 233)");
   await expect(page.locator("#inspector-fill-source")).toContainText("Risk level is High");
 });
 
@@ -197,7 +209,7 @@ test("an in-use palette slot cannot be deleted silently; materializing keeps the
   await row.getByRole("button", { name: "Delete, keep colors" }).click();
   await expect(page.getByRole("list", { name: "Palette slots" })).not.toContainText("Author highlight");
   await expect(node(page, "Prepare request")).toHaveAttribute("data-fill", "#efe6fb");
-  await expect.poll(() => computed(node(page, "Prepare request"), "--ef-diagram-fill")).toBe("rgb(239, 230, 251)");
+  await expect.poll(() => computed(node(page, "Prepare request"), "--forma-diagram-fill")).toBe("rgb(239, 230, 251)");
 });
 
 test("moving an activity between lanes reports the responsibility change", async ({ page }) => {
@@ -291,7 +303,7 @@ test("Layout and Flow share one session: stack, heading, edit, reorder, spacing,
   await expect(preview).toHaveAttribute("data-density", "compact");
 });
 
-const size = async (locator) => ({ w: parseInt(await computed(locator, "--ef-diagram-w")), h: parseInt(await computed(locator, "--ef-diagram-h")) });
+const size = async (locator) => ({ w: parseInt(await computed(locator, "--forma-diagram-w")), h: parseInt(await computed(locator, "--forma-diagram-h")) });
 
 test("Resize: the handle drag and the inspector fields are each one command", async ({ page }) => {
   await open(page);
@@ -333,7 +345,7 @@ test("Reconnect: an endpoint drag and the keyboard path are each one Reconnect c
   const handles = page.locator(".studio-endpoint");
   await expect(handles).toHaveCount(2);
   const entries = Number(await history(page).textContent());
-  const before = await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d");
+  const before = await page.locator("path.forma-diagram-connector.studio-selected-wire").getAttribute("d");
 
   // Pointer path: drag the end handle onto another node.
   const destination = node(page, "Revise request");
@@ -345,7 +357,7 @@ test("Reconnect: an endpoint drag and the keyboard path are each one Reconnect c
   await page.mouse.up();
   await expect(status(page)).toHaveText("Reconnected.");
   await expect(history(page)).toHaveText(String(entries + 1));
-  const dragged = await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d");
+  const dragged = await page.locator("path.forma-diagram-connector.studio-selected-wire").getAttribute("d");
   expect(dragged).not.toBe(before);
 
   // Keyboard path: press the handle, then choose a node.
@@ -360,7 +372,7 @@ test("Reconnect: an endpoint drag and the keyboard path are each one Reconnect c
   await page.getByRole("button", { name: "Undo" }).click();
   await page.getByRole("button", { name: "Undo" }).click();
   await connectors.first().click();
-  await expect(page.locator("path.ef-diagram-connector.studio-selected-wire")).toHaveAttribute("d", before);
+  await expect(page.locator("path.forma-diagram-connector.studio-selected-wire")).toHaveAttribute("d", before);
 });
 
 test("Zoom and snapping are view state; drags stay in logical units", async ({ page }) => {
@@ -400,7 +412,7 @@ test("Templates: a built-in or copied fragment inserts in one step with its depe
   await open(page);
   const templates = page.getByRole("region", { name: "Templates" });
   const entries = Number(await history(page).textContent());
-  const edgesBefore = await page.locator("path.ef-diagram-connector").count();
+  const edgesBefore = await page.locator("path.forma-diagram-connector").count();
 
   await templates.getByRole("button", { name: "Approval decision" }).click();
   await expect(templates.getByRole("list", { name: "What inserting brings along" })).toContainText("No fields, colors or rules");
@@ -408,7 +420,7 @@ test("Templates: a built-in or copied fragment inserts in one step with its depe
   await expect(status(page)).toHaveText("Inserted Approval decision.");
   await expect(history(page)).toHaveText(String(entries + 1));
   await expect(node(page, "Approved?")).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator("path.ef-diagram-connector")).toHaveCount(edgesBefore + 2);
+  await expect(page.locator("path.forma-diagram-connector")).toHaveCount(edgesBefore + 2);
 
   // Copy a node that carries metadata and a color rule, then review and insert it.
   await page.getByRole("button", { name: "Undo" }).click();
@@ -505,26 +517,26 @@ test("Merge review: saved-copy changes merge with local edits; a conflict is res
 
 test("the canvas is laid out and colored by the stylesheet from data-* values, never inline style", async ({ page }) => {
   await open(page);
-  const canvas = page.locator(".ef-diagram__canvas");
+  const canvas = page.locator(".forma-diagram__canvas");
   // Limen 0.7.0 refuses inline style as a binding target (limen#18): nothing projected carries one.
-  const projected = page.locator(".ef-diagram__canvas, .ef-diagram__canvas :is(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label, path.ef-diagram-connector)");
+  const projected = page.locator(".forma-diagram__canvas, .forma-diagram__canvas :is(.forma-diagram-node, .forma-diagram-group, .forma-diagram-connector__label, path.forma-diagram-connector)");
   expect(await projected.evaluateAll((els) => els.filter((el) => el.hasAttribute("style")).map((el) => el.outerHTML.slice(0, 80)))).toEqual([]);
 
   // Geometry: every node, group and connector label sits exactly at its projected logical position.
-  const misplaced = await page.locator(".ef-diagram__canvas :is(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label)").evaluateAll((els) =>
+  const misplaced = await page.locator(".forma-diagram__canvas :is(.forma-diagram-node, .forma-diagram-group, .forma-diagram-connector__label)").evaluateAll((els) =>
     els.filter((el) => el.offsetLeft !== Number(el.dataset.x) || el.offsetTop !== Number(el.dataset.y)).map((el) => el.textContent.trim().slice(0, 40)));
   expect(misplaced).toEqual([]);
-  expect(await page.locator(".ef-diagram__canvas .ef-diagram-node").evaluateAll((els) => els.every((el) => el.offsetWidth === Number(el.dataset.w)))).toBe(true);
+  expect(await page.locator(".forma-diagram__canvas .forma-diagram-node").evaluateAll((els) => els.every((el) => el.offsetWidth === Number(el.dataset.w)))).toBe(true);
   const area = await canvas.evaluate((el) => ({ w: el.offsetWidth, h: el.offsetHeight, dw: Number(el.dataset.width), dh: Number(el.dataset.height) }));
   expect([area.w, area.h]).toEqual([area.dw, area.dh]);
 
   // A token color stays a token (themes and brands still apply); a literal is read as a <color>.
   const decision = node(page, "Within budget?");
-  await expect(decision).toHaveAttribute("data-stroke", "--ef-color-accent-primary");
-  const token = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ef-color-accent-primary").trim());
+  await expect(decision).toHaveAttribute("data-stroke", "--forma-color-accent-primary");
+  const token = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--forma-color-accent-primary").trim());
   expect(token).not.toBe("");
-  expect(await computed(decision, "--ef-diagram-stroke")).toBe(token);
-  expect(await computed(decision, "--ef-diagram-accent")).toBe(token);
+  expect(await computed(decision, "--forma-diagram-stroke")).toBe(token);
+  expect(await computed(decision, "--forma-diagram-accent")).toBe(token);
 
   // Zoom is a view preference applied by CSS from data-zoom.
   await page.getByRole("toolbar", { name: "View" }).getByRole("button", { name: "Zoom in" }).click();
@@ -535,7 +547,7 @@ test("the canvas is laid out and colored by the stylesheet from data-* values, n
   await page.getByRole("navigation", { name: "Structure" }).getByRole("button", { name: /^Connector:/ }).first().click();
   const handles = page.locator(".studio-endpoint");
   await expect(handles).toHaveCount(2);
-  const route = (await page.locator("path.ef-diagram-connector.studio-selected-wire").getAttribute("d")).match(/-?\d+/g).map(Number);
+  const route = (await page.locator("path.forma-diagram-connector.studio-selected-wire").getAttribute("d")).match(/-?\d+/g).map(Number);
   const placed = await handles.evaluateAll((els) => els.map((el) => [parseInt(getComputedStyle(el).getPropertyValue("--studio-x")), parseInt(getComputedStyle(el).getPropertyValue("--studio-y"))]));
   expect(placed).toEqual([route.slice(0, 2), route.slice(-2)]);
 });
@@ -548,7 +560,7 @@ test("a drag leaves no text selection, so the next drag on the same node is a dr
   for (const [n, dx] of [[1, 40], [2, 24]]) {
     const before = await position(target);
     // Start on the kind text: a text selection left there would make this a native text drag.
-    const kind = await target.locator(".ef-diagram-node__kind").boundingBox();
+    const kind = await target.locator(".forma-diagram-node__kind").boundingBox();
     await page.mouse.move(kind.x + 4, kind.y + kind.height / 2);
     await page.mouse.down();
     await page.mouse.move(kind.x + 4 + dx, kind.y + kind.height / 2 + 8, { steps: 6 });

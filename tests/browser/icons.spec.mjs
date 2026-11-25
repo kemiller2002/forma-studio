@@ -73,7 +73,7 @@ test("the pinned Forma release's own icons are verified, offered, set and export
   await expect(picker.locator(".studio-icon-choice")).toHaveCount(1);
   await picker.getByRole("button", { name: "Search" }).click();
   await expect(page.getByRole("status")).toHaveText("Icon set to Search.");
-  const node = page.locator(".ef-diagram__canvas .ef-diagram-node", { has: page.locator(".ef-diagram-node__label", { hasText: "Prepare request" }) });
+  const node = page.locator(".forma-diagram__canvas .forma-diagram-node", { has: page.locator(".forma-diagram-node__label", { hasText: "Prepare request" }) });
   await expect(node.locator("img.studio-node-icon")).toHaveAttribute("src", "./forma/icons/search.svg");
   // The pinned static SVG is served and drawn (an SVG without width/height reports no natural size, so check the load).
   expect((await page.request.get("/forma/icons/search.svg")).headers()["content-type"]).toContain("image/svg+xml");
@@ -88,7 +88,7 @@ test("the pinned Forma release's own icons are verified, offered, set and export
   await page.getByRole("button", { name: "Export Layout page" }).click();
   const html = await page.locator("#export-text").inputValue();
   expect(html).toContain(`data-forma-version="${pinned}"`);
-  expect(html).toContain('data-ef-icon="add"');
+  expect(html).toContain('data-forma-icon="add"');
   expect(html).toContain(`@echelon-foundry/design-system@${pinned}/components.css`);
   expect(html).not.toMatch(/<script|\son[a-z]+=|javascript:/i);
   expect(requests.filter((url) => !url.startsWith("http://127.0.0.1:4380/"))).toEqual([]);
@@ -150,7 +150,7 @@ test("at 320px a Layout button gets an icon by keyboard alone, and the export in
   await page.getByRole("button", { name: "Export Layout page" }).click();
   const html = await page.locator("#export-text").inputValue();
   expect(html).toContain('data-forma-version="0.0.0-test-fixture"');
-  expect(html).toContain('data-ef-icon="test-line"');
+  expect(html).toContain('data-forma-icon="test-line"');
   expect(html).toContain('<path d="M4 12H20" />');
   expect(html).toContain("@echelon-foundry/design-system@0.0.0-test-fixture/components.css");
   expect(html).not.toMatch(/<script|\son[a-z]+=|javascript:/i);
@@ -174,7 +174,7 @@ test("a diagram node's icon is chosen in the inspector, shown on the canvas, sav
   await picker.getByRole("button", { name: "Test dot" }).click();
   await expect(picker.getByRole("button", { name: "Test dot", pressed: true })).toBeVisible();
   await expect(page.getByText("Icon: Test dot (test-dot).", { exact: true })).toBeVisible();
-  const node = page.locator(".ef-diagram__canvas .ef-diagram-node", { has: page.locator(".ef-diagram-node__label", { hasText: "Prepare request" }) });
+  const node = page.locator(".forma-diagram__canvas .forma-diagram-node", { has: page.locator(".forma-diagram-node__label", { hasText: "Prepare request" }) });
   await expect(node.locator("img.studio-node-icon")).toHaveAttribute("src", "./forma/icons/test-dot.svg");
   await expect(node).toHaveAttribute("aria-label", "Activity: Prepare request");
   expect(await audit(page)).toEqual([]);
@@ -218,7 +218,7 @@ test("an unknown icon name in a saved document is kept, never drawn, and survive
   });
   await page.getByRole("button", { name: "Open saved" }).click();
   await expect(page.getByRole("status")).toContainText("Loaded the saved project");
-  await expect(page.locator(".ef-diagram__canvas img")).toHaveCount(0);
+  await expect(page.locator(".forma-diagram__canvas img")).toHaveCount(0);
   await structureItem(page, "Activity: Prepare request").click();
   await expect(page.getByText('Icon: "future-glyph" is not in Forma 0.0.0-test-fixture; the name is kept and not shown.', { exact: true })).toBeVisible();
   await structureItem(page, "Activity: Approve spend").click();

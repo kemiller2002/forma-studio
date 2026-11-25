@@ -60,8 +60,8 @@ module internal IconMarkup =
 
     let private allowed =
         Map.ofList
-            [ "ef-icon", ([ "class" ], [ "span" ])
-              "span", ([ "class"; "data-ef-icon" ], [ "svg" ])
+            [ "forma-icon", ([ "class" ], [ "span" ])
+              "span", ([ "class"; "data-forma-icon" ], [ "svg" ])
               "svg", ([ "xmlns"; "class"; "viewBox"; "aria-hidden"; "focusable" ] @ paint, "g" :: geometry)
               "g", (paint, geometry)
               "path", ("d" :: paint, [])
@@ -215,12 +215,12 @@ module IconCatalog =
         let name = IconName.value entry.Name
         if sha256 svgText <> entry.SvgSha256 then Error "its SVG does not match the registry digest"
         else
-            match IconMarkup.parse "svg" svgText, IconMarkup.parse "ef-icon" snippetText with
+            match IconMarkup.parse "svg" svgText, IconMarkup.parse "forma-icon" snippetText with
             | Error e, _ -> Error(sprintf "its SVG was refused: %s" e)
             | _, Error e -> Error(sprintf "its inline snippet was refused: %s" e)
             | Ok svg, Ok snippet ->
                 match snippet.Children with
-                | [ { Name = "span"; Children = [ inner ] } as span ] when IconMarkup.attribute "data-ef-icon" span = Some name ->
+                | [ { Name = "span"; Children = [ inner ] } as span ] when IconMarkup.attribute "data-forma-icon" span = Some name ->
                     let decorative = IconMarkup.attribute "aria-hidden" inner = Some "true"
                     let stripped = { inner with Attributes = inner.Attributes |> List.filter (fun (k, _) -> k <> "aria-hidden" && k <> "focusable") }
                     if not decorative then Error "its inline snippet is not marked decorative"

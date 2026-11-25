@@ -103,16 +103,16 @@ module Projection =
 
     let private shapeAttr shape =
         match shape with
-        | Some Rounded -> " data-ef-shape=\"rounded\""
-        | Some Pill -> " data-ef-shape=\"pill\""
-        | Some Ellipse -> " data-ef-shape=\"ellipse\""
-        | Some Diamond -> " data-ef-shape=\"diamond\""
+        | Some Rounded -> " data-forma-shape=\"rounded\""
+        | Some Pill -> " data-forma-shape=\"pill\""
+        | Some Ellipse -> " data-forma-shape=\"ellipse\""
+        | Some Diamond -> " data-forma-shape=\"diamond\""
         | _ -> ""
 
     let private lineAttr line =
         match line with
-        | Some Dashed -> " data-ef-line=\"dashed\""
-        | Some Dotted -> " data-ef-line=\"dotted\""
+        | Some Dashed -> " data-forma-line=\"dashed\""
+        | Some Dotted -> " data-forma-line=\"dotted\""
         | _ -> ""
 
     let private lineWord line =
@@ -124,19 +124,19 @@ module Projection =
     let private css (e: Effective<ColorResolution>) = e.Value |> Option.bind _.Css
 
     /// Only validated values ever reach a style attribute: `#rrggbb` or
-    /// `var(--ef-color-*)` from the pinned token list.
+    /// `var(--forma-color-*)` from the pinned token list.
     let private colorDeclarations (effective: EffectiveAppearance) =
-        [ "--ef-diagram-fill", css effective.Fill
-          "--ef-diagram-stroke", css effective.Stroke
-          "--ef-diagram-accent", css effective.Accent
-          "--ef-diagram-foreground", css effective.Foreground ]
+        [ "--forma-diagram-fill", css effective.Fill
+          "--forma-diagram-stroke", css effective.Stroke
+          "--forma-diagram-accent", css effective.Accent
+          "--forma-diagram-foreground", css effective.Foreground ]
         |> List.choose (fun (name, value) -> value |> Option.map (sprintf "%s: %s;" name))
 
     let private geometryDeclarations (dx: int) (dy: int) (b: Box) =
-        [ sprintf "--ef-diagram-x: %dpx;" (b.Position.X + dx)
-          sprintf "--ef-diagram-y: %dpx;" (b.Position.Y + dy)
-          sprintf "--ef-diagram-w: %dpx;" b.Size.Width
-          sprintf "--ef-diagram-h: %dpx;" b.Size.Height ]
+        [ sprintf "--forma-diagram-x: %dpx;" (b.Position.X + dx)
+          sprintf "--forma-diagram-y: %dpx;" (b.Position.Y + dy)
+          sprintf "--forma-diagram-w: %dpx;" b.Size.Width
+          sprintf "--forma-diagram-h: %dpx;" b.Size.Height ]
 
     let elementId (diagram: Diagram) (id: string) = sprintf "fs-%s-%s" (Id.value diagram.Id) id
 
@@ -208,11 +208,11 @@ module Projection =
                 let text = v.Text |> Option.map escape |> Option.defaultValue ""
                 let tag =
                     valueState v
-                    |> Option.map (fun (state, note) -> sprintf "%s<span class=\"ef-diagram-value-state\" data-ef-value-state=\"%s\">%s</span>" (if text = "" then "" else " ") state (escape note))
+                    |> Option.map (fun (state, note) -> sprintf "%s<span class=\"forma-diagram-value-state\" data-forma-value-state=\"%s\">%s</span>" (if text = "" then "" else " ") state (escape note))
                     |> Option.defaultValue ""
                 sprintf "<dt>%s</dt><dd>%s%s</dd>" (escape v.Label) text tag)
             |> String.concat ""
-            |> sprintf "\n        <dl class=\"ef-diagram-node__meta\">%s</dl>"
+            |> sprintf "\n        <dl class=\"forma-diagram-node__meta\">%s</dl>"
 
     let project (mode: ProjectionMode) (project: Project) (diagramId: DiagramId) : Result<DiagramProjection, Finding list> =
         match ProjectOps.tryDiagram diagramId project with
@@ -249,8 +249,8 @@ module Projection =
                     |> List.map (fun g ->
                         let e = effectOf (GroupRef(diagram.Id, g.Id))
                         let kindName = match g.Kind with Group -> "Group" | Lane -> "Lane" | Phase -> "Phase"
-                        let variant = match g.Kind with Group -> "" | Lane -> " data-ef-group=\"lane\"" | Phase -> " data-ef-group=\"phase\""
-                        sprintf "      <div class=\"ef-diagram-group\" id=\"%s\"%s%s style=\"%s\">\n        <p class=\"ef-diagram-group__header\"><span class=\"ef-diagram-group__kind\">%s</span> <span class=\"ef-diagram-group__label\">%s</span></p>\n      </div>"
+                        let variant = match g.Kind with Group -> "" | Lane -> " data-forma-group=\"lane\"" | Phase -> " data-forma-group=\"phase\""
+                        sprintf "      <div class=\"forma-diagram-group\" id=\"%s\"%s%s style=\"%s\">\n        <p class=\"forma-diagram-group__header\"><span class=\"forma-diagram-group__kind\">%s</span> <span class=\"forma-diagram-group__label\">%s</span></p>\n      </div>"
                             (elementId diagram (Id.value g.Id)) variant (lineAttr e.Line.Value)
                             (String.concat " " (geometryDeclarations dx dy g.Box @ colorDeclarations e)) kindName (escape g.Label))
 
@@ -272,10 +272,10 @@ module Projection =
                     |> List.map (fun (edge, _, _, points, _) ->
                         let e = effectOf (EdgeRef(diagram.Id, edge.Id))
                         let style =
-                            [ css e.ConnectorStroke |> Option.map (sprintf "--ef-diagram-connector-stroke: %s;")
-                              e.ConnectorWidth.Value |> Option.map (sprintf "--ef-diagram-connector-width: %d;") ]
+                            [ css e.ConnectorStroke |> Option.map (sprintf "--forma-diagram-connector-stroke: %s;")
+                              e.ConnectorWidth.Value |> Option.map (sprintf "--forma-diagram-connector-width: %d;") ]
                             |> List.choose id
-                        sprintf "        <path class=\"ef-diagram-connector\" id=\"%s\"%s%s d=\"%s\"%s/>"
+                        sprintf "        <path class=\"forma-diagram-connector\" id=\"%s\"%s%s d=\"%s\"%s/>"
                             (elementId diagram (Id.value edge.Id)) (lineAttr e.Line.Value)
                             (if List.isEmpty style then "" else sprintf " style=\"%s\"" (String.concat " " style))
                             (pathData points) (if directed edge then sprintf " marker-end=\"url(#%sarrow)\"" prefix else ""))
@@ -286,7 +286,7 @@ module Projection =
                         let reference = NodeRef(diagram.Id, n.Id)
                         let e = effectOf reference
                         let id = elementId diagram (Id.value n.Id)
-                        sprintf "      <article class=\"ef-diagram-node\" id=\"%s\"%s aria-labelledby=\"%s-label\" style=\"%s\">\n        <p class=\"ef-diagram-node__kind\">%s</p>\n        <h3 class=\"ef-diagram-node__label\" id=\"%s-label\">%s</h3>%s\n      </article>"
+                        sprintf "      <article class=\"forma-diagram-node\" id=\"%s\"%s aria-labelledby=\"%s-label\" style=\"%s\">\n        <p class=\"forma-diagram-node__kind\">%s</p>\n        <h3 class=\"forma-diagram-node__label\" id=\"%s-label\">%s</h3>%s\n      </article>"
                             id (shapeAttr e.Shape.Value) id (String.concat " " (geometryDeclarations dx dy n.Box @ colorDeclarations e))
                             (escape (kindLabel profile n.Kind)) id (escape n.Label)
                             (metaHtml (renderedMetadata project diagram reference (displayFields n.Kind))))
@@ -294,7 +294,7 @@ module Projection =
                 let labelsHtml =
                     routed
                     |> List.choose (fun (edge, _, _, _, at) ->
-                        edge.Label |> Option.map (fun label -> sprintf "      <span class=\"ef-diagram-connector__label\" style=\"--ef-diagram-x: %dpx; --ef-diagram-y: %dpx;\">%s</span>" at.X at.Y (escape label)))
+                        edge.Label |> Option.map (fun label -> sprintf "      <span class=\"forma-diagram-connector__label\" style=\"--forma-diagram-x: %dpx; --forma-diagram-y: %dpx;\">%s</span>" at.X at.Y (escape label)))
 
                 let relationText (edge: DiagramEdge, s: DiagramNode, t: DiagramNode, _, _) =
                     let e = effectOf (EdgeRef(diagram.Id, edge.Id))
@@ -318,12 +318,12 @@ module Projection =
                         entries
                         |> List.map (fun l ->
                             let declarations =
-                                [ l.Fill |> Option.map (sprintf "--ef-diagram-fill: %s;"); l.Stroke |> Option.map (sprintf "--ef-diagram-stroke: %s;"); l.Accent |> Option.map (sprintf "--ef-diagram-accent: %s;") ]
+                                [ l.Fill |> Option.map (sprintf "--forma-diagram-fill: %s;"); l.Stroke |> Option.map (sprintf "--forma-diagram-stroke: %s;"); l.Accent |> Option.map (sprintf "--forma-diagram-accent: %s;") ]
                                 |> List.choose id
                             let style = if List.isEmpty declarations then "" else sprintf " style=\"%s\"" (String.concat " " declarations)
-                            sprintf "    <div><dt><span class=\"ef-diagram-legend__swatch\"%s></span> %s</dt><dd>%s</dd></div>" style (escape l.Label) (escape l.Description))
+                            sprintf "    <div><dt><span class=\"forma-diagram-legend__swatch\"%s></span> %s</dt><dd>%s</dd></div>" style (escape l.Label) (escape l.Description))
                         |> String.concat "\n"
-                        |> sprintf "\n  <dl class=\"ef-diagram-legend\" aria-label=\"Key: what color means in this diagram\">\n%s\n  </dl>"
+                        |> sprintf "\n  <dl class=\"forma-diagram-legend\" aria-label=\"Key: what color means in this diagram\">\n%s\n  </dl>"
 
                 let invalidNote =
                     match mode, blockers with
@@ -332,19 +332,19 @@ module Projection =
 
                 let title = escape diagram.Name
                 let html =
-                    [ sprintf "<figure class=\"ef-diagram\" id=\"%sfigure\" aria-labelledby=\"%stitle\">" prefix prefix
+                    [ sprintf "<figure class=\"forma-diagram\" id=\"%sfigure\" aria-labelledby=\"%stitle\">" prefix prefix
                       sprintf "  <figcaption id=\"%stitle\">%s</figcaption>%s" prefix title invalidNote
                       "  <p>Every item states its kind in text. Colors are explained in the key; they never carry status on their own.</p>"
-                      sprintf "  <div class=\"ef-diagram__viewport\" tabindex=\"0\" role=\"group\" aria-label=\"%s canvas, scroll to see all items\">" title
-                      sprintf "    <div class=\"ef-diagram__canvas\" style=\"--ef-diagram-canvas-w: %dpx; --ef-diagram-canvas-h: %dpx;\">" width height ]
+                      sprintf "  <div class=\"forma-diagram__viewport\" tabindex=\"0\" role=\"group\" aria-label=\"%s canvas, scroll to see all items\">" title
+                      sprintf "    <div class=\"forma-diagram__canvas\" style=\"--forma-diagram-canvas-w: %dpx; --forma-diagram-canvas-h: %dpx;\">" width height ]
                     @ groupsHtml
-                    @ [ sprintf "      <svg class=\"ef-diagram__wires\" viewBox=\"0 0 %d %d\" aria-hidden=\"true\" focusable=\"false\">" width height
-                        sprintf "        <defs><marker id=\"%sarrow\" class=\"ef-diagram-marker\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto-start-reverse\"><path d=\"M0 0 L10 5 L0 10 z\"/></marker></defs>" prefix ]
+                    @ [ sprintf "      <svg class=\"forma-diagram__wires\" viewBox=\"0 0 %d %d\" aria-hidden=\"true\" focusable=\"false\">" width height
+                        sprintf "        <defs><marker id=\"%sarrow\" class=\"forma-diagram-marker\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto-start-reverse\"><path d=\"M0 0 L10 5 L0 10 z\"/></marker></defs>" prefix ]
                     @ wiresHtml
                     @ [ "      </svg>" ]
                     @ nodesHtml
                     @ labelsHtml
-                    @ [ "    </div>"; "  </div>"; "  <ol class=\"ef-diagram__relations\" aria-label=\"Relationships\">" ]
+                    @ [ "    </div>"; "  </div>"; "  <ol class=\"forma-diagram__relations\" aria-label=\"Relationships\">" ]
                     @ (relations |> List.map (escape >> sprintf "    <li>%s</li>"))
                     @ [ "  </ol>" ]
                     @ (if List.isEmpty laneSummary then [] else [ "  <ul aria-label=\"Lanes\">" ] @ (laneSummary |> List.map (escape >> sprintf "    <li>%s</li>")) @ [ "  </ul>" ])

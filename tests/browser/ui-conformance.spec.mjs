@@ -160,7 +160,7 @@ test("@uli ULI-A01 a new link button is never a placeholder link: flagged, expor
   await setText(page, "link-button href for page-1-link-button", "/help");
   await expect(checks(page)).not.toContainText("has no real destination");
   const linked = await exportDocument(page);
-  expect(linked).toContain('<a class="ef-button" href="/help">Continue</a>');
+  expect(linked).toContain('<a class="forma-button" href="/help">Continue</a>');
   expect(await pageOverflow(page)).toBe(0);
 });
 
@@ -190,14 +190,14 @@ test("@uli ULI-A06/A08 drag edits on the canvas have keyboard and field paths wi
   const nav = page.getByRole("navigation", { name: "Structure" });
   await press(nav.getByRole("button", { name: "Activity: Prepare request" }));
   // State is read from the projected geometry; the controls are found by role and name.
-  const canvasNode = page.locator(".ef-diagram__canvas [data-node-id='prepare']");
+  const canvasNode = page.locator(".forma-diagram__canvas [data-node-id='prepare']");
   const geometry = (name) => async () => parseInt(await canvasNode.evaluate((el, p) => getComputedStyle(el).getPropertyValue(p).trim(), name));
-  const x = geometry("--ef-diagram-x");
+  const x = geometry("--forma-diagram-x");
   await expectActionOutcome({ control: button(page, "Move right"), read: x, expected: (await x()) + 8 });
-  const y = geometry("--ef-diagram-y");
+  const y = geometry("--forma-diagram-y");
   await expectActionOutcome({ control: button(page, "Move down"), read: y, expected: (await y()) + 8 });
   const width = page.getByRole("spinbutton", { name: "Width" });
-  const w = geometry("--ef-diagram-w");
+  const w = geometry("--forma-diagram-w");
   expect(await w()).not.toBe(260);
   await width.fill("260");
   await width.press("Tab");

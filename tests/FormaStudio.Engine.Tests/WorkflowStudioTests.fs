@@ -183,30 +183,30 @@ let exportTests =
               expect (not (html.ToLowerInvariant().Contains "studio")) $"{id}: Studio reference"
               for m in Regex.Matches(html, "class=\"([^\"]+)\"") do
                   for c in m.Groups[1].Value.Split ' ' do
-                      expect (c.StartsWith "ef-") $"{id}: non-Forma class {c}"
+                      expect (c.StartsWith "forma-") $"{id}: non-Forma class {c}"
                       // Public pattern markup may name a part Forma does not style (forma:patterns/metric-card.html).
-                      let patternOnly = set [ "ef-metric-card__context" ]
+                      let patternOnly = set [ "forma-metric-card__context" ]
                       expect (patternOnly.Contains c || Regex.IsMatch(publicClasses.Value, "\\." + Regex.Escape c + "(?![a-zA-Z0-9_-])")) $"{id}: {c} is not public Forma CSS")
 
       test "Fragments declare their assets; documents are complete and link exactly the declared assets" (fun () ->
           let p, lib = designs (), workflowLibrary ()
           let fragment = HtmlExport.page HtmlExport.defaults lib (pageOf p "application")
           expect (fragment.Html.StartsWith "<!-- Requires @echelon-foundry/design-system@0.4.0/tokens.css") fragment.Html
-          let doc = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument; FormaBase = "/assets/forma/"; Brand = Some "echelon" } lib (pageOf p "application")
-          for part in [ "<!doctype html>"; "<html lang=\"en\" data-ef-brand=\"echelon\">"; "<meta charset=\"utf-8\">"; "<meta name=\"viewport\""; "<title>Crew scheduling</title>"; "<main>"
-                        "href=\"/assets/forma/components.css\""; "href=\"/assets/forma/brands/echelon.css\"" ] do
+          let doc = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument; FormaBase = "/assets/forma/"; Brand = Some "example-harbor" } lib (pageOf p "application")
+          for part in [ "<!doctype html>"; "<html lang=\"en\" data-forma-brand=\"example-harbor\">"; "<meta charset=\"utf-8\">"; "<meta name=\"viewport\""; "<title>Crew scheduling</title>"; "<main>"
+                        "href=\"/assets/forma/components.css\""; "href=\"/assets/forma/brands/example-harbor.css\"" ] do
               expect (doc.Html.Contains part) part
           equal 4 doc.Dependencies.Length "dependencies")
 
       test "Accessibility semantics survive export: labels, descriptions, headings, landmarks and names" (fun () ->
           let p, lib = designs (), workflowLibrary ()
           let html = (HtmlExport.page HtmlExport.defaults lib (pageOf p "application")).Html
-          expect (html.Contains "<label class=\"ef-field__label\" for=\"field-app-email\">Work email</label>") "label"
+          expect (html.Contains "<label class=\"forma-field__label\" for=\"field-app-email\">Work email</label>") "label"
           expect (html.Contains "aria-describedby=\"field-app-email-description\"") "description"
           expect (html.Contains "<h1>Crew scheduling</h1>") "heading"
           expect (html.Contains "aria-labelledby=\"surface-app-form\"") "named section"
           let wf = (HtmlExport.page HtmlExport.defaults lib (pageOf p "workflow")).Html
-          expect (wf.Contains "class=\"ef-diagram__relations\"") "workflow relationships in text")
+          expect (wf.Contains "class=\"forma-diagram__relations\"") "workflow relationships in text")
 
       test "Authored values are escaped and unsafe links are not emitted" (fun () ->
           let p = designs ()
@@ -252,6 +252,76 @@ let componentTests =
           let p = designs ()
           let page = pageOf p "application"
           let result = (HtmlExport.componentTree HtmlExport.defaults WorkflowLibrary.empty page (Samples.idOf "app-form")).Value
-          expect (result.Html.Contains "<section class=\"ef-surface\" aria-labelledby=\"surface-app-form\">") "root"
+          expect (result.Html.Contains "<section class=\"forma-surface\" aria-labelledby=\"surface-app-form\">") "root"
           expect (result.Html.Contains "field-app-email") "children"
           expect (not (result.Html.Contains "Crew scheduling</h1>")) "siblings excluded") ]
+
+/// The Echelon export brand (Forma 1.x is brand-neutral, BNR-001): the released
+/// @echelon-foundry/echelon-theme after Forma, never Forma's brands/echelon.css.
+let echelonTests =
+    let theme = [ "echelon.css"; "echelon-fonts.css"; "echelon-app.css" ]
+    let hrefs (html: string) = [ for m in Regex.Matches(html, "<link rel=\"stylesheet\" href=\"([^\"]+)\">") -> m.Groups[1].Value ]
+    let echelon = { HtmlExport.defaults with Brand = Some "echelon" }
+    [ test "The Echelon brand links the theme after Forma, in the theme's order, with data-forma-brand" (fun () ->
+          let p, lib = designs (), workflowLibrary ()
+          let doc = HtmlExport.page { echelon with Target = HtmlDocument; FormaBase = "/assets/forma/"; ThemeBase = "/assets/echelon-theme/" } lib (pageOf p "application")
+          expect (doc.Html.Contains "<html lang=\"en\" data-forma-brand=\"echelon\">") "brand attribute"
+          let expected = ([ "tokens.css"; "foundations.css"; "components.css" ] |> List.map ((+) "/assets/forma/")) @ (theme |> List.map ((+) "/assets/echelon-theme/"))
+          equal expected (hrefs doc.Html) "Forma, then the theme in its documented order"
+          expect (not (doc.Html.Contains "brands/echelon.css")) "Forma 1.x ships no brands/echelon.css"
+          let declared = theme |> List.map (fun path -> Forma.Workflow.Stylesheet("@echelon-foundry/echelon-theme", "1.1.0", path))
+          equal declared (doc.Dependencies |> List.skip 3) "declared at the pinned release")
+
+      test "Without a theme base the document links the installed package; a fragment declares it" (fun () ->
+          let p, lib = designs (), workflowLibrary ()
+          let doc = HtmlExport.page { echelon with Target = HtmlDocument } lib (pageOf p "application")
+          expect (doc.Html.Contains "href=\"node_modules/@echelon-foundry/echelon-theme/dist/echelon.css\"") doc.Html
+          let fragment = HtmlExport.page echelon lib (pageOf p "application")
+          expect (fragment.Html.StartsWith "<!-- Requires @echelon-foundry/design-system@") "Forma first"
+          expect (fragment.Html.Contains "@echelon-foundry/echelon-theme@1.1.0/echelon.css, @echelon-foundry/echelon-theme@1.1.0/echelon-fonts.css, @echelon-foundry/echelon-theme@1.1.0/echelon-app.css -->") (fragment.Html.Split('\n').[0]))
+
+      test "Branding changes only the head: the Echelon document's body equals the unbranded one" (fun () ->
+          let p, lib = designs (), workflowLibrary ()
+          let body (html: string) = html.Substring(html.IndexOf "<body>")
+          let plain = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument } lib (pageOf p "application")
+          let branded = HtmlExport.page { echelon with Target = HtmlDocument } lib (pageOf p "application")
+          equal (body plain.Html) (body branded.Html) "same markup")
+
+      test "A static workflow export carries the Echelon theme; the figure is Forma's" (fun () ->
+          let entry = (WorkflowLibrary.current (workflowLibrary ())).Value
+          let doc = match HtmlExport.workflow { echelon with Target = HtmlDocument; FormaBase = "f/"; ThemeBase = "t/" } entry with Ok r -> r | Error e -> fail e
+          expect (Regex.IsMatch(doc.Html, "<html lang=\"[a-z-]+\" data-forma-brand=\"echelon\">")) "brand attribute"
+          equal ([ "f/tokens.css"; "f/foundations.css"; "f/components.css" ] @ (theme |> List.map ((+) "t/"))) (hrefs doc.Html) "links"
+          let w = (FW.load entry.Text).Workflow.Value
+          let figure = Forma.Workflow.Markup.renderAll [ Forma.Workflow.Render.figure Forma.Workflow.RenderOptions.defaults w ]
+          expect (doc.Html.Replace("\n", "").Replace(" ", "").Contains(figure.Replace("\n", "").Replace(" ", ""))) "Forma's figure")
+
+      test "An interactive workflow export with Echelon: the theme after Forma and before the public runtime" (fun () ->
+          let entry = (WorkflowLibrary.current (workflowLibrary ())).Value
+          let opts = { echelon with InteractiveWorkflow = true; Target = HtmlDocument; FormaBase = "f/"; ThemeBase = "t/"; WorkflowRuntimeBase = "r/" }
+          let doc = match HtmlExport.workflow opts entry with Ok r -> r | Error e -> fail e
+          expect (doc.Html.Contains "data-forma-brand=\"echelon\"") "brand attribute"
+          equal ([ "f/tokens.css"; "f/foundations.css"; "f/components.css" ] @ (theme |> List.map ((+) "t/")) @ [ "r/forma-workflow.css" ]) (hrefs doc.Html) "links"
+          expect (doc.Html.Contains "<script type=\"module\" src=\"r/forma-workflow.js\"></script>") "the public runtime"
+          expect (doc.Html.Contains "<forma-workflow mode=\"view\"") "the public element"
+          expect (not (doc.Html.Contains "brands/echelon.css")) "no Forma brand file"
+          // The fragment is Forma's own interactive fragment, with the theme added to its declaration.
+          let fragment = match HtmlExport.workflow { opts with Target = HtmlFragment } entry with Ok r -> r | Error e -> fail e
+          let w = (FW.load entry.Text).Workflow.Value
+          let forma = Forma.Workflow.WorkflowDocument.fragment { Forma.Workflow.DocumentOptions.defaults with FormaBase = "f/"; Interactivity = Forma.Workflow.InteractiveOutput(Forma.Workflow.ViewMode, "r/") } w
+          let afterComment (html: string) = html.Substring(html.IndexOf "-->")
+          equal (afterComment forma.Html) (afterComment fragment.Html) "same interactive markup"
+          equal 8 fragment.Dependencies.Length "Forma 3, the theme 3, the runtime stylesheet and module")
+
+      test "Other brands still load Forma's brands/<id>.css" (fun () ->
+          let p, lib = designs (), workflowLibrary ()
+          let doc = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument; FormaBase = "f/"; Brand = Some "example-harbor" } lib (pageOf p "application")
+          equal [ "f/tokens.css"; "f/foundations.css"; "f/components.css"; "f/brands/example-harbor.css" ] (hrefs doc.Html) "links")
+
+      test "The engine's Echelon theme release is the one Studio pins and verifies" (fun () ->
+          let manifest = Forma.Workflow.Json.parse (File.ReadAllText(Path.Combine(repo, "vendor", "echelon-theme", "MANIFEST.json")))
+          let str name = match manifest |> Result.toOption |> Option.bind (field name) with Some(Forma.Workflow.Json.String s) -> s | _ -> fail $"manifest {name}"
+          equal (str "package") EchelonTheme.packageName "package"
+          equal (str "version") EchelonTheme.version "version"
+          let pkg = File.ReadAllText(Path.Combine(repo, "package.json"))
+          expect (pkg.Contains $"\"{EchelonTheme.packageName}\": \"https://github.com/kemiller2002/echelon-design-system/releases/download/v{EchelonTheme.version}/") "package.json pins the same release") ]

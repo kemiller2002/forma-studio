@@ -1,48 +1,48 @@
-@layer echelon.foundations {
+@layer forma.foundations {
   *, *::before, *::after { box-sizing: border-box; }
 
   :where(html) {
     color-scheme: light dark;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    font-family: var(--ef-primitive-font-family-sans, system-ui, sans-serif);
-    background: var(--ef-color-surface-primary, #f2efe7);
-    color: var(--ef-color-text-primary, #171a18);
+    font-family: var(--forma-primitive-font-family-sans, system-ui, sans-serif);
+    background: var(--forma-color-surface-primary, #fafafa);
+    color: var(--forma-color-text-primary, #161616);
   }
 
   :where(body) {
     margin: 0;
-    background: var(--ef-color-surface-primary, #f2efe7);
-    color: var(--ef-color-text-primary, #171a18);
-    font-family: var(--ef-primitive-font-family-sans, system-ui, sans-serif);
+    background: var(--forma-color-surface-primary, #fafafa);
+    color: var(--forma-color-text-primary, #161616);
+    font-family: var(--forma-primitive-font-family-sans, system-ui, sans-serif);
     font-size: 1rem;
     line-height: 1.6;
   }
 
   :where(h1, h2) {
-    color: var(--ef-color-text-heading, #202421);
-    font-family: var(--ef-primitive-font-family-display, Georgia, serif);
+    color: var(--forma-color-text-heading, #161616);
+    font-family: var(--forma-primitive-font-family-display, Georgia, serif);
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.02;
   }
 
   :where(h3, h4, h5, h6) {
-    color: var(--ef-color-text-heading, #202421);
+    color: var(--forma-color-text-heading, #161616);
     line-height: 1.25;
   }
 
   :where(p) {
-    color: var(--ef-color-text-secondary, #686d68);
+    color: var(--forma-color-text-secondary, #555555);
     max-inline-size: 72ch;
   }
 
   /*
-   * --ef-surface-accent-text-color is set by secondary-surface rules (see
+   * --forma-surface-accent-text-color is set by secondary-surface rules (see
    * "Secondary-surface pairing" below); elsewhere accent text uses the accent.
    */
   :where(a) {
-    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #905831));
+    color: var(--forma-surface-accent-text-color, var(--forma-color-accent-primary, #2b5ea8));
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
   }
@@ -60,13 +60,13 @@
     block-size: auto;
   }
 
-  :where(button, .ef-button) {
+  :where(button, .forma-button) {
     min-block-size: 2.75rem;
     padding: 0.65rem 1rem;
-    border: 1px solid var(--ef-color-border-functional, #3a403c);
-    border-radius: var(--ef-primitive-radius-none, 0);
-    background: var(--ef-color-surface-primary, #f2efe7);
-    color: var(--ef-color-text-primary, #171a18);
+    border: 1px solid var(--forma-color-border-functional, #555555);
+    border-radius: var(--forma-primitive-radius-none, 0);
+    background: var(--forma-color-surface-primary, #fafafa);
+    color: var(--forma-color-text-primary, #161616);
     font-weight: 700;
     /*
      * Hover and press feedback is perceptual interpolation (MOT-014, MOT-026):
@@ -75,15 +75,15 @@
      * foundations.css without components.css.
      */
     transition:
-      background-color var(--ef-motion-perceptual-duration, 120ms) var(--ef-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1)),
-      border-color var(--ef-motion-perceptual-duration, 120ms) var(--ef-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1));
+      background-color var(--forma-motion-perceptual-duration, 120ms) var(--forma-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1)),
+      border-color var(--forma-motion-perceptual-duration, 120ms) var(--forma-motion-perceptual-easing, cubic-bezier(0.2, 0, 0, 1));
   }
 
-  :where(button, .ef-button):where(:not(:disabled)):hover {
-    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
-    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
-    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
-    background: var(--ef-color-surface-secondary, #e3e0d7);
+  :where(button, .forma-button):where(:not(:disabled)):hover {
+    --forma-color-text-secondary: var(--forma-color-text-on-secondary-surface, #303030);
+    --forma-color-text-muted: var(--forma-color-text-on-secondary-surface, #303030);
+    --forma-surface-accent-text-color: var(--forma-color-text-primary, #161616);
+    background: var(--forma-color-surface-secondary, #eeeeee);
   }
 
   /*
@@ -91,12 +91,12 @@
    * immediately and never delays activation. Release returns through the
    * perceptual interpolation above.
    */
-  :where(button, .ef-button):where(:not(:disabled)):active {
-    background: color-mix(in srgb, var(--ef-color-surface-secondary, #e3e0d7) 82%, var(--ef-color-text-primary, #171a18));
-    transition-duration: var(--ef-motion-direct-duration, 0ms);
+  :where(button, .forma-button):where(:not(:disabled)):active {
+    background: color-mix(in srgb, var(--forma-color-surface-secondary, #eeeeee) 82%, var(--forma-color-text-primary, #161616));
+    transition-duration: var(--forma-motion-direct-duration, 0ms);
   }
 
-  :where(button, .ef-button):disabled {
+  :where(button, .forma-button):disabled {
     border-style: dashed;
     cursor: not-allowed;
     opacity: 0.62;
@@ -107,12 +107,12 @@
     min-block-size: 2.75rem;
     inline-size: 100%;
     padding: 0.7rem 0.8rem;
-    border: 1px solid var(--ef-color-border-functional, #3a403c);
-    border-radius: var(--ef-primitive-radius-none, 0);
-    background: var(--ef-color-surface-primary, #f2efe7);
-    color: var(--ef-color-text-primary, #171a18);
+    border: 1px solid var(--forma-color-border-functional, #555555);
+    border-radius: var(--forma-primitive-radius-none, 0);
+    background: var(--forma-color-surface-primary, #fafafa);
+    color: var(--forma-color-text-primary, #161616);
     font: inherit;
-    line-height: var(--ef-field-line-height, 1.6);
+    line-height: var(--forma-field-line-height, 1.6);
   }
 
   /*
@@ -129,7 +129,7 @@
       [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]),
     select:not([multiple], [size])
   ) {
-    block-size: var(--ef-field-control-block-size, calc(var(--ef-field-line-height, 1.6) * 1em + 1.4rem + 2px));
+    block-size: var(--forma-field-control-block-size, calc(var(--forma-field-line-height, 1.6) * 1em + 1.4rem + 2px));
   }
 
   :where(input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"], input[type="week"])::-webkit-datetime-edit {
@@ -158,46 +158,93 @@
   }
 
   :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select):disabled {
-    --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c);
-    --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c);
-    --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18);
+    --forma-color-text-secondary: var(--forma-color-text-on-secondary-surface, #303030);
+    --forma-color-text-muted: var(--forma-color-text-on-secondary-surface, #303030);
+    --forma-surface-accent-text-color: var(--forma-color-text-primary, #161616);
     border-style: dashed;
-    background: var(--ef-color-surface-secondary, #e3e0d7);
+    background: var(--forma-color-surface-secondary, #eeeeee);
     cursor: not-allowed;
     opacity: 0.62;
   }
 
   :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea):read-only:not(:disabled) {
     border-style: dashed;
-    background: color-mix(in srgb, var(--ef-color-surface-secondary, #e3e0d7) 55%, transparent);
+    background: color-mix(in srgb, var(--forma-color-surface-secondary, #eeeeee) 55%, transparent);
   }
 
   /* Invalid state keeps native semantics and adds a shape cue. The associated
      recovery message remains the non-colour explanation of what to fix. */
   :where(input:not([type="checkbox"], [type="radio"], [type="range"]), textarea, select):where([aria-invalid="true"], :user-invalid) {
     border-inline-start-width: 0.3rem;
-    border-inline-start-color: var(--ef-color-status-danger, #a13a2c);
+    border-inline-start-color: var(--forma-color-status-danger, #b0302a);
   }
 
   :where(:focus-visible) {
-    outline: 3px solid var(--ef-color-focus-gap, #f2efe7);
+    outline: 3px solid var(--forma-color-focus-gap, #fafafa);
     outline-offset: 2px;
-    box-shadow: 0 0 0 5px var(--ef-color-focus-ring, #171a18);
+    box-shadow: 0 0 0 5px var(--forma-color-focus-ring, #161616);
+    /* Focus scrolling brings the whole indicator into view, not only the
+       element's border box (LRP-001). Changes scroll position only. */
+    scroll-margin: 0.5rem;
   }
 
-  .ef-stack { display: flex; flex-direction: column; gap: var(--ef-stack-gap, var(--ef-primitive-spacing-4, 1rem)); }
-  .ef-cluster { display: flex; flex-wrap: wrap; gap: var(--ef-cluster-gap, var(--ef-primitive-spacing-3, 0.75rem)); align-items: center; }
-  /* .ef-actions (catalog: button) is an application-layer row of related actions; it was styled only in marketing.css (forma#93 gap). */
+  /* Keyboard focus on a date or time control's own picker button leaves the
+     host input :focus-within but neither :focus nor :focus-visible
+     (Chromium), which painted no indicator at all (LRP-001). :not(:focus)
+     limits this to that case: pointer focus on the input itself (WebKit)
+     keeps the native behaviour. */
+  :where(input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"], input[type="week"]):focus-within:not(:focus) {
+    outline: 3px solid var(--forma-color-focus-gap, #fafafa);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px var(--forma-color-focus-ring, #161616);
+  }
+
+  .forma-stack { display: flex; flex-direction: column; gap: var(--forma-stack-gap, var(--forma-primitive-spacing-4, 1rem)); }
+  .forma-cluster { display: flex; flex-wrap: wrap; gap: var(--forma-cluster-gap, var(--forma-primitive-spacing-3, 0.75rem)); align-items: center; }
+  /* .forma-actions (catalog: button) is an application-layer row of related actions; it was styled only in marketing.css (forma#93 gap). */
   /* min-inline-size: 0 lets an action row shrink inside a flex or grid parent
      instead of being held at its widest button's word (ULI-L05). */
-  .ef-actions { display: flex; flex-wrap: wrap; gap: var(--ef-primitive-spacing-3, 0.75rem); align-items: center; min-inline-size: 0; }
-  .ef-grid { display: grid; gap: var(--ef-grid-gap, var(--ef-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-grid-min, 16rem)), 1fr)); }
-  .ef-section { padding-block: var(--ef-section-space, var(--ef-primitive-spacing-7, 3rem)); }
-  .ef-surface { --ef-color-text-secondary: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-color-text-muted: var(--ef-color-text-on-secondary-surface, #3a403c); --ef-surface-accent-text-color: var(--ef-color-text-primary, #171a18); min-inline-size: 0; padding: var(--ef-surface-space, var(--ef-primitive-spacing-5, 1.5rem)); background: var(--ef-color-surface-secondary, #e3e0d7); color: var(--ef-color-text-on-secondary-surface, #3a403c); border: 1px solid var(--ef-color-border-subtle, #e3e0d7); }
-  .ef-surface :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+  .forma-actions { display: flex; flex-wrap: wrap; gap: var(--forma-primitive-spacing-3, 0.75rem); align-items: center; min-inline-size: 0; }
+  .forma-grid { display: grid; gap: var(--forma-grid-gap, var(--forma-primitive-spacing-4, 1rem)); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--forma-grid-min, 16rem)), 1fr)); }
+  .forma-section { padding-block: var(--forma-section-space, var(--forma-primitive-spacing-7, 3rem)); }
+  .forma-surface { --forma-color-text-secondary: var(--forma-color-text-on-secondary-surface, #303030); --forma-color-text-muted: var(--forma-color-text-on-secondary-surface, #303030); --forma-surface-accent-text-color: var(--forma-color-text-primary, #161616); min-inline-size: 0; padding: var(--forma-surface-space, var(--forma-primitive-spacing-5, 1.5rem)); background: var(--forma-color-surface-secondary, #eeeeee); color: var(--forma-color-text-on-secondary-surface, #303030); border: 1px solid var(--forma-color-border-subtle, #d8d8d8); }
+  .forma-surface :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
 
   :where(h1, h2, h3, h4, h5, h6, p, a, label, legend, td, th, dt, dd, caption, figcaption) {
     overflow-wrap: anywhere;
+  }
+
+  /*
+   * Layout reliability (LRP-001, docs/reliability/layout-baseline.md).
+   * Forma containers that hold arbitrary application content pass
+   * overflow-wrap: break-word to that content by inheritance, so a long token
+   * in a span, strong, em, div or li breaks instead of escaping the card,
+   * dialog or field. break-word, unlike anywhere, leaves min-content sizes
+   * alone: a word that fits is never split, and auto-sized flex and grid
+   * items keep whole words. Inheritance never overrides a declared value:
+   * text elements above keep anywhere, character-grid runs keep normal, and
+   * white-space: pre or nowrap content (code blocks, truncating selects,
+   * scrollers) does not wrap.
+   */
+  :where(
+    .forma-surface, .forma-stack, .forma-cluster, .forma-actions, .forma-grid, .forma-responsive-grid,
+    .forma-rail, .forma-mosaic, .forma-priority-stack, .forma-focus-stage, .forma-sidebar, .forma-switcher, .forma-split-pane,
+    .forma-dialog, .forma-popover, .forma-menu, .forma-form, .forma-field, .forma-validation-summary, .forma-record-header
+  ) {
+    overflow-wrap: break-word;
+  }
+
+  /*
+   * A wrapping row's item can be no wider than the row (LRP-001), which also
+   * caps its automatic flex minimum, so a long label or an inline-block item
+   * cannot push the row past its container; the item's text then breaks
+   * inside it. Items keep their content size whenever it fits: nothing here
+   * shrinks a control below its label. Top-layer children (a dialog or
+   * popover authored inside the row) keep their own sizing. A full-bleed
+   * child with negative margins is capped at the row's width.
+   */
+  :where(.forma-cluster, .forma-actions) > :not(dialog, [popover]) {
+    max-inline-size: 100%;
   }
 
   /* Action labels never split mid-word because their container allows it
@@ -206,7 +253,7 @@
      rather than overflow. Must follow the rule above (ULI-L06, L07). The
      inline-size cap also clamps a flex item's automatic minimum, so a
      button never pushes its row past its container (ULI-L05). */
-  :where(button, .ef-button) {
+  :where(button, .forma-button) {
     overflow-wrap: break-word;
     max-inline-size: 100%;
   }
@@ -233,66 +280,168 @@
      * and brand layers: the user's forced-colors choice wins. Selection and
      * state rules that need Highlight keep their explicit forced-colors rules.
      */
-    :root, [data-ef-theme], [data-ef-brand], [data-ef-skin] {
-      --ef-color-text-primary: CanvasText !important;
-      --ef-color-text-heading: CanvasText !important;
-      --ef-color-text-secondary: CanvasText !important;
-      --ef-color-text-muted: CanvasText !important;
-      --ef-color-text-on-secondary-surface: CanvasText !important;
-      --ef-color-text-inverse: CanvasText !important;
-      --ef-color-accent-primary: CanvasText !important;
-      --ef-color-accent-secondary: CanvasText !important;
-      --ef-color-accent-hover: CanvasText !important;
-      --ef-color-border-functional: CanvasText !important;
-      --ef-color-border-subtle: CanvasText !important;
-      --ef-color-status-danger: CanvasText !important;
-      --ef-color-status-warning: CanvasText !important;
-      --ef-color-status-success: CanvasText !important;
-      --ef-color-status-info: CanvasText !important;
-      --ef-color-control-active: CanvasText !important;
-      --ef-color-control-thumb: Canvas !important;
-      --ef-color-control-track: CanvasText !important;
-      --ef-color-focus-ring: CanvasText !important;
-      --ef-color-focus-gap: Canvas !important;
-      --ef-color-surface-primary: Canvas !important;
-      --ef-color-surface-secondary: Canvas !important;
-      --ef-color-surface-elevated: Canvas !important;
-      --ef-color-surface-inverse: Canvas !important;
-      --ef-color-surface-inverse-secondary: Canvas !important;
+    :root, [data-forma-theme], [data-forma-brand], [data-forma-skin] {
+      --forma-color-text-primary: CanvasText !important;
+      --forma-color-text-heading: CanvasText !important;
+      --forma-color-text-secondary: CanvasText !important;
+      --forma-color-text-muted: CanvasText !important;
+      --forma-color-text-on-secondary-surface: CanvasText !important;
+      --forma-color-text-inverse: CanvasText !important;
+      --forma-color-accent-primary: CanvasText !important;
+      --forma-color-accent-secondary: CanvasText !important;
+      --forma-color-accent-hover: CanvasText !important;
+      --forma-color-border-functional: CanvasText !important;
+      --forma-color-border-subtle: CanvasText !important;
+      --forma-color-status-danger: CanvasText !important;
+      --forma-color-status-warning: CanvasText !important;
+      --forma-color-status-success: CanvasText !important;
+      --forma-color-status-info: CanvasText !important;
+      --forma-color-control-active: CanvasText !important;
+      --forma-color-control-thumb: Canvas !important;
+      --forma-color-control-track: CanvasText !important;
+      --forma-color-focus-ring: CanvasText !important;
+      --forma-color-focus-gap: Canvas !important;
+      --forma-color-surface-primary: Canvas !important;
+      --forma-color-surface-secondary: Canvas !important;
+      --forma-color-surface-elevated: Canvas !important;
+      --forma-color-surface-inverse: Canvas !important;
+      --forma-color-surface-inverse-secondary: Canvas !important;
       color: CanvasText;
       background-color: Canvas;
     }
 
-    :where(button, .ef-button, input, textarea, select, .ef-surface) {
+    :where(button, .forma-button, input, textarea, select, .forma-surface) {
       border-color: CanvasText;
     }
   }
 
   /* Visual Engineering composition primitives -------------------------- */
-  .ef-breakout { inline-size: min(100%, var(--ef-breakout-max, 90rem)); max-inline-size: none; }
-  .ef-rail { --ef-rail-measure: minmax(12rem, 18rem); --ef-rail-content-min: 50%; --ef-rail-space: var(--ef-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: var(--ef-rail-measure) minmax(var(--ef-rail-content-min), 1fr); gap: var(--ef-rail-space); align-items: start; }
-  .ef-rail[data-side="end"] { grid-template-columns: minmax(var(--ef-rail-content-min), 1fr) var(--ef-rail-measure); }
-  .ef-rail > * { min-inline-size: 0; }
-  .ef-responsive-grid { --ef-responsive-grid-min: 16rem; --ef-responsive-grid-space: var(--ef-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-responsive-grid-min)), 1fr)); gap: var(--ef-responsive-grid-space); }
-  .ef-responsive-grid > * { min-inline-size: 0; }
-  .ef-span-2 { grid-column: span 2; }
-  .ef-span-full { grid-column: 1 / -1; }
-  .ef-bounded-overflow { max-inline-size: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
-  .ef-priority-stack { --ef-priority-min: 18rem; --ef-priority-space: var(--ef-primitive-spacing-4, 1rem); display: flex; flex-wrap: wrap; gap: var(--ef-priority-space); align-items: start; }
-  .ef-priority-stack > * { flex: 1 1 var(--ef-priority-min); min-inline-size: min(100%, var(--ef-priority-min)); }
-  .ef-priority-stack > [data-priority="primary"] { flex-grow: 2; }
-  .ef-focus-stage { --ef-focus-stage-support: minmax(14rem, 20rem); --ef-focus-stage-space: var(--ef-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: minmax(0, 1fr) var(--ef-focus-stage-support); gap: var(--ef-focus-stage-space); align-items: start; }
-  .ef-focus-stage__primary, .ef-focus-stage__support { min-inline-size: 0; }
-  .ef-mosaic { --ef-mosaic-space: var(--ef-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--ef-mosaic-space); }
-  .ef-mosaic > * { min-inline-size: 0; }
-  .ef-mosaic > [data-span="2"] { grid-column: span 2; }
-  .ef-mosaic > [data-span="full"] { grid-column: 1 / -1; }
-  .ef-dense-ledger { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  .ef-dense-ledger :is(th, td) { padding: var(--ef-ledger-cell-space, var(--ef-primitive-spacing-2, 0.5rem)); border-block-end: 1px solid var(--ef-color-border-subtle, #e3e0d7); text-align: start; vertical-align: top; }
-  [data-density="relaxed"] { --ef-density-space: var(--ef-primitive-spacing-5, 1.5rem); }
-  [data-density="standard"] { --ef-density-space: var(--ef-primitive-spacing-4, 1rem); }
-  [data-density="compact"], [data-density="analytical"] { --ef-density-space: var(--ef-primitive-spacing-2, 0.5rem); }
-  :where(.ef-stack, .ef-grid, .ef-responsive-grid, .ef-priority-stack)[data-density] { gap: var(--ef-density-space); }
-  @media (max-width: 48rem) { .ef-rail, .ef-rail[data-side="end"], .ef-focus-stage { grid-template-columns: minmax(0, 1fr); } .ef-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ef-span-2 { grid-column: 1 / -1; } }
-  @media (max-width: 30rem) { .ef-mosaic { grid-template-columns: minmax(0, 1fr); } .ef-mosaic > [data-span="2"], .ef-mosaic > [data-span="full"] { grid-column: auto; } .ef-responsive-grid { --ef-responsive-grid-min: 100%; } .ef-priority-stack { --ef-priority-min: 100%; } }
+  .forma-breakout { inline-size: min(100%, var(--forma-breakout-max, 90rem)); max-inline-size: none; }
+  .forma-rail { --forma-rail-measure: minmax(12rem, 18rem); --forma-rail-content-min: 50%; --forma-rail-space: var(--forma-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: var(--forma-rail-measure) minmax(var(--forma-rail-content-min), 1fr); gap: var(--forma-rail-space); align-items: start; }
+  .forma-rail[data-side="end"] { grid-template-columns: minmax(var(--forma-rail-content-min), 1fr) var(--forma-rail-measure); }
+  .forma-rail > * { min-inline-size: 0; }
+  .forma-responsive-grid { --forma-responsive-grid-min: 16rem; --forma-responsive-grid-space: var(--forma-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--forma-responsive-grid-min)), 1fr)); gap: var(--forma-responsive-grid-space); }
+  .forma-responsive-grid > * { min-inline-size: 0; }
+  .forma-span-2 { grid-column: span 2; }
+  .forma-span-full { grid-column: 1 / -1; }
+  .forma-bounded-overflow { max-inline-size: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+  .forma-priority-stack { --forma-priority-min: 18rem; --forma-priority-space: var(--forma-primitive-spacing-4, 1rem); display: flex; flex-wrap: wrap; gap: var(--forma-priority-space); align-items: start; }
+  .forma-priority-stack > * { flex: 1 1 var(--forma-priority-min); min-inline-size: min(100%, var(--forma-priority-min)); }
+  .forma-priority-stack > [data-priority="primary"] { flex-grow: 2; }
+  .forma-focus-stage { --forma-focus-stage-support: minmax(14rem, 20rem); --forma-focus-stage-space: var(--forma-primitive-spacing-5, 1.5rem); display: grid; grid-template-columns: minmax(0, 1fr) var(--forma-focus-stage-support); gap: var(--forma-focus-stage-space); align-items: start; }
+  .forma-focus-stage__primary, .forma-focus-stage__support { min-inline-size: 0; }
+  .forma-mosaic { --forma-mosaic-space: var(--forma-primitive-spacing-4, 1rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--forma-mosaic-space); }
+  .forma-mosaic > * { min-inline-size: 0; }
+  .forma-mosaic > [data-span="2"] { grid-column: span 2; }
+  .forma-mosaic > [data-span="full"] { grid-column: 1 / -1; }
+  .forma-dense-ledger { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .forma-dense-ledger :is(th, td) { padding: var(--forma-ledger-cell-space, var(--forma-primitive-spacing-2, 0.5rem)); border-block-end: 1px solid var(--forma-color-border-subtle, #d8d8d8); text-align: start; vertical-align: top; }
+  [data-density="relaxed"] { --forma-density-space: var(--forma-primitive-spacing-5, 1.5rem); }
+  [data-density="standard"] { --forma-density-space: var(--forma-primitive-spacing-4, 1rem); }
+  [data-density="compact"], [data-density="analytical"] { --forma-density-space: var(--forma-primitive-spacing-2, 0.5rem); }
+  :where(.forma-stack, .forma-grid, .forma-responsive-grid, .forma-priority-stack)[data-density] { gap: var(--forma-density-space); }
+  @media (max-width: 48rem) { .forma-rail, .forma-rail[data-side="end"], .forma-focus-stage { grid-template-columns: minmax(0, 1fr); } .forma-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); } .forma-span-2 { grid-column: 1 / -1; } }
+  @media (max-width: 30rem) { .forma-mosaic { grid-template-columns: minmax(0, 1fr); } .forma-mosaic > [data-span="2"], .forma-mosaic > [data-span="full"] { grid-column: auto; } .forma-responsive-grid { --forma-responsive-grid-min: 100%; } .forma-priority-stack { --forma-priority-min: 100%; } }
+
+  /*
+   * Typography roles (EII-F). data-forma-type selects a role on any element,
+   * usually <html> or <body>; the nearest role wins:
+   *   marketing   the default (no attribute needed): the marketing layer's
+   *               fluid display scale and heading measures, unchanged.
+   *   application fixed steps for tools: h1 2xl, h2 xl, h3 lg, no ch caps.
+   *   dense       administrative density: one step smaller, snug leading.
+   *   accessible  large text: one step larger, relaxed leading.
+   * A role restates the type role tokens that the marketing layer
+   * (src/marketing/roles.css) and its themes declare, using only primitive
+   * steps. This layer follows forma.tokens, so a role overrides a theme's
+   * :root role values; the .forma-site shell consumes the same tokens. The rules
+   * below give the application layer, which has no heading scale of its own,
+   * the same headings. Component headings (later layers) keep their sizes.
+   */
+  :where([data-forma-type="application"]) {
+    --forma-type-size-h1: var(--forma-primitive-font-size-2xl);
+    --forma-type-size-h2: var(--forma-primitive-font-size-xl);
+    --forma-type-size-h3: var(--forma-primitive-font-size-lg);
+    --forma-type-size-h4: var(--forma-primitive-font-size-md);
+    --forma-type-size-body: var(--forma-primitive-font-size-md);
+    --forma-type-size-lead: var(--forma-primitive-font-size-lg);
+    --forma-type-size-statement: var(--forma-primitive-font-size-xl);
+    --forma-type-size-small: var(--forma-primitive-font-size-sm);
+    --forma-type-size-label: var(--forma-primitive-font-size-xs);
+    --forma-type-leading-heading: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-snug: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-body: var(--forma-primitive-line-height-normal);
+    --forma-type-leading-lead: var(--forma-primitive-line-height-normal);
+    --forma-type-measure-h1: none;
+    --forma-type-measure-h2: none;
+  }
+
+  :where([data-forma-type="dense"]) {
+    --forma-type-size-h1: var(--forma-primitive-font-size-xl);
+    --forma-type-size-h2: var(--forma-primitive-font-size-lg);
+    --forma-type-size-h3: var(--forma-primitive-font-size-md);
+    --forma-type-size-h4: var(--forma-primitive-font-size-sm);
+    --forma-type-size-body: var(--forma-primitive-font-size-sm);
+    --forma-type-size-lead: var(--forma-primitive-font-size-md);
+    --forma-type-size-statement: var(--forma-primitive-font-size-lg);
+    --forma-type-size-small: var(--forma-primitive-font-size-xs);
+    --forma-type-size-label: var(--forma-primitive-font-size-xs);
+    --forma-type-leading-heading: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-snug: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-body: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-lead: var(--forma-primitive-line-height-snug);
+    --forma-type-measure-h1: none;
+    --forma-type-measure-h2: none;
+  }
+
+  :where([data-forma-type="accessible"]) {
+    --forma-type-size-h1: var(--forma-primitive-font-size-3xl);
+    --forma-type-size-h2: var(--forma-primitive-font-size-2xl);
+    --forma-type-size-h3: var(--forma-primitive-font-size-xl);
+    --forma-type-size-h4: var(--forma-primitive-font-size-lg);
+    --forma-type-size-body: var(--forma-primitive-font-size-lg);
+    --forma-type-size-lead: var(--forma-primitive-font-size-xl);
+    --forma-type-size-statement: var(--forma-primitive-font-size-2xl);
+    --forma-type-size-small: var(--forma-primitive-font-size-md);
+    --forma-type-size-label: var(--forma-primitive-font-size-sm);
+    --forma-type-leading-heading: var(--forma-primitive-line-height-snug);
+    --forma-type-leading-snug: var(--forma-primitive-line-height-normal);
+    --forma-type-leading-body: var(--forma-primitive-line-height-relaxed);
+    --forma-type-leading-lead: var(--forma-primitive-line-height-relaxed);
+    --forma-type-measure-h1: none;
+    --forma-type-measure-h2: none;
+  }
+
+  /* Body text takes the role on <body> or the role element, never on <html>
+     itself, so rem keeps meaning the user's default text size. */
+  :where(
+    html[data-forma-type="application"] > body, :not(html)[data-forma-type="application"],
+    html[data-forma-type="dense"] > body, :not(html)[data-forma-type="dense"],
+    html[data-forma-type="accessible"] > body, :not(html)[data-forma-type="accessible"]
+  ) {
+    font-size: var(--forma-type-size-body);
+    line-height: var(--forma-type-leading-body);
+  }
+
+  :where([data-forma-type="application"], [data-forma-type="dense"], [data-forma-type="accessible"]) :where(h1) {
+    font-size: var(--forma-type-size-h1);
+    line-height: var(--forma-type-leading-heading);
+    max-inline-size: var(--forma-type-measure-h1);
+  }
+
+  :where([data-forma-type="application"], [data-forma-type="dense"], [data-forma-type="accessible"]) :where(h2) {
+    font-size: var(--forma-type-size-h2);
+    line-height: var(--forma-type-leading-heading);
+    max-inline-size: var(--forma-type-measure-h2);
+  }
+
+  :where([data-forma-type="application"], [data-forma-type="dense"], [data-forma-type="accessible"]) :where(h3) {
+    font-size: var(--forma-type-size-h3);
+    line-height: var(--forma-type-leading-snug);
+  }
+
+  :where([data-forma-type="application"], [data-forma-type="dense"], [data-forma-type="accessible"]) :where(h4, h5, h6) {
+    font-size: var(--forma-type-size-h4);
+    line-height: var(--forma-type-leading-snug);
+  }
 }

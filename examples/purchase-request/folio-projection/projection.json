@@ -7,7 +7,7 @@
     "projectId": "purchase-request-example",
     "diagramId": "purchase-request",
     "diagramName": "Purchase request",
-    "revision": "sha256:4effeb2f6b92fc697a8ad13bec70554b73b63de34cf07e7cac9f52887f959027",
+    "revision": "sha256:65bbd0653e88113354e8665bd20140a5e0ca1d8739dc295d286377abc52c5cee",
     "schemaVersion": 2,
     "profile": {
       "id": "workflow",
@@ -22,7 +22,7 @@
   },
   "content": {
     "html": "diagram.html",
-    "sha256": "sha256:0a42ba2332db584fad6b2050205e57a943d4142a2178d3a139f9afe5abbf90d8"
+    "sha256": "sha256:061a206b06b6250698e60a7be450ac6f5ba698c9fb1903269052481ce561bd82"
   },
   "bounds": {
     "x": 0,
@@ -350,17 +350,17 @@
           "layer": "forma-default"
         },
         "stroke": {
-          "css": "var(--ef-color-accent-primary)",
+          "css": "var(--forma-color-accent-primary)",
           "sourceKind": "token",
-          "source": "--ef-color-accent-primary",
+          "source": "--forma-color-accent-primary",
           "layer": "named-style",
           "style": "decision-emphasis",
           "styleRevision": 1
         },
         "accent": {
-          "css": "var(--ef-color-accent-primary)",
+          "css": "var(--forma-color-accent-primary)",
           "sourceKind": "token",
-          "source": "--ef-color-accent-primary",
+          "source": "--forma-color-accent-primary",
           "layer": "named-style",
           "style": "decision-emphasis",
           "styleRevision": 1
@@ -897,6 +897,6 @@
   ],
   "provenance": {
     "generator": "forma-studio-engine",
-    "projectRevision": "sha256:a0f6b76111ca88efbc545eb7e2bf44eb257651c91e543f301488356db50436cb"
+    "projectRevision": "sha256:399cbfd55e4ef17431fb39d9487b0df207d059ccb1249cbcab79a7e4dabfc19f"
   }
 }

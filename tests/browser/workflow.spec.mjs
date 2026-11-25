@@ -29,9 +29,9 @@ test("external producer -> Forma validation -> Studio open -> Studio edit -> sav
   await openStudio(page);
   await page.locator("#workflow-file").setInputFiles(produced);
   await expect(page.locator(".studio-status")).toContainText("Opened Mission handoff");
-  await expect(component(page).locator(".ef-workflow-editor")).toBeVisible();
+  await expect(component(page).locator(".forma-workflow-editor")).toBeVisible();
   // 4. Studio edits it through the public component.
-  await component(page).locator(".ef-workflow-editor__list button", { hasText: "Task: Handoff checklist" }).click();
+  await component(page).locator(".forma-workflow-editor__list button", { hasText: "Task: Handoff checklist" }).click();
   const name = component(page).getByLabel("Name", { exact: true });
   await name.fill("Handoff checklist (rev 2)");
   await name.press("Tab");
@@ -95,7 +95,7 @@ test("Studio exports the current workflow as Forma HTML with no script", async (
   await page.getByRole("button", { name: "New workflow" }).click();
   await page.getByRole("button", { name: "Export current workflow" }).click();
   const html = await page.locator("#export-text").inputValue();
-  expect(html).toContain('<figure class="ef-diagram"');
+  expect(html).toContain('<figure class="forma-diagram"');
   expect(html).not.toContain("<script");
   await page.getByRole("button", { name: "Complete HTML document" }).click();
   await page.getByRole("button", { name: "Export current workflow" }).click();
@@ -108,13 +108,44 @@ test("Studio exports the current workflow as Forma HTML with no script", async (
   expect(interactive).toContain('<script type="module" src="node_modules/@echelon-foundry/forma-workflow/dist/forma-workflow.js"></script>');
   // The document may name its producer in provenance; no Studio class, asset or path may appear.
   expect(interactive).not.toMatch(/studio-|studio\.css|forma-studio\//i);
-  await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.1.0/forma-workflow.js" })).toBeVisible();
+  // The runtime the pinned Forma.Workflow declares (Render.workflowPackageVersion, 1.2.0 in Forma v1.0.1).
+  await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.2.0/forma-workflow.js" })).toBeVisible();
+});
+
+test("the Echelon export brand declares and links the released Echelon theme, and the export renders with it", async ({ page }) => {
+  await openStudio(page);
+  await page.getByRole("button", { name: "New workflow" }).click();
+  await page.getByRole("button", { name: "Complete HTML document" }).click();
+  const echelon = page.getByRole("button", { name: "Echelon", exact: true });
+  await echelon.click();
+  await expect(echelon).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Export current workflow" }).click();
+  const html = await page.locator("#export-text").inputValue();
+  expect(html).toMatch(/<html lang="[a-z-]+" data-forma-brand="echelon">/);
+  // Forma 1.x ships no brands/echelon.css: the theme package, after Forma, in its documented order.
+  expect(html).not.toContain("brands/echelon.css");
+  const hrefs = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)].map((m) => m[1]);
+  const forma = "node_modules/@echelon-foundry/design-system/dist/";
+  const theme = "node_modules/@echelon-foundry/echelon-theme/dist/";
+  expect(hrefs).toEqual([`${forma}tokens.css`, `${forma}foundations.css`, `${forma}components.css`, `${theme}echelon.css`, `${theme}echelon-fonts.css`, `${theme}echelon-app.css`]);
+  expect(html).not.toContain("<script");
+  await expect(page.locator("p", { hasText: "@echelon-foundry/echelon-theme@1.1.0/echelon.css" })).toBeVisible();
+  // Rendered as a consuming project would serve it: the installed packages' files (the editor's own copies).
+  const served = html.replaceAll(forma, "/forma/").replaceAll(theme, "/echelon-theme/");
+  await page.route("**/exported-echelon.html", (route) => route.fulfill({ contentType: "text/html", body: served }));
+  const failed = [];
+  page.on("response", (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
+  await page.goto("/exported-echelon.html");
+  await expect(page.locator("html")).toHaveAttribute("data-forma-brand", "echelon");
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--echelon-surface-canvas").trim())).not.toBe("");
+  await expect(page.locator("figure.forma-diagram")).toBeVisible();
+  expect(failed).toEqual([]);
 });
 
 test("the workflow surface is keyboard operable and passes automated accessibility checks", async ({ page }) => {
   await openStudio(page);
   await page.getByRole("button", { name: "New workflow" }).click();
-  const item = component(page).locator(".ef-workflow-editor__list button", { hasText: "Start: Start" });
+  const item = component(page).locator(".forma-workflow-editor__list button", { hasText: "Start: Start" });
   await item.focus();
   await page.keyboard.press("Enter");
   await item.press("ArrowRight");
@@ -130,9 +161,9 @@ test("on a phone-sized touch screen the workflow surface needs no drag and does 
   await page.getByRole("button", { name: "New workflow" }).tap();
   await component(page).getByRole("button", { name: "Add step" }).tap();
   await expect(page.locator(".studio-status")).toContainText("change kept");
-  await component(page).locator(".ef-workflow-editor__list button", { hasText: "Start: Start" }).tap();
+  await component(page).locator(".forma-workflow-editor__list button", { hasText: "Start: Start" }).tap();
   await component(page).getByRole("button", { name: "Connect", exact: true }).first().tap();
-  await component(page).locator(".ef-workflow-editor__list button", { hasText: "Task: New task" }).tap();
+  await component(page).locator(".forma-workflow-editor__list button", { hasText: "Task: New task" }).tap();
   await expect(page.locator(".studio-status")).toContainText("change kept");
   // The mobile contract: no page-level horizontal scrolling (the canvas scrolls inside its own region).
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

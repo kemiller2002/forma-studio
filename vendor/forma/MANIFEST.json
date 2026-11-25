@@ -1,32 +1,31 @@
 {
   "source": "https://github.com/kemiller2002/forma",
-  "commit": "e0b088dbbe98b05221c4bc5b5e2224e9bf470827",
+  "commit": "0ddbfc968aeb79062513da97d06d1ea959dcf02a",
   "releases": [
     {
       "name": "@echelon-foundry/design-system",
-      "version": "0.10.0"
+      "version": "1.0.1"
     },
     {
       "name": "@echelon-foundry/forma-workflow",
-      "version": "1.1.0"
+      "version": "2.0.0"
     }
   ],
   "files": {
-    "brands/echelon.css": "e56dd7d97228168105b8c2a8114e46d1d6b06403c201a315d23db801ea9319e4",
-    "brands/example-harbor.css": "3fb573046bfb29bf35d4a75c2327d4206f8f7e4eec4793c2047838f146ece80d",
-    "components.css": "b14b442fcc2993090c58b248e0db6bfa3253922b3915a6b3d4e3600d66817961",
-    "foundations.css": "518a4b2f2d67e51848cc3e0f40441632e68102bad71f8715e7298d0764993b33",
-    "tokens.css": "d5e83650ee732bcde4371c7fb9270c1c90e820b3c93c200dbab44ba04c0c10bf",
-    "workflow/browser/forma-workflow.css": "50a20681951f94c0dcd1b0cb76fb6ef14e800cb084ec2c1b33927a67d00aca34",
-    "workflow/browser/forma-workflow.js": "869b962eef1bf6a01f95168a0ef4fe2d5363a8567bbfdababbc44301aed3b306",
-    "workflow/diagram-presentation.json": "82e5d36904735e0bc0eed20f70b11f9248c4224928271557d3d11b3f2a9b6130",
+    "brands/example-harbor.css": "67944695734059fa555f540b540b5aa83cf3cfdc00f9893496fb599df08381e0",
+    "components.css": "04c88c4caf3019e349ff00cfdfda7a82193c43890b3a3287575c2f352ee48ed0",
+    "foundations.css": "64b64bde304953f12f894c5e85d46168cb9e47808217d8dd7292d11ba0796c64",
+    "tokens.css": "0a3ae55e767c6935e574278dc6ef1850f7eb8c72e5a956c58f02327e6bbe081c",
+    "workflow/browser/forma-workflow.css": "7e81d5e561a915564d393670f18ac4740d8c0f5ba7113f6cd45742dcfecee544",
+    "workflow/browser/forma-workflow.js": "7cff3600c206093cc3b5c08ae96c6f8e261de2a57a8bae32e7e69ee047814634",
+    "workflow/diagram-presentation.json": "903f086a4050f9b32f5c2e4bd364c4e338e36a474586ab2a3492dac41cec5caf",
     "workflow/external-producer/consume.mjs": "8b9195b0a5e4966b83bea8923361c206b1b05057429aed5231d6427b123e2d69",
     "workflow/external-producer/produce.mjs": "32b9827e944bde26e5a07c560f71c3e29a6e952cb1c9f5a6d4530956f918c5d8",
     "workflow/fixtures/accessible.forma-workflow.json": "3a5a1e25c2f09c303d800c1c69e068a5e118bc84b75bf0825d85a8305c23f90c",
     "workflow/fixtures/branching.forma-workflow.json": "20f69e52a9308f4f2e225dfaad5f45e7ad1820008d6dc43d00beaa53b59bebde",
     "workflow/fixtures/branded.forma-workflow.json": "630739d4c9029e7b70a427602eedf1098203df585d5ffbf0c72e282ac64d2bdc",
     "workflow/fixtures/color-mapping.forma-workflow.json": "e68409473968c2daf5113c85ffdefa14b6cb6e510fe624be254083d9c9771fa4",
-    "workflow/fixtures/colored.forma-workflow.json": "3e59880668122e9075e9674b6841deea03c94ba30ae629ed235a37561fef4b41",
+    "workflow/fixtures/colored.forma-workflow.json": "c0c8b2da8378c17ae42916f4963c640f007e2f8bd29b0965cd0221e5ccb3b3f5",
     "workflow/fixtures/edge-metadata.forma-workflow.json": "b278b4fcb4950b9699d5819a05057ab9c747809beac9aadeb7eaf631086d89dd",
     "workflow/fixtures/embedded-edit.forma-workflow.json": "43c5601f27d0f5d10338ee81cbe89446d6322691ffca3384712e5ae039f5f3c4",
     "workflow/fixtures/embedded-view.forma-workflow.json": "3b43072c0e41bfd0d24a415da966f7927ff6d0b14e0773c4b5ee4bb4a0ec7b7f",
@@ -41,17 +40,17 @@
     "workflow/fixtures/runtime-ports.forma-workflow.json": "d455b4d7037339e8826dca76941f8c47d3677e2b256e80666811c6976e10625d",
     "workflow/fixtures/static-export.forma-workflow.json": "1a7eabc3d81328ff190be84f2b97b219d0aba5fae66133f295bdc27b581d4344",
     "workflow/fixtures/swimlanes.forma-workflow.json": "b5c48bb55b501838e740c56352cc0a86fce39643edecd682f74b6f2ffa4eb94d",
-    "workflow/forma-workflow.schema.json": "433a35e0cf453fbe7eab5b20b38e26d54946ba2697ba759827b253a9f9010427",
+    "workflow/forma-workflow.schema.json": "deea21e8da14c59b14c9ec51bbc1df69cff38cd69e107cdd45ee517913d8caf5",
     "workflow/src/Codec.fs": "16fd5c4a7fc24f25d6b9fab08f25fba1caa083ebfa30ffba1a7c2f7d97640056",
     "workflow/src/CodecDecode.fs": "89b4435c851b5e7615658a7c86cc913f0ada934b6c30c8687221b947a9cf4508",
-    "workflow/src/CodecRead.fs": "c4a9d07d9471dd2834104972266ef8c8324267a79bcd9e95905abbb9cb0f4f27",
+    "workflow/src/CodecRead.fs": "5f952c7a271abde7e3c08321bfd3b96e44809691a098503aede7a5ae81f157e2",
     "workflow/src/Editor.fs": "abd39847e558c661449fd7d24176d82755debc9772bef9255758286db77149af",
     "workflow/src/Embed.fs": "a2bb8eca592fb59f6fef4a6f63afd81c190ab281bb05ed4a4794778427687601",
-    "workflow/src/EmbedForm.fs": "48ebe63a83d5027586fbfcb926c4e46127c51818791d645d9fca0b8346a1bd1b",
+    "workflow/src/EmbedForm.fs": "63143b7929866c1a0fe358fcb97b5e0d9989af348e0c729313c1f13b1926758c",
     "workflow/src/EmbedProtocol.fs": "e40721aa7c62b857cda866a4a407e3e61c576f7bbf275c756c07d640224ca5c1",
     "workflow/src/EmbedTypes.fs": "8da83b9dcfe2266fdb3f4a96257b38eaad2c7e10cecf8a977ad3b336e9b3b7bc",
-    "workflow/src/EmbedView.fs": "1737b96f77b05fa985a8386b5b39f9b0c2afe36408364ab8b41b79d78bda3bc4",
-    "workflow/src/Forma.Workflow.fsproj": "3bb30a8bb7641311733e4894c93db6dffb9b4af85d58a56b0d0dd34b9c1a1098",
+    "workflow/src/EmbedView.fs": "431556f840f20fbda228272c517d4210b6ff55c78e1dd08a60aced38f370630d",
+    "workflow/src/Forma.Workflow.fsproj": "8ee90382be32caa99f6a5d5d8987a8bcf9471098b8dc245e0946b6be96d9a7b5",
     "workflow/src/Identifiers.fs": "b756877c0d7a24b96114be4efbed736a676bc822bb4928fd5cc929a5e1c70356",
     "workflow/src/Json.fs": "3ddfbf3e3f52c59584d37109ba929b6e10064ec392a2b5ba52172d2a26fad827",
     "workflow/src/JsonSchema.fs": "be585c306b12c9278e5df3168470564d00abdf6e31475cc5faef17e740d6f1e2",
@@ -59,24 +58,21 @@
     "workflow/src/LayoutCheck.fs": "93d54451ca62a791bb790693fbb67b6440ce638c0232475dcadd70ae72fea5ee",
     "workflow/src/LayoutGeometry.fs": "f468c538154a38605210358beb6b1286dc07fc32cdfa902fa57783c6dec8b653",
     "workflow/src/LayoutRouting.fs": "5d07d1eb8003c0ed39435d483409b4dffd9496ee775f5c2f2db0fe1415ceb69e",
-    "workflow/src/LayoutSizing.fs": "f0076a9c7d50d9e320c573c2983fea34a10b85c93697f9460d98596631d1b272",
+    "workflow/src/LayoutSizing.fs": "d59fdab3273f222063b810f20e8ffe62632d9d5237b2ef8b83ce69e061a3fa09",
     "workflow/src/LayoutText.fs": "e4566c5b1e41cae731734dcbcca8338f7536c60b32db7488f7443ea526859746",
     "workflow/src/LayoutTypes.fs": "791c5deb2d5a5c801bcadc5cf92f9194c3340df42685045bca088d10e4688d7d",
     "workflow/src/Markup.fs": "6b7d53907c3d00b4e0dbfaa71bf09c424e9176c5fbf99e058dc4276e5e17fe37",
-    "workflow/src/Model.fs": "e2305d7e523d5ed83c8f97f513e0b90e56fec1f3a65d43a5c6845efa6e4c6cae",
-    "workflow/src/Render.fs": "f68a28df588130f9fecbedfafbb938e2884ca45efb0fc420bc9591d5b5379d99",
+    "workflow/src/Model.fs": "72a1c200881fff122c6bd96017cdbcc4ecbc39b2f5c0a26ff563f11cf6aba8dd",
+    "workflow/src/Render.fs": "634d0c0cd013097efa4510c0416b272a87f9ef2e915e19ea9a00e63b2b986ab9",
     "workflow/src/RenderOptions.fs": "1acf382b8ae27a3fd3ba4c278adb6503f0a6c1e0ae2904d8dc76d2e622dfc33e",
-    "workflow/src/Validation.fs": "47f00cf7ed2e056bd7e51c4e3b7de1db358b03eaf990960ecf4a0c3d3ec72c6c",
+    "workflow/src/RequirementIdentity.fs": "948d472e501140f85920e2ee7f8d91c908af360149bc2b231063fb74fd4533df",
+    "workflow/src/Validation.fs": "5484d26fed55e7d9b76381cb676a2aecbdf6023e41d35868343fc331994ea9ae",
     "workflow/src/ValidationRules.fs": "9038887dc65a4d8ea61c1b6488d5999a68c4658aff75727502a679cc8e4a3ab7",
-    "workflow/src/ValidationTypes.fs": "5e108e8fead4fd6033c275b1311a338df2712ab874211537ac6d2b3bc573a4b2",
-    "workflow/src/WorkflowDocument.fs": "07634ea800cfcc054acec99d44ad8c2afe55a39115bc804f8cc6456c8ee89ddc",
+    "workflow/src/ValidationTypes.fs": "5b7982dc034d25f7591c5035d778a084a2ed03ad47da3f9b2ae5c869c2904940",
+    "workflow/src/WorkflowDocument.fs": "040e628e89594216010e155909ca3fb182e6f10b0c67c2593783667aaf0fb976",
     "workflow/workflow-capabilities.json": "67cab7ce44e99ac9a2cb09647aa76d7249afafece6ea66a846ac06e22ed0c12b"
   },
   "released": {
-    "brands/echelon.css": {
-      "package": "@echelon-foundry/design-system",
-      "path": "dist/brands/echelon.css"
-    },
     "brands/example-harbor.css": {
       "package": "@echelon-foundry/design-system",
       "path": "dist/brands/example-harbor.css"

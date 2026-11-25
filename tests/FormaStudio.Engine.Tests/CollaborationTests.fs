@@ -274,7 +274,7 @@ let largeGraph =
         equal nodeCount (ProjectOps.tryDiagram d moved.Project |> Option.get).Nodes.Length "no node dropped"
         equal edgeCount (ProjectOps.tryDiagram d moved.Project |> Option.get).Edges.Length "no edge dropped"
         let projection, projectionSeconds = timed (fun () -> okOr (Projection.project Strict project d) "projection")
-        equal edgeCount (System.Text.RegularExpressions.Regex.Matches(projection.Html, "<path class=\"ef-diagram-connector\"").Count) "every connector projected"
+        equal edgeCount (System.Text.RegularExpressions.Regex.Matches(projection.Html, "<path class=\"forma-diagram-connector\"").Count) "every connector projected"
         printfn "       large graph: validate %.2fs, round trip %.2fs, command %.2fs, projection %.2fs" validationSeconds roundTripSeconds commandSeconds projectionSeconds
         expect (validationSeconds < 20.0 && roundTripSeconds < 20.0 && commandSeconds < 20.0 && projectionSeconds < 60.0) "within generous bounds")
 

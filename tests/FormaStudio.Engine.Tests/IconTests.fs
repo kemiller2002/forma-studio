@@ -216,7 +216,7 @@ let tamperedAssets =
             [ "test-line.svg", svg.Replace("M4 12H20", "M4 12H21"), "geometry changed after the digest"
               "html/test-line.html", html.Replace("M4 12H20", "M4 12H21"), "snippet geometry differs from the verified SVG"
               "html/test-line.html", html.Replace(" aria-hidden=\"true\"", ""), "snippet not decorative"
-              "html/test-line.html", html.Replace("data-ef-icon=\"test-line\"", "data-ef-icon=\"test-box\""), "snippet wrapped for another name"
+              "html/test-line.html", html.Replace("data-forma-icon=\"test-line\"", "data-forma-icon=\"test-box\""), "snippet wrapped for another name"
               "html/test-line.html", html.Replace("<path d=\"M4 12H20\"/>", "<path d=\"M4 12H20\"/><script>alert(1)</script>"), "script element"
               "html/test-line.html", html.Replace("<path d=", "<path onload=\"alert(1)\" d="), "event attribute"
               "html/test-line.html", html.Replace("<path d=\"M4 12H20\"/>", "<foreignObject><div>x</div></foreignObject>"), "foreignObject"
@@ -287,7 +287,7 @@ let pinnedPackage =
 
 /// (icon name, Forma version) for every inlined icon, read back from exported HTML.
 let private iconsIn (html: string) =
-    Regex.Matches(html, "<ef-icon class=\"ef-component-tag\" data-forma-version=\"([^\"]+)\">\\s*<span class=\"ef-icon\" data-ef-icon=\"([a-z0-9-]+)\">")
+    Regex.Matches(html, "<forma-icon class=\"forma-component-tag\" data-forma-version=\"([^\"]+)\">\\s*<span class=\"forma-icon\" data-forma-icon=\"([a-z0-9-]+)\">")
     |> Seq.map (fun m -> m.Groups.[2].Value, m.Groups.[1].Value)
     |> List.ofSeq
 
@@ -303,7 +303,7 @@ let exportInlinesPinnedIcons =
         equal [] result.Omitted "nothing left out"
         expect (result.Html.Contains "aria-hidden=\"true\"" && result.Html.Contains "focusable=\"false\"") "inline SVG is decorative"
         expect (result.Html.Contains "<path d=\"M4 12H20\" />" && result.Html.Contains "<circle cx=\"12\" cy=\"12\" r=\"3\" />") "geometry comes from the release files"
-        expect (Regex.IsMatch(result.Html, "<button type=\"button\">[\\s\\S]*</ef-icon>\\s*Search crews\\s*</button>")) "the button's name is still its text"
+        expect (Regex.IsMatch(result.Html, "<button type=\"button\">[\\s\\S]*</forma-icon>\\s*Search crews\\s*</button>")) "the button's name is still its text"
         expect (not (Regex.IsMatch(result.Html, "<script|\\son[a-z]+=|javascript:|<foreignObject|href=\"http", RegexOptions.IgnoreCase))) "no script, handler, foreignObject or remote reference"
         expect (result.Html.StartsWith "<!-- Requires @echelon-foundry/design-system@0.0.0-test-fixture/tokens.css") "stylesheets are declared at the icons' release"
         equal result.Html (export (Some c) project).Html "deterministic"
@@ -317,7 +317,7 @@ let exportWithoutIcons =
         let named = (Editor.start plain |> runAll [ setIcon metricRef "test-line" ]).Project
         let result = export None named
         equal (export None plain).Html result.Html "byte-identical to the same design without an icon"
-        expect (not (result.Html.Contains "<svg") && not (result.Html.Contains "ef-icon")) "no SVG and no icon markup"
+        expect (not (result.Html.Contains "<svg") && not (result.Html.Contains "forma-icon")) "no SVG and no icon markup"
         equal 1 result.Omitted.Length "one note"
         expect (result.Omitted.Head.Contains "test-line" && result.Omitted.Head.Contains "no icon collection" && result.Omitted.Head.Contains "keeps it") "the note says the document keeps the icon")
 
@@ -435,7 +435,7 @@ let editorPicker =
         | [ effect ] ->
             equal (Some(JString "Clipboard")) (Json.field "kind" effect) "a Limen clipboard effect"
             match Json.field "text" effect with
-            | Some(JString text) -> expect (text.Contains "data-ef-icon=\"test-dot\"" && text.Contains "data-forma-version=\"0.0.0-test-fixture\"" && text.Contains "aria-hidden=\"true\"") "copy uses the verified, decorative snippet"
+            | Some(JString text) -> expect (text.Contains "data-forma-icon=\"test-dot\"" && text.Contains "data-forma-version=\"0.0.0-test-fixture\"" && text.Contains "aria-hidden=\"true\"") "copy uses the verified, decorative snippet"
             | other -> fail (sprintf "clipboard text: %A" other)
         | other -> fail (sprintf "expected one clipboard effect, got %A" other)
         for bad in [ "future-glyph"; "<script>alert(1)</script>"; "../test-dot"; "" ] do

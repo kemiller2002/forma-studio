@@ -1,0 +1,2 @@
+{"entry":"transition","transition":"execution.start","state":"active","origin":"work-transition","originReference":"work.begin","actor":"claude-code","actorKind":"unknown","at":"2026-11-25T20:37:36.472Z"}
+{"entry":"transition","transition":"work.complete","state":"completed","reason":null,"actor":"claude-code","actorKind":"unknown","candidate":"11a5318500ad30089da148af121f1ade7ec41722","commits":"53de97320630ce983a1d399266c44ed3d006edde,11a5318500ad30089da148af121f1ade7ec41722","at":"2026-11-25T20:50:07.753Z"}

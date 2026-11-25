@@ -92,7 +92,7 @@ module Samples =
           AppearanceCmd(AddPaletteSlot { Id = idOf "workflow-blocked"; Name = "Workflow blocked"; Value = PaletteLiteral(hex "#fde8d7"); Description = Some "Fill for items whose status is Blocked." })
           AppearanceCmd(AddPaletteSlot { Id = idOf "highlight"; Name = "Author highlight"; Value = PaletteLiteral(hex "#efe6fb"); Description = Some "A highlight authors choose by hand. It carries no status." })
           AppearanceCmd(DefineStyle { Id = idOf "decision-emphasis"; Name = "Decision emphasis"; Revision = 1; Targets = set [ NodeTarget ]
-                                      Appearance = { Appearance.empty with Stroke = Some(TokenColor(token "--ef-color-accent-primary")); Accent = Some(TokenColor(token "--ef-color-accent-primary")) } })
+                                      Appearance = { Appearance.empty with Stroke = Some(TokenColor(token "--forma-color-accent-primary")); Accent = Some(TokenColor(token "--forma-color-accent-primary")) } })
           AppearanceCmd(DefineMapping
                             { Id = idOf "status-color"; Name = "Status color"; Field = idOf "status"; Targets = set [ NodeTarget ]; Enabled = true
                               Rules = [ { Match = Equals "blocked"; Legend = "Status is Blocked"

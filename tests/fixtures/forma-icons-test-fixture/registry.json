@@ -15,7 +15,7 @@
       "origin": "original",
       "svg": "icons/test-line.svg",
       "html": "icons/html/test-line.html",
-      "svgSha256": "085cf4d11cb306b2514ec22f57fe510d5c33cc829d45f2dd95a0c6290aa27917"
+      "svgSha256": "33708d9bb3fcbcc8925cf22e7c434b0add127bf6d68d5d16d4ccc41790ce94b1"
     },
     {
       "name": "test-box",
@@ -28,7 +28,7 @@
       "origin": "original",
       "svg": "icons/test-box.svg",
       "html": "icons/html/test-box.html",
-      "svgSha256": "0d6b4c4bde84ab3895743d6b1c10b31c16c228e1ca9d33328d7b35d821465221"
+      "svgSha256": "a3325670bac69da77157655ca36cd1be462deeed286a70a9ce6dad42ee985c2f"
     },
     {
       "name": "test-dot",
@@ -41,7 +41,7 @@
       "origin": "original",
       "svg": "icons/test-dot.svg",
       "html": "icons/html/test-dot.html",
-      "svgSha256": "5fb26a30a71662b00033ce65d22e7ab1959c42b018ac67030472ef27bafc887c"
+      "svgSha256": "d66769a50ce58464e6ac8eb55afbe67fd6dd15f262298717337603d5318bc4da"
     }
   ]
 }

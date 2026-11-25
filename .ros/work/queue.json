@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 17,
+  "nextSeq": 19,
   "items": [
     {
       "id": "WI-0001",
@@ -407,6 +407,48 @@
       "attachments": [],
       "createdAt": "2026-11-25T15:47:36.094Z",
       "updatedAt": "2026-11-25T15:49:17Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0017",
+      "title": "Upgrade to echelon-current 1.42.0 (Praxis 3.25.0, Ordo 1.20.0, Forma 1.0.1 and forma-workflow 2.0.0 with the Echelon theme 1.1.0, Limen 0.9.1)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-25T18:36:38.251Z",
+      "updatedAt": "2026-11-25T19:02:23.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0018",
+      "title": "Restore the Echelon HTML export brand from @echelon-foundry/echelon-theme 1.1.0",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-25T20:37:32.526Z",
+      "updatedAt": "2026-11-25T20:50:05Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

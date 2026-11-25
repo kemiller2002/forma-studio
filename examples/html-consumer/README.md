@@ -13,13 +13,15 @@ Forma Studio -> design -> HTML export -> this project -> render
   a normal application composition, a responsive composition and a page with
   an embedded workflow.
 - `site/*.html` are complete-document exports: application, responsive,
-  workflow, branded (the application page with the Example Harbor brand) and a
-  workflow file exported directly.
+  workflow, branded (the application page with the Example Harbor brand),
+  echelon (the application page with the Echelon brand, which the project
+  serves from the installed `@echelon-foundry/echelon-theme`) and a workflow
+  file exported directly.
 - `content/*.fragment.html` are fragment exports. The project's own
   `build.mjs` inserts them into its `layout.html`, as any site would include
   markup.
 
 Regenerate with `node scripts/export-reference-html.mjs`. Check determinism
 with `node scripts/export-reference-html.mjs --check`. Build the site with
-`node examples/html-consumer/build.mjs vendor/forma`. Tests are in
+`node examples/html-consumer/build.mjs vendor/forma node_modules/@echelon-foundry/echelon-theme/dist`. Tests are in
 `tests/browser/html-consumer.spec.mjs`.

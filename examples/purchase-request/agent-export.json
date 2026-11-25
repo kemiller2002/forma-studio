@@ -7,7 +7,7 @@
     "name": "Purchase request example",
     "schemaVersion": 2,
     "formaVersion": "0.3.0",
-    "revision": "sha256:a0f6b76111ca88efbc545eb7e2bf44eb257651c91e543f301488356db50436cb"
+    "revision": "sha256:399cbfd55e4ef17431fb39d9487b0df207d059ccb1249cbcab79a7e4dabfc19f"
   },
   "formaContract": {
     "contract": "forma.diagram-presentation",
@@ -51,7 +51,7 @@
     {
       "diagramId": "purchase-request",
       "name": "Purchase request",
-      "revision": "sha256:4effeb2f6b92fc697a8ad13bec70554b73b63de34cf07e7cac9f52887f959027",
+      "revision": "sha256:65bbd0653e88113354e8665bd20140a5e0ca1d8739dc295d286377abc52c5cee",
       "profile": {
         "id": "workflow",
         "version": "1.0.0",
@@ -518,17 +518,17 @@
                 "layer": "forma-default"
               },
               "stroke": {
-                "css": "var(--ef-color-accent-primary)",
+                "css": "var(--forma-color-accent-primary)",
                 "sourceKind": "token",
-                "source": "--ef-color-accent-primary",
+                "source": "--forma-color-accent-primary",
                 "layer": "named-style",
                 "style": "decision-emphasis",
                 "styleRevision": 1
               },
               "accent": {
-                "css": "var(--ef-color-accent-primary)",
+                "css": "var(--forma-color-accent-primary)",
                 "sourceKind": "token",
-                "source": "--ef-color-accent-primary",
+                "source": "--forma-color-accent-primary",
                 "layer": "named-style",
                 "style": "decision-emphasis",
                 "styleRevision": 1
@@ -1346,10 +1346,10 @@
       ],
       "appearance": {
         "stroke": {
-          "token": "--ef-color-accent-primary"
+          "token": "--forma-color-accent-primary"
         },
         "accent": {
-          "token": "--ef-color-accent-primary"
+          "token": "--forma-color-accent-primary"
         }
       }
     }

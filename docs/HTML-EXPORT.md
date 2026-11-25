@@ -9,10 +9,11 @@ produces the same output.
 | Target | Output |
 |---|---|
 | **HTML fragment** | Markup for the Layout page, one component hierarchy ("Export as HTML" on a Layout item) or workflow, to insert into an existing page. The first line declares the public assets it needs. |
-| **Complete HTML document** | `<!doctype html>`, `lang`, charset, viewport, title, description, links to exactly the declared Forma stylesheets, an optional public brand (`data-ef-brand`), and the design inside `<main>`. |
+| **Complete HTML document** | `<!doctype html>`, `lang`, charset, viewport, title, description, links to exactly the declared Forma stylesheets, an optional public brand (`data-forma-brand`), and the design inside `<main>`. |
 
 ```bash
 dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json application out.html --document --forma-base /assets/forma/ --brand example-harbor
+dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json application out.html --document --forma-base /assets/forma/ --brand echelon --theme-base /assets/echelon-theme/
 dotnet run --project tools/FormaStudio.Cli -c Release -- workflow-html forma/workflows/launch.forma-workflow.json launch.html --document
 ```
 
@@ -20,16 +21,16 @@ A fragment starts like this:
 
 ```html
 <!-- Requires @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css -->
-<div class="ef-stack" data-density="standard">
+<div class="forma-stack" data-density="standard">
   <h1>Crew scheduling</h1>
-  <section class="ef-surface" aria-labelledby="surface-app-form">
+  <section class="forma-surface" aria-labelledby="surface-app-form">
     <h2 id="surface-app-form">Request a session</h2>
-    <div class="ef-field">
-      <label class="ef-field__label" for="field-app-email">Work email</label>
-      <span class="ef-field__description" id="field-app-email-description">We send the confirmation here.</span>
+    <div class="forma-field">
+      <label class="forma-field__label" for="field-app-email">Work email</label>
+      <span class="forma-field__description" id="field-app-email-description">We send the confirmation here.</span>
       <input id="field-app-email" name="email" type="email" aria-describedby="field-app-email-description" required>
     </div>
-    <div class="ef-actions"><button type="submit">Request session</button><a class="ef-button" href="https://example.org/policy">Read the training policy</a></div>
+    <div class="forma-actions"><button type="submit">Request session</button><a class="forma-button" href="https://example.org/policy">Read the training policy</a></div>
   </section>
 </div>
 ```
@@ -40,9 +41,36 @@ A fragment starts like this:
 - **Interactive workflows** are opt-in. Use the "Interactive workflow" toggle. The static figure is wrapped in the public `<forma-workflow mode="view">` element, plus one module script from `@echelon-foundry/forma-workflow`, which the output declares. Studio never emits its own JavaScript, classes, ids or assets.
 - The full Forma stylesheet is never copied into a fragment.
 
+## Brands
+
+The export offers **No brand**, **Echelon** and **Example Harbor**. A brand sets
+`data-forma-brand` on the document's root and adds stylesheets after Forma's; it
+never changes the markup.
+
+| Brand | Stylesheets added after Forma's | Package |
+|---|---|---|
+| Echelon | `echelon.css`, `echelon-fonts.css`, `echelon-app.css`, in that order | `@echelon-foundry/echelon-theme` 1.1.0 |
+| Example Harbor | `brands/example-harbor.css` | `@echelon-foundry/design-system` (Forma's example brand) |
+
+Forma 1.0 became brand-neutral and no longer ships `brands/echelon.css`. The
+Echelon brand is the public, released `@echelon-foundry/echelon-theme`, so an
+Echelon export declares that package (`@echelon-foundry/echelon-theme@1.1.0/echelon.css`, …)
+and a document links it from `node_modules/@echelon-foundry/echelon-theme/dist/`
+(CLI: `--theme-base URL`). `echelon-fonts.css` loads the self-hosted fonts from
+`fonts/` beside it, so a project that serves the package's `dist/` directory as
+published has everything the export needs; nothing is fetched from elsewhere.
+An interactive workflow export with Echelon is Forma's own interactive element
+and runtime, with the theme between Forma's stylesheets and the runtime's.
+
+Exports made before Forma 1.0 with the Echelon brand linked
+`brands/echelon.css` from Forma and used `data-ef-brand`; re-export them to get
+the theme. The brand is a choice in the export panel, not part of the saved
+project, so saved projects need no change. The id `echelon` (an old session, an
+automation, `--brand echelon`) now always means the theme, never a Forma brand file.
+
 ## Icons
 
-A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<ef-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<ef-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.ef-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
+A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<forma-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<forma-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.forma-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
 
 An icon is left out, and listed with the reason, when the pinned release has no icon collection (Forma 0.4.1 and earlier), when the release does not have that name, when the stored value is not a valid name, or when the component has no place for an inline icon (including the workflow figure). The document keeps the icon in every case.
 
@@ -69,7 +97,8 @@ It knows Forma and nothing about Studio. It renders:
 - an application composition;
 - a responsive composition;
 - a workflow page;
-- a branded composition;
+- a branded composition (Forma's Example Harbor brand);
+- the same composition with the Echelon brand, served from the installed theme package;
 - a workflow exported directly;
 - the fragments inserted into its own layout.
 

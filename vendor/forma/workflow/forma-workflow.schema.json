@@ -259,7 +259,11 @@
             "token:surface-secondary",
             "token:surface-inverse",
             "token:text-primary",
-            "token:text-secondary"
+            "token:text-secondary",
+            "token:status-warning",
+            "token:status-danger",
+            "token:status-success",
+            "token:status-info"
           ]
         }
       ]

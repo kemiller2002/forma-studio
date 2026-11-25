@@ -15,7 +15,7 @@ type DocumentOptions =
       /// URL prefix where the Forma package's dist files are served,
       /// e.g. "node_modules/@echelon-foundry/design-system/dist/" or "/assets/forma/".
       FormaBase: string
-      /// Optional public Forma brand id (loads brands/<id>.css and sets data-ef-brand).
+      /// Optional public Forma brand id (loads brands/<id>.css and sets data-forma-brand).
       Brand: string option
       /// Optional explicit theme ("light" or "dark").
       Theme: string option
@@ -99,8 +99,8 @@ module WorkflowDocument =
               | Some Rtl -> yield "dir", "rtl"
               | Some Ltr -> yield "dir", "ltr"
               | _ -> ()
-              match brand with Some b -> yield "data-ef-brand", b | None -> ()
-              match validTheme opts.Theme with Some t -> yield "data-ef-theme", t | None -> () ]
+              match brand with Some b -> yield "data-forma-brand", b | None -> ()
+              match validTheme opts.Theme with Some t -> yield "data-forma-theme", t | None -> () ]
         let head =
             el
                 "head"

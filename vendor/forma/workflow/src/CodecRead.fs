@@ -70,7 +70,9 @@ module internal CodecRead =
           "token:border-functional", BorderFunctional; "token:border-subtle", BorderSubtle
           "token:surface-primary", SurfacePrimary; "token:surface-secondary", SurfaceSecondary
           "token:surface-inverse", SurfaceInverse; "token:text-primary", TextPrimary
-          "token:text-secondary", TextSecondary ]
+          "token:text-secondary", TextSecondary; "token:status-warning", StatusWarning
+          "token:status-danger", StatusDanger; "token:status-success", StatusSuccess
+          "token:status-info", StatusInfo ]
 
     let shapes = [ "rectangle", Rectangle; "rounded", Rounded; "pill", Pill; "ellipse", Ellipse; "diamond", Diamond ]
     let lines = [ "solid", Solid; "dashed", Dashed; "dotted", Dotted ]

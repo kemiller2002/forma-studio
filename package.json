@@ -8,8 +8,9 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@echelon-foundry/design-system": "https://github.com/kemiller2002/forma/releases/download/v0.10.0/echelon-foundry-design-system-0.10.0.tgz",
-    "@echelon-foundry/limen": "0.9.0"
+    "@echelon-foundry/design-system": "https://github.com/kemiller2002/forma/releases/download/v1.0.1/echelon-foundry-design-system-1.0.1.tgz",
+    "@echelon-foundry/echelon-theme": "https://github.com/kemiller2002/echelon-design-system/releases/download/v1.1.0/echelon-foundry-echelon-theme-1.1.0.tgz",
+    "@echelon-foundry/limen": "0.9.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
@@ -24,11 +25,11 @@
     "app:build": "node scripts/build-app.mjs",
     "app:test": "npm run html:consumer && playwright test",
     "engine:test": "dotnet run --project tests/FormaStudio.Engine.Tests -c Release",
-    "vendor:check": "node scripts/sync-forma.mjs --check",
-    "vendor:release": "node scripts/sync-forma.mjs --release",
+    "vendor:check": "node scripts/sync-forma.mjs --check && node scripts/echelon-theme.mjs --check",
+    "vendor:release": "node scripts/sync-forma.mjs --release && node scripts/echelon-theme.mjs --release",
     "html:export": "node scripts/export-reference-html.mjs",
     "html:check": "node scripts/export-reference-html.mjs --check",
-    "html:consumer": "node examples/html-consumer/build.mjs vendor/forma",
+    "html:consumer": "node examples/html-consumer/build.mjs vendor/forma node_modules/@echelon-foundry/echelon-theme/dist",
     "proof:external": "node scripts/proof-external.mjs",
     "ui:conformance": "npm run html:consumer && playwright test --grep @uli"
   },

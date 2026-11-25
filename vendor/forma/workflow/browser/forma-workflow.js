@@ -73,7 +73,7 @@ export class FormaWorkflowElement extends HTMLElement {
     const documentText = source ? source.textContent : null;
     // The static figure stays visible until the engine replaces it.
     this.#root = document.createElement("div");
-    this.#root.className = "ef-workflow-host";
+    this.#root.className = "forma-workflow-host";
     this.#wire(this.#root);
     this.#send({ type: "init", mode: this.mode, document: documentText }).then(() => {
       for (const child of [...this.children]) if (child !== this.#root && child !== source) child.remove();
@@ -121,11 +121,11 @@ export class FormaWorkflowElement extends HTMLElement {
   #apply(reply) {
     if (typeof reply.html === "string") {
       const active = this.#root.contains(document.activeElement) ? sameControl(document.activeElement) : null;
-      const viewport = this.#root.querySelector(".ef-diagram__viewport");
+      const viewport = this.#root.querySelector(".forma-diagram__viewport");
       const scroll = viewport ? [viewport.scrollLeft, viewport.scrollTop] : null;
       // The engine builds this markup from a typed tree that escapes all text and attributes.
       this.#root.innerHTML = reply.html;
-      const nextViewport = this.#root.querySelector(".ef-diagram__viewport");
+      const nextViewport = this.#root.querySelector(".forma-diagram__viewport");
       if (scroll && nextViewport) [nextViewport.scrollLeft, nextViewport.scrollTop] = scroll;
       const target = reply.focus ? this.#root.querySelector(`#${CSS.escape(reply.focus)}`) : active ? this.#root.querySelector(active) : null;
       if (target) {

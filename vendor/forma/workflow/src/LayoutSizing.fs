@@ -13,7 +13,7 @@ module internal LayoutSizing =
         | Some WideSize -> 264.0
         | _ -> 200.0
 
-    // Node box model, mirroring .ef-diagram-node in components.css (LCE-001):
+    // Node box model, mirroring .forma-diagram-node in components.css (LCE-001):
     // 0.75rem padding, a 2px border with a 6px inline-start accent, a 0.25rem
     // grid gap, and the kind, label, description and meta type styles.
     let private nodePad = 12.0
@@ -28,7 +28,7 @@ module internal LayoutSizing =
     let private labelStyle = LayoutText.withTextSpacing { SizePx = 16.0; LineHeightPx = 20.0; Bold = true; Uppercase = false; LetterSpacingEm = 0.0; WordSpacingEm = 0.0 }
     let private bodyStyle = LayoutText.withTextSpacing { SizePx = 14.0; LineHeightPx = 18.9; Bold = false; Uppercase = false; LetterSpacingEm = 0.0; WordSpacingEm = 0.0 }
     let private metaStyle = LayoutText.withTextSpacing { SizePx = 14.0; LineHeightPx = 22.4; Bold = false; Uppercase = false; LetterSpacingEm = 0.0; WordSpacingEm = 0.0 }
-    /// Connector labels (.ef-diagram-connector__label): 0.875rem, one line, 0.25rem inline padding.
+    /// Connector labels (.forma-diagram-connector__label): 0.875rem, one line, 0.25rem inline padding.
     let labelTextStyle = LayoutText.withTextSpacing { SizePx = 14.0; LineHeightPx = 22.4; Bold = false; Uppercase = false; LetterSpacingEm = 0.0; WordSpacingEm = 0.0 }
 
     let private kindText (n: Node) =
@@ -41,7 +41,7 @@ module internal LayoutSizing =
     let contentHeight (n: Node) (width: float) =
         let block (style: LayoutText.Style) (text: string) = LayoutText.height style width text
         let metaRow (key: string) (value: string) =
-            // The key column is `auto`: it keeps its full width and the value gets the rest (.ef-diagram-node__meta).
+            // The key column is `auto`: it keeps its full width and the value gets the rest (.forma-diagram-node__meta).
             let keyWidth = LayoutText.width { metaStyle with Bold = true } key + 8.0
             LayoutText.height metaStyle (width - keyWidth) value
         let meta =
@@ -118,7 +118,7 @@ module internal LayoutSizing =
         | Diamond, None -> let side = requiredHeight n w in side, side
         | _ -> w, n.Layout.Height |> Option.defaultWith (fun () -> requiredHeight n w)
 
-    /// Widest connector label box (.ef-diagram-connector__label max-inline-size: 12rem).
+    /// Widest connector label box (.forma-diagram-connector__label max-inline-size: 12rem).
     let labelMaxWidth = 192.0
 
     /// Estimated size of a connector label box: one line up to 12rem, then wrapped.

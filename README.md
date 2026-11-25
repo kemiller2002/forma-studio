@@ -20,12 +20,13 @@ The greenfield baseline is tracked by GitHub issue #1.
 
 Pinned capability versions are recorded in capabilities.lock.json:
 
-- SDE / Ordo 1.3.0
-- ROS 3.1.4
-- Visual Engineering 1.0.0
+- Ordo 1.20.0
+- Praxis 3.25.0
+- Visual Engineering 1.0.1
 - Communication Engineering current 1.0.0 source pinned by commit
-- Limen 0.9.0 (`@echelon-foundry/limen`)
-- Forma 0.10.0 and forma-workflow 1.1.0 (`vendor/forma` for the app, plus the pinned package's `dist/icons`; the release tarball for the marketing site)
+- Limen 0.9.1 (`@echelon-foundry/limen`)
+- Forma 1.0.1 and forma-workflow 2.0.0 (`vendor/forma` for the app, plus the pinned package's `dist/icons`; the release tarball for the marketing site)
+- Echelon theme 1.1.0 (`@echelon-foundry/echelon-theme`, the Echelon brand for Forma 1.x: loaded by the editor and the marketing site, and declared by the HTML export's Echelon brand; provenance and digests in `vendor/echelon-theme`)
 - Aegis Core 2.0.2
 
 Lifecycle-managed capability state is committed in the repository. `scripts/bootstrap-capabilities.sh` and the manual-only bootstrap workflow provide reproducible repair/reinstallation; normal changes use the installed lifecycle verification workflows.
@@ -95,7 +96,7 @@ npm run html:check       # export determinism
 npm run app:build && npm run app:test   # editor, workflows, round trip, HTML consumer (Chromium)
 npm run proof:external   # records docs/evidence/external-workflow-roundtrip.md
 npm run vendor:check     # vendored Forma matches its recorded commit
-npm run vendor:release   # ... and the published Forma 0.10.0 / forma-workflow 1.1.0 packages (network)
+npm run vendor:release   # ... and the published Forma 1.0.1 / forma-workflow 2.0.0 packages (network)
 ~~~
 
 ## Marketing site

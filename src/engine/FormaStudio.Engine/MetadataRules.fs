@@ -131,7 +131,7 @@ module MetadataRules =
         | ResolvedConflict(authored, _, _) -> Some authored
         | _ -> None
 
-    /// The value-state vocabulary shared with Forma's `data-ef-value-state` and
+    /// The value-state vocabulary shared with Forma's `data-forma-value-state` and
     /// Folio's rendered metadata (explicit carries no tag).
     let stateName resolved =
         match resolved with

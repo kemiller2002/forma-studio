@@ -7,12 +7,33 @@ type HtmlTarget =
     /// A complete document that opens as ordinary HTML with the declared public assets.
     | HtmlDocument
 
+/// The Echelon brand for Forma 1.x. Forma 1.0 became brand-neutral (BNR-001) and
+/// no longer ships brands/echelon.css; the brand is the public, released
+/// @echelon-foundry/echelon-theme package, loaded after Forma's stylesheets.
+[<RequireQualifiedAccess>]
+module EchelonTheme =
+    /// The brand id: the export choice, and the value of data-forma-brand.
+    let brand = "echelon"
+    let packageName = "@echelon-foundry/echelon-theme"
+    /// The pinned release (package.json, capabilities.lock.json, vendor/echelon-theme).
+    let version = "1.1.0"
+    /// The theme's stylesheets in its documented load order, after Forma's.
+    /// echelon-fonts.css loads the self-hosted fonts beside it (fonts/*.woff2).
+    let stylesheets = [ "echelon.css"; "echelon-fonts.css"; "echelon-app.css" ]
+    /// Where a consuming project that installed the package serves its dist files.
+    let defaultBase = "node_modules/@echelon-foundry/echelon-theme/dist/"
+    let dependencies = stylesheets |> List.map (fun path -> Forma.Workflow.Stylesheet(packageName, version, path))
+
 type HtmlExportOptions =
     { Target: HtmlTarget
       /// Where the consuming project serves Forma's dist files.
       FormaBase: string
-      /// Optional public Forma brand (brands/<id>.css and data-ef-brand).
+      /// Optional public brand, as data-forma-brand: a Forma brand (Forma's brands/<id>.css),
+      /// or "echelon", which loads @echelon-foundry/echelon-theme (EchelonTheme).
       Brand: string option
+      /// Where the consuming project serves @echelon-foundry/echelon-theme's dist files
+      /// (used only with the Echelon brand).
+      ThemeBase: string
       Theme: string option
       Language: string
       /// For workflows only: wrap the static figure in the public <forma-workflow>
@@ -43,6 +64,7 @@ module HtmlExport =
         { Target = HtmlFragment
           FormaBase = "node_modules/@echelon-foundry/design-system/dist/"
           Brand = None
+          ThemeBase = EchelonTheme.defaultBase
           Theme = None
           Language = "en"
           InteractiveWorkflow = false
@@ -84,7 +106,7 @@ module HtmlExport =
     let rec private peerMark (group: string) (markup: Markup) =
         let add attrs = attrs @ [ "data-uli-align-peer", group ]
         match markup with
-        | Element(name, attrs, children) when attrs |> List.contains ("class", "ef-field") ->
+        | Element(name, attrs, children) when attrs |> List.contains ("class", "forma-field") ->
             let control = children |> List.tryFindIndex (function Element("input", _, _) -> true | _ -> false)
             match control with
             | Some i -> Element(name, attrs, children |> List.mapi (fun j c -> match c with Element(n, a, k) when i = j -> Element(n, add a, k) | other -> other))
@@ -113,7 +135,7 @@ module HtmlExport =
         | "stack" ->
             let markup, omitted = kids ()
             let density = match property "density" node with Some(JString d) -> [ "data-density", d ] | _ -> []
-            [ el "div" ([ "class", "ef-stack" ] @ density) markup ], iconNotes @ omitted
+            [ el "div" ([ "class", "forma-stack" ] @ density) markup ], iconNotes @ omitted
         | "heading" ->
             let level = match property "level" node with Some(JNumber n) -> (match System.Int32.TryParse n with | true, v when v >= 1 && v <= 6 -> v | _ -> 2) | _ -> 2
             one (el ("h" + string level) [] [ text (content "text" node |> Option.defaultValue "") ])
@@ -124,7 +146,7 @@ module HtmlExport =
         | "link-button" ->
             let label = content "label" node |> Option.defaultValue ""
             match content "href" node |> Option.filter Validation.isSafeUrl with
-            | Some href -> one (el "a" [ "class", "ef-button"; "href", href ] (withIcon [ text label ]))
+            | Some href -> one (el "a" [ "class", "forma-button"; "href", href ] (withIcon [ text label ]))
             | None -> [ el "span" [] (withIcon [ text label ]) ], iconNotes @ [ $"{nodeId node}: link target is missing or not http, https, mailto or relative, so it was exported as text" ]
         | "text-field" ->
             let id = "field-" + nodeId node
@@ -135,10 +157,10 @@ module HtmlExport =
             one (
                 el
                     "div"
-                    [ "class", "ef-field" ]
-                    [ yield el "label" [ "class", "ef-field__label"; "for", id ] [ text (content "label" node |> Option.defaultValue "") ]
+                    [ "class", "forma-field" ]
+                    [ yield el "label" [ "class", "forma-field__label"; "for", id ] [ text (content "label" node |> Option.defaultValue "") ]
                       match description with
-                      | Some d -> yield el "span" [ "class", "ef-field__description"; "id", id + "-description" ] [ text d ]
+                      | Some d -> yield el "span" [ "class", "forma-field__description"; "id", id + "-description" ] [ text d ]
                       | None -> ()
                       yield
                           el
@@ -151,40 +173,40 @@ module HtmlExport =
         | "actions" ->
             let markup, omitted = kids ()
             let declared, markup = declareAlignment node markup
-            [ el "div" ([ "class", "ef-actions" ] @ declared) markup ], iconNotes @ omitted
+            [ el "div" ([ "class", "forma-actions" ] @ declared) markup ], iconNotes @ omitted
         | "surface" ->
             let markup, omitted = kids ()
             let titleId = "surface-" + nodeId node
             match content "title" node with
-            | Some title -> [ el "section" [ "class", "ef-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], iconNotes @ omitted
-            | None -> [ el "div" [ "class", "ef-surface" ] markup ], iconNotes @ omitted
+            | Some title -> [ el "section" [ "class", "forma-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], iconNotes @ omitted
+            | None -> [ el "div" [ "class", "forma-surface" ] markup ], iconNotes @ omitted
         | "responsive-grid" ->
             let markup, omitted = kids ()
             let declared, markup = declareAlignment node markup
             match content "label" node with
-            | Some label -> [ el "section" ([ "class", "ef-responsive-grid"; "aria-label", label ] @ declared) markup ], iconNotes @ omitted
-            | None -> [ el "div" ([ "class", "ef-responsive-grid" ] @ declared) markup ], iconNotes @ omitted
+            | Some label -> [ el "section" ([ "class", "forma-responsive-grid"; "aria-label", label ] @ declared) markup ], iconNotes @ omitted
+            | None -> [ el "div" ([ "class", "forma-responsive-grid" ] @ declared) markup ], iconNotes @ omitted
         | "alert" ->
             one (
                 el
                     "aside"
-                    [ "class", "ef-alert"; "role", "status" ]
-                    [ el "div" [ "class", "ef-alert__icon"; "aria-hidden", "true" ] (if List.isEmpty icon then [ text "!" ] else icon)
+                    [ "class", "forma-alert"; "role", "status" ]
+                    [ el "div" [ "class", "forma-alert__icon"; "aria-hidden", "true" ] (if List.isEmpty icon then [ text "!" ] else icon)
                       el
                           "div"
                           []
-                          [ el "h3" [ "class", "ef-alert__title" ] [ text (content "title" node |> Option.defaultValue "") ]
+                          [ el "h3" [ "class", "forma-alert__title" ] [ text (content "title" node |> Option.defaultValue "") ]
                             el "p" [] [ text (content "text" node |> Option.defaultValue "") ] ] ]
             )
         | "metric-card" ->
             one (
                 el
                     "article"
-                    [ "class", "ef-metric-card" ]
-                    [ yield el "div" [ "class", "ef-metric-card__label" ] (withIcon [ text (content "label" node |> Option.defaultValue "") ])
-                      yield el "div" [ "class", "ef-metric-card__value" ] [ text (content "value" node |> Option.defaultValue "") ]
+                    [ "class", "forma-metric-card" ]
+                    [ yield el "div" [ "class", "forma-metric-card__label" ] (withIcon [ text (content "label" node |> Option.defaultValue "") ])
+                      yield el "div" [ "class", "forma-metric-card__value" ] [ text (content "value" node |> Option.defaultValue "") ]
                       match content "context" node with
-                      | Some c -> yield el "div" [ "class", "ef-metric-card__context" ] [ text c ]
+                      | Some c -> yield el "div" [ "class", "forma-metric-card__context" ] [ text c ]
                       | None -> () ]
             )
         | "workflow" ->
@@ -199,11 +221,53 @@ module HtmlExport =
     let private brandOk (b: string option) = b |> Option.filter (fun v -> System.Text.RegularExpressions.Regex.IsMatch(v, "^[a-z][a-z0-9-]{0,63}$"))
     let private themeOk (t: string option) = t |> Option.filter (fun v -> v = "light" || v = "dark")
 
+    /// True for the Echelon brand, which Forma itself no longer ships.
+    let private isEchelon (b: string option) = brandOk b = Some EchelonTheme.brand
+
+    /// A brand's stylesheets, after Forma's: the Echelon theme's, in its order, or
+    /// the Forma release's brands/<id>.css.
+    let private brandDependencies (formaVersion: string) (brand: string option) =
+        match brandOk brand with
+        | Some b when b = EchelonTheme.brand -> EchelonTheme.dependencies
+        | Some b -> [ Stylesheet(Render.formaPackage, formaVersion, $"brands/{b}.css") ]
+        | None -> []
+
+    let private joinUrl (baseUrl: string) (path: string) =
+        if baseUrl.EndsWith "/" then baseUrl + path else baseUrl + "/" + path
+
+    /// Where the consuming project serves a declared package's files.
+    let private baseFor (opts: HtmlExportOptions) (pkg: string) =
+        if pkg = EchelonTheme.packageName then opts.ThemeBase
+        elif pkg = Render.workflowPackage then opts.WorkflowRuntimeBase
+        else opts.FormaBase
+
+    /// A complete document: the declared stylesheets (and runtime modules) linked in order.
+    let private document (opts: HtmlExportOptions) (language: string) (direction: string option) (title: string) (description: string option) (deps: Dependency list) (body: Markup list) =
+        let href pkg path = joinUrl (baseFor opts pkg) path
+        let links = deps |> List.choose (function Stylesheet(pkg, _, path) -> Some(el "link" [ "rel", "stylesheet"; "href", href pkg path ] []) | RuntimeModule _ -> None)
+        let scripts = deps |> List.choose (function RuntimeModule(pkg, _, path) -> Some(Markup.moduleScript (href pkg path)) | Stylesheet _ -> None)
+        let htmlAttrs =
+            [ yield "lang", language
+              match direction with Some d -> yield "dir", d | None -> ()
+              match brandOk opts.Brand with Some b -> yield "data-forma-brand", b | None -> ()
+              match themeOk opts.Theme with Some t -> yield "data-forma-theme", t | None -> () ]
+        let head =
+            el
+                "head"
+                []
+                ([ el "meta" [ "charset", "utf-8" ] []
+                   el "meta" [ "name", "viewport"; "content", "width=device-width, initial-scale=1" ] []
+                   el "title" [] [ text title ] ]
+                 @ (description |> Option.map (fun d -> el "meta" [ "name", "description"; "content", d ] []) |> Option.toList)
+                 @ links
+                 @ scripts)
+        "<!doctype html>\n" + Markup.renderAll [ el "html" htmlAttrs [ head; el "body" [] [ el "main" [] body ] ] ]
+
     /// The Forma release of any icon inlined in the markup (from its version stamp).
     let rec private iconRelease (markup: Markup list) =
         markup
         |> List.tryPick (function
-            | Element("ef-icon", attributes, _) -> attributes |> List.tryFind (fst >> (=) "data-forma-version") |> Option.map snd
+            | Element("forma-icon", attributes, _) -> attributes |> List.tryFind (fst >> (=) "data-forma-version") |> Option.map snd
             | Element(_, _, children) -> iconRelease children
             | _ -> None)
 
@@ -212,7 +276,7 @@ module HtmlExport =
     let private dependencies (opts: HtmlExportOptions) (release: string option) =
         let version = release |> Option.defaultValue (Capabilities.formaVersion.ToString())
         (Render.staticDependencies |> List.map (function Stylesheet(pkg, _, path) when release.IsSome -> Stylesheet(pkg, version, path) | d -> d))
-        @ (brandOk opts.Brand |> Option.map (fun b -> Stylesheet(Render.formaPackage, version, $"brands/{b}.css")) |> Option.toList)
+        @ brandDependencies version opts.Brand
 
     let private wrap (opts: HtmlExportOptions) (title: string) (description: string option) (body: Markup list) (omitted: string list) =
         let deps = dependencies opts (iconRelease body)
@@ -220,24 +284,7 @@ module HtmlExport =
         | HtmlFragment ->
             { Html = Markup.renderAll (Render.dependencyComment deps :: body); Dependencies = deps; Omitted = omitted }
         | HtmlDocument ->
-            let join (path: string) = if opts.FormaBase.EndsWith "/" then opts.FormaBase + path else opts.FormaBase + "/" + path
-            let links =
-                deps |> List.choose (function Stylesheet(_, _, path) -> Some(el "link" [ "rel", "stylesheet"; "href", join path ] []) | RuntimeModule _ -> None)
-            let htmlAttrs =
-                [ yield "lang", opts.Language
-                  match brandOk opts.Brand with Some b -> yield "data-ef-brand", b | None -> ()
-                  match themeOk opts.Theme with Some t -> yield "data-ef-theme", t | None -> () ]
-            let head =
-                el
-                    "head"
-                    []
-                    ([ el "meta" [ "charset", "utf-8" ] []
-                       el "meta" [ "name", "viewport"; "content", "width=device-width, initial-scale=1" ] []
-                       el "title" [] [ text title ] ]
-                     @ (description |> Option.map (fun d -> el "meta" [ "name", "description"; "content", d ] []) |> Option.toList)
-                     @ links)
-            let html = el "html" htmlAttrs [ head; el "body" [] [ el "main" [] body ] ]
-            { Html = "<!doctype html>\n" + Markup.renderAll [ html ]; Dependencies = deps; Omitted = omitted }
+            { Html = document opts opts.Language None title description deps body; Dependencies = deps; Omitted = omitted }
 
     /// Exports one Layout page.
     let page (opts: HtmlExportOptions) (workflows: WorkflowLibrary) (page: Page) =
@@ -257,6 +304,23 @@ module HtmlExport =
     /// Forma's own interactive document or fragment, with the public runtime declared.
     let workflow (opts: HtmlExportOptions) (entry: WorkflowEntry) =
         match (Validation.load entry.Text).Workflow with
+        | Some w when opts.InteractiveWorkflow && isEchelon opts.Brand ->
+            // Forma's interactive output knows only Forma's own brands, so Studio composes
+            // the same parts (Forma's interactive element and declared runtime) with the
+            // Echelon theme's stylesheets after Forma's, before the runtime's.
+            let formaOpts =
+                { DocumentOptions.defaults with
+                    FormaBase = opts.FormaBase
+                    Theme = themeOk opts.Theme
+                    Interactivity = InteractiveOutput(ViewMode, opts.WorkflowRuntimeBase) }
+            let forma, runtime = WorkflowDocument.dependencies formaOpts |> List.partition (function Stylesheet(pkg, _, _) -> pkg = Render.formaPackage | RuntimeModule _ -> false)
+            let deps = forma @ EchelonTheme.dependencies @ runtime
+            let body = WorkflowDocument.content formaOpts w
+            let direction = match w.TextDirection with Some Rtl -> Some "rtl" | Some Ltr -> Some "ltr" | _ -> None
+            let html =
+                if opts.Target = HtmlDocument then document opts (w.Language |> Option.defaultValue opts.Language) direction w.Title w.Description deps [ body ]
+                else Markup.renderAll [ Render.dependencyComment deps; body ]
+            Ok { Html = html; Dependencies = deps; Omitted = [] }
         | Some w when opts.InteractiveWorkflow ->
             let formaOpts =
                 { DocumentOptions.defaults with
