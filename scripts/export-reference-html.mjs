@@ -22,6 +22,7 @@ const exports = [
   ["site/responsive.html", "responsive", ["--document", "--forma-base", "assets/forma/"]],
   ["site/workflow.html", "workflow", ["--document", "--forma-base", "assets/forma/"]],
   ["site/branded.html", "application", ["--document", "--forma-base", "assets/forma/", "--brand", "example-harbor"]],
+  ["site/echelon.html", "application", ["--document", "--forma-base", "assets/forma/", "--brand", "echelon", "--theme-base", "assets/echelon-theme/"]],
   ["content/application.fragment.html", "application", []],
   ["content/workflow.fragment.html", "workflow", []]
 ];

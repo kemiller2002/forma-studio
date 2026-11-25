@@ -250,9 +250,9 @@ module EditorView =
                   |> List.map (fun (k, label, t) -> item [ "key", str k; "label", str label; "pressed", str (if state.Export.Target = t then "true" else "false") ])
                   |> JArray
                   "exportBrands",
-                  // Forma 1.x ships no organization's brand (BNR-001): the choices are its own
-                  // example brand, which the exported document loads as brands/<id>.css.
-                  [ "none", "No brand"; "example-harbor", "Example Harbor" ]
+                  // Forma 1.x ships no organization's brand (BNR-001): Echelon is the released
+                  // @echelon-foundry/echelon-theme (EchelonTheme); Example Harbor is Forma's own.
+                  [ "none", "No brand"; EchelonTheme.brand, "Echelon"; "example-harbor", "Example Harbor" ]
                   |> List.map (fun (k, label) -> item [ "key", str k; "label", str label; "pressed", str (if (state.Export.Brand |> Option.defaultValue "none") = k then "true" else "false") ])
                   |> JArray
                   "exportText", str state.Export.Text

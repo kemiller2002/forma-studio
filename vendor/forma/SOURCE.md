@@ -29,8 +29,9 @@ Forma 1.0 renamed its `ef-` namespace to `forma-` (FORMA-NS-001) and became
 brand-neutral (BNR-001, EDS-ADR-002): Forma no longer ships
 `dist/brands/echelon.css`, so it is no longer vendored here. The Echelon brand
 is `@echelon-foundry/echelon-theme`, which Studio's editor and marketing site
-load from the installed, pinned package. `brands/example-harbor.css` remains
-Forma's example brand.
+load, and the HTML export's Echelon brand declares, from the installed, pinned
+package (provenance and digests: `vendor/echelon-theme`).
+`brands/example-harbor.css` remains Forma's example brand.
 
 Studio's engine compiles the `Forma.Workflow` F# source, which no Forma
 package ships, so the source stays vendored from that release commit. The

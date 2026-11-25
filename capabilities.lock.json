@@ -51,6 +51,8 @@
       "package": "@echelon-foundry/echelon-theme",
       "version": "1.1.0",
       "source": "https://github.com/kemiller2002/echelon-design-system/releases/download/v1.1.0/echelon-foundry-echelon-theme-1.1.0.tgz",
+      "sha256": "e9360d743ad9e9a62abb3cf22d29bc8a26a4f9fd2b4980dd1d050c27937ec6bd",
+      "provenance": "vendor/echelon-theme/MANIFEST.json (verified by npm run vendor:check and vendor:release)",
       "mode": "runtime-presentation"
     }
   },

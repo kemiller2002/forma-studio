@@ -14,9 +14,9 @@ let private usage () =
     eprintfn "                                                            write projection.json and diagram.html for Folio"
     eprintfn "  forma-studio workflow-validate <file.forma-workflow.json>...  Forma validation report (JSON); exit 1 if any is invalid"
     eprintfn "  forma-studio designs <project.json> <workflow-id>         write the HTML export reference designs"
-    eprintfn "  forma-studio html <project.json> <page-id> <out.html> [--document] [--brand ID] [--forma-base URL] [--workflows DIR] [--forma-icons DIR]"
+    eprintfn "  forma-studio html <project.json> <page-id> <out.html> [--document] [--brand ID] [--forma-base URL] [--theme-base URL] [--workflows DIR] [--forma-icons DIR]"
     eprintfn "  forma-studio icons [--forma-icons DIR]                    report the pinned Forma icon collection (exit 5 when unavailable)"
-    eprintfn "  forma-studio workflow-html <file.forma-workflow.json> <out.html> [--document] [--brand ID] [--forma-base URL]"
+    eprintfn "  forma-studio workflow-html <file.forma-workflow.json> <out.html> [--document] [--brand ID] [--forma-base URL] [--theme-base URL]"
     2
 
 let private flag (name: string) (args: string list) =
@@ -47,6 +47,8 @@ let private exportOptions (args: string list) =
         Target = (if List.contains "--document" args then HtmlDocument else HtmlFragment)
         Brand = flag "--brand" args
         FormaBase = flag "--forma-base" args |> Option.defaultValue HtmlExport.defaults.FormaBase
+        // Where the consuming project serves @echelon-foundry/echelon-theme (--brand echelon).
+        ThemeBase = flag "--theme-base" args |> Option.defaultValue HtmlExport.defaults.ThemeBase
         Icons = catalogOf (icons args) }
 
 /// Opens every .forma-workflow.json in a directory as Studio would.

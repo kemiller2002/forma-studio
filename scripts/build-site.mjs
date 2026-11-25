@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { copyVerifiedTheme } from "./echelon-theme.mjs";
 
 const source = path.resolve("site");
 const output = path.resolve("site-dist");
@@ -17,16 +18,9 @@ for (const name of ["index.html", "styles.css", "CNAME"]) {
 }
 fs.copyFileSync(forma, path.join(output, "assets/forma.css"));
 // The Echelon brand for Forma 1.x, from the installed, pinned @echelon-foundry/echelon-theme:
-// echelon.css, echelon-fonts.css (with the self-hosted fonts it loads) and echelon-app.css.
-const theme = path.resolve("node_modules/@echelon-foundry/echelon-theme/dist");
-if (!fs.existsSync(path.join(theme, "echelon.css"))) {
-  throw new Error("The Echelon theme is missing. Install the pinned package before building the site.");
-}
-fs.mkdirSync(path.join(output, "assets/echelon-theme"), { recursive: true });
-for (const name of ["echelon.css", "echelon-fonts.css", "echelon-app.css"]) {
-  fs.copyFileSync(path.join(theme, name), path.join(output, "assets/echelon-theme", name));
-}
-fs.cpSync(path.join(theme, "fonts"), path.join(output, "assets/echelon-theme/fonts"), { recursive: true });
+// only the files vendor/echelon-theme/MANIFEST.json records (echelon.css, echelon-fonts.css with
+// the self-hosted fonts it loads and their licenses, echelon-app.css), each verified against its digest.
+copyVerifiedTheme(path.join(output, "assets/echelon-theme"));
 
 const html = fs.readFileSync(path.join(output, "index.html"), "utf8");
 if (!html.includes("forma-studio.echelonfoundry.com") && fs.readFileSync(path.join(output, "CNAME"), "utf8").trim() !== "forma-studio.echelonfoundry.com") {

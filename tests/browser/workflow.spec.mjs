@@ -112,6 +112,36 @@ test("Studio exports the current workflow as Forma HTML with no script", async (
   await expect(page.locator("p", { hasText: "@echelon-foundry/forma-workflow@1.2.0/forma-workflow.js" })).toBeVisible();
 });
 
+test("the Echelon export brand declares and links the released Echelon theme, and the export renders with it", async ({ page }) => {
+  await openStudio(page);
+  await page.getByRole("button", { name: "New workflow" }).click();
+  await page.getByRole("button", { name: "Complete HTML document" }).click();
+  const echelon = page.getByRole("button", { name: "Echelon", exact: true });
+  await echelon.click();
+  await expect(echelon).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Export current workflow" }).click();
+  const html = await page.locator("#export-text").inputValue();
+  expect(html).toMatch(/<html lang="[a-z-]+" data-forma-brand="echelon">/);
+  // Forma 1.x ships no brands/echelon.css: the theme package, after Forma, in its documented order.
+  expect(html).not.toContain("brands/echelon.css");
+  const hrefs = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)].map((m) => m[1]);
+  const forma = "node_modules/@echelon-foundry/design-system/dist/";
+  const theme = "node_modules/@echelon-foundry/echelon-theme/dist/";
+  expect(hrefs).toEqual([`${forma}tokens.css`, `${forma}foundations.css`, `${forma}components.css`, `${theme}echelon.css`, `${theme}echelon-fonts.css`, `${theme}echelon-app.css`]);
+  expect(html).not.toContain("<script");
+  await expect(page.locator("p", { hasText: "@echelon-foundry/echelon-theme@1.1.0/echelon.css" })).toBeVisible();
+  // Rendered as a consuming project would serve it: the installed packages' files (the editor's own copies).
+  const served = html.replaceAll(forma, "/forma/").replaceAll(theme, "/echelon-theme/");
+  await page.route("**/exported-echelon.html", (route) => route.fulfill({ contentType: "text/html", body: served }));
+  const failed = [];
+  page.on("response", (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
+  await page.goto("/exported-echelon.html");
+  await expect(page.locator("html")).toHaveAttribute("data-forma-brand", "echelon");
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--echelon-surface-canvas").trim())).not.toBe("");
+  await expect(page.locator("figure.forma-diagram")).toBeVisible();
+  expect(failed).toEqual([]);
+});
+
 test("the workflow surface is keyboard operable and passes automated accessibility checks", async ({ page }) => {
   await openStudio(page);
   await page.getByRole("button", { name: "New workflow" }).click();

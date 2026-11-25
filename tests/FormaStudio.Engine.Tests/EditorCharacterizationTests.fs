@@ -434,6 +434,8 @@ let scenarios () : Scenario list =
       scenario "export-brand empty" [ evk "export-brand" "example-harbor" ] (evk "export-brand" "")
       scenario "export-page" withHeading (ev "export-page")
       scenario "export-page document with brand" (withHeading @ [ evk "export-target" "document"; evk "export-brand" "example-harbor" ]) (ev "export-page")
+      scenario "export-brand echelon" [] (evk "export-brand" "echelon")
+      scenario "export-page document with echelon brand" (withHeading @ [ evk "export-target" "document"; evk "export-brand" "echelon" ]) (ev "export-page")
       scenario "export-page falls back to first page" (withHeading @ [ ev "open-diagram" ]) (ev "export-page")
       scenario "export-page without pages" [] (ev "export-page")
       scenario "export-component" withHeading (evk "export-component" "page-1-heading|text")

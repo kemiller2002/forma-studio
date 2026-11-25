@@ -13,6 +13,7 @@ produces the same output.
 
 ```bash
 dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json application out.html --document --forma-base /assets/forma/ --brand example-harbor
+dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json application out.html --document --forma-base /assets/forma/ --brand echelon --theme-base /assets/echelon-theme/
 dotnet run --project tools/FormaStudio.Cli -c Release -- workflow-html forma/workflows/launch.forma-workflow.json launch.html --document
 ```
 
@@ -39,6 +40,33 @@ A fragment starts like this:
 - **Static designs** need only `tokens.css`, `foundations.css` and `components.css` from `@echelon-foundry/design-system`. They add a brand stylesheet if a brand is chosen. No JavaScript is added because a design was made visually.
 - **Interactive workflows** are opt-in. Use the "Interactive workflow" toggle. The static figure is wrapped in the public `<forma-workflow mode="view">` element, plus one module script from `@echelon-foundry/forma-workflow`, which the output declares. Studio never emits its own JavaScript, classes, ids or assets.
 - The full Forma stylesheet is never copied into a fragment.
+
+## Brands
+
+The export offers **No brand**, **Echelon** and **Example Harbor**. A brand sets
+`data-forma-brand` on the document's root and adds stylesheets after Forma's; it
+never changes the markup.
+
+| Brand | Stylesheets added after Forma's | Package |
+|---|---|---|
+| Echelon | `echelon.css`, `echelon-fonts.css`, `echelon-app.css`, in that order | `@echelon-foundry/echelon-theme` 1.1.0 |
+| Example Harbor | `brands/example-harbor.css` | `@echelon-foundry/design-system` (Forma's example brand) |
+
+Forma 1.0 became brand-neutral and no longer ships `brands/echelon.css`. The
+Echelon brand is the public, released `@echelon-foundry/echelon-theme`, so an
+Echelon export declares that package (`@echelon-foundry/echelon-theme@1.1.0/echelon.css`, …)
+and a document links it from `node_modules/@echelon-foundry/echelon-theme/dist/`
+(CLI: `--theme-base URL`). `echelon-fonts.css` loads the self-hosted fonts from
+`fonts/` beside it, so a project that serves the package's `dist/` directory as
+published has everything the export needs; nothing is fetched from elsewhere.
+An interactive workflow export with Echelon is Forma's own interactive element
+and runtime, with the theme between Forma's stylesheets and the runtime's.
+
+Exports made before Forma 1.0 with the Echelon brand linked
+`brands/echelon.css` from Forma and used `data-ef-brand`; re-export them to get
+the theme. The brand is a choice in the export panel, not part of the saved
+project, so saved projects need no change. The id `echelon` (an old session, an
+automation, `--brand echelon`) now always means the theme, never a Forma brand file.
 
 ## Icons
 
@@ -69,7 +97,8 @@ It knows Forma and nothing about Studio. It renders:
 - an application composition;
 - a responsive composition;
 - a workflow page;
-- a branded composition;
+- a branded composition (Forma's Example Harbor brand);
+- the same composition with the Echelon brand, served from the installed theme package;
 - a workflow exported directly;
 - the fragments inserted into its own layout.
 

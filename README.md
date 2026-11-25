@@ -26,7 +26,7 @@ Pinned capability versions are recorded in capabilities.lock.json:
 - Communication Engineering current 1.0.0 source pinned by commit
 - Limen 0.9.1 (`@echelon-foundry/limen`)
 - Forma 1.0.1 and forma-workflow 2.0.0 (`vendor/forma` for the app, plus the pinned package's `dist/icons`; the release tarball for the marketing site)
-- Echelon theme 1.1.0 (`@echelon-foundry/echelon-theme`, the Echelon brand for Forma 1.x, loaded by the editor and the marketing site)
+- Echelon theme 1.1.0 (`@echelon-foundry/echelon-theme`, the Echelon brand for Forma 1.x: loaded by the editor and the marketing site, and declared by the HTML export's Echelon brand; provenance and digests in `vendor/echelon-theme`)
 - Aegis Core 2.0.2
 
 Lifecycle-managed capability state is committed in the repository. `scripts/bootstrap-capabilities.sh` and the manual-only bootstrap workflow provide reproducible repair/reinstallation; normal changes use the installed lifecycle verification workflows.
