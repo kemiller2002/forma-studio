@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-11-25T15:49:17Z",
+  "updatedAt": "2026-11-25T18:36:39.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1170,6 +1170,17 @@
         }
       },
       "completedAt": "2026-11-25T15:49:17Z"
+    },
+    {
+      "id": "WI-0017",
+      "type": "task",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-11-25T18:36:39.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261125T183640165Z-31f37696"
+      ]
     }
   ]
 }
