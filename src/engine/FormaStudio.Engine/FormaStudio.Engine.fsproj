@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EchelonFoundry.Aegis.Core" Version="1.0.0" />
+    <PackageReference Include="EchelonFoundry.Aegis.Core" Version="2.0.0" />
     <!-- Aegis.Core 1.0.0 requires FSharp.Core >= 10.1.400; pin it so the SDK default cannot downgrade it (NU1605). -->
     <PackageReference Update="FSharp.Core" Version="10.1.400" />
   </ItemGroup>

@@ -33,4 +33,5 @@
 | WI-0011 | Move forma-studio to Praxis 3.7.2, Ordo 1.4.2, Visual Engineering 1.0.1 and adopt Conditor | complete | praxis, ordo, toolchain | medium |
 | WI-0012 | Move forma-studio to Ordo 1.5.0 via echelon-current 1.2.0 (conditor upgrade --current) | complete |  | medium |
 | WI-0013 | Upgrade Limen from 0.7.1 to 0.9.0 (echelon-current) | complete |  | medium |
-| WI-0014 | Adopt Forma 0.10.0 and forma-workflow 1.1.0 (LCE-001) and run Forma's LayoutCheck on workflow export | ready | forma | medium |
+| WI-0014 | Adopt Forma 0.10.0 and forma-workflow 1.1.0 (LCE-001) and run Forma's LayoutCheck on workflow export | active | forma | medium |
+| WI-0015 | Upgrade Aegis 1.0.0 -> 2.0.0 (echelon-current 1.40.0) | ready |  | medium |
