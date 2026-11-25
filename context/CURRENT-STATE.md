@@ -40,7 +40,7 @@ Verified bootstrap baseline:
 - Communication Engineering 1.0.0, installed from pinned source commit
 - Limen 0.7.0 (`@echelon-foundry/limen`)
 - Forma 0.1.0 presentation dependency
-- EchelonFoundry.Aegis.Core 2.0.1 pinned in the F# engine project
+- EchelonFoundry.Aegis.Core 2.0.2 pinned in the F# engine project
 
 The lifecycle-generated repository state was committed by `chore: install current Echelon engineering capabilities` after the bootstrap runner passed registry build, ROS validation, ROS strict verification, SDE verification, Visual Engineering strict verification, Communication Engineering strict verification, and Limen strict verification.
 

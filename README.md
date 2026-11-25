@@ -26,7 +26,7 @@ Pinned capability versions are recorded in capabilities.lock.json:
 - Communication Engineering current 1.0.0 source pinned by commit
 - Limen 0.9.0 (`@echelon-foundry/limen`)
 - Forma 0.10.0 and forma-workflow 1.1.0 (`vendor/forma` for the app, plus the pinned package's `dist/icons`; the release tarball for the marketing site)
-- Aegis Core 2.0.1
+- Aegis Core 2.0.2
 
 Lifecycle-managed capability state is committed in the repository. `scripts/bootstrap-capabilities.sh` and the manual-only bootstrap workflow provide reproducible repair/reinstallation; normal changes use the installed lifecycle verification workflows.
 
@@ -73,7 +73,7 @@ Internal navigation targets stable page IDs. Routes are projections and may chan
 
 ## Engine boundary
 
-`src/engine/FormaStudio.Engine` is the initial F# application-authority project and pins `EchelonFoundry.Aegis.Core` 2.0.1.
+`src/engine/FormaStudio.Engine` is the initial F# application-authority project and pins `EchelonFoundry.Aegis.Core` 2.0.2.
 
 `src/engine` and `src/kernel` are the enforced Limen boundary directories. Browser capabilities do not belong in the engine.
 
