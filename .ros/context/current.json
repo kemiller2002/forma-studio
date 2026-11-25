@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-11-25T20:37:35Z",
+  "updatedAt": "2026-11-25T20:50:05Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1215,13 +1215,28 @@
     {
       "id": "WI-0018",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-11-25T20:37:35Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/HtmlExport.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/WorkflowStudioTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/browser/workflow.spec.mjs"
+        }
+      ],
+      "updatedAt": "2026-11-25T20:50:05Z",
       "telemetryExecutionIds": [
         "EXE-20261125T203736174Z-8a04622d"
-      ]
+      ],
+      "completedAt": "2026-11-25T20:50:05Z",
+      "conclusion": "The HTML export offers Echelon again, backed by the released echelon-theme 1.1.0 with recorded provenance and digests."
     }
   ]
 }
