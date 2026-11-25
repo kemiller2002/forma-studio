@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-11-25T12:17:30.000Z",
+  "updatedAt": "2026-11-25T12:34:22.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1091,13 +1091,34 @@
     {
       "id": "WI-0015",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
+      "state": "blocked",
+      "semanticState": "blocked",
       "evidence": [],
-      "updatedAt": "2026-11-25T12:17:30.000Z",
+      "updatedAt": "2026-11-25T12:34:22.000Z",
       "telemetryExecutionIds": [
         "EXE-20261125T121730653Z-f0071c74"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "565b32186396d1e8e8122100",
+        "recordedAt": "2026-11-25T12:34:21.000Z",
+        "executionId": "EXE-20261125T121730653Z-f0071c74",
+        "repository": "forma-studio",
+        "branch": "claude/vigila-implementation-jdeps1",
+        "commit": "455d5ca480744443c7415a1d2c573ce83678c487",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio"
+        },
+        "remoteBranch": "claude/vigila-implementation-jdeps1",
+        "remoteCommit": "455d5ca480744443c7415a1d2c573ce83678c487",
+        "summary": "Aegis pins changed 1.0.0 -> 2.0.0 and pushed; restore fails with NU1605 because Aegis 2.0.0 nuspec requires FSharp.Core >= 11.0.101 (known packaging defect)",
+        "nextAction": "Retarget Aegis pins to 2.0.1 (FSharp.Core floor 10.1.400), rebuild and test per CI, then complete",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "blockReason": "Blocked on Aegis 2.0.1: Aegis 2.0.0 nuspec requires FSharp.Core >= 11.0.101, so restore fails with NU1605 against the repository FSharp.Core pin; pins will be retargeted to 2.0.1"
     }
   ]
 }
