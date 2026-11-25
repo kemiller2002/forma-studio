@@ -18,6 +18,10 @@ type ColorToken =
     | SurfaceInverse
     | TextPrimary
     | TextSecondary
+    | StatusWarning
+    | StatusDanger
+    | StatusSuccess
+    | StatusInfo
 
 /// Lowercase #rrggbb.
 [<Struct>]

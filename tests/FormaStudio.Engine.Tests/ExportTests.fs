@@ -50,14 +50,14 @@ let projectionUsesFormaContract =
         let projection = project Strict (sample ())
         let html = projection.Html
         let classes = Regex.Matches(html, "class=\"([^\"]+)\"") |> Seq.collect (fun m -> m.Groups.[1].Value.Split ' ') |> Set.ofSeq
-        expect (classes |> Set.forall (fun c -> c.StartsWith "ef-diagram")) (sprintf "only ef-diagram* classes: %A" classes)
-        let connectors = Regex.Matches(html, "<path class=\"ef-diagram-connector\"").Count
-        let relations = Regex.Match(html, "<ol class=\"ef-diagram__relations\"[^>]*>(.*?)</ol>", RegexOptions.Singleline).Groups.[1].Value
+        expect (classes |> Set.forall (fun c -> c.StartsWith "forma-diagram")) (sprintf "only forma-diagram* classes: %A" classes)
+        let connectors = Regex.Matches(html, "<path class=\"forma-diagram-connector\"").Count
+        let relations = Regex.Match(html, "<ol class=\"forma-diagram__relations\"[^>]*>(.*?)</ol>", RegexOptions.Singleline).Groups.[1].Value
         equal connectors (Regex.Matches(relations, "<li>").Count) "one relationship item per connector"
-        expect (html.Contains "data-ef-shape=\"diamond\"") "decision uses the diamond contract"
-        expect (html.Contains "data-ef-group=\"lane\"") "lanes use the group contract"
-        expect (html.Contains "data-ef-line=\"dashed\"") "non-color line cue kept"
-        expect (html.Contains "data-ef-value-state=\"derived\"") "value state rendered as text")
+        expect (html.Contains "data-forma-shape=\"diamond\"") "decision uses the diamond contract"
+        expect (html.Contains "data-forma-group=\"lane\"") "lanes use the group contract"
+        expect (html.Contains "data-forma-line=\"dashed\"") "non-color line cue kept"
+        expect (html.Contains "data-forma-value-state=\"derived\"") "value state rendered as text")
 
 let projectionSanitizes =
     test "Projection escapes untrusted text and never emits executable content" (fun () ->
@@ -72,7 +72,7 @@ let projectionSanitizes =
         expect (not (html.ToLowerInvariant().Contains "javascript:")) "no javascript URLs"
         let styles = Regex.Matches(html, "style=\"([^\"]*)\"") |> Seq.map (fun m -> m.Groups.[1].Value)
         for style in styles do
-            expect (Regex.IsMatch(style, "^(--ef-diagram-[a-z-]+: (-?\\d+px|\\d+|#[0-9a-f]{6}|var\\(--ef-color-[a-z-]+\\));\\s?)+$")) (sprintf "style is limited to validated values: %s" style))
+            expect (Regex.IsMatch(style, "^(--forma-diagram-[a-z-]+: (-?\\d+px|\\d+|#[0-9a-f]{6}|var\\(--forma-color-[a-z-]+\\));\\s?)+$")) (sprintf "style is limited to validated values: %s" style))
 
 let projectionPrivacy =
     test "Source-only metadata and derived presentation from withheld fields never reach the projection" (fun () ->
@@ -144,7 +144,7 @@ let strictProjectionFailsSafely =
 let colorIndependentMeaning =
     test "Every node states its kind in text and every colored category has a text legend entry" (fun () ->
         let projection = project Strict (sample ())
-        let kinds = Regex.Matches(projection.Html, "<p class=\"ef-diagram-node__kind\">([^<]+)</p>") |> Seq.map (fun m -> m.Groups.[1].Value) |> List.ofSeq
+        let kinds = Regex.Matches(projection.Html, "<p class=\"forma-diagram-node__kind\">([^<]+)</p>") |> Seq.map (fun m -> m.Groups.[1].Value) |> List.ofSeq
         equal 7 kinds.Length "kind text on every node"
         expect (kinds |> List.forall (fun k -> k.Length > 0)) "non-empty kinds"
         let legend = arrayAt projection.Manifest [ "legend" ] |> List.choose (Json.field "label")

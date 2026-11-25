@@ -9,7 +9,7 @@ produces the same output.
 | Target | Output |
 |---|---|
 | **HTML fragment** | Markup for the Layout page, one component hierarchy ("Export as HTML" on a Layout item) or workflow, to insert into an existing page. The first line declares the public assets it needs. |
-| **Complete HTML document** | `<!doctype html>`, `lang`, charset, viewport, title, description, links to exactly the declared Forma stylesheets, an optional public brand (`data-ef-brand`), and the design inside `<main>`. |
+| **Complete HTML document** | `<!doctype html>`, `lang`, charset, viewport, title, description, links to exactly the declared Forma stylesheets, an optional public brand (`data-forma-brand`), and the design inside `<main>`. |
 
 ```bash
 dotnet run --project tools/FormaStudio.Cli -c Release -- html project.json application out.html --document --forma-base /assets/forma/ --brand example-harbor
@@ -20,16 +20,16 @@ A fragment starts like this:
 
 ```html
 <!-- Requires @echelon-foundry/design-system@0.4.0/tokens.css, @echelon-foundry/design-system@0.4.0/foundations.css, @echelon-foundry/design-system@0.4.0/components.css -->
-<div class="ef-stack" data-density="standard">
+<div class="forma-stack" data-density="standard">
   <h1>Crew scheduling</h1>
-  <section class="ef-surface" aria-labelledby="surface-app-form">
+  <section class="forma-surface" aria-labelledby="surface-app-form">
     <h2 id="surface-app-form">Request a session</h2>
-    <div class="ef-field">
-      <label class="ef-field__label" for="field-app-email">Work email</label>
-      <span class="ef-field__description" id="field-app-email-description">We send the confirmation here.</span>
+    <div class="forma-field">
+      <label class="forma-field__label" for="field-app-email">Work email</label>
+      <span class="forma-field__description" id="field-app-email-description">We send the confirmation here.</span>
       <input id="field-app-email" name="email" type="email" aria-describedby="field-app-email-description" required>
     </div>
-    <div class="ef-actions"><button type="submit">Request session</button><a class="ef-button" href="https://example.org/policy">Read the training policy</a></div>
+    <div class="forma-actions"><button type="submit">Request session</button><a class="forma-button" href="https://example.org/policy">Read the training policy</a></div>
   </section>
 </div>
 ```
@@ -42,7 +42,7 @@ A fragment starts like this:
 
 ## Icons
 
-A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<ef-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<ef-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.ef-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
+A Layout button, link-button, alert or metric-card with an `icon` property exports the pinned Forma release's own decorative inline snippet for that icon (`<forma-icon>` wrapping `aria-hidden="true"` SVG), placed before the text it decorates, so the text stays the accessible name. Studio stamps the `<forma-icon>` element with `data-forma-version`, and a design with icons declares its Forma stylesheets at that release, whose `components.css` sizes and colors `.forma-icon`. The SVG is read from the pinned package's compiled `dist/icons` and verified against the registry digest before use; Studio holds no icon geometry of its own. Nothing is fetched by the exported HTML.
 
 An icon is left out, and listed with the reason, when the pinned release has no icon collection (Forma 0.4.1 and earlier), when the release does not have that name, when the stored value is not a valid name, or when the component has no place for an inline icon (including the workflow figure). The document keeps the icon in every case.
 

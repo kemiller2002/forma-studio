@@ -266,7 +266,7 @@ let private colored () =
           AppearanceCmd(AddPaletteSlot { Id = idOf "blocked"; Name = "Blocked"; Value = PaletteLiteral(hex "#fde8d7"); Description = None })
           AppearanceCmd(AddPaletteSlot { Id = idOf "purple"; Name = "Purple"; Value = PaletteLiteral(hex "#efe6fb"); Description = None })
           AppearanceCmd(DefineStyle { Id = idOf "calm"; Name = "Calm"; Revision = 1; Targets = set [ NodeTarget ]
-                                      Appearance = { Appearance.empty with Fill = Some(TokenColor(token "--ef-color-surface-secondary")); Stroke = Some(TokenColor(token "--ef-color-accent-primary")) } })
+                                      Appearance = { Appearance.empty with Fill = Some(TokenColor(token "--forma-color-surface-secondary")); Stroke = Some(TokenColor(token "--forma-color-accent-primary")) } })
           AppearanceCmd(DefineMapping
                             { Id = idOf "status-map"; Name = "Status"; Field = idOf "status"; Targets = set [ NodeTarget ]; Enabled = true
                               Rules = [ { Match = Equals "blocked"; Outcome = UseAppearance { Appearance.empty with Fill = Some(PaletteColor(idOf "blocked")) }; Legend = "Blocked" } ]
@@ -282,7 +282,7 @@ let appearanceCascade =
         let fill = fillOf EditorScope "a" s.Project
         equal (Some "#fde8d7") (fill.Value |> Option.bind _.Css) "mapping beats style"
         expect (match fill.Layer with MappingLayer(_, _, "Blocked") -> true | _ -> false) "fill comes from the mapping layer"
-        equal (Some "var(--ef-color-surface-secondary)") ((fillOf EditorScope "b" s.Project).Value |> Option.bind _.Css) "style applies without mapping"
+        equal (Some "var(--forma-color-surface-secondary)") ((fillOf EditorScope "b" s.Project).Value |> Option.bind _.Css) "style applies without mapping"
         let shape = (AppearanceResolution.resolve EditorScope s.Project (nodeRef "b") |> fst).Shape
         equal (Some Rectangle, ProfileDefaultLayer("general", "box")) (shape.Value, shape.Layer) "profile default shape"
         let overridden = s |> runAll [ AppearanceCmd(SetOverride([ nodeRef "a" ], { Appearance.empty with Fill = Some(PaletteColor(idOf "purple")) })) ]
@@ -291,7 +291,7 @@ let appearanceCascade =
         equal (fillOf EditorScope "a" s.Project) (fillOf EditorScope "a" reset.Project) "reset reveals the mapping, not a copied value"
         let disabled = s.Project.Mappings |> List.map (fun m -> { m with Enabled = false }) |> List.head
         let noMapping = s |> runAll [ AppearanceCmd(UpdateMapping disabled) ]
-        equal (Some "var(--ef-color-surface-secondary)") ((fillOf EditorScope "a" noMapping.Project).Value |> Option.bind _.Css) "disabling the mapping reveals the style"
+        equal (Some "var(--forma-color-surface-secondary)") ((fillOf EditorScope "a" noMapping.Project).Value |> Option.bind _.Css) "disabling the mapping reveals the style"
         equal ((ProjectOps.tryNode d (idOf "a") s.Project |> Option.get).Metadata) ((ProjectOps.tryNode d (idOf "a") noMapping.Project |> Option.get).Metadata) "mapping never mutates metadata"
         let unknown = s |> runAll [ MetadataCmd(SetValue([ nodeRef "b" ], idOf "status", UnknownValue)) ]
         equal (Some Dotted) ((AppearanceResolution.resolve EditorScope unknown.Project (nodeRef "b") |> fst).Line.Value) "unknown fallback is explicit")
@@ -312,7 +312,7 @@ let styleAndPaletteLifecycle =
         equal (Some "#fde8d7") ((fillOf EditorScope "a" materialized.Project).Value |> Option.bind _.Css) "materialized value kept"
         errorOf (Editor.dispatch (AppearanceCmd(RemoveStyle(idOf "calm", BlockStyleIfUsed))) s) "in-use style" |> ignore
         let detached = okOr (Editor.dispatch (AppearanceCmd(RemoveStyle(idOf "calm", DetachAndMaterialize))) s) "detach style"
-        equal (Some "var(--ef-color-surface-secondary)") ((fillOf EditorScope "b" detached.Project).Value |> Option.bind _.Css) "detached appearance equivalent"
+        equal (Some "var(--forma-color-surface-secondary)") ((fillOf EditorScope "b" detached.Project).Value |> Option.bind _.Css) "detached appearance equivalent"
         equal OverrideLayer (fillOf EditorScope "b" detached.Project).Layer "detached value is now local")
 
 let colorIsNotSemantics =
@@ -342,7 +342,7 @@ let disclosureControl =
         let c = colored ()
         let restricted = okOr (Editor.dispatch (MetadataCmd(SetFieldDisclosure(idOf "status", { Scopes = Set.empty; DerivedPresentation = false }))) c) "restrict"
         equal [ "disclosure.mapping.withheld" ] (restricted.LastObligations |> List.map _.Code) "dependent mapping revalidated"
-        equal (Some "var(--ef-color-surface-secondary)") ((fillOf (OutputScope Rendered) "a" restricted.Project).Value |> Option.bind _.Css) "rendered output ignores the mapping"
+        equal (Some "var(--forma-color-surface-secondary)") ((fillOf (OutputScope Rendered) "a" restricted.Project).Value |> Option.bind _.Css) "rendered output ignores the mapping"
         equal (Some "#fde8d7") ((fillOf EditorScope "a" restricted.Project).Value |> Option.bind _.Css) "editor-only highlight still allowed")
 
 let colorSyntax =
@@ -350,7 +350,7 @@ let colorSyntax =
         equal "#aabbcc" (HexColor.value (hex "#ABC")) "short hex"
         expect (HexColor.parse "#aabbccdd" |> Result.isError) "alpha rejected"
         expect (HexColor.parse "red" |> Result.isError) "named colors rejected"
-        expect (TokenRef.parse "--ef-private-thing" |> Result.isError) "private token rejected"
+        expect (TokenRef.parse "--forma-private-thing" |> Result.isError) "private token rejected"
         let _, contrast = AppearanceResolution.resolve EditorScope (colored () |> runAll [ AppearanceCmd(SetOverride([ nodeRef "b" ], { Appearance.empty with Fill = Some(LiteralColor(hex "#222222")) })) ]).Project (nodeRef "b")
         expect (contrast |> List.exists (fun f -> f.Code = "appearance.contrast")) "illegible text on a dark fill is reported")
 

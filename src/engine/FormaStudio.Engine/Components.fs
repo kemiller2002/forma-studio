@@ -29,7 +29,7 @@ module Components =
     let buttonTypes = [ "button"; "submit" ]
     let inputTypes = [ "text"; "email"; "number"; "date"; "tel"; "url"; "search" ]
 
-    /// Forma `ef-stack`: vertical composition. `density` is the public spacing hook
+    /// Forma `forma-stack`: vertical composition. `density` is the public spacing hook
     /// (relaxed, standard, compact, analytical); Layout never stores x/y.
     let stack =
         { Id = "stack"
@@ -71,7 +71,7 @@ module Components =
     let button =
         { Id = "button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "type", enumProperty buttonTypes; "icon", iconIdProperty ]; Content = [ "label" ] }
 
-    /// A link that looks like a button (`a.ef-button`, forma:patterns/button.html).
+    /// A link that looks like a button (`a.forma-button`, forma:patterns/button.html).
     let linkButton = { Id = "link-button"; Source = "forma:patterns/button.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "label"; "href" ] }
 
     /// Labelled native input (forma:patterns/text-field.html).
@@ -88,7 +88,7 @@ module Components =
     /// (`data-uli-align-*`) so a browser check can measure it instead of guessing peers.
     let alignmentEdges = [ "top"; "bottom"; "center" ]
 
-    /// Row of actions (`.ef-actions`, forma:patterns/button.html).
+    /// Row of actions (`.forma-actions`, forma:patterns/button.html).
     let actions = { Id = "actions"; Source = "forma:patterns/button.html"; Slots = [ "children" ]; Properties = [ "alignment", enumProperty alignmentEdges ]; Content = [] }
 
     /// Titled surface section (forma:patterns/surface.html).
@@ -105,7 +105,7 @@ module Components =
     /// Metric with label and context (forma:patterns/metric-card.html).
     let metricCard = { Id = "metric-card"; Source = "forma:patterns/metric-card.html"; Slots = []; Properties = [ "icon", iconIdProperty ]; Content = [ "label"; "value"; "context" ] }
 
-    /// A portable workflow rendered by Forma (forma:workflow, .ef-diagram contract 2.1.0).
+    /// A portable workflow rendered by Forma (forma:workflow, .forma-diagram contract 2.1.0).
     let workflow = { Id = "workflow"; Source = "forma:workflow"; Slots = []; Properties = [ "workflow", idProperty; "icon", iconIdProperty ]; Content = [] }
 
     let catalog = [ stack; heading; text; button; linkButton; textField; actions; surface; responsiveGrid; alert; metricCard; workflow ]

@@ -20,8 +20,8 @@ const sha = (file) => createHash("sha256").update(readFileSync(file)).digest("he
 const walk = (dir) => readdirSync(dir).flatMap((n) => (statSync(join(dir, n)).isDirectory() ? walk(join(dir, n)) : [join(dir, n)]));
 
 // The released packages, and where each vendored file sits inside their tarballs.
-const designSystem = { name: "@echelon-foundry/design-system", version: "0.10.0" };
-const workflowPackage = { name: "@echelon-foundry/forma-workflow", version: "1.1.0" };
+const designSystem = { name: "@echelon-foundry/design-system", version: "1.0.1" };
+const workflowPackage = { name: "@echelon-foundry/forma-workflow", version: "2.0.0" };
 const packaged = (vendorPath) =>
   vendorPath.startsWith("workflow/browser/")
     ? [workflowPackage, "dist/" + vendorPath.slice("workflow/browser/".length)]
@@ -31,7 +31,6 @@ const packaged = (vendorPath) =>
           "tokens.css": [designSystem, "dist/tokens.css"],
           "foundations.css": [designSystem, "dist/foundations.css"],
           "components.css": [designSystem, "dist/components.css"],
-          "brands/echelon.css": [designSystem, "dist/brands/echelon.css"],
           "brands/example-harbor.css": [designSystem, "dist/brands/example-harbor.css"],
           "workflow/forma-workflow.schema.json": [designSystem, "schemas/workflow/1.0/forma-workflow.schema.json"],
           "workflow/workflow-capabilities.json": [designSystem, "contracts/workflow-capabilities.json"],
@@ -82,7 +81,6 @@ const copies = [
   ["dist/tokens.css", "tokens.css"],
   ["dist/foundations.css", "foundations.css"],
   ["dist/components.css", "components.css"],
-  ["dist/brands/echelon.css", "brands/echelon.css"],
   ["dist/brands/example-harbor.css", "brands/example-harbor.css"],
   ["schemas/workflow/1.0/forma-workflow.schema.json", "workflow/forma-workflow.schema.json"],
   ["contracts/workflow-capabilities.json", "workflow/workflow-capabilities.json"],

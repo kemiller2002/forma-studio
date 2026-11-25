@@ -20,6 +20,12 @@ for (const file of ["index.html", "main.js", "transport.js", "gestures.js", "wor
 cpSync(resolve(published, "wwwroot/_framework"), resolve(out, "_framework"), { recursive: true });
 cpSync(resolve(root, "node_modules/@echelon-foundry/limen/dist"), resolve(out, "limen"), { recursive: true });
 cpSync(resolve(root, "vendor/forma"), resolve(out, "forma"), { recursive: true });
+// The Echelon brand for Forma 1.x, copied unchanged from the installed, pinned
+// @echelon-foundry/echelon-theme (its CSS and the self-hosted fonts echelon-fonts.css loads).
+cpSync(resolve(root, "node_modules/@echelon-foundry/echelon-theme/dist"), resolve(out, "echelon-theme"), {
+  recursive: true,
+  filter: (path) => !path.endsWith("echelon-marketing.css")
+});
 // The pinned Forma package's compiled icons (dist/icons), copied unchanged from the
 // installed dependency that package.json pins. A release without icons (Forma 0.4.1 and
 // earlier) ships none, and the editor reports icons unavailable; nothing is substituted.

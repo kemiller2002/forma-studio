@@ -585,10 +585,10 @@
       ],
       "appearance": {
         "stroke": {
-          "token": "--ef-color-accent-primary"
+          "token": "--forma-color-accent-primary"
         },
         "accent": {
-          "token": "--ef-color-accent-primary"
+          "token": "--forma-color-accent-primary"
         }
       }
     }

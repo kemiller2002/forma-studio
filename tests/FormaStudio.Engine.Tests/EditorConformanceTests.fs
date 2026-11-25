@@ -285,8 +285,8 @@ let canvasProjectionStyling =
         expect (not (html.Contains "data-bind-style")) "index.html binds inline style; Limen 0.7.0 refuses it (limen#18)"
         let css = File.ReadAllText(path [ "src"; "kernel"; "studio-projection.css" ])
         let slots =
-            [ "fill", "--ef-diagram-fill"; "stroke", "--ef-diagram-stroke"; "accent", "--ef-diagram-accent"
-              "foreground", "--ef-diagram-foreground"; "connector-stroke", "--ef-diagram-connector-stroke" ]
+            [ "fill", "--forma-diagram-fill"; "stroke", "--forma-diagram-stroke"; "accent", "--forma-diagram-accent"
+              "foreground", "--forma-diagram-foreground"; "connector-stroke", "--forma-diagram-connector-stroke" ]
         let missing =
             [ for slot, property in slots do
                   for token in TokenRef.allowed do

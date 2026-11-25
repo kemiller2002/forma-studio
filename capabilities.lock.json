@@ -1,20 +1,22 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-09",
+  "updated": "2026-11-25",
   "capabilities": {
     "sde": {
       "package": "@echelon-foundry/sde",
-      "version": "1.3.0",
+      "version": "1.20.0",
+      "source": "https://github.com/kemiller2002/ordo/releases/tag/v1.20.0",
       "mode": "lifecycle"
     },
     "ros": {
       "package": "@echelon-foundry/repository-operating-system",
-      "version": "3.1.4",
+      "version": "3.25.0",
+      "source": "https://github.com/kemiller2002/praxis/releases/tag/v3.25.0",
       "mode": "lifecycle"
     },
     "visualEngineering": {
       "package": "@echelon-foundry/visual-engineering",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "mode": "lifecycle"
     },
     "communicationEngineering": {
@@ -24,24 +26,41 @@
     },
     "limen": {
       "package": "@echelon-foundry/limen",
-      "version": "0.7.1",
+      "version": "0.9.1",
       "mode": "runtime-and-lifecycle"
     },
     "forma": {
       "package": "@echelon-foundry/design-system",
-      "version": "0.10.0",
-      "source": "https://github.com/kemiller2002/forma/releases/download/v0.10.0/echelon-foundry-design-system-0.10.0.tgz",
+      "version": "1.0.1",
+      "source": "https://github.com/kemiller2002/forma/releases/download/v1.0.1/echelon-foundry-design-system-1.0.1.tgz",
       "mode": "runtime-presentation"
     },
     "aegis": {
       "package": "EchelonFoundry.Aegis.Core",
-      "version": "1.0.0",
+      "version": "2.0.2",
       "source": "NuGet",
       "mode": "fsharp-runtime"
+    },
+    "formaWorkflow": {
+      "package": "@echelon-foundry/forma-workflow",
+      "version": "2.0.0",
+      "source": "vendor/forma (verified against the published package)",
+      "mode": "runtime-presentation"
+    },
+    "echelonTheme": {
+      "package": "@echelon-foundry/echelon-theme",
+      "version": "1.1.0",
+      "source": "https://github.com/kemiller2002/echelon-design-system/releases/download/v1.1.0/echelon-foundry-echelon-theme-1.1.0.tgz",
+      "mode": "runtime-presentation"
     }
   },
   "bootstrap": {
     "requested": true,
     "workItem": "https://github.com/kemiller2002/forma-studio/issues/1"
+  },
+  "registrySet": {
+    "channel": "echelon-current",
+    "version": "1.42.0",
+    "sha256": "6be3bc97fbdd314abc4c712c2b1b47c1a18487995d9e1b9db445b4d141a8ee8a"
   }
 }

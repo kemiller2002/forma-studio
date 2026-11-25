@@ -12,7 +12,7 @@ if (!formaDist) { console.error("usage: node build.mjs <forma dist directory>");
 const site = join(here, "site");
 mkdirSync(join(site, "assets/forma/brands"), { recursive: true });
 for (const file of ["tokens.css", "foundations.css", "components.css"]) cpSync(join(formaDist, file), join(site, "assets/forma", file));
-for (const file of ["echelon.css", "example-harbor.css"]) cpSync(join(formaDist, "brands", file), join(site, "assets/forma/brands", file));
+for (const file of ["example-harbor.css"]) cpSync(join(formaDist, "brands", file), join(site, "assets/forma/brands", file));
 
 const layout = readFileSync(join(here, "layout.html"), "utf8");
 for (const file of readdirSync(join(here, "content")).filter((f) => f.endsWith(".fragment.html"))) {

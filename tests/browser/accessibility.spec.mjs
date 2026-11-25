@@ -34,10 +34,10 @@ for (const colorScheme of ["light", "dark"]) {
       await page.setViewportSize({ width: 1400, height: 1000 });
       await page.goto("/");
       await page.waitForFunction(() => document.documentElement.dataset.studioReady === "true");
-      await expect(page.locator(".ef-diagram__canvas .ef-diagram-node")).toHaveCount(7);
+      await expect(page.locator(".forma-diagram__canvas .forma-diagram-node")).toHaveCount(7);
       expect(await audit(page)).toEqual([]);
       await page.getByRole("navigation", { name: "Structure" }).locator("button[data-event=select]").filter({ hasText: "Activity: Approve spend" }).click();
-      await expect(page.locator(".ef-diagram__canvas .studio-selected")).toHaveCount(1);
+      await expect(page.locator(".forma-diagram__canvas .studio-selected")).toHaveCount(1);
       expect(await audit(page)).toEqual([]);
     });
 

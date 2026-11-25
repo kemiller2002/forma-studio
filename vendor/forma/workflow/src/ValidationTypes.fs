@@ -47,6 +47,16 @@ type CompatibilityClass =
     /// Valid format that needs Forma capabilities the target release lacks.
     | UnavailableCapabilities of string list
 
+/// What the host tells validation about where the workflow is shown.
+type ValidationOptions =
+    { /// The theme the host pins ("light" or "dark", as data-forma-theme). None:
+      /// the host follows prefers-color-scheme, so both default surfaces apply.
+      Theme: string option }
+
+[<RequireQualifiedAccess>]
+module ValidationOptions =
+    let defaults = { Theme = None }
+
 type ValidationReport =
     { Class: CompatibilityClass
       Findings: Finding list

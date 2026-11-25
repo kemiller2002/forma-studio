@@ -133,7 +133,7 @@ type TypedReference =
 /// A literal color normalized to lowercase `#rrggbb` (solid only, FDA-1070/1071).
 type HexColor = private HexColor of string
 
-/// A public Forma color token such as `--ef-color-accent-primary`.
+/// A public Forma color token such as `--forma-color-accent-primary`.
 type TokenRef = private TokenRef of string
 
 type ColorRef =
@@ -444,18 +444,27 @@ module TokenRef =
     /// `color.tokenReferences` in Forma's `contracts/diagram-presentation.json`
     /// (contract 2.0.0); a test compares this list with the pinned contract copy.
     let allowed =
-        set [ "--ef-color-accent-primary"
-              "--ef-color-accent-secondary"
-              "--ef-color-border-functional"
-              "--ef-color-border-subtle"
-              "--ef-color-surface-primary"
-              "--ef-color-surface-secondary"
-              "--ef-color-surface-inverse"
-              "--ef-color-text-primary"
-              "--ef-color-text-secondary" ]
+        set [ "--forma-color-accent-primary"
+              "--forma-color-accent-secondary"
+              "--forma-color-border-functional"
+              "--forma-color-border-subtle"
+              "--forma-color-surface-primary"
+              "--forma-color-surface-secondary"
+              "--forma-color-surface-inverse"
+              "--forma-color-text-primary"
+              "--forma-color-text-secondary" ]
+
+    /// Forma 0.x spelled these tokens with its former namespace prefix
+    /// (FORMA-NS-001 renamed it to `--forma-` in Forma 1.0.0). A document saved
+    /// before then names the same token, so it is read as its Forma 1.x name and
+    /// written back in the new spelling. The prefix is assembled so that Forma's
+    /// namespace codemod, which rewrites every literal occurrence, leaves it alone.
+    let private formaZeroPrefix = "--" + "ef-"
 
     let parse (raw: string) : Result<TokenRef, string> =
-        if allowed.Contains raw then Ok(TokenRef raw)
+        let current =
+            if raw.StartsWith formaZeroPrefix then "--forma-" + raw.Substring formaZeroPrefix.Length else raw
+        if allowed.Contains current then Ok(TokenRef current)
         else Error(sprintf "'%s' is not a public Forma diagram color token" raw)
 
     let value (TokenRef name) = name

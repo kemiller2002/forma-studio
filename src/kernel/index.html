@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-forma-brand="echelon">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="./forma/foundations.css">
   <link rel="stylesheet" href="./forma/components.css">
   <link rel="stylesheet" href="./forma-workflow/forma-workflow.css">
+  <!-- The Echelon brand for Forma 1.x (@echelon-foundry/echelon-theme), after Forma in its documented order. -->
+  <link rel="stylesheet" href="./echelon-theme/echelon.css">
+  <link rel="stylesheet" href="./echelon-theme/echelon-fonts.css">
+  <link rel="stylesheet" href="./echelon-theme/echelon-app.css">
   <link rel="stylesheet" href="./studio.css">
   <link rel="stylesheet" href="./studio-projection.css">
   <script type="module" src="./main.js"></script>
@@ -16,7 +20,7 @@
 <main class="studio">
   <header class="studio-toolbar">
     <h1><span data-text="diagramName">Loading…</span> <small data-text="profileName"></small></h1>
-    <div class="ef-actions" role="toolbar" aria-label="History and file">
+    <div class="forma-actions" role="toolbar" aria-label="History and file">
       <button type="button" data-event="undo" data-bind-disabled="undoDisabled">Undo</button>
       <button type="button" data-event="redo" data-bind-disabled="redoDisabled">Redo</button>
       <button type="button" data-event="save">Save</button>
@@ -63,9 +67,9 @@
       <template data-each="layoutItems" data-key="key">
         <li class="studio-panel">
           <p class="studio-item-title"><strong data-text="title"></strong> <span data-text="place"></span></p>
-          <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+          <div class="forma-field"><label class="forma-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
           <template data-each="contentFields" data-key="key">
-            <div class="ef-field"><label class="ef-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
+            <div class="forma-field"><label class="forma-field__label"><span data-text="label"></span><input type="text" data-event="layout-set-text" data-bind-value="text"></label></div>
           </template>
           <p class="studio-icon-line" data-bind-hidden="iconLineHidden"><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="iconText"></span></p>
           <template data-if="hasChoices">
@@ -91,9 +95,9 @@
         <h3 id="icon-picker-layout-heading">Icon for <span data-text="iconTargetLabel"></span></h3>
         <p>Current icon: <span data-text="iconCurrent"></span></p>
         <p id="icon-picker-layout-count" aria-live="polite" data-text="iconAvailability"></p>
-        <div class="ef-field">
-          <label class="ef-field__label" for="icon-search-layout">Search icons</label>
-          <span class="ef-field__description" id="icon-search-layout-help">Names, categories and keywords. Press Enter to search.</span>
+        <div class="forma-field">
+          <label class="forma-field__label" for="icon-search-layout">Search icons</label>
+          <span class="forma-field__description" id="icon-search-layout-help">Names, categories and keywords. Press Enter to search.</span>
           <input id="icon-search-layout" type="search" autocomplete="off" aria-describedby="icon-search-layout-help icon-picker-layout-count" data-event="icon-search" data-bind-disabled="iconSearchDisabled">
         </div>
         <div class="studio-icon-choices" role="group" data-bind-aria-label="iconChoicesLabel">
@@ -109,7 +113,7 @@
       </section>
     </template>
     <h3>Preview</h3>
-    <section class="ef-stack" aria-label="Page preview" data-bind-data-density="density">
+    <section class="forma-stack" aria-label="Page preview" data-bind-data-density="density">
       <template data-each="layoutItems" data-key="key"><div><template data-if="isHeading"><h2><template data-if="iconShown"><img class="studio-icon-preview" alt="" width="24" height="24" data-bind-src="iconSrc"></template><span data-text="text"></span></h2></template><template data-if="notHeading"><p><span data-text="kind"></span>: <span data-text="text"></span></p></template></div></template>
     </section>
   </section>
@@ -160,37 +164,37 @@
         <button type="button" data-event="zoom-reset">Actual size</button>
         <button type="button" data-event="toggle-snap" data-bind-aria-pressed="snapPressed">Snap to grid</button>
       </div>
-      <figure class="ef-diagram" aria-labelledby="canvas-title">
+      <figure class="forma-diagram" aria-labelledby="canvas-title">
         <figcaption id="canvas-title" data-text="diagramName"></figcaption>
-        <div class="ef-diagram__viewport" tabindex="0" role="group" aria-label="Diagram canvas. Drag items to move them, or focus an item and use the arrow keys. The Structure list offers the same actions.">
-          <div class="ef-diagram__canvas" data-bind-data-width="canvasWidth" data-bind-data-height="canvasHeight" data-bind-data-zoom="zoomFactor" data-bind-data-snap="snapPressed">
+        <div class="forma-diagram__viewport" tabindex="0" role="group" aria-label="Diagram canvas. Drag items to move them, or focus an item and use the arrow keys. The Structure list offers the same actions.">
+          <div class="forma-diagram__canvas" data-bind-data-width="canvasWidth" data-bind-data-height="canvasHeight" data-bind-data-zoom="zoomFactor" data-bind-data-snap="snapPressed">
             <template data-each="groups" data-key="key">
-              <div class="ef-diagram-group" data-bind-data-ef-group="variant" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground">
-                <p class="ef-diagram-group__header"><span class="ef-diagram-group__kind" data-text="kind"></span> <span class="ef-diagram-group__label" data-text="label"></span></p>
+              <div class="forma-diagram-group" data-bind-data-forma-group="variant" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground">
+                <p class="forma-diagram-group__header"><span class="forma-diagram-group__kind" data-text="kind"></span> <span class="forma-diagram-group__label" data-text="label"></span></p>
               </div>
             </template>
-            <svg class="ef-diagram__wires" aria-hidden="true" focusable="false">
-              <defs><marker id="studio-arrow" class="ef-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+            <svg class="forma-diagram__wires" aria-hidden="true" focusable="false">
+              <defs><marker id="studio-arrow" class="forma-diagram-marker" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
             </svg>
             <template data-each="edges" data-key="key">
-              <div class="studio-wire-layer"><svg class="ef-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-ef-line="line" data-bind-data-connector-stroke="stroke" marker-end="url(#studio-arrow)"/></svg></div>
+              <div class="studio-wire-layer"><svg class="forma-diagram__wires" aria-hidden="true" focusable="false"><path data-bind-class="classes" data-bind-d="d" data-bind-data-forma-line="line" data-bind-data-connector-stroke="stroke" marker-end="url(#studio-arrow)"/></svg></div>
             </template>
             <template data-each="nodes" data-key="key">
-              <div tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-ef-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
+              <div tabindex="0" data-event="select" data-bind-class="classes" data-bind-data-forma-shape="shape" data-bind-data-x="x" data-bind-data-y="y" data-bind-data-w="w" data-bind-data-h="h" data-bind-data-fill="fill" data-bind-data-stroke="stroke" data-bind-data-accent="accent" data-bind-data-foreground="foreground" data-bind-data-node-id="id" data-bind-aria-label="name" data-bind-aria-pressed="pressed" role="button">
                 <template data-if="iconShown"><img class="studio-node-icon" alt="" width="24" height="24" data-bind-src="iconSrc"></template>
-                <p class="ef-diagram-node__kind" data-text="kind"></p>
-                <h3 class="ef-diagram-node__label" data-text="label"></h3>
-                <dl class="ef-diagram-node__meta">
-                  <dt data-text="m1Label" data-bind-hidden="m1Hidden"></dt><dd data-bind-hidden="m1Hidden"><span data-text="m1Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m1State" data-text="m1Note" data-bind-hidden="m1NoteHidden"></span></dd>
-                  <dt data-text="m2Label" data-bind-hidden="m2Hidden"></dt><dd data-bind-hidden="m2Hidden"><span data-text="m2Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m2State" data-text="m2Note" data-bind-hidden="m2NoteHidden"></span></dd>
-                  <dt data-text="m3Label" data-bind-hidden="m3Hidden"></dt><dd data-bind-hidden="m3Hidden"><span data-text="m3Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m3State" data-text="m3Note" data-bind-hidden="m3NoteHidden"></span></dd>
-                  <dt data-text="m4Label" data-bind-hidden="m4Hidden"></dt><dd data-bind-hidden="m4Hidden"><span data-text="m4Value"></span> <span class="ef-diagram-value-state" data-bind-data-ef-value-state="m4State" data-text="m4Note" data-bind-hidden="m4NoteHidden"></span></dd>
+                <p class="forma-diagram-node__kind" data-text="kind"></p>
+                <h3 class="forma-diagram-node__label" data-text="label"></h3>
+                <dl class="forma-diagram-node__meta">
+                  <dt data-text="m1Label" data-bind-hidden="m1Hidden"></dt><dd data-bind-hidden="m1Hidden"><span data-text="m1Value"></span> <span class="forma-diagram-value-state" data-bind-data-forma-value-state="m1State" data-text="m1Note" data-bind-hidden="m1NoteHidden"></span></dd>
+                  <dt data-text="m2Label" data-bind-hidden="m2Hidden"></dt><dd data-bind-hidden="m2Hidden"><span data-text="m2Value"></span> <span class="forma-diagram-value-state" data-bind-data-forma-value-state="m2State" data-text="m2Note" data-bind-hidden="m2NoteHidden"></span></dd>
+                  <dt data-text="m3Label" data-bind-hidden="m3Hidden"></dt><dd data-bind-hidden="m3Hidden"><span data-text="m3Value"></span> <span class="forma-diagram-value-state" data-bind-data-forma-value-state="m3State" data-text="m3Note" data-bind-hidden="m3NoteHidden"></span></dd>
+                  <dt data-text="m4Label" data-bind-hidden="m4Hidden"></dt><dd data-bind-hidden="m4Hidden"><span data-text="m4Value"></span> <span class="forma-diagram-value-state" data-bind-data-forma-value-state="m4State" data-text="m4Note" data-bind-hidden="m4NoteHidden"></span></dd>
                 </dl>
                 <span class="studio-resize-handle" aria-hidden="true"></span>
               </div>
             </template>
             <template data-each="edgeLabels" data-key="key">
-              <span class="ef-diagram-connector__label" data-bind-data-x="x" data-bind-data-y="y" data-text="text"></span>
+              <span class="forma-diagram-connector__label" data-bind-data-x="x" data-bind-data-y="y" data-text="text"></span>
             </template>
             <template data-each="endpoints" data-key="key">
               <button type="button" class="studio-endpoint" data-event="reconnect-end" data-bind-data-end="key" data-bind-data-x="x" data-bind-data-y="y" data-bind-aria-pressed="pressed" data-bind-aria-label="label"></button>
@@ -276,8 +280,8 @@
                 <button type="button" data-event="distribute-horizontally">Distribute horizontally</button>
               </div>
             </template>
-            <div class="ef-field">
-              <label class="ef-field__label" for="inspector-label">Label</label>
+            <div class="forma-field">
+              <label class="forma-field__label" for="inspector-label">Label</label>
               <input id="inspector-label" type="text" data-event="set-label" data-bind-value="labelValue">
             </div>
             <template data-if="selectionIsNode">
@@ -290,8 +294,8 @@
             </template>
             <template data-if="selectionIsNode">
               <div class="studio-choices" role="group" aria-label="Size">
-                <div class="ef-field"><label class="ef-field__label">Width<input type="number" min="1" step="1" data-event="set-width" data-bind-value="widthValue"></label></div>
-                <div class="ef-field"><label class="ef-field__label">Height<input type="number" min="1" step="1" data-event="set-height" data-bind-value="heightValue"></label></div>
+                <div class="forma-field"><label class="forma-field__label">Width<input type="number" min="1" step="1" data-event="set-width" data-bind-value="widthValue"></label></div>
+                <div class="forma-field"><label class="forma-field__label">Height<input type="number" min="1" step="1" data-event="set-height" data-bind-value="heightValue"></label></div>
               </div>
             </template>
             <template data-if="selectionIsNode">
@@ -305,9 +309,9 @@
                 <h3 id="icon-picker-node-heading">Icon for <span data-text="iconTargetLabel"></span></h3>
                 <p>Current icon: <span data-text="iconCurrent"></span></p>
                 <p id="icon-picker-node-count" aria-live="polite" data-text="iconAvailability"></p>
-                <div class="ef-field">
-                  <label class="ef-field__label" for="icon-search-node">Search icons</label>
-                  <span class="ef-field__description" id="icon-search-node-help">Names, categories and keywords. Press Enter to search.</span>
+                <div class="forma-field">
+                  <label class="forma-field__label" for="icon-search-node">Search icons</label>
+                  <span class="forma-field__description" id="icon-search-node-help">Names, categories and keywords. Press Enter to search.</span>
                   <input id="icon-search-node" type="search" autocomplete="off" aria-describedby="icon-search-node-help icon-picker-node-count" data-event="icon-search" data-bind-disabled="iconSearchDisabled">
                 </div>
                 <div class="studio-icon-choices" role="group" data-bind-aria-label="iconChoicesLabel">
@@ -352,8 +356,8 @@
                     </template>
                   </div>
                 </template>
-                <div class="ef-field">
-                  <label class="ef-field__label" for="inspector-field-value">Value as text</label>
+                <div class="forma-field">
+                  <label class="forma-field__label" for="inspector-field-value">Value as text</label>
                   <input id="inspector-field-value" type="text" data-event="set-field-value">
                 </div>
                 <div class="studio-choices">
@@ -380,9 +384,9 @@
             </template>
 
             <h3>Appearance</h3>
-            <div class="ef-field">
-              <label class="ef-field__label" for="inspector-fill">Fill color (#rrggbb)</label>
-              <span class="ef-field__description" id="inspector-fill-source">Current fill: <span data-text="fillSource"></span></span>
+            <div class="forma-field">
+              <label class="forma-field__label" for="inspector-fill">Fill color (#rrggbb)</label>
+              <span class="forma-field__description" id="inspector-fill-source">Current fill: <span data-text="fillSource"></span></span>
               <input id="inspector-fill" type="text" aria-describedby="inspector-fill-source" data-event="set-fill" data-bind-value="fillValue">
             </div>
             <div class="studio-choices" role="group" aria-label="Fill from the project palette">
@@ -406,8 +410,8 @@
       <section class="studio-panel" aria-labelledby="project-heading">
         <h2 id="project-heading">Project</h2>
         <h3>New metadata field</h3>
-        <div class="ef-field">
-          <label class="ef-field__label" for="new-field-name">Field name</label>
+        <div class="forma-field">
+          <label class="forma-field__label" for="new-field-name">Field name</label>
           <input id="new-field-name" type="text" data-event="draft-field-name" data-bind-value="draftFieldName">
         </div>
         <div class="studio-choices" role="group" aria-label="Field type">
@@ -416,9 +420,9 @@
           </template>
         </div>
         <template data-if="draftFieldIsChoice">
-          <div class="ef-field">
-            <label class="ef-field__label" for="new-field-options">Choices</label>
-            <span class="ef-field__description" id="new-field-options-help">Separate choices with commas.</span>
+          <div class="forma-field">
+            <label class="forma-field__label" for="new-field-options">Choices</label>
+            <span class="forma-field__description" id="new-field-options-help">Separate choices with commas.</span>
             <input id="new-field-options" type="text" aria-describedby="new-field-options-help" data-event="draft-field-options" data-bind-value="draftFieldOptions">
           </div>
         </template>
@@ -437,12 +441,12 @@
             </li>
           </template>
         </ul>
-        <div class="ef-field">
-          <label class="ef-field__label" for="new-slot-name">New slot name</label>
+        <div class="forma-field">
+          <label class="forma-field__label" for="new-slot-name">New slot name</label>
           <input id="new-slot-name" type="text" data-event="draft-slot-name" data-bind-value="draftSlotName">
         </div>
-        <div class="ef-field">
-          <label class="ef-field__label" for="new-slot-color">New slot color (#rrggbb)</label>
+        <div class="forma-field">
+          <label class="forma-field__label" for="new-slot-color">New slot color (#rrggbb)</label>
           <input id="new-slot-color" type="text" data-event="draft-slot-color" data-bind-value="draftSlotColor">
         </div>
         <button type="button" data-event="create-slot">Add palette slot</button>
@@ -489,8 +493,8 @@
     <ul aria-label="Left out of the export">
       <template data-each="exportOmitted" data-key="key"><li data-text="text"></li></template>
     </ul>
-    <div class="ef-field">
-      <label class="ef-field__label" for="export-text">Exported HTML</label>
+    <div class="forma-field">
+      <label class="forma-field__label" for="export-text">Exported HTML</label>
       <textarea id="export-text" rows="12" readonly data-bind-value="exportText" data-bind-data-file="exportFile"></textarea>
     </div>
   </section>

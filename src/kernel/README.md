@@ -38,7 +38,7 @@ cancels the pointer before the move commits. Arrow keys on a focused item emit t
 project changes only through that one engine command.
 
 `studio.css` holds editor chrome and adorners (`studio-*`). These never reuse
-`ef-*` classes and never appear in exported output.
+`forma-*` classes and never appear in exported output.
 
 The canvas binds no inline style: Limen 0.7.0 refuses `data-bind-style`
 (limen#18, Limen `docs/29-binding-security.md`). The engine projects geometry

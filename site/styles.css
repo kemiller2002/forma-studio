@@ -2,17 +2,17 @@
   :root {
     color-scheme: dark;
     --studio-max: 1240px;
-    --studio-charcoal: var(--ef-primitive-color-foundry-charcoal, #202421);
-    --studio-iron: var(--ef-primitive-color-forged-iron, #3a403c);
-    --studio-parchment: var(--ef-primitive-color-parchment, #f2efe7);
-    --studio-stone: var(--ef-primitive-color-stone, #e3e0d7);
-    --studio-bronze: var(--ef-primitive-color-oxide-bronze, #905831);
-    --studio-verdigris: var(--ef-primitive-color-verdigris, #47756b);
-    --studio-carbon: var(--ef-primitive-color-carbon, #171a18);
-    --studio-graphite: var(--ef-primitive-color-graphite, #686d68);
-    --studio-display: var(--ef-primitive-font-family-display, "Newsreader", Georgia, serif);
-    --studio-sans: var(--ef-primitive-font-family-sans, "Manrope", system-ui, sans-serif);
-    --studio-mono: var(--ef-primitive-font-family-mono, "IBM Plex Mono", ui-monospace, monospace);
+    --studio-charcoal: var(--forma-primitive-color-foundry-charcoal, #202421);
+    --studio-iron: var(--forma-primitive-color-forged-iron, #3a403c);
+    --studio-parchment: var(--forma-primitive-color-parchment, #f2efe7);
+    --studio-stone: var(--forma-primitive-color-stone, #e3e0d7);
+    --studio-bronze: var(--forma-primitive-color-oxide-bronze, #905831);
+    --studio-verdigris: var(--forma-primitive-color-verdigris, #47756b);
+    --studio-carbon: var(--forma-primitive-color-carbon, #171a18);
+    --studio-graphite: var(--forma-primitive-color-graphite, #686d68);
+    --studio-display: var(--forma-primitive-font-family-display, "Newsreader", Georgia, serif);
+    --studio-sans: var(--forma-primitive-font-family-sans, "Manrope", system-ui, sans-serif);
+    --studio-mono: var(--forma-primitive-font-family-mono, "IBM Plex Mono", ui-monospace, monospace);
   }
 
   * { box-sizing: border-box; }
@@ -73,8 +73,8 @@
     font-family: var(--studio-mono);
     font-size: .72rem;
     /* Forma 0.4.1 on-surface pairing: a surface that cannot carry accent text
-       sets --ef-surface-accent-text-color; elsewhere the theme's accent applies. */
-    color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #905831));
+       sets --forma-surface-accent-text-color; elsewhere the theme's accent applies. */
+    color: var(--forma-surface-accent-text-color, var(--forma-color-accent-primary, #905831));
   }
 
   h1, h2 { font-family: var(--studio-display); font-weight: 500; line-height: .98; letter-spacing: -.025em; }
@@ -92,7 +92,7 @@
 
   .hero-facts { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-top: 1px solid var(--studio-iron); }
   .hero-facts div { padding: 1.2rem 1.2rem 0 0; }
-  .hero-facts dt { color: var(--ef-color-text-secondary, #e3e0d7); font-family: var(--studio-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+  .hero-facts dt { color: var(--forma-color-text-secondary, #e3e0d7); font-family: var(--studio-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
   .hero-facts dd { margin: .4rem 0 0; font-size: .9rem; }
 
   .section { padding-block: clamp(5rem, 10vw, 9rem); }
@@ -100,9 +100,9 @@
   /* Dark sections are Forma's secondary surface in the dark theme; accent text
      there uses the surface's paired text color, as Forma's own surfaces do. */
   .section.dark {
-    --ef-surface-accent-text-color: var(--ef-color-text-primary, #f2efe7);
-    background: var(--ef-color-surface-secondary, #202421);
-    color: var(--ef-color-text-on-secondary-surface, #f2efe7);
+    --forma-surface-accent-text-color: var(--forma-color-text-primary, #f2efe7);
+    background: var(--forma-color-surface-secondary, #202421);
+    color: var(--forma-color-text-on-secondary-surface, #f2efe7);
   }
 
   .split-heading { display: grid; grid-template-columns: 1.4fr .8fr; gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: 4rem; }
@@ -119,7 +119,7 @@
 
   .flow { list-style: none; padding: 0; margin: 4rem 0 0; border-top: 1px solid var(--studio-iron); }
   .flow li { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--studio-iron); }
-  .flow li > span { font-family: var(--studio-mono); color: var(--ef-surface-accent-text-color, var(--ef-color-accent-primary, #a87e5e)); }
+  .flow li > span { font-family: var(--studio-mono); color: var(--forma-surface-accent-text-color, var(--forma-color-accent-primary, #a87e5e)); }
   .flow h3 { font-family: var(--studio-display); font-size: 1.6rem; font-weight: 500; }
   .flow p { color: var(--studio-stone); max-width: 760px; }
 
@@ -133,9 +133,9 @@
   .architecture strong, .architecture span { display: block; }
   .architecture strong { font-family: var(--studio-display); font-size: 1.55rem; font-weight: 500; }
   .architecture span { margin-top: .35rem; color: var(--studio-stone); font-size: .82rem; }
-  .architecture b { padding: .6rem; color: var(--ef-primitive-color-oxide-bronze-light, #a87e5e); }
+  .architecture b { padding: .6rem; color: var(--forma-primitive-color-oxide-bronze-light, #a87e5e); }
 
-  .callout { --ef-surface-accent-text-color: var(--ef-color-text-primary, #f2efe7); background: var(--studio-iron); color: var(--ef-color-text-primary, #f2efe7); }
+  .callout { --forma-surface-accent-text-color: var(--forma-color-text-primary, #f2efe7); background: var(--studio-iron); color: var(--forma-color-text-primary, #f2efe7); }
   .callout p:not(.eyebrow) { max-width: 760px; color: var(--studio-stone); font-size: 1.05rem; }
 
   footer { display: flex; justify-content: space-between; gap: 2rem; padding-block: 3rem; border-top: 1px solid var(--studio-iron); color: var(--studio-stone); font-size: .82rem; }

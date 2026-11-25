@@ -94,8 +94,88 @@ module Validation =
 
     let private blank (s: string) = String.IsNullOrWhiteSpace s
 
+    /// Forma's light surface-primary (--forma-color-surface-primary, the
+    /// components.css fallback): the effective fill of a node without an
+    /// authored fill, and the canvas behind groups and edges.
+    let defaultSurface = HexColor.create "#fafafa"
+
+    /// The default diagram surfaces a literal colour may land on: the compiled
+    /// light theme and the dark theme (prefers-color-scheme: dark and
+    /// data-forma-theme="dark"), both --forma-color-surface-primary in dist/tokens.css.
+    let defaultSurfaces = [ "light", defaultSurface; "dark", HexColor.create "#161616" ]
+
+    /// The default surfaces a document is judged against for a host theme: the
+    /// pinned theme's surface only, or light and dark when the host follows
+    /// prefers-color-scheme (no theme, or one Forma.Workflow does not pin).
+    let surfacesFor (options: ValidationOptions) =
+        match options.Theme with
+        | Some theme when defaultSurfaces |> List.exists (fst >> (=) theme) -> defaultSurfaces |> List.filter (fst >> (=) theme)
+        | _ -> defaultSurfaces
+
+    /// WCAG 1.4.11 minimum for non-text indicators (outlines, accents, connectors).
+    let nonTextMinimum = 3.0
+
+    let private ratioText (ratio: float) = ratio.ToString("0.00", Globalization.CultureInfo.InvariantCulture)
+
+    let private nonTextFinding ptr subject message =
+        finding "A11Y-NONTEXT-CONTRAST" Severity.Error FindingCategory.Accessibility ptr subject
+            $"{message}; non-text indicators need at least 3:1 (WCAG 1.4.11)."
+
+    /// A literal drawn directly on the default surfaces, judged in the theme where it is weakest.
+    let private onSurfaces surfaces ptr subject (label: string) (colour: HexColor) =
+        let theme, surface = surfaces |> List.minBy (fun (_, s) -> HexColor.contrast colour s)
+        let ratio = HexColor.contrast colour surface
+        if ratio < nonTextMinimum then
+            [ nonTextFinding ptr subject $"{label} colour {colour.Value} on the {theme} surface {surface.Value} has contrast {ratioText ratio}:1" ]
+        else []
+
+    /// A11Y-NONTEXT-CONTRAST for a node, group or legend swatch.
+    /// - No authored fill: the shape is drawn on the default surface, so a
+    ///   literal stroke and accent must reach 3:1 against the light and the dark
+    ///   surface.
+    /// - Literal fill: the accent is an indicator and must reach 3:1 against the
+    ///   fill. The stroke is a boundary: it is reported when it is below 3:1
+    ///   against the fill and the boundary is not otherwise perceivable, that is
+    ///   when neither the stroke nor the fill reaches 3:1 against a default
+    ///   surface (a borderless filled shape stays valid where its fill stands out).
+    /// Token values (and token-backed palette slots), token fills and token/literal
+    /// mixes are not judged: the theme decides them. The token pairs are covered by
+    /// tests/nontext-contrast.test.mjs.
+    let private nonTextContrast surfaces (w: Workflow) ptr subject (c: ObjectColor) =
+        let stroke, accent = resolveLiteral w c.Stroke, resolveLiteral w c.Accent
+        let field name = ptr + "/color/" + name
+        let onSurface name label value = value |> Option.map (onSurfaces surfaces (field name) subject label) |> Option.defaultValue []
+        match c.Fill with
+        | None -> onSurface "stroke" "Stroke" stroke @ onSurface "accent" "Accent" accent
+        | Some _ ->
+            match resolveLiteral w c.Fill with
+            | None -> []
+            | Some fill ->
+                let below a b = HexColor.contrast a b < nonTextMinimum
+                let strokeFindings =
+                    match stroke with
+                    | Some s when below s fill ->
+                        surfaces
+                        |> List.tryFind (fun (_, surface) -> below s surface && below fill surface)
+                        |> Option.map (fun (theme, surface) ->
+                            nonTextFinding (field "stroke") subject
+                                $"Stroke colour {s.Value} on fill {fill.Value} has contrast {ratioText (HexColor.contrast s fill)}:1, and neither reaches 3:1 against the {theme} surface {surface.Value}, so the shape has no perceivable boundary")
+                        |> Option.toList
+                    | _ -> []
+                let accentFindings =
+                    match accent with
+                    | Some a when below a fill ->
+                        [ nonTextFinding (field "accent") subject $"Accent colour {a.Value} on fill {fill.Value} has contrast {ratioText (HexColor.contrast a fill)}:1" ]
+                    | _ -> []
+                strokeFindings @ accentFindings
+
+    /// A11Y-NONTEXT-CONTRAST for an edge: a literal stroke against the default surfaces.
+    let private edgeContrast surfaces (w: Workflow) ptr subject (stroke: ColorValue option) =
+        resolveLiteral w stroke |> Option.map (onSurfaces surfaces (ptr + "/color/stroke") subject "Edge") |> Option.defaultValue []
+
     /// Accessibility rules that can be decided from the document alone.
-    let private accessibility (w: Workflow) =
+    let private accessibility (options: ValidationOptions) (w: Workflow) =
+        let surfaces = surfacesFor options
         let title =
             if blank w.Title then [ finding "A11Y-TITLE" Severity.Error FindingCategory.Accessibility "/title" None "The workflow title is blank; it names the diagram for assistive technology." ]
             else []
@@ -120,13 +200,18 @@ module Validation =
                 let shown = ratio.ToString("0.00", Globalization.CultureInfo.InvariantCulture)
                 [ finding "A11Y-CONTRAST" Severity.Error FindingCategory.Accessibility (ptr + "/color") subject
                       $"Text colour {fg.Value} on fill {fill.Value} has contrast {shown}:1; at least 4.5:1 is required." ]
-            | None, Some fill when HexColor.contrast (HexColor.create "#171a18") fill < 4.5 && HexColor.contrast (HexColor.create "#ffffff") fill < 4.5 ->
+            | None, Some fill when HexColor.contrast (HexColor.create "#161616") fill < 4.5 && HexColor.contrast (HexColor.create "#ffffff") fill < 4.5 ->
                 [ finding "A11Y-CONTRAST" Severity.Warning FindingCategory.Accessibility (ptr + "/color") subject
                       $"Fill {fill.Value} has low contrast with both dark and light text; set an explicit foreground." ]
             | _ -> []
         let contrasts =
             (w.Nodes |> List.mapi (fun i n -> contrast (nodePtr i) (Some n.Id.Value) n.Color) |> List.concat)
             @ (w.Groups |> List.mapi (fun i g -> contrast (groupPtr i) (Some g.Id.Value) g.Color) |> List.concat)
+        let nonText =
+            (w.Nodes |> List.mapi (fun i n -> nonTextContrast surfaces w (nodePtr i) (Some n.Id.Value) n.Color) |> List.concat)
+            @ (w.Groups |> List.mapi (fun i g -> nonTextContrast surfaces w (groupPtr i) (Some g.Id.Value) g.Color) |> List.concat)
+            @ (w.Edges |> List.mapi (fun i e -> edgeContrast surfaces w (edgePtr i) (Some e.Id.Value) e.Stroke) |> List.concat)
+            @ (w.Presentation.Legend |> List.mapi (fun i l -> nonTextContrast surfaces w $"/presentation/legend/{i}" (Some l.Id.Value) l.Color) |> List.concat)
         let branches =
             w.Nodes
             |> List.mapi (fun i n ->
@@ -161,7 +246,7 @@ module Validation =
             |> List.filter (fun (_, _, t) -> hasBidiControl t)
             |> List.map (fun (ptr, subject, _) ->
                 finding "SEC-BIDI-CONTROL" Severity.Warning FindingCategory.Security ptr subject "Text contains bidirectional override characters that can make it read differently than it is stored.")
-        title @ names @ groupNames @ contrasts @ branches @ customColorWithoutLegend @ bidi
+        title @ names @ groupNames @ contrasts @ nonText @ branches @ customColorWithoutLegend @ bidi
 
     let private layoutFindings (w: Workflow) =
         match w.Layout.Mode with
@@ -174,9 +259,12 @@ module Validation =
         | _ -> []
 
     /// Every rule that needs a decoded workflow.
-    let semantic (w: Workflow) : Finding list =
+    let semanticWith (options: ValidationOptions) (w: Workflow) : Finding list =
         identity w @ connections w @ membership w @ interactionFindings w @ paletteFindings w @ extensionFindings w
-        @ semanticWarnings w @ accessibility w @ layoutFindings w
+        @ semanticWarnings w @ accessibility options w @ layoutFindings w
+
+    /// Every rule that needs a decoded workflow, for a host that follows prefers-color-scheme.
+    let semantic (w: Workflow) : Finding list = semanticWith ValidationOptions.defaults w
 
     let private compatibilityFindings (w: Workflow) =
         let used = Capabilities.used w
@@ -220,8 +308,8 @@ module Validation =
     let private invalid findings =
         { Class = StructurallyInvalid; Findings = findings; Workflow = None; Capabilities = []; Extensions = [] }
 
-    /// Classifies and decodes a parsed document.
-    let ofJson (json: Json) : ValidationReport =
+    /// Classifies and decodes a parsed document for the given host options.
+    let ofJsonWith (options: ValidationOptions) (json: Json) : ValidationReport =
         let format = Json.field "format" json
         let version = Json.field "formatVersion" json
         match json, format, version with
@@ -246,7 +334,7 @@ module Validation =
                     match Codec.decode json with
                     | Result.Error e -> invalid [ finding "DECODE" Severity.Error FindingCategory.Structure "/" None e ]
                     | Ok workflow ->
-                        let semanticFindings = semantic workflow
+                        let semanticFindings = semanticWith options workflow
                         let caps, unavailable, compat = compatibilityFindings workflow
                         let namespaces = extensionNamespaces workflow
                         let migrationFindings =
@@ -265,11 +353,17 @@ module Validation =
             | errors -> invalid errors
         | _ -> invalid [ finding "FORMAT" Severity.Error FindingCategory.Structure "/" None "A workflow document is a JSON object." ]
 
-    /// Parses, classifies and decodes untrusted text.
-    let load (text: string) : ValidationReport =
+    /// Classifies and decodes a parsed document (no pinned theme).
+    let ofJson (json: Json) : ValidationReport = ofJsonWith ValidationOptions.defaults json
+
+    /// Parses, classifies and decodes untrusted text for the given host options.
+    let loadWith (options: ValidationOptions) (text: string) : ValidationReport =
         match Json.parse text with
         | Result.Error e -> invalid [ finding "JSON" Severity.Error FindingCategory.Structure "/" None e ]
-        | Ok json -> ofJson json
+        | Ok json -> ofJsonWith options json
+
+    /// Parses, classifies and decodes untrusted text (no pinned theme).
+    let load (text: string) : ValidationReport = loadWith ValidationOptions.defaults text
 
     /// Re-validates an in-memory workflow (for example after an edit).
     let check (w: Workflow) : ValidationReport = ofJson (Codec.encode w)

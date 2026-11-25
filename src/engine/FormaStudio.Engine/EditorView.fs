@@ -120,7 +120,7 @@ module EditorView =
                     item
                         ([ "key", str (sprintf "node:%s" (Id.value n.Id))
                            "id", str (Id.value n.Id)
-                           "classes", str (String.concat " " ("ef-diagram-node" :: adorners))
+                           "classes", str (String.concat " " ("forma-diagram-node" :: adorners))
                            "shape", str (shapeName e.Shape.Value)
                            "kind", str (kindLabel n.Kind)
                            "label", str n.Label
@@ -149,7 +149,7 @@ module EditorView =
                         [ "key", str (sprintf "edge:%s" (Id.value edge.Id))
                           "d", str d
                           "line", str (lineName e.Line.Value)
-                          "classes", str (if isSelected r then "ef-diagram-connector studio-selected-wire" else "ef-diagram-connector")
+                          "classes", str (if isSelected r then "forma-diagram-connector studio-selected-wire" else "forma-diagram-connector")
                           "stroke", color e.ConnectorStroke ])
             // Endpoint handles are editor adorners for the one selected connector.
             let endpoints =
@@ -250,7 +250,9 @@ module EditorView =
                   |> List.map (fun (k, label, t) -> item [ "key", str k; "label", str label; "pressed", str (if state.Export.Target = t then "true" else "false") ])
                   |> JArray
                   "exportBrands",
-                  [ "none", "No brand"; "echelon", "Echelon"; "example-harbor", "Example Harbor" ]
+                  // Forma 1.x ships no organization's brand (BNR-001): the choices are its own
+                  // example brand, which the exported document loads as brands/<id>.css.
+                  [ "none", "No brand"; "example-harbor", "Example Harbor" ]
                   |> List.map (fun (k, label) -> item [ "key", str k; "label", str label; "pressed", str (if (state.Export.Brand |> Option.defaultValue "none") = k then "true" else "false") ])
                   |> JArray
                   "exportText", str state.Export.Text

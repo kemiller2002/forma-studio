@@ -16,7 +16,7 @@ for (const file of pages) {
     expect(source.toLowerCase()).not.toContain("studio");
     expect(source).not.toContain("<script");
     // Forma CSS is applied (the consumer installed the public assets).
-    expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ef-color-text-primary").trim())).not.toBe("");
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--forma-color-text-primary").trim())).not.toBe("");
     const result = await new AxeBuilder({ page }).withTags(wcag).analyze();
     expect(result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(" ")}`)).toEqual([]);
   });
@@ -31,7 +31,7 @@ for (const file of pages) {
 test("the responsive composition reflows to one column on a phone and several on a desktop", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(site + "responsive.html");
-  const columns = () => page.locator(".ef-responsive-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+  const columns = () => page.locator(".forma-responsive-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
   expect(await columns()).toBeGreaterThan(1);
   await page.setViewportSize({ width: 320, height: 800 });
   expect(await columns()).toBe(1);
@@ -40,19 +40,19 @@ test("the responsive composition reflows to one column on a phone and several on
 test("the branded composition applies the public brand without changing the markup", async ({ page }) => {
   const plain = readFileSync("examples/html-consumer/site/application.html", "utf8");
   const branded = readFileSync("examples/html-consumer/site/branded.html", "utf8");
-  expect(branded.replace(' data-ef-brand="example-harbor"', "").replace(/\s*<link rel="stylesheet" href="assets\/forma\/brands\/example-harbor.css">/, "")).toBe(plain);
+  expect(branded.replace(' data-forma-brand="example-harbor"', "").replace(/\s*<link rel="stylesheet" href="assets\/forma\/brands\/example-harbor.css">/, "")).toBe(plain);
   await page.goto(site + "application.html");
-  const before = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ef-color-accent-primary").trim());
+  const before = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--forma-color-accent-primary").trim());
   await page.goto(site + "branded.html");
-  const after = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ef-color-accent-primary").trim());
+  const after = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--forma-color-accent-primary").trim());
   expect(after).not.toBe(before);
 });
 
 test("the workflow page keeps relationships in text and is usable by keyboard", async ({ page }) => {
   await page.goto(site + "workflow.html");
-  await expect(page.locator(".ef-diagram__relations li")).toHaveCount(5);
+  await expect(page.locator(".forma-diagram__relations li")).toHaveCount(5);
   await page.keyboard.press("Tab");
-  await expect(page.locator(".ef-diagram__viewport")).toBeFocused();
+  await expect(page.locator(".forma-diagram__viewport")).toBeFocused();
 });
 
 test("form semantics survive export", async ({ page }) => {

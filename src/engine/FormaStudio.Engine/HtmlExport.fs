@@ -11,7 +11,7 @@ type HtmlExportOptions =
     { Target: HtmlTarget
       /// Where the consuming project serves Forma's dist files.
       FormaBase: string
-      /// Optional public Forma brand (brands/<id>.css and data-ef-brand).
+      /// Optional public Forma brand (brands/<id>.css and data-forma-brand).
       Brand: string option
       Theme: string option
       Language: string
@@ -84,7 +84,7 @@ module HtmlExport =
     let rec private peerMark (group: string) (markup: Markup) =
         let add attrs = attrs @ [ "data-uli-align-peer", group ]
         match markup with
-        | Element(name, attrs, children) when attrs |> List.contains ("class", "ef-field") ->
+        | Element(name, attrs, children) when attrs |> List.contains ("class", "forma-field") ->
             let control = children |> List.tryFindIndex (function Element("input", _, _) -> true | _ -> false)
             match control with
             | Some i -> Element(name, attrs, children |> List.mapi (fun j c -> match c with Element(n, a, k) when i = j -> Element(n, add a, k) | other -> other))
@@ -113,7 +113,7 @@ module HtmlExport =
         | "stack" ->
             let markup, omitted = kids ()
             let density = match property "density" node with Some(JString d) -> [ "data-density", d ] | _ -> []
-            [ el "div" ([ "class", "ef-stack" ] @ density) markup ], iconNotes @ omitted
+            [ el "div" ([ "class", "forma-stack" ] @ density) markup ], iconNotes @ omitted
         | "heading" ->
             let level = match property "level" node with Some(JNumber n) -> (match System.Int32.TryParse n with | true, v when v >= 1 && v <= 6 -> v | _ -> 2) | _ -> 2
             one (el ("h" + string level) [] [ text (content "text" node |> Option.defaultValue "") ])
@@ -124,7 +124,7 @@ module HtmlExport =
         | "link-button" ->
             let label = content "label" node |> Option.defaultValue ""
             match content "href" node |> Option.filter Validation.isSafeUrl with
-            | Some href -> one (el "a" [ "class", "ef-button"; "href", href ] (withIcon [ text label ]))
+            | Some href -> one (el "a" [ "class", "forma-button"; "href", href ] (withIcon [ text label ]))
             | None -> [ el "span" [] (withIcon [ text label ]) ], iconNotes @ [ $"{nodeId node}: link target is missing or not http, https, mailto or relative, so it was exported as text" ]
         | "text-field" ->
             let id = "field-" + nodeId node
@@ -135,10 +135,10 @@ module HtmlExport =
             one (
                 el
                     "div"
-                    [ "class", "ef-field" ]
-                    [ yield el "label" [ "class", "ef-field__label"; "for", id ] [ text (content "label" node |> Option.defaultValue "") ]
+                    [ "class", "forma-field" ]
+                    [ yield el "label" [ "class", "forma-field__label"; "for", id ] [ text (content "label" node |> Option.defaultValue "") ]
                       match description with
-                      | Some d -> yield el "span" [ "class", "ef-field__description"; "id", id + "-description" ] [ text d ]
+                      | Some d -> yield el "span" [ "class", "forma-field__description"; "id", id + "-description" ] [ text d ]
                       | None -> ()
                       yield
                           el
@@ -151,40 +151,40 @@ module HtmlExport =
         | "actions" ->
             let markup, omitted = kids ()
             let declared, markup = declareAlignment node markup
-            [ el "div" ([ "class", "ef-actions" ] @ declared) markup ], iconNotes @ omitted
+            [ el "div" ([ "class", "forma-actions" ] @ declared) markup ], iconNotes @ omitted
         | "surface" ->
             let markup, omitted = kids ()
             let titleId = "surface-" + nodeId node
             match content "title" node with
-            | Some title -> [ el "section" [ "class", "ef-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], iconNotes @ omitted
-            | None -> [ el "div" [ "class", "ef-surface" ] markup ], iconNotes @ omitted
+            | Some title -> [ el "section" [ "class", "forma-surface"; "aria-labelledby", titleId ] (el "h2" [ "id", titleId ] [ text title ] :: markup) ], iconNotes @ omitted
+            | None -> [ el "div" [ "class", "forma-surface" ] markup ], iconNotes @ omitted
         | "responsive-grid" ->
             let markup, omitted = kids ()
             let declared, markup = declareAlignment node markup
             match content "label" node with
-            | Some label -> [ el "section" ([ "class", "ef-responsive-grid"; "aria-label", label ] @ declared) markup ], iconNotes @ omitted
-            | None -> [ el "div" ([ "class", "ef-responsive-grid" ] @ declared) markup ], iconNotes @ omitted
+            | Some label -> [ el "section" ([ "class", "forma-responsive-grid"; "aria-label", label ] @ declared) markup ], iconNotes @ omitted
+            | None -> [ el "div" ([ "class", "forma-responsive-grid" ] @ declared) markup ], iconNotes @ omitted
         | "alert" ->
             one (
                 el
                     "aside"
-                    [ "class", "ef-alert"; "role", "status" ]
-                    [ el "div" [ "class", "ef-alert__icon"; "aria-hidden", "true" ] (if List.isEmpty icon then [ text "!" ] else icon)
+                    [ "class", "forma-alert"; "role", "status" ]
+                    [ el "div" [ "class", "forma-alert__icon"; "aria-hidden", "true" ] (if List.isEmpty icon then [ text "!" ] else icon)
                       el
                           "div"
                           []
-                          [ el "h3" [ "class", "ef-alert__title" ] [ text (content "title" node |> Option.defaultValue "") ]
+                          [ el "h3" [ "class", "forma-alert__title" ] [ text (content "title" node |> Option.defaultValue "") ]
                             el "p" [] [ text (content "text" node |> Option.defaultValue "") ] ] ]
             )
         | "metric-card" ->
             one (
                 el
                     "article"
-                    [ "class", "ef-metric-card" ]
-                    [ yield el "div" [ "class", "ef-metric-card__label" ] (withIcon [ text (content "label" node |> Option.defaultValue "") ])
-                      yield el "div" [ "class", "ef-metric-card__value" ] [ text (content "value" node |> Option.defaultValue "") ]
+                    [ "class", "forma-metric-card" ]
+                    [ yield el "div" [ "class", "forma-metric-card__label" ] (withIcon [ text (content "label" node |> Option.defaultValue "") ])
+                      yield el "div" [ "class", "forma-metric-card__value" ] [ text (content "value" node |> Option.defaultValue "") ]
                       match content "context" node with
-                      | Some c -> yield el "div" [ "class", "ef-metric-card__context" ] [ text c ]
+                      | Some c -> yield el "div" [ "class", "forma-metric-card__context" ] [ text c ]
                       | None -> () ]
             )
         | "workflow" ->
@@ -203,7 +203,7 @@ module HtmlExport =
     let rec private iconRelease (markup: Markup list) =
         markup
         |> List.tryPick (function
-            | Element("ef-icon", attributes, _) -> attributes |> List.tryFind (fst >> (=) "data-forma-version") |> Option.map snd
+            | Element("forma-icon", attributes, _) -> attributes |> List.tryFind (fst >> (=) "data-forma-version") |> Option.map snd
             | Element(_, _, children) -> iconRelease children
             | _ -> None)
 
@@ -225,8 +225,8 @@ module HtmlExport =
                 deps |> List.choose (function Stylesheet(_, _, path) -> Some(el "link" [ "rel", "stylesheet"; "href", join path ] []) | RuntimeModule _ -> None)
             let htmlAttrs =
                 [ yield "lang", opts.Language
-                  match brandOk opts.Brand with Some b -> yield "data-ef-brand", b | None -> ()
-                  match themeOk opts.Theme with Some t -> yield "data-ef-theme", t | None -> () ]
+                  match brandOk opts.Brand with Some b -> yield "data-forma-brand", b | None -> ()
+                  match themeOk opts.Theme with Some t -> yield "data-forma-theme", t | None -> () ]
             let head =
                 el
                     "head"

@@ -183,30 +183,30 @@ let exportTests =
               expect (not (html.ToLowerInvariant().Contains "studio")) $"{id}: Studio reference"
               for m in Regex.Matches(html, "class=\"([^\"]+)\"") do
                   for c in m.Groups[1].Value.Split ' ' do
-                      expect (c.StartsWith "ef-") $"{id}: non-Forma class {c}"
+                      expect (c.StartsWith "forma-") $"{id}: non-Forma class {c}"
                       // Public pattern markup may name a part Forma does not style (forma:patterns/metric-card.html).
-                      let patternOnly = set [ "ef-metric-card__context" ]
+                      let patternOnly = set [ "forma-metric-card__context" ]
                       expect (patternOnly.Contains c || Regex.IsMatch(publicClasses.Value, "\\." + Regex.Escape c + "(?![a-zA-Z0-9_-])")) $"{id}: {c} is not public Forma CSS")
 
       test "Fragments declare their assets; documents are complete and link exactly the declared assets" (fun () ->
           let p, lib = designs (), workflowLibrary ()
           let fragment = HtmlExport.page HtmlExport.defaults lib (pageOf p "application")
           expect (fragment.Html.StartsWith "<!-- Requires @echelon-foundry/design-system@0.4.0/tokens.css") fragment.Html
-          let doc = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument; FormaBase = "/assets/forma/"; Brand = Some "echelon" } lib (pageOf p "application")
-          for part in [ "<!doctype html>"; "<html lang=\"en\" data-ef-brand=\"echelon\">"; "<meta charset=\"utf-8\">"; "<meta name=\"viewport\""; "<title>Crew scheduling</title>"; "<main>"
-                        "href=\"/assets/forma/components.css\""; "href=\"/assets/forma/brands/echelon.css\"" ] do
+          let doc = HtmlExport.page { HtmlExport.defaults with Target = HtmlDocument; FormaBase = "/assets/forma/"; Brand = Some "example-harbor" } lib (pageOf p "application")
+          for part in [ "<!doctype html>"; "<html lang=\"en\" data-forma-brand=\"example-harbor\">"; "<meta charset=\"utf-8\">"; "<meta name=\"viewport\""; "<title>Crew scheduling</title>"; "<main>"
+                        "href=\"/assets/forma/components.css\""; "href=\"/assets/forma/brands/example-harbor.css\"" ] do
               expect (doc.Html.Contains part) part
           equal 4 doc.Dependencies.Length "dependencies")
 
       test "Accessibility semantics survive export: labels, descriptions, headings, landmarks and names" (fun () ->
           let p, lib = designs (), workflowLibrary ()
           let html = (HtmlExport.page HtmlExport.defaults lib (pageOf p "application")).Html
-          expect (html.Contains "<label class=\"ef-field__label\" for=\"field-app-email\">Work email</label>") "label"
+          expect (html.Contains "<label class=\"forma-field__label\" for=\"field-app-email\">Work email</label>") "label"
           expect (html.Contains "aria-describedby=\"field-app-email-description\"") "description"
           expect (html.Contains "<h1>Crew scheduling</h1>") "heading"
           expect (html.Contains "aria-labelledby=\"surface-app-form\"") "named section"
           let wf = (HtmlExport.page HtmlExport.defaults lib (pageOf p "workflow")).Html
-          expect (wf.Contains "class=\"ef-diagram__relations\"") "workflow relationships in text")
+          expect (wf.Contains "class=\"forma-diagram__relations\"") "workflow relationships in text")
 
       test "Authored values are escaped and unsafe links are not emitted" (fun () ->
           let p = designs ()
@@ -252,6 +252,6 @@ let componentTests =
           let p = designs ()
           let page = pageOf p "application"
           let result = (HtmlExport.componentTree HtmlExport.defaults WorkflowLibrary.empty page (Samples.idOf "app-form")).Value
-          expect (result.Html.Contains "<section class=\"ef-surface\" aria-labelledby=\"surface-app-form\">") "root"
+          expect (result.Html.Contains "<section class=\"forma-surface\" aria-labelledby=\"surface-app-form\">") "root"
           expect (result.Html.Contains "field-app-email") "children"
           expect (not (result.Html.Contains "Crew scheduling</h1>")) "siblings excluded") ]

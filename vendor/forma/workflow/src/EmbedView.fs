@@ -3,7 +3,7 @@ namespace Forma.Workflow
 open System
 
 /// The embeddable component's view. The canvas is the same public figure the
-/// static renderer produces; editor-only affordances use ef-workflow-editor*
+/// static renderer produces; editor-only affordances use forma-workflow-editor*
 /// classes and data-fw-* hooks that never appear in exported output.
 [<RequireQualifiedAccess>]
 module EmbedView =
@@ -36,7 +36,7 @@ module EmbedView =
                       false
                       [ el
                             "div"
-                            [ "class", "ef-workflow-editor__geometry" ]
+                            [ "class", "forma-workflow-editor__geometry" ]
                             [ textInput ctx "x" "X" "set-geometry" key (num r.X) [ "data-fw-arg", "x"; "inputmode", "decimal" ]
                               textInput ctx "y" "Y" "set-geometry" key (num r.Y) [ "data-fw-arg", "y"; "inputmode", "decimal" ]
                               textInput ctx "width" "Width" "set-geometry" key (num r.W) [ "data-fw-arg", "width"; "inputmode", "decimal" ]
@@ -44,7 +44,7 @@ module EmbedView =
                         if ctx.Editable then
                             el
                                 "div"
-                                [ "class", "ef-cluster"; "role", "group"; "aria-label", "Move" ]
+                                [ "class", "forma-cluster"; "role", "group"; "aria-label", "Move" ]
                                 [ btn "nudge" None [ "value", "left" ] "Move left"; btn "nudge" None [ "value", "right" ] "Move right"
                                   btn "nudge" None [ "value", "up" ] "Move up"; btn "nudge" None [ "value", "down" ] "Move down" ]
                         else text "" ]
@@ -70,7 +70,7 @@ module EmbedView =
                     else
                         el
                             "ul"
-                            [ "class", "ef-workflow-editor__rows" ]
+                            [ "class", "forma-workflow-editor__rows" ]
                             (n.Ports
                              |> List.map (fun p ->
                                  let detail =
@@ -95,13 +95,13 @@ module EmbedView =
                       false
                       [ el
                             "ul"
-                            [ "class", "ef-workflow-editor__rows" ]
+                            [ "class", "forma-workflow-editor__rows" ]
                             (groups
                              |> List.map (fun g ->
                                  let id = inputId ctx ("member-" + g.Id.Value)
                                  el
                                      "li"
-                                     [ "class", "ef-checkbox" ]
+                                     [ "class", "forma-checkbox" ]
                                      [ el
                                            "input"
                                            ([ "id", id; "type", "checkbox"; "data-fw-event", "membership"; "data-fw-key", ObjectRef.key (GroupRef g.Id); "data-fw-arg", n.Id.Value ]
@@ -139,7 +139,7 @@ module EmbedView =
           yield! statusSection ctx key e.Status
           section "Appearance" false [ colorInputs ctx key [ "stroke", "Line colour", e.Stroke ] ]
           if ctx.Editable then
-              el "div" [ "class", "ef-cluster"; "role", "group"; "aria-label", "Reconnect" ] [ btn "reconnect-start" None [ "data-fw-arg", "source" ] "Change start"; btn "reconnect-start" None [ "data-fw-arg", "target" ] "Change end" ]
+              el "div" [ "class", "forma-cluster"; "role", "group"; "aria-label", "Reconnect" ] [ btn "reconnect-start" None [ "data-fw-arg", "source" ] "Change start"; btn "reconnect-start" None [ "data-fw-arg", "target" ] "Change end" ]
           else text ""
           referencesSection ctx key e.References
           metadataSection ctx key e.Metadata
@@ -162,13 +162,13 @@ module EmbedView =
               true
               [ el
                     "ul"
-                    [ "class", "ef-workflow-editor__rows" ]
+                    [ "class", "forma-workflow-editor__rows" ]
                     (ctx.Workflow.Nodes
                      |> List.map (fun n ->
                          let id = inputId ctx ("gm-" + n.Id.Value)
                          el
                              "li"
-                             [ "class", "ef-checkbox" ]
+                             [ "class", "forma-checkbox" ]
                              [ el
                                    "input"
                                    ([ "id", id; "type", "checkbox"; "data-fw-event", "membership"; "data-fw-key", key; "data-fw-arg", n.Id.Value ]
@@ -186,7 +186,7 @@ module EmbedView =
         [ textInput ctx "title" "Workflow title" "set-title" "workflow" w.Title [ "required", "" ]
           el
               "dl"
-              [ "class", "ef-workflow-editor__facts" ]
+              [ "class", "forma-workflow-editor__facts" ]
               [ el "dt" [] [ text "Id" ]
                 el "dd" [] [ el "code" [] [ text w.Id.Value ] ]
                 el "dt" [] [ text "File" ]
@@ -226,7 +226,7 @@ module EmbedView =
             | Some n ->
                 let r = NodeRef n.Id
                 let isSelected = selected r
-                let cls = [ "ef-workflow-editor__object"; (if isSelected then "ef-workflow-editor__selected" else "") ] |> List.filter ((<>) "")
+                let cls = [ "forma-workflow-editor__object"; (if isSelected then "forma-workflow-editor__selected" else "") ] |> List.filter ((<>) "")
                 let attrs =
                     attrs
                     |> List.map (fun (k, v) -> if k = "class" then k, v + " " + String.Join(" ", cls) else k, v)
@@ -234,28 +234,28 @@ module EmbedView =
                     |> fun a -> a @ (if edit && isSelected then [ "data-fw-drag", "move" ] else [])
                 let intent =
                     match n.Interaction with
-                    | Some(Command(_, label, _)) -> [ btn "intent" (Some(ObjectRef.key r)) [ "class", "ef-workflow-editor__intent" ] label ]
+                    | Some(Command(_, label, _)) -> [ btn "intent" (Some(ObjectRef.key r)) [ "class", "forma-workflow-editor__intent" ] label ]
                     | Some(Open(t, l)) | Some(Navigate(t, l)) when (match t with ToUrl _ -> false | _ -> true) ->
-                        [ btn "intent" (Some(ObjectRef.key r)) [ "class", "ef-workflow-editor__intent" ] (l |> Option.defaultValue "Open") ]
+                        [ btn "intent" (Some(ObjectRef.key r)) [ "class", "forma-workflow-editor__intent" ] (l |> Option.defaultValue "Open") ]
                     | _ -> []
                 let handles =
                     if edit && isSelected then
-                        [ el "span" [ "class", "ef-workflow-editor__resize"; "data-fw-drag", "resize"; "data-fw-key", ObjectRef.key r; "aria-hidden", "true" ] []
-                          el "span" [ "class", "ef-workflow-editor__connect"; "data-fw-drag", "connect"; "data-fw-key", ObjectRef.key r; "aria-hidden", "true" ] [] ]
+                        [ el "span" [ "class", "forma-workflow-editor__resize"; "data-fw-drag", "resize"; "data-fw-key", ObjectRef.key r; "aria-hidden", "true" ] []
+                          el "span" [ "class", "forma-workflow-editor__connect"; "data-fw-drag", "connect"; "data-fw-key", ObjectRef.key r; "aria-hidden", "true" ] [] ]
                     else []
                 Element("article", attrs, children @ intent @ handles)
             | None -> Element("article", attrs, children |> List.map (augment ctx display))
-        | Element("div", attrs, children) when attrs |> List.exists (fun (k, v) -> k = "class" && v.StartsWith "ef-diagram-group") ->
+        | Element("div", attrs, children) when attrs |> List.exists (fun (k, v) -> k = "class" && v.StartsWith "forma-diagram-group") ->
             let id = attrs |> List.tryFind (fst >> (=) "id") |> Option.map snd |> Option.defaultValue ""
             match display.Groups |> List.tryFind (fun g -> Render.groupElementId prefix g.Id = id) with
             | Some g when interactive || edit ->
                 let r = GroupRef g.Id
                 let attrs =
                     attrs
-                    |> List.map (fun (k, v) -> if k = "class" && selected r then k, v + " ef-workflow-editor__selected" else k, v)
+                    |> List.map (fun (k, v) -> if k = "class" && selected r then k, v + " forma-workflow-editor__selected" else k, v)
                 Element("div", attrs @ [ "data-fw-event", "select"; "data-fw-key", ObjectRef.key r ], children)
             | _ -> Element("div", attrs, children)
-        | Element("ol", attrs, items) when attrs |> List.contains ("class", "ef-diagram__relations") && (interactive || edit) ->
+        | Element("ol", attrs, items) when attrs |> List.contains ("class", "forma-diagram__relations") && (interactive || edit) ->
             let rows =
                 List.zip (display.Edges |> List.truncate items.Length) items
                 |> List.map (fun (e, item) ->
@@ -267,7 +267,7 @@ module EmbedView =
                             []
                             [ el
                                   "button"
-                                  [ "type", "button"; "class", "ef-workflow-editor__relation"; "data-fw-event", "select"; "data-fw-key", ObjectRef.key r
+                                  [ "type", "button"; "class", "forma-workflow-editor__relation"; "data-fw-event", "select"; "data-fw-key", ObjectRef.key r
                                     "aria-pressed", (if selected r then "true" else "false") ]
                                   content ]
                     | other -> other)
@@ -292,22 +292,22 @@ module EmbedView =
         let total = w.Nodes.Length + w.Edges.Length + w.Groups.Length
         el
             "details"
-            [ "class", "ef-disclosure ef-workflow-editor__structure"; "open", "" ]
+            [ "class", "forma-disclosure forma-workflow-editor__structure"; "open", "" ]
             [ el "summary" [] [ text $"Objects ({total})" ]
               el
                   "div"
-                  [ "class", "ef-disclosure__content" ]
-                  [ el "p" [ "class", "ef-workflow-editor__hint" ] [ text (if ctx.Editable then "Select an item, then use the arrow keys to move it (Shift for larger steps) or Delete to remove it." else "Select an item to inspect it.") ]
+                  [ "class", "forma-disclosure__content" ]
+                  [ el "p" [ "class", "forma-workflow-editor__hint" ] [ text (if ctx.Editable then "Select an item, then use the arrow keys to move it (Shift for larger steps) or Delete to remove it." else "Select an item to inspect it.") ]
                     el
                         "ul"
-                        [ "class", "ef-workflow-editor__list"; "aria-label", "Steps" ]
+                        [ "class", "forma-workflow-editor__list"; "aria-label", "Steps" ]
                         (w.Nodes |> List.map (fun n -> item (NodeRef n.Id) (Render.kindText Phrases.english n.Kind + ": " + n.Label)))
                     if w.Edges.IsEmpty then text ""
                     else
-                        el "ul" [ "class", "ef-workflow-editor__list"; "aria-label", "Connections" ] (w.Edges |> List.map (fun e -> item (EdgeRef e.Id) (Render.relationText w Phrases.english e)))
+                        el "ul" [ "class", "forma-workflow-editor__list"; "aria-label", "Connections" ] (w.Edges |> List.map (fun e -> item (EdgeRef e.Id) (Render.relationText w Phrases.english e)))
                     if w.Groups.IsEmpty then text ""
                     else
-                        el "ul" [ "class", "ef-workflow-editor__list"; "aria-label", "Groups" ] (w.Groups |> List.map (fun g -> item (GroupRef g.Id) (Phrases.english.GroupKind g.Kind + ": " + g.Label))) ] ]
+                        el "ul" [ "class", "forma-workflow-editor__list"; "aria-label", "Groups" ] (w.Groups |> List.map (fun g -> item (GroupRef g.Id) (Phrases.english.GroupKind g.Kind + ": " + g.Label))) ] ]
 
     let private toolbar (ctx: Ctx) =
         let s = ctx.State
@@ -317,11 +317,11 @@ module EmbedView =
         let disabled cond = if cond then [] else [ "disabled", "" ]
         el
             "div"
-            [ "class", "ef-workflow-editor__toolbar"; "role", "toolbar"; "aria-label", "Workflow tools" ]
+            [ "class", "forma-workflow-editor__toolbar"; "role", "toolbar"; "aria-label", "Workflow tools" ]
             [ if ctx.Editable then
                   el
                       "div"
-                      [ "class", "ef-cluster"; "role", "group"; "aria-label", "Create" ]
+                      [ "class", "forma-cluster"; "role", "group"; "aria-label", "Create" ]
                       [ selectField ctx "add-kind" "New step kind" "add-kind" "workflow" None kindOptions (Codec.nodeKindText (CoreNode(s.AddKind, None)))
                         btn "add-node" None [] "Add step"
                         btn "connect-start" None (disabled oneNode) "Connect"
@@ -329,13 +329,13 @@ module EmbedView =
                         btn "auto-layout" None [] "Arrange" ]
               else text ""
               if ctx.Editable then
-                  el "div" [ "class", "ef-cluster"; "role", "group"; "aria-label", "History" ] [ btn "undo" None (disabled canUndo) "Undo"; btn "redo" None (disabled canRedo) "Redo" ]
+                  el "div" [ "class", "forma-cluster"; "role", "group"; "aria-label", "History" ] [ btn "undo" None (disabled canUndo) "Undo"; btn "redo" None (disabled canRedo) "Redo" ]
               else text ""
               el
                   "div"
-                  [ "class", "ef-cluster"; "role", "group"; "aria-label", "Zoom" ]
+                  [ "class", "forma-cluster"; "role", "group"; "aria-label", "Zoom" ]
                   [ btn "zoom-out" None (disabled (s.Zoom > List.head Embed.zoomLevels)) "Zoom out"
-                    el "span" [ "class", "ef-workflow-editor__zoom-level" ] [ text (string s.Zoom + "%") ]
+                    el "span" [ "class", "forma-workflow-editor__zoom-level" ] [ text (string s.Zoom + "%") ]
                     btn "zoom-in" None (disabled (s.Zoom < List.last Embed.zoomLevels)) "Zoom in"
                     btn "zoom-reset" None [] "Actual size" ] ]
 
@@ -347,11 +347,11 @@ module EmbedView =
             else
                 el
                     "section"
-                    [ "class", "ef-workflow-editor__findings"; "aria-label", "Validation" ]
+                    [ "class", "forma-workflow-editor__findings"; "aria-label", "Validation" ]
                     [ el "p" [] [ text ($"Validation: {Validation.classText r.Class}.") ]
                       el
                           "ul"
-                          [ "class", "ef-validation-summary__list" ]
+                          [ "class", "forma-validation-summary__list" ]
                           (visible
                            |> List.map (fun f ->
                                let label = (match f.Severity with Severity.Error -> "Error: " | Severity.Warning -> "Warning: " | Severity.Info -> "Note: ") + f.Message
@@ -397,7 +397,7 @@ module EmbedView =
                   else text "" ],
                 "Selection"
         let headingId = ctx.Prefix + "-inspector"
-        el "section" [ "class", "ef-workflow-editor__inspector"; "aria-labelledby", headingId ] (el "h2" [ "id", headingId ] [ text title ] :: body)
+        el "section" [ "class", "forma-workflow-editor__inspector"; "aria-labelledby", headingId ] (el "h2" [ "id", headingId ] [ text title ] :: body)
 
     /// Renders the component for its current state.
     let view (opts: RenderOptions) (s: EmbedState) : Markup =
@@ -405,7 +405,7 @@ module EmbedView =
         | None ->
             el
                 "div"
-                [ "class", "ef-workflow-editor"; "data-mode", HostMode.text s.Mode ]
+                [ "class", "forma-workflow-editor"; "data-mode", HostMode.text s.Mode ]
                 [ el "p" [ "role", "status" ] [ text (if s.Announcement = "" then "No workflow loaded." else s.Announcement) ] ]
         | Some w ->
             let editable = Embed.canEdit s
@@ -419,21 +419,21 @@ module EmbedView =
                 match s.Pending with
                 | NoPending -> text ""
                 | Connecting src ->
-                    el "p" [ "class", "ef-workflow-editor__pending"; "role", "status" ] [ text $"Connecting from {Editing.nodeName w src.Node}: choose the step to connect to. "; btn "cancel" None [] "Cancel" ]
-                | Reconnecting _ -> el "p" [ "class", "ef-workflow-editor__pending"; "role", "status" ] [ text "Choose the step this end should connect to. "; btn "cancel" None [] "Cancel" ]
+                    el "p" [ "class", "forma-workflow-editor__pending"; "role", "status" ] [ text $"Connecting from {Editing.nodeName w src.Node}: choose the step to connect to. "; btn "cancel" None [] "Cancel" ]
+                | Reconnecting _ -> el "p" [ "class", "forma-workflow-editor__pending"; "role", "status" ] [ text "Choose the step this end should connect to. "; btn "cancel" None [] "Cancel" ]
             el
                 "div"
-                [ "class", "ef-workflow-editor"; "data-mode", HostMode.text s.Mode; "data-fw-root", s.IdPrefix ]
+                [ "class", "forma-workflow-editor"; "data-mode", HostMode.text s.Mode; "data-fw-root", s.IdPrefix ]
                 [ toolbar ctx
-                  el "p" [ "class", "ef-visually-hidden"; "role", "status"; "aria-live", "polite" ] [ text s.Announcement ]
+                  el "p" [ "class", "forma-visually-hidden"; "role", "status"; "aria-live", "polite" ] [ text s.Announcement ]
                   pending
                   el
                       "div"
-                      [ "class", (if withPanels || s.Mode = PickMode then "ef-workflow-editor__layout" else "ef-workflow-editor__layout ef-workflow-editor__layout--canvas") ]
+                      [ "class", (if withPanels || s.Mode = PickMode then "forma-workflow-editor__layout" else "forma-workflow-editor__layout forma-workflow-editor__layout--canvas") ]
                       [ if withPanels || s.Mode = PickMode then structure ctx else text ""
-                        el "div" [ "class", "ef-workflow-editor__canvas"; "style", Markup.style [ "--ef-workflow-zoom", Markup.number (float s.Zoom / 100.0) ] ] [ figure ]
+                        el "div" [ "class", "forma-workflow-editor__canvas"; "style", Markup.style [ "--forma-workflow-zoom", Markup.number (float s.Zoom / 100.0) ] ] [ figure ]
                         if withPanels then inspector ctx layout else text "" ]
                   if s.Mode = PickMode then
-                      el "div" [ "class", "ef-actions" ] [ btn "pick-confirm" None (if s.Selection.IsEmpty then [ "disabled", "" ] else []) $"Use selection ({s.Selection.Length})" ]
+                      el "div" [ "class", "forma-actions" ] [ btn "pick-confirm" None (if s.Selection.IsEmpty then [ "disabled", "" ] else []) $"Use selection ({s.Selection.Length})" ]
                   else text ""
                   if withPanels then findings ctx else text "" ]

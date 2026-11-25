@@ -2,7 +2,7 @@
  * The engine's canvas projection, mapped onto Forma's diagram presentation.
  *
  * Forma's diagram classes read geometry and colors from custom properties
- * (--ef-diagram-x/-y/-w/-h, --ef-diagram-fill, ...; see vendor/forma
+ * (--forma-diagram-x/-y/-w/-h, --forma-diagram-fill, ...; see vendor/forma
  * components.css). Limen 0.7.0 refuses inline style as a binding target
  * (limen#18, docs/29-binding-security.md): the engine projects plain data-*
  * values and this stylesheet decides what they mean.
@@ -18,24 +18,24 @@
  * The typed attr() rules have zero specificity, so a token rule always wins.
  * EditorConformanceTests checks that every token has a rule for every slot.
  */
-:where(.studio) :where(.ef-diagram__canvas) {
-  --ef-diagram-canvas-w: attr(data-width px);
-  --ef-diagram-canvas-h: attr(data-height px);
+:where(.studio) :where(.forma-diagram__canvas) {
+  --forma-diagram-canvas-w: attr(data-width px);
+  --forma-diagram-canvas-h: attr(data-height px);
   --studio-zoom: attr(data-zoom type(<number>));
 }
-:where(.studio) :where(.ef-diagram-node, .ef-diagram-group, .ef-diagram-connector__label) {
-  --ef-diagram-x: attr(data-x px);
-  --ef-diagram-y: attr(data-y px);
+:where(.studio) :where(.forma-diagram-node, .forma-diagram-group, .forma-diagram-connector__label) {
+  --forma-diagram-x: attr(data-x px);
+  --forma-diagram-y: attr(data-y px);
 }
-:where(.studio) :where(.ef-diagram-node, .ef-diagram-group) {
-  --ef-diagram-w: attr(data-w px);
-  --ef-diagram-h: attr(data-h px);
-  --ef-diagram-fill: attr(data-fill type(<color>));
-  --ef-diagram-stroke: attr(data-stroke type(<color>));
-  --ef-diagram-accent: attr(data-accent type(<color>));
+:where(.studio) :where(.forma-diagram-node, .forma-diagram-group) {
+  --forma-diagram-w: attr(data-w px);
+  --forma-diagram-h: attr(data-h px);
+  --forma-diagram-fill: attr(data-fill type(<color>));
+  --forma-diagram-stroke: attr(data-stroke type(<color>));
+  --forma-diagram-accent: attr(data-accent type(<color>));
   /* Without an authored foreground, text takes the color paired with the fill
      (--studio-paired-foreground, below), or Forma's default when there is none. */
-  --ef-diagram-foreground: attr(data-foreground type(<color>), var(--studio-paired-foreground));
+  --forma-diagram-foreground: attr(data-foreground type(<color>), var(--studio-paired-foreground));
 }
 /*
  * Foreground paired with the fill. A #rrggbb fill is fixed paint: it does not
@@ -44,17 +44,17 @@
  * against Forma's carbon text; render exactly that, in every theme. A
  * secondary or inverse surface token takes Forma's on-surface text token.
  */
-:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill^="#"]) {
-  --studio-paired-foreground: var(--ef-primitive-color-carbon, #171a18);
+:where(.studio) :where(.forma-diagram-node, .forma-diagram-group):where([data-fill^="#"]) {
+  --studio-paired-foreground: var(--forma-primitive-color-carbon, #171a18);
 }
-:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill="--ef-color-surface-secondary"]) {
-  --studio-paired-foreground: var(--ef-color-text-on-secondary-surface);
+:where(.studio) :where(.forma-diagram-node, .forma-diagram-group):where([data-fill="--forma-color-surface-secondary"]) {
+  --studio-paired-foreground: var(--forma-color-text-on-secondary-surface);
 }
-:where(.studio) :where(.ef-diagram-node, .ef-diagram-group):where([data-fill="--ef-color-surface-inverse"]) {
-  --studio-paired-foreground: var(--ef-color-text-inverse);
+:where(.studio) :where(.forma-diagram-node, .forma-diagram-group):where([data-fill="--forma-color-surface-inverse"]) {
+  --studio-paired-foreground: var(--forma-color-text-inverse);
 }
-:where(.studio) :where(.ef-diagram-connector) {
-  --ef-diagram-connector-stroke: attr(data-connector-stroke type(<color>));
+:where(.studio) :where(.forma-diagram-connector) {
+  --forma-diagram-connector-stroke: attr(data-connector-stroke type(<color>));
 }
 /* Endpoint handles are editor adorners, positioned by studio.css. */
 :where(.studio) :where(.studio-endpoint) {
@@ -62,57 +62,57 @@
   --studio-y: attr(data-y px);
 }
 
-/* Token colors: --ef-diagram-fill. */
-.studio [data-fill="--ef-color-accent-primary"] { --ef-diagram-fill: var(--ef-color-accent-primary); }
-.studio [data-fill="--ef-color-accent-secondary"] { --ef-diagram-fill: var(--ef-color-accent-secondary); }
-.studio [data-fill="--ef-color-border-functional"] { --ef-diagram-fill: var(--ef-color-border-functional); }
-.studio [data-fill="--ef-color-border-subtle"] { --ef-diagram-fill: var(--ef-color-border-subtle); }
-.studio [data-fill="--ef-color-surface-primary"] { --ef-diagram-fill: var(--ef-color-surface-primary); }
-.studio [data-fill="--ef-color-surface-secondary"] { --ef-diagram-fill: var(--ef-color-surface-secondary); }
-.studio [data-fill="--ef-color-surface-inverse"] { --ef-diagram-fill: var(--ef-color-surface-inverse); }
-.studio [data-fill="--ef-color-text-primary"] { --ef-diagram-fill: var(--ef-color-text-primary); }
-.studio [data-fill="--ef-color-text-secondary"] { --ef-diagram-fill: var(--ef-color-text-secondary); }
+/* Token colors: --forma-diagram-fill. */
+.studio [data-fill="--forma-color-accent-primary"] { --forma-diagram-fill: var(--forma-color-accent-primary); }
+.studio [data-fill="--forma-color-accent-secondary"] { --forma-diagram-fill: var(--forma-color-accent-secondary); }
+.studio [data-fill="--forma-color-border-functional"] { --forma-diagram-fill: var(--forma-color-border-functional); }
+.studio [data-fill="--forma-color-border-subtle"] { --forma-diagram-fill: var(--forma-color-border-subtle); }
+.studio [data-fill="--forma-color-surface-primary"] { --forma-diagram-fill: var(--forma-color-surface-primary); }
+.studio [data-fill="--forma-color-surface-secondary"] { --forma-diagram-fill: var(--forma-color-surface-secondary); }
+.studio [data-fill="--forma-color-surface-inverse"] { --forma-diagram-fill: var(--forma-color-surface-inverse); }
+.studio [data-fill="--forma-color-text-primary"] { --forma-diagram-fill: var(--forma-color-text-primary); }
+.studio [data-fill="--forma-color-text-secondary"] { --forma-diagram-fill: var(--forma-color-text-secondary); }
 
-/* Token colors: --ef-diagram-stroke. */
-.studio [data-stroke="--ef-color-accent-primary"] { --ef-diagram-stroke: var(--ef-color-accent-primary); }
-.studio [data-stroke="--ef-color-accent-secondary"] { --ef-diagram-stroke: var(--ef-color-accent-secondary); }
-.studio [data-stroke="--ef-color-border-functional"] { --ef-diagram-stroke: var(--ef-color-border-functional); }
-.studio [data-stroke="--ef-color-border-subtle"] { --ef-diagram-stroke: var(--ef-color-border-subtle); }
-.studio [data-stroke="--ef-color-surface-primary"] { --ef-diagram-stroke: var(--ef-color-surface-primary); }
-.studio [data-stroke="--ef-color-surface-secondary"] { --ef-diagram-stroke: var(--ef-color-surface-secondary); }
-.studio [data-stroke="--ef-color-surface-inverse"] { --ef-diagram-stroke: var(--ef-color-surface-inverse); }
-.studio [data-stroke="--ef-color-text-primary"] { --ef-diagram-stroke: var(--ef-color-text-primary); }
-.studio [data-stroke="--ef-color-text-secondary"] { --ef-diagram-stroke: var(--ef-color-text-secondary); }
+/* Token colors: --forma-diagram-stroke. */
+.studio [data-stroke="--forma-color-accent-primary"] { --forma-diagram-stroke: var(--forma-color-accent-primary); }
+.studio [data-stroke="--forma-color-accent-secondary"] { --forma-diagram-stroke: var(--forma-color-accent-secondary); }
+.studio [data-stroke="--forma-color-border-functional"] { --forma-diagram-stroke: var(--forma-color-border-functional); }
+.studio [data-stroke="--forma-color-border-subtle"] { --forma-diagram-stroke: var(--forma-color-border-subtle); }
+.studio [data-stroke="--forma-color-surface-primary"] { --forma-diagram-stroke: var(--forma-color-surface-primary); }
+.studio [data-stroke="--forma-color-surface-secondary"] { --forma-diagram-stroke: var(--forma-color-surface-secondary); }
+.studio [data-stroke="--forma-color-surface-inverse"] { --forma-diagram-stroke: var(--forma-color-surface-inverse); }
+.studio [data-stroke="--forma-color-text-primary"] { --forma-diagram-stroke: var(--forma-color-text-primary); }
+.studio [data-stroke="--forma-color-text-secondary"] { --forma-diagram-stroke: var(--forma-color-text-secondary); }
 
-/* Token colors: --ef-diagram-accent. */
-.studio [data-accent="--ef-color-accent-primary"] { --ef-diagram-accent: var(--ef-color-accent-primary); }
-.studio [data-accent="--ef-color-accent-secondary"] { --ef-diagram-accent: var(--ef-color-accent-secondary); }
-.studio [data-accent="--ef-color-border-functional"] { --ef-diagram-accent: var(--ef-color-border-functional); }
-.studio [data-accent="--ef-color-border-subtle"] { --ef-diagram-accent: var(--ef-color-border-subtle); }
-.studio [data-accent="--ef-color-surface-primary"] { --ef-diagram-accent: var(--ef-color-surface-primary); }
-.studio [data-accent="--ef-color-surface-secondary"] { --ef-diagram-accent: var(--ef-color-surface-secondary); }
-.studio [data-accent="--ef-color-surface-inverse"] { --ef-diagram-accent: var(--ef-color-surface-inverse); }
-.studio [data-accent="--ef-color-text-primary"] { --ef-diagram-accent: var(--ef-color-text-primary); }
-.studio [data-accent="--ef-color-text-secondary"] { --ef-diagram-accent: var(--ef-color-text-secondary); }
+/* Token colors: --forma-diagram-accent. */
+.studio [data-accent="--forma-color-accent-primary"] { --forma-diagram-accent: var(--forma-color-accent-primary); }
+.studio [data-accent="--forma-color-accent-secondary"] { --forma-diagram-accent: var(--forma-color-accent-secondary); }
+.studio [data-accent="--forma-color-border-functional"] { --forma-diagram-accent: var(--forma-color-border-functional); }
+.studio [data-accent="--forma-color-border-subtle"] { --forma-diagram-accent: var(--forma-color-border-subtle); }
+.studio [data-accent="--forma-color-surface-primary"] { --forma-diagram-accent: var(--forma-color-surface-primary); }
+.studio [data-accent="--forma-color-surface-secondary"] { --forma-diagram-accent: var(--forma-color-surface-secondary); }
+.studio [data-accent="--forma-color-surface-inverse"] { --forma-diagram-accent: var(--forma-color-surface-inverse); }
+.studio [data-accent="--forma-color-text-primary"] { --forma-diagram-accent: var(--forma-color-text-primary); }
+.studio [data-accent="--forma-color-text-secondary"] { --forma-diagram-accent: var(--forma-color-text-secondary); }
 
-/* Token colors: --ef-diagram-foreground. */
-.studio [data-foreground="--ef-color-accent-primary"] { --ef-diagram-foreground: var(--ef-color-accent-primary); }
-.studio [data-foreground="--ef-color-accent-secondary"] { --ef-diagram-foreground: var(--ef-color-accent-secondary); }
-.studio [data-foreground="--ef-color-border-functional"] { --ef-diagram-foreground: var(--ef-color-border-functional); }
-.studio [data-foreground="--ef-color-border-subtle"] { --ef-diagram-foreground: var(--ef-color-border-subtle); }
-.studio [data-foreground="--ef-color-surface-primary"] { --ef-diagram-foreground: var(--ef-color-surface-primary); }
-.studio [data-foreground="--ef-color-surface-secondary"] { --ef-diagram-foreground: var(--ef-color-surface-secondary); }
-.studio [data-foreground="--ef-color-surface-inverse"] { --ef-diagram-foreground: var(--ef-color-surface-inverse); }
-.studio [data-foreground="--ef-color-text-primary"] { --ef-diagram-foreground: var(--ef-color-text-primary); }
-.studio [data-foreground="--ef-color-text-secondary"] { --ef-diagram-foreground: var(--ef-color-text-secondary); }
+/* Token colors: --forma-diagram-foreground. */
+.studio [data-foreground="--forma-color-accent-primary"] { --forma-diagram-foreground: var(--forma-color-accent-primary); }
+.studio [data-foreground="--forma-color-accent-secondary"] { --forma-diagram-foreground: var(--forma-color-accent-secondary); }
+.studio [data-foreground="--forma-color-border-functional"] { --forma-diagram-foreground: var(--forma-color-border-functional); }
+.studio [data-foreground="--forma-color-border-subtle"] { --forma-diagram-foreground: var(--forma-color-border-subtle); }
+.studio [data-foreground="--forma-color-surface-primary"] { --forma-diagram-foreground: var(--forma-color-surface-primary); }
+.studio [data-foreground="--forma-color-surface-secondary"] { --forma-diagram-foreground: var(--forma-color-surface-secondary); }
+.studio [data-foreground="--forma-color-surface-inverse"] { --forma-diagram-foreground: var(--forma-color-surface-inverse); }
+.studio [data-foreground="--forma-color-text-primary"] { --forma-diagram-foreground: var(--forma-color-text-primary); }
+.studio [data-foreground="--forma-color-text-secondary"] { --forma-diagram-foreground: var(--forma-color-text-secondary); }
 
-/* Token colors: --ef-diagram-connector-stroke. */
-.studio [data-connector-stroke="--ef-color-accent-primary"] { --ef-diagram-connector-stroke: var(--ef-color-accent-primary); }
-.studio [data-connector-stroke="--ef-color-accent-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-accent-secondary); }
-.studio [data-connector-stroke="--ef-color-border-functional"] { --ef-diagram-connector-stroke: var(--ef-color-border-functional); }
-.studio [data-connector-stroke="--ef-color-border-subtle"] { --ef-diagram-connector-stroke: var(--ef-color-border-subtle); }
-.studio [data-connector-stroke="--ef-color-surface-primary"] { --ef-diagram-connector-stroke: var(--ef-color-surface-primary); }
-.studio [data-connector-stroke="--ef-color-surface-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-surface-secondary); }
-.studio [data-connector-stroke="--ef-color-surface-inverse"] { --ef-diagram-connector-stroke: var(--ef-color-surface-inverse); }
-.studio [data-connector-stroke="--ef-color-text-primary"] { --ef-diagram-connector-stroke: var(--ef-color-text-primary); }
-.studio [data-connector-stroke="--ef-color-text-secondary"] { --ef-diagram-connector-stroke: var(--ef-color-text-secondary); }
+/* Token colors: --forma-diagram-connector-stroke. */
+.studio [data-connector-stroke="--forma-color-accent-primary"] { --forma-diagram-connector-stroke: var(--forma-color-accent-primary); }
+.studio [data-connector-stroke="--forma-color-accent-secondary"] { --forma-diagram-connector-stroke: var(--forma-color-accent-secondary); }
+.studio [data-connector-stroke="--forma-color-border-functional"] { --forma-diagram-connector-stroke: var(--forma-color-border-functional); }
+.studio [data-connector-stroke="--forma-color-border-subtle"] { --forma-diagram-connector-stroke: var(--forma-color-border-subtle); }
+.studio [data-connector-stroke="--forma-color-surface-primary"] { --forma-diagram-connector-stroke: var(--forma-color-surface-primary); }
+.studio [data-connector-stroke="--forma-color-surface-secondary"] { --forma-diagram-connector-stroke: var(--forma-color-surface-secondary); }
+.studio [data-connector-stroke="--forma-color-surface-inverse"] { --forma-diagram-connector-stroke: var(--forma-color-surface-inverse); }
+.studio [data-connector-stroke="--forma-color-text-primary"] { --forma-diagram-connector-stroke: var(--forma-color-text-primary); }
+.studio [data-connector-stroke="--forma-color-text-secondary"] { --forma-diagram-connector-stroke: var(--forma-color-text-secondary); }

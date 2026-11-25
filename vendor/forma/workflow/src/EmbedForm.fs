@@ -25,8 +25,8 @@ module internal EmbedForm =
         let id = inputId ctx name
         el
             "div"
-            [ "class", "ef-field" ]
-            [ el "label" [ "class", "ef-field__label"; "for", id ] [ text label ]
+            [ "class", "forma-field" ]
+            [ el "label" [ "class", "forma-field__label"; "for", id ] [ text label ]
               el
                   "input"
                   ([ "id", id; "type", "text"; "value", value; "data-fw-event", event; "data-fw-key", key ]
@@ -38,50 +38,50 @@ module internal EmbedForm =
         let id = inputId ctx name
         el
             "div"
-            [ "class", "ef-field" ]
-            [ el "label" [ "class", "ef-field__label"; "for", id ] [ text label ]
+            [ "class", "forma-field" ]
+            [ el "label" [ "class", "forma-field__label"; "for", id ] [ text label ]
               el "textarea" ([ "id", id; "rows", "3"; "data-fw-event", event; "data-fw-key", key ] @ (if ctx.Editable then [] else [ "readonly", "" ])) [ text value ] ]
 
     let selectField (ctx: Ctx) name label (event: string) key (arg: string option) (options: (string * string) list) (current: string) =
         let id = inputId ctx name
         el
             "label"
-            [ "class", "ef-select-field"; "for", id ]
-            [ el "span" [ "class", "ef-field__label" ] [ text label ]
+            [ "class", "forma-select-field"; "for", id ]
+            [ el "span" [ "class", "forma-field__label" ] [ text label ]
               el
                   "span"
-                  [ "class", "ef-select" ]
+                  [ "class", "forma-select" ]
                   [ el
                         "select"
-                        ([ "class", "ef-select__input"; "id", id; "data-fw-event", event; "data-fw-key", key ]
+                        ([ "class", "forma-select__input"; "id", id; "data-fw-event", event; "data-fw-key", key ]
                          @ (arg |> Option.map (fun a -> [ "data-fw-arg", a ]) |> Option.defaultValue [])
                          @ (if ctx.Editable then [] else [ "disabled", "" ]))
                         (options |> List.map (fun (v, l) -> el "option" ([ "value", v ] @ (if v = current then [ "selected", "selected" ] else [])) [ text l ]))
-                    el "span" [ "class", "ef-select__indicator"; "aria-hidden", "true" ] [] ] ]
+                    el "span" [ "class", "forma-select__indicator"; "aria-hidden", "true" ] [] ] ]
 
     let section (title: string) (opened: bool) (children: Markup list) =
-        el "details" ([ "class", "ef-disclosure" ] @ (if opened then [ "open", "" ] else [])) [ el "summary" [] [ text title ]; el "div" [ "class", "ef-disclosure__content" ] children ]
+        el "details" ([ "class", "forma-disclosure" ] @ (if opened then [ "open", "" ] else [])) [ el "summary" [] [ text title ]; el "div" [ "class", "forma-disclosure__content" ] children ]
 
     let formOf (event: string) (key: string) (children: Markup list) =
-        el "form" [ "class", "ef-workflow-editor__form"; "data-fw-event", event; "data-fw-key", key ] children
+        el "form" [ "class", "forma-workflow-editor__form"; "data-fw-event", event; "data-fw-key", key ] children
 
-    let submit (label: string) = el "div" [ "class", "ef-actions" ] [ el "button" [ "type", "submit" ] [ text label ] ]
+    let submit (label: string) = el "div" [ "class", "forma-actions" ] [ el "button" [ "type", "submit" ] [ text label ] ]
 
     let plainField (ctx: Ctx) (name: string) (label: string) (inputName: string) (attrs: (string * string) list) =
         let id = inputId ctx name
-        el "div" [ "class", "ef-field" ] [ el "label" [ "class", "ef-field__label"; "for", id ] [ text label ]; el "input" ([ "id", id; "name", inputName; "type", "text" ] @ attrs) [] ]
+        el "div" [ "class", "forma-field" ] [ el "label" [ "class", "forma-field__label"; "for", id ] [ text label ]; el "input" ([ "id", id; "name", inputName; "type", "text" ] @ attrs) [] ]
 
     let plainSelect (ctx: Ctx) (name: string) (label: string) (inputName: string) (options: (string * string) list) =
         let id = inputId ctx name
         el
             "label"
-            [ "class", "ef-select-field"; "for", id ]
-            [ el "span" [ "class", "ef-field__label" ] [ text label ]
+            [ "class", "forma-select-field"; "for", id ]
+            [ el "span" [ "class", "forma-field__label" ] [ text label ]
               el
                   "span"
-                  [ "class", "ef-select" ]
-                  [ el "select" [ "class", "ef-select__input"; "id", id; "name", inputName ] (options |> List.map (fun (v, l) -> el "option" [ "value", v ] [ text l ]))
-                    el "span" [ "class", "ef-select__indicator"; "aria-hidden", "true" ] [] ] ]
+                  [ "class", "forma-select" ]
+                  [ el "select" [ "class", "forma-select__input"; "id", id; "name", inputName ] (options |> List.map (fun (v, l) -> el "option" [ "value", v ] [ text l ]))
+                    el "span" [ "class", "forma-select__indicator"; "aria-hidden", "true" ] [] ] ]
 
     // -- shared inspector sections -------------------------------------------------
 
@@ -117,7 +117,7 @@ module internal EmbedForm =
         section
             (if rows.IsEmpty then "Metadata" else $"Metadata ({rows.Length})")
             (not rows.IsEmpty)
-            [ if rows.IsEmpty then el "p" [] [ text "No metadata." ] else el "ul" [ "class", "ef-workflow-editor__rows" ] (rows |> List.mapi row)
+            [ if rows.IsEmpty then el "p" [] [ text "No metadata." ] else el "ul" [ "class", "forma-workflow-editor__rows" ] (rows |> List.mapi row)
               if ctx.Editable then
                   formOf
                       "add-metadata"
@@ -135,7 +135,7 @@ module internal EmbedForm =
               else
                   el
                       "ul"
-                      [ "class", "ef-workflow-editor__rows" ]
+                      [ "class", "forma-workflow-editor__rows" ]
                       (refs
                        |> List.map (fun r ->
                            el
@@ -199,7 +199,7 @@ module internal EmbedForm =
                 [ el "p" [] [ text "Preserved exactly as the producer wrote them. Forma does not interpret them." ]
                   el
                       "dl"
-                      [ "class", "ef-workflow-editor__extensions" ]
+                      [ "class", "forma-workflow-editor__extensions" ]
                       (ext |> List.collect (fun (n, members) -> [ el "dt" [] [ text n.Value ]; el "dd" [] [ el "code" [] [ text (Json.compact (Json.Object members)) ] ] ])) ]
 
     let statusOptions = ("", "No status") :: (Codec.states |> List.map (fun (k, v) -> k, Phrases.english.State v))
@@ -221,9 +221,9 @@ module internal EmbedForm =
                   let id = inputId ctx ("color-" + arg)
                   el
                       "div"
-                      [ "class", "ef-field" ]
-                      [ el "label" [ "class", "ef-field__label"; "for", id ] [ text label ]
-                        el "span" [ "class", "ef-field__description"; "id", id + "-d" ] [ text "#rrggbb, a token such as accent-primary, or palette:slot. Empty uses the Forma default." ]
+                      [ "class", "forma-field" ]
+                      [ el "label" [ "class", "forma-field__label"; "for", id ] [ text label ]
+                        el "span" [ "class", "forma-field__description"; "id", id + "-d" ] [ text "#rrggbb, a token such as accent-primary, or palette:slot. Empty uses the Forma default." ]
                         el
                             "input"
                             ([ "id", id; "type", "text"; "list", listId; "value", colorText value; "data-fw-event", "set-color"; "data-fw-key", key; "data-fw-arg", arg

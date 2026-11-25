@@ -9,7 +9,7 @@ open System
 module Render =
     let formaPackage = "@echelon-foundry/design-system"
     let workflowPackage = "@echelon-foundry/forma-workflow"
-    let workflowPackageVersion = "1.1.0"
+    let workflowPackageVersion = "1.2.0"
 
     let private el = Markup.el
     let private text = Markup.text
@@ -23,24 +23,28 @@ module Render =
 
     let tokenVar (t: ColorToken) =
         match t with
-        | AccentPrimary -> "var(--ef-color-accent-primary)"
-        | AccentSecondary -> "var(--ef-color-accent-secondary)"
-        | BorderFunctional -> "var(--ef-color-border-functional)"
-        | BorderSubtle -> "var(--ef-color-border-subtle)"
-        | SurfacePrimary -> "var(--ef-color-surface-primary)"
-        | SurfaceSecondary -> "var(--ef-color-surface-secondary)"
-        | SurfaceInverse -> "var(--ef-color-surface-inverse)"
-        | TextPrimary -> "var(--ef-color-text-primary)"
-        | TextSecondary -> "var(--ef-color-text-secondary)"
+        | AccentPrimary -> "var(--forma-color-accent-primary)"
+        | AccentSecondary -> "var(--forma-color-accent-secondary)"
+        | BorderFunctional -> "var(--forma-color-border-functional)"
+        | BorderSubtle -> "var(--forma-color-border-subtle)"
+        | SurfacePrimary -> "var(--forma-color-surface-primary)"
+        | SurfaceSecondary -> "var(--forma-color-surface-secondary)"
+        | SurfaceInverse -> "var(--forma-color-surface-inverse)"
+        | TextPrimary -> "var(--forma-color-text-primary)"
+        | TextSecondary -> "var(--forma-color-text-secondary)"
+        | StatusWarning -> "var(--forma-color-status-warning)"
+        | StatusDanger -> "var(--forma-color-status-danger)"
+        | StatusSuccess -> "var(--forma-color-status-success)"
+        | StatusInfo -> "var(--forma-color-status-info)"
 
     /// The CSS value for a colour. Palette slots resolve through
-    /// --ef-workflow-palette-<slot> on the figure, so a brand can restyle token
+    /// --forma-workflow-palette-<slot> on the figure, so a brand can restyle token
     /// slots without touching objects.
     let cssColor (c: ColorValue) =
         match c with
         | TokenColor t -> tokenVar t
         | LiteralColor h -> h.Value
-        | PaletteColor slot -> $"var(--ef-workflow-palette-{slot.Value})"
+        | PaletteColor slot -> $"var(--forma-workflow-palette-{slot.Value})"
 
     let cssColorSource (c: ColorSource) =
         match c with
@@ -48,10 +52,10 @@ module Render =
         | LiteralSource h -> h.Value
 
     let colorProps (c: ObjectColor) =
-        [ c.Fill |> Option.map (fun v -> "--ef-diagram-fill", cssColor v)
-          c.Stroke |> Option.map (fun v -> "--ef-diagram-stroke", cssColor v)
-          c.Accent |> Option.map (fun v -> "--ef-diagram-accent", cssColor v)
-          c.Foreground |> Option.map (fun v -> "--ef-diagram-foreground", cssColor v) ]
+        [ c.Fill |> Option.map (fun v -> "--forma-diagram-fill", cssColor v)
+          c.Stroke |> Option.map (fun v -> "--forma-diagram-stroke", cssColor v)
+          c.Accent |> Option.map (fun v -> "--forma-diagram-accent", cssColor v)
+          c.Foreground |> Option.map (fun v -> "--forma-diagram-foreground", cssColor v) ]
         |> List.choose id
 
     let kindText (p: Phrases) (k: NodeKind) =
@@ -72,7 +76,7 @@ module Render =
         | CoreStatus(c, None) -> p.State c
         | CustomStatus(_, label) -> label
 
-    /// The data-ef-status hook value (core states only; producer states get no cue).
+    /// The data-forma-status hook value (core states only; producer states get no cue).
     let statusHook (s: Status) =
         match s.State with
         | CoreStatus(c, _) -> Some(Codec.stateText (CoreStatus(c, None)))
@@ -142,12 +146,12 @@ module Render =
                     | Top | Bottom -> if rect.W > 0.0 then (pt.X - rect.X) / rect.W * 100.0 else 50.0
                     | Left | Right -> if rect.H > 0.0 then (pt.Y - rect.Y) / rect.H * 100.0 else 50.0
                 let attrs =
-                    [ yield "class", "ef-diagram-port"
-                      yield "data-ef-side", Codec.sideText side
-                      match p.Direction with Some d -> yield "data-ef-direction", Codec.portDirectionText d | None -> ()
-                      yield "style", Markup.style [ "--ef-diagram-port-offset", Markup.number offset + "%" ] ]
+                    [ yield "class", "forma-diagram-port"
+                      yield "data-forma-side", Codec.sideText side
+                      match p.Direction with Some d -> yield "data-forma-direction", Codec.portDirectionText d | None -> ()
+                      yield "style", Markup.style [ "--forma-diagram-port-offset", Markup.number offset + "%" ] ]
                 match p.Label with
-                | Some l -> el "span" attrs [ el "span" [ "class", "ef-diagram-port__label" ] [ text l ] ]
+                | Some l -> el "span" attrs [ el "span" [ "class", "forma-diagram-port__label" ] [ text l ] ]
                 | None -> el "span" (attrs @ [ "aria-hidden", "true" ]) []))
 
     let private nodeMarkup (w: Workflow) (opts: RenderOptions) prefix (layout: ResolvedLayout) (n: Node) =
@@ -175,33 +179,33 @@ module Render =
             | Some name -> [ "aria-label", name ]
             | None -> [ "aria-labelledby", labelId ]
         let attrs =
-            [ yield "class", "ef-diagram-node"
+            [ yield "class", "forma-diagram-node"
               yield "id", nodeElementId prefix n.Id
-              if shape <> Rectangle then yield "data-ef-shape", Codec.shapeText shape
+              if shape <> Rectangle then yield "data-forma-shape", Codec.shapeText shape
               match n.Status |> Option.bind statusHook with
-              | Some hook when hook <> "none" -> yield "data-ef-status", hook
+              | Some hook when hook <> "none" -> yield "data-forma-status", hook
               | _ -> ()
               yield! naming
               yield! describedBy
               yield
                   "style",
                   Markup.style (
-                      [ "--ef-diagram-x", Markup.rem rect.X; "--ef-diagram-y", Markup.rem rect.Y; "--ef-diagram-w", Markup.rem rect.W
-                        "--ef-diagram-h", Markup.rem rect.H ]
+                      [ "--forma-diagram-x", Markup.rem rect.X; "--forma-diagram-y", Markup.rem rect.Y; "--forma-diagram-w", Markup.rem rect.W
+                        "--forma-diagram-h", Markup.rem rect.H ]
                       @ colorProps n.Color
                   ) ]
         el
             "article"
             attrs
-            [ yield el "p" [ "class", "ef-diagram-node__kind" ] [ text (kindText p n.Kind) ]
-              yield el (headingTag opts) [ "class", "ef-diagram-node__label"; "id", labelId ] [ interactionLabel w opts prefix n (text n.Label) ]
+            [ yield el "p" [ "class", "forma-diagram-node__kind" ] [ text (kindText p n.Kind) ]
+              yield el (headingTag opts) [ "class", "forma-diagram-node__label"; "id", labelId ] [ interactionLabel w opts prefix n (text n.Label) ]
               match n.Description with
-              | Some d -> yield el "p" [ "class", "ef-diagram-node__description" ] [ text d ]
+              | Some d -> yield el "p" [ "class", "forma-diagram-node__description" ] [ text d ]
               | None -> ()
               match n.Accessibility.Description with
-              | Some d -> yield el "p" [ "class", "ef-visually-hidden"; "id", nodeElementId prefix n.Id + "-a11y" ] [ text d ]
+              | Some d -> yield el "p" [ "class", "forma-visually-hidden"; "id", nodeElementId prefix n.Id + "-a11y" ] [ text d ]
               | None -> ()
-              if not metaRows.IsEmpty then yield el "dl" [ "class", "ef-diagram-node__meta" ] metaRows
+              if not metaRows.IsEmpty then yield el "dl" [ "class", "forma-diagram-node__meta" ] metaRows
               yield! portMarkup layout n rect ]
 
     let private groupMarkup (opts: RenderOptions) prefix (layout: ResolvedLayout) (g: Group) =
@@ -216,26 +220,26 @@ module Render =
             let labelId = groupElementId prefix g.Id + "-label"
             el
                 "div"
-                [ yield "class", "ef-diagram-group"
+                [ yield "class", "forma-diagram-group"
                   yield "id", groupElementId prefix g.Id
-                  match variant with Some v -> yield "data-ef-group", v | None -> ()
-                  match g.Line with Some l when l <> Solid -> yield "data-ef-line", Codec.lineText l | _ -> ()
+                  match variant with Some v -> yield "data-forma-group", v | None -> ()
+                  match g.Line with Some l when l <> Solid -> yield "data-forma-line", Codec.lineText l | _ -> ()
                   match g.Status |> Option.bind statusHook with
-                  | Some hook when hook <> "none" -> yield "data-ef-status", hook
+                  | Some hook when hook <> "none" -> yield "data-forma-status", hook
                   | _ -> ()
                   yield
                       "style",
                       Markup.style (
-                          [ "--ef-diagram-x", Markup.rem rect.X; "--ef-diagram-y", Markup.rem rect.Y; "--ef-diagram-w", Markup.rem rect.W
-                            "--ef-diagram-h", Markup.rem rect.H ]
+                          [ "--forma-diagram-x", Markup.rem rect.X; "--forma-diagram-y", Markup.rem rect.Y; "--forma-diagram-w", Markup.rem rect.W
+                            "--forma-diagram-h", Markup.rem rect.H ]
                           @ colorProps g.Color
                       ) ]
                 [ el
                       "p"
-                      [ "class", "ef-diagram-group__header" ]
-                      [ yield el "span" [ "class", "ef-diagram-group__kind" ] [ text (p.GroupKind g.Kind) ]
+                      [ "class", "forma-diagram-group__header" ]
+                      [ yield el "span" [ "class", "forma-diagram-group__kind" ] [ text (p.GroupKind g.Kind) ]
                         yield text " "
-                        yield el "span" [ "class", "ef-diagram-group__label"; "id", labelId ] [ text g.Label ]
+                        yield el "span" [ "class", "forma-diagram-group__label"; "id", labelId ] [ text g.Label ]
                         match g.Status with
                         | Some s -> yield text (" (" + statusText p s + ")")
                         | None -> () ] ])
@@ -252,15 +256,15 @@ module Render =
             let direction = e.Direction |> Option.defaultValue Forward
             el
                 "path"
-                [ yield "class", "ef-diagram-connector"
+                [ yield "class", "forma-diagram-connector"
                   yield "id", edgeElementId prefix e.Id
-                  match e.Line with Some l when l <> Solid -> yield "data-ef-line", Codec.lineText l | _ -> ()
+                  match e.Line with Some l when l <> Solid -> yield "data-forma-line", Codec.lineText l | _ -> ()
                   yield "d", svgPath route.Points
                   if direction = Backward || direction = Both then yield "marker-start", arrow
                   if direction = Forward || direction = Both then yield "marker-end", arrow
                   let styleProps =
-                      [ yield! e.Stroke |> Option.map (fun c -> "--ef-diagram-connector-stroke", cssColor c) |> Option.toList
-                        yield! e.Width |> Option.map (fun w -> "--ef-diagram-connector-width", string w) |> Option.toList ]
+                      [ yield! e.Stroke |> Option.map (fun c -> "--forma-diagram-connector-stroke", cssColor c) |> Option.toList
+                        yield! e.Width |> Option.map (fun w -> "--forma-diagram-connector-width", string w) |> Option.toList ]
                   if not styleProps.IsEmpty then yield "style", Markup.style styleProps ]
                 [])
 
@@ -270,8 +274,8 @@ module Render =
             Some(
                 el
                     "span"
-                    [ "class", "ef-diagram-connector__label"; "aria-hidden", "true"
-                      "style", Markup.style [ "--ef-diagram-x", Markup.rem route.LabelAt.X; "--ef-diagram-y", Markup.rem route.LabelAt.Y ] ]
+                    [ "class", "forma-diagram-connector__label"; "aria-hidden", "true"
+                      "style", Markup.style [ "--forma-diagram-x", Markup.rem route.LabelAt.X; "--forma-diagram-y", Markup.rem route.LabelAt.Y ] ]
                     [ text label ]
             )
         | _ -> None
@@ -306,7 +310,7 @@ module Render =
             Some(
                 el
                     "dl"
-                    [ "class", "ef-diagram-legend"; "aria-label", title ]
+                    [ "class", "forma-diagram-legend"; "aria-label", title ]
                     (w.Presentation.Legend
                      |> List.map (fun l ->
                          let swatchProps = colorProps l.Color
@@ -316,7 +320,7 @@ module Render =
                              [ el
                                    "dt"
                                    []
-                                   [ el "span" [ yield "class", "ef-diagram-legend__swatch"; if not swatchProps.IsEmpty then yield "style", Markup.style swatchProps ] []
+                                   [ el "span" [ yield "class", "forma-diagram-legend__swatch"; if not swatchProps.IsEmpty then yield "style", Markup.style swatchProps ] []
                                      text (" " + l.Label) ]
                                el "dd" [] [ text (l.Description |> Option.defaultValue (l.Line |> Option.map opts.Phrases.Line |> Option.defaultValue "")) ] ]))
             )
@@ -328,7 +332,7 @@ module Render =
             Some(
                 el
                     "dl"
-                    [ "class", "ef-diagram__membership"; "aria-label", opts.Phrases.Membership ]
+                    [ "class", "forma-diagram__membership"; "aria-label", opts.Phrases.Membership ]
                     (w.Groups
                      |> List.collect (fun g ->
                          let members =
@@ -350,11 +354,11 @@ module Render =
         let order = readingOrder w layout
         let canvasW, canvasH = layout.Canvas
         let titleId = prefix + "-title"
-        let paletteProps = w.Palette |> List.map (fun (slot, c) -> "--ef-workflow-palette-" + slot.Value, cssColorSource c)
+        let paletteProps = w.Palette |> List.map (fun (slot, c) -> "--forma-workflow-palette-" + slot.Value, cssColorSource c)
         let relations = w.Edges
         el
             "figure"
-            [ yield "class", "ef-diagram"
+            [ yield "class", "forma-diagram"
               yield "id", prefix
               yield "aria-labelledby", titleId
               match w.Language with Some l -> yield "lang", l | None -> ()
@@ -371,22 +375,22 @@ module Render =
               yield
                   el
                       "div"
-                      [ "class", "ef-diagram__viewport"; "tabindex", "0"; "role", "group"; "aria-label", opts.Phrases.CanvasLabel w.Title ]
+                      [ "class", "forma-diagram__viewport"; "tabindex", "0"; "role", "group"; "aria-label", opts.Phrases.CanvasLabel w.Title ]
                       [ el
                             "div"
-                            [ "class", "ef-diagram__canvas"; "style", Markup.style [ "--ef-diagram-canvas-w", Markup.rem canvasW; "--ef-diagram-canvas-h", Markup.rem canvasH ] ]
+                            [ "class", "forma-diagram__canvas"; "style", Markup.style [ "--forma-diagram-canvas-w", Markup.rem canvasW; "--forma-diagram-canvas-h", Markup.rem canvasH ] ]
                             [ yield! w.Groups |> List.choose (groupMarkup opts prefix layout)
                               yield
                                   el
                                       "svg"
-                                      [ "class", "ef-diagram__wires"; "viewBox", $"0 0 {Markup.number canvasW} {Markup.number canvasH}"; "aria-hidden", "true"; "focusable", "false" ]
+                                      [ "class", "forma-diagram__wires"; "viewBox", $"0 0 {Markup.number canvasW} {Markup.number canvasH}"; "aria-hidden", "true"; "focusable", "false" ]
                                       [ yield
                                             el
                                                 "defs"
                                                 []
                                                 [ el
                                                       "marker"
-                                                      [ "id", prefix + "-arrow"; "class", "ef-diagram-marker"; "viewBox", "0 0 10 10"; "refX", "9"; "refY", "5"
+                                                      [ "id", prefix + "-arrow"; "class", "forma-diagram-marker"; "viewBox", "0 0 10 10"; "refX", "9"; "refY", "5"
                                                         "markerWidth", "8"; "markerHeight", "8"; "orient", "auto-start-reverse" ]
                                                       [ el "path" [ "d", "M0 0 L10 5 L0 10 z" ] [] ] ]
                                         yield! w.Edges |> List.choose (edgeMarkup prefix layout) ]
@@ -396,7 +400,7 @@ module Render =
                   yield
                       el
                           "ol"
-                          [ "class", "ef-diagram__relations"; "aria-label", opts.Phrases.Relationships ]
+                          [ "class", "forma-diagram__relations"; "aria-label", opts.Phrases.Relationships ]
                           (relations |> List.map (fun e -> el "li" [] [ text (relationText w opts.Phrases e) ]))
               yield! membershipMarkup opts w order |> Option.toList
               yield! legendMarkup opts w |> Option.toList ]
