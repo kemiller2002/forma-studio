@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "forma-studio",
-  "nextSeq": 18,
+  "nextSeq": 19,
   "items": [
     {
       "id": "WI-0001",
@@ -428,6 +428,27 @@
       "attachments": [],
       "createdAt": "2026-11-25T18:36:38.251Z",
       "updatedAt": "2026-11-25T19:02:23.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0018",
+      "title": "Restore the Echelon HTML export brand from @echelon-foundry/echelon-theme 1.1.0",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-25T20:37:32.526Z",
+      "updatedAt": "2026-11-25T20:37:35Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
