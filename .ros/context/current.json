@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-10-27T20:13:17Z",
+  "updatedAt": "2026-11-25T15:49:17Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1087,6 +1087,89 @@
           "mechanism": "git-remote-observation"
         }
       }
+    },
+    {
+      "id": "WI-0015",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/FormaStudio.Engine.fsproj"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj"
+        }
+      ],
+      "updatedAt": "2026-11-25T13:10:49.930Z",
+      "telemetryExecutionIds": [
+        "EXE-20261125T121730653Z-f0071c74"
+      ],
+      "latestCheckpoint": {
+        "id": "cea22eadbbbbe42497259ef9",
+        "recordedAt": "2026-11-25T13:10:35.842Z",
+        "executionId": "EXE-20261125T121730653Z-f0071c74",
+        "repository": "forma-studio",
+        "branch": "claude/vigila-implementation-jdeps1",
+        "commit": "7c81975748bb7cf56738c7a8b34a44cacdbfd1cb",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio"
+        },
+        "remoteBranch": "claude/vigila-implementation-jdeps1",
+        "remoteCommit": "7c81975748bb7cf56738c7a8b34a44cacdbfd1cb",
+        "summary": "Aegis pins retargeted 2.0.0 -> 2.0.1; restore, build and tests green on the global.json SDK",
+        "nextAction": "Complete WI-0015; update PR to 2.0.1 and confirm CI",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "blockReason": "Blocked on Aegis 2.0.1: Aegis 2.0.0 nuspec requires FSharp.Core >= 11.0.101, so restore fails with NU1605 against the repository FSharp.Core pin; pins will be retargeted to 2.0.1",
+      "completedAt": "2026-11-25T13:10:49.930Z"
+    },
+    {
+      "id": "WI-0016",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/engine/FormaStudio.Engine/FormaStudio.Engine.fsproj"
+        },
+        {
+          "type": "tests",
+          "path": "tests/FormaStudio.Engine.Tests/FormaStudio.Engine.Tests.fsproj"
+        }
+      ],
+      "updatedAt": "2026-11-25T15:49:17Z",
+      "telemetryExecutionIds": [
+        "EXE-20261125T154737202Z-de39798e"
+      ],
+      "latestCheckpoint": {
+        "id": "e080066b7b1cf72ef991191d",
+        "recordedAt": "2026-11-25T15:49:16Z",
+        "executionId": "EXE-20261125T154737202Z-de39798e",
+        "repository": "forma-studio",
+        "branch": "claude/vigila-implementation-jdeps1",
+        "commit": "da0e86b9efeb30ea8305edd6508638c5896de337",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/forma-studio"
+        },
+        "remoteBranch": "claude/vigila-implementation-jdeps1",
+        "remoteCommit": "da0e86b9efeb30ea8305edd6508638c5896de337",
+        "summary": "Aegis retargeted 2.0.1 -> 2.0.2 (pin, comment, README, CURRENT-STATE); build green on SDK 10.0.404; 113 engine tests pass",
+        "nextAction": "Complete WI-0016; update PR to 2.0.2 and confirm CI",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-11-25T15:49:17Z"
     }
   ]
 }
