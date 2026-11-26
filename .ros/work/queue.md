@@ -38,3 +38,4 @@
 | WI-0016 | Retarget Aegis 2.0.1 -> 2.0.2 (detached capture no longer blocks single-threaded WebAssembly hosts) | complete |  | medium |
 | WI-0017 | Upgrade to echelon-current 1.42.0 (Praxis 3.25.0, Ordo 1.20.0, Forma 1.0.1 and forma-workflow 2.0.0 with the Echelon theme 1.1.0, Limen 0.9.1) | complete |  | medium |
 | WI-0018 | Restore the Echelon HTML export brand from @echelon-foundry/echelon-theme 1.1.0 | complete |  | medium |
+| WI-0019 | Upgrade to echelon-current 1.43.0 (Praxis 3.26.0) | complete |  | medium |
