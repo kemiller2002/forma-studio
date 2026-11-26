@@ -4,7 +4,7 @@
   "repository": "forma-studio",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-23T06:09:10.445Z",
-  "updatedAt": "2026-11-25T20:50:05Z",
+  "updatedAt": "2026-11-26T00:27:28Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1237,6 +1237,17 @@
       ],
       "completedAt": "2026-11-25T20:50:05Z",
       "conclusion": "The HTML export offers Echelon again, backed by the released echelon-theme 1.1.0 with recorded provenance and digests."
+    },
+    {
+      "id": "WI-0019",
+      "type": "task",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-11-26T00:27:28Z",
+      "telemetryExecutionIds": [
+        "EXE-20261126T002730078Z-c4a6b708"
+      ]
     }
   ]
 }
